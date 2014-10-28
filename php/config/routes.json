@@ -1,0 +1,7 @@
+[
+	{
+		"url":"/",
+		"controller":"Test",
+		"action":"getCategories"
+	}
+]
