@@ -1,4 +1,4 @@
-package com.mercandalli.jarpis;
+package com.mercandalli.jarvis;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -13,9 +13,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
-import com.mercandalli.jarpis.model.User;
-import com.mercandalli.jarpis.net.IPostExecuteListener;
-import com.mercandalli.jarpis.net.PostTask;
+import com.mercandalli.jarvis.model.User;
+import com.mercandalli.jarvis.net.IPostExecuteListener;
+import com.mercandalli.jarvis.net.PostTask;
 
 public class DialogInit extends Dialog {
 

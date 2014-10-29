@@ -4,7 +4,7 @@
  * MERCANDALLI Jonathan
  */
 
-package com.mercandalli.jarpis;
+package com.mercandalli.jarvis;
 
 public interface IFunction {
 	public boolean condition();

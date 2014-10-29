@@ -4,7 +4,7 @@
  * MERCANDALLI Jonathan
  */
 
-package com.mercandalli.jarpis.model;
+package com.mercandalli.jarvis.model;
 
 import org.json.JSONException;
 import org.json.JSONObject;

@@ -4,7 +4,7 @@
  * MERCANDALLI Jonathan
  */
 
-package com.mercandalli.jarpis.net;
+package com.mercandalli.jarvis.net;
 
 import org.json.JSONObject;
 

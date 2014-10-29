@@ -1,9 +1,9 @@
-J.A.R.P.I.S
+J.A.R.V.I.S
 =====================
 
 ## PROJECT DESCRIPTION
 
-* Name : Jarpis (Just A Remote Personal Intelligent System)
+* Name : Jarvis (Just A Remote Very Intelligent System)
 * Android App Description : Remote control with PHP server
 * Location : Paris
 * Starting Date : October 2014

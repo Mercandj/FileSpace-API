@@ -4,7 +4,7 @@
  * MERCANDALLI Jonathan
  */
 
-package com.mercandalli.jarpis.navdrawer;
+package com.mercandalli.jarvis.navdrawer;
 
 import java.util.ArrayList;
 

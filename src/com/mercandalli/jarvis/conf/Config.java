@@ -4,7 +4,7 @@
  * MERCANDALLI Jonathan
  */
 
-package com.mercandalli.jarpis.conf;
+package com.mercandalli.jarvis.conf;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;

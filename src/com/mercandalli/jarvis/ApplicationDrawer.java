@@ -1,4 +1,4 @@
-package com.mercandalli.jarpis;
+package com.mercandalli.jarvis;
 
 import android.app.FragmentManager;
 import android.content.res.Configuration;
@@ -11,10 +11,10 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.mercandalli.jarpis.fragments.FileManagerFragment;
-import com.mercandalli.jarpis.navdrawer.NavDrawerItem;
-import com.mercandalli.jarpis.navdrawer.NavDrawerItemListe;
-import com.mercandalli.jarpis.navdrawer.NavDrawerListAdapter;
+import com.mercandalli.jarvis.fragments.FileManagerFragment;
+import com.mercandalli.jarvis.navdrawer.NavDrawerItem;
+import com.mercandalli.jarvis.navdrawer.NavDrawerItemListe;
+import com.mercandalli.jarvis.navdrawer.NavDrawerListAdapter;
 
 public class ApplicationDrawer extends Application {	
 	

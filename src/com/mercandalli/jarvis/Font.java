@@ -4,7 +4,7 @@
  * MERCANDALLI Jonathan
  */
 
-package com.mercandalli.jarpis;
+package com.mercandalli.jarvis;
 
 import android.app.Activity;
 import android.graphics.Typeface;

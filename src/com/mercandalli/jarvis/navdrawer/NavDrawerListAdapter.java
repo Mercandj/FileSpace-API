@@ -4,7 +4,7 @@
  * MERCANDALLI Jonathan
  */
 
-package com.mercandalli.jarpis.navdrawer;
+package com.mercandalli.jarvis.navdrawer;
 
 import java.util.ArrayList;
 
@@ -17,9 +17,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
-import com.mercandalli.jarpis.ApplicationDrawer;
-import com.mercandalli.jarpis.Font;
-import com.mercandalli.jarpis.R;
+import com.mercandalli.jarvis.ApplicationDrawer;
+import com.mercandalli.jarvis.Font;
+import com.mercandalli.jarvis.R;
 
 /**
  * Sliding Menu stuff

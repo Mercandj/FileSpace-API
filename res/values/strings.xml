@@ -4,8 +4,8 @@
 -->
 <resources>
 
-    <string name="app_name" translate="false">Jarpis</string>
-    <string name="app_name_full" translate="false">Just A Remote Personal Intelligent System</string>
+    <string name="app_name" translate="false">Jarvis</string>
+    <string name="app_name_full" translate="false">Just A Remote Very Intelligent System</string>
     <string name="author_full_name" translate="false">Jonathan Mercandalli</string>
     
     <string name="image_description">Description Image</string>

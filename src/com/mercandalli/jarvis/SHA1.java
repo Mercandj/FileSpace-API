@@ -1,4 +1,4 @@
-package com.mercandalli.jarpis;
+package com.mercandalli.jarvis;
 
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;

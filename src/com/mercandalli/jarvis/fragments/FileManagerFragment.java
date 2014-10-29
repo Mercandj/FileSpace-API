@@ -4,7 +4,7 @@
  * MERCANDALLI Jonathan
  */
 
-package com.mercandalli.jarpis.fragments;
+package com.mercandalli.jarvis.fragments;
 
 import android.app.Fragment;
 import android.os.Bundle;
@@ -12,7 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.mercandalli.jarpis.R;
+import com.mercandalli.jarvis.R;
 
 public class FileManagerFragment extends Fragment {
 

@@ -1,11 +1,11 @@
 [
 	{
-		"url":"/jarpis/php/register",
+		"url":"/jarvis/php/register",
 		"controller":"Register",
 		"action":"register"
 	},
 	{
-		"url":"/jarpis/php/login",
+		"url":"/jarvis/php/login",
 		"controller":"Login",
 		"action":"login"
 	}

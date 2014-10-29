@@ -1,10 +1,10 @@
-package com.mercandalli.jarpis;
+package com.mercandalli.jarvis;
 
 import android.app.Activity;
 import android.app.Dialog;
 import android.os.Bundle;
 
-import com.mercandalli.jarpis.conf.Config;
+import com.mercandalli.jarvis.conf.Config;
 
 public class Application extends Activity {
 	
