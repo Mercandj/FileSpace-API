@@ -14,11 +14,11 @@ class LoginController extends \lib\Controller{
 		if($userManager->exist($user->getUsername())) {				
 			$userbdd = $userManager->get($user->getUsername());
 
-			if(($user->getPassword()) === $userbdd->getPassword())
+			if(/*sha1*/($user->getPassword()) === $userbdd->getPassword())
 				$json = '{"succeed":true,"token":""}';
 			else {
 				$this->_app->_page->assign('error', true);
-				$json = '{"succeed":false,"toast":"Wrong Login '.($user->getPassword()).' '.$userbdd->getPassword().'."}';
+				$json = '{"succeed":false,"toast":"Wrong Login './*sha1*/($user->getPassword()).' '.$userbdd->getPassword().'."}';
 			}
 
 		}

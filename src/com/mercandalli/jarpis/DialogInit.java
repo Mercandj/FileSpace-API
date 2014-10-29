@@ -67,7 +67,7 @@ public class DialogInit extends Dialog {
 					user.username = app.config.getUserUsername();
 				
 				if(!((EditText) DialogInit.this.findViewById(R.id.password)).getText().toString().equals("")) {
-					user.password = SHA1.execute(((EditText) DialogInit.this.findViewById(R.id.password)).getText().toString());
+					user.password = /*SHA1.execute(*/((EditText) DialogInit.this.findViewById(R.id.password)).getText().toString()/*)*/;
 					app.config.setUserPassword(user.password);
 				}
 				else
