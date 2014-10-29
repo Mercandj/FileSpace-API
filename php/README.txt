@@ -1,1 +1,1 @@
-FROM : https://github.com/7h1b0
+Adapted from : https://github.com/7h1b0
