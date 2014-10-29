@@ -3,5 +3,10 @@
 		"url":"/",
 		"controller":"Test",
 		"action":"getCategories"
+	},
+	{
+		"url":"/test",
+		"controller":"Test",
+		"action":"getCategories"
 	}
 ]
