@@ -17,8 +17,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
+import com.mercandalli.jarpis.ApplicationDrawer;
 import com.mercandalli.jarpis.Font;
-import com.mercandalli.jarpis.MainActivity;
 import com.mercandalli.jarpis.R;
 
 /**
@@ -58,7 +58,7 @@ public class NavDrawerListAdapter extends BaseAdapter {
 		NavDrawerItem item = navDrawerItems.get(position);
 		
 		switch(navDrawerItems.get(position).SLIDING_MENU_TAB) {
-		case MainActivity.TYPE_IC:
+		case ApplicationDrawer.TYPE_IC:
 			convertView = inflater.inflate(R.layout.tab_navdrawer_ic, parent, false);
 			
 			((TextView) convertView.findViewById(R.id.title)).setText(item.title);
@@ -71,7 +71,7 @@ public class NavDrawerListAdapter extends BaseAdapter {
 			
 			break;		
 		
-		case MainActivity.TYPE_NORMAL:
+		case ApplicationDrawer.TYPE_NORMAL:
 			convertView = inflater.inflate(R.layout.tab_navdrawer, parent, false);
 			
 			((TextView) convertView.findViewById(R.id.title)).setText(item.title);
