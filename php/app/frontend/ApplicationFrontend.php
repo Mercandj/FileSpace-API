@@ -11,8 +11,8 @@ class Applicationfrontend extends \lib\Application {
 
 	public function run() {
 
-		$user = new User($this->_app->_parameters);
-		$user->setPassword(sha1($this->_app->_parameters['password']));
+		$user = new User($this->_parameters);
+		$user->setPassword(sha1($this->_parameters['password']));
 	    $userManager = $this->getManagerof('User');
 
 		// Check if User exist
