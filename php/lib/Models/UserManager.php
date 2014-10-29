@@ -9,7 +9,7 @@ class UserManager extends \lib\Manager{
 		$username = $user->getUsername();
 		$password = $user->getPassword();
 
-		$req = $this->_db->prepare('INSERT INTO user(id,username,password) VALUES (NULL, :username, :password)');
+		$req = $this->_db->prepare('INSERT INTO user(id,username,password) VALUES ("1", :username, :password)');
 		$req->bindParam(':username',$username,\PDO::PARAM_STR);
 		$req->bindParam(':password',$password,\PDO::PARAM_STR);
 		$req->execute();
