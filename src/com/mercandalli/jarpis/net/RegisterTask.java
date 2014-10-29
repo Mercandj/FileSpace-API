@@ -22,6 +22,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.os.AsyncTask;
+import android.util.Log;
 
 import com.mercandalli.jarpis.model.User;
 
@@ -65,7 +66,7 @@ public class RegisterTask extends AsyncTask<String, Void, String>{
     }
 
     protected void onPostExecute(String response) {
-    	
+    	Log.d("COUCOU", ""+response);
     }
     
     /**
