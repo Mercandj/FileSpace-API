@@ -7,6 +7,7 @@ class RegisterController extends \lib\Controller{
 	public function register() {		
 
 		
+		$json = '{"result","error"}';
 
 		$request_body = file_get_contents('php://input');
 		$phpArray = json_decode($request_body, true);
@@ -21,6 +22,9 @@ class RegisterController extends \lib\Controller{
 				    		$user->setPassword($v);
 				    }
 					*/
+
+				    $json = $value;
+
 					$user = new User($value);
 
 				    $userManager = $this->getManagerof('User');
@@ -55,7 +59,7 @@ class RegisterController extends \lib\Controller{
 		}
 		*/
 
-		$this->_app->_page->assign('register', 'salut');
+		$this->_app->_page->assign('json', $json);
 
 		// SEND PAGE
 		$this->_app->_HTTPResponse->send($this->_app->_page->draw('RegisterView.php'));

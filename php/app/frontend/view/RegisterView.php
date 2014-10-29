@@ -1,1 +1,1 @@
-{"COUCOU":"cc"}<?php echo $register ?>
+<?php echo $json ?>
