@@ -26,7 +26,7 @@ abstract class Application{
 			$this->_HTTPResponse->redirect404();
 		}
 
-		$controleurPath = '\Jarpis\\php\\app\\'.$this->_name.'\\controller\\'.$route->getController().'Controller';
+		$controleurPath = __DIR__.'/../'.'app\\'.$this->_name.'\\controller\\'.$route->getController().'Controller';
 		return new $controleurPath($this,$route->getAction(), $route->getMatches());
 	}
 
