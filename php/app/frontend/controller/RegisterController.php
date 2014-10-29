@@ -6,20 +6,22 @@ class RegisterController extends \lib\Controller{
 
 	public function register() {		
 
-		$user = new User(NULL);
+		
 
 		$request_body = file_get_contents('php://input');
 		$phpArray = json_decode($request_body, true);
 		if($phpArray!=null) {
 			foreach ($phpArray as $key => $value) {
 			    if($key=="user") {
+			    	/*
 				    foreach ($value as $k => $v) {
 				    	if($k=="username")
 				    		$user->setUsername($v);
 				    	else if($k=="password")
 				    		$user->setPassword($v);
 				    }
-
+					*/
+					$user = new User($value);
 
 				    $userManager = $this->getManagerof('User');
 
