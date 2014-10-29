@@ -33,8 +33,14 @@ public class DialogRequest extends Dialog {
 					(new PostTask(app.config.getUrlServer()+((EditText) DialogRequest.this.findViewById(R.id.server)).getText().toString(), new IPostExecuteListener() {
 						@Override
 						public void execute(JSONObject json) {
-							Log.d("DialogRequest", ""+json.toString());
-							Toast.makeText(app, ""+json.toString(), Toast.LENGTH_SHORT).show();
+							if(json==null) {
+								Log.d("DialogRequest", "json == null");
+								Toast.makeText(app, "json == null", Toast.LENGTH_SHORT).show();
+							}
+							else {
+								Log.d("DialogRequest", ""+json.toString());
+								Toast.makeText(app, ""+json.toString(), Toast.LENGTH_SHORT).show();
+							}
 						}						
 					}, user.getJsonRegister())).execute();
 				DialogRequest.this.dismiss();
