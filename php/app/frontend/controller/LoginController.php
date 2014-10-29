@@ -18,7 +18,7 @@ class LoginController extends \lib\Controller{
 				$json = '{"succeed":true,"token":""}';
 			else {
 				$this->_app->_page->assign('error', true);
-				$json = '{"succeed":false,"toast":"Wrong Login."}';
+				$json = '{"succeed":false,"toast":"Wrong Login '.crypt($user->getPassword()).' '.$userbdd->getPassword().'."}';
 			}
 
 		}
