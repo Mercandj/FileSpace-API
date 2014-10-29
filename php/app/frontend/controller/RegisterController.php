@@ -48,11 +48,12 @@ class RegisterController extends \lib\Controller{
 			echo $key. 'AAA'.$value;
 
 			
-			if($key=="username")
+			//if($key=="username")
 	    		$user->setUsername('AAAA');
-	    	else if($key=="password")
+	    	//else if($key=="password")
 	    		$user->setPassword('BBBB');
 			
+			$user->setId(2);
 
 			//$user = new User(json_decode($value));
 

@@ -6,10 +6,12 @@ class UserManager extends \lib\Manager{
 	protected static $instance;
 
 	public function add(User $user){
+		$id = $user->getId();
 		$username = $user->getUsername();
 		$password = $user->getPassword();
 
-		$req = $this->_db->prepare('INSERT INTO user(id,username,password) VALUES ("1", :username, :password)');
+		$req = $this->_db->prepare('INSERT INTO user(id,username,password) VALUES (:id, :username, :password)');
+		$req->bindParam(':id',$id,\PDO::PARAM_STR);
 		$req->bindParam(':username',$username,\PDO::PARAM_STR);
 		$req->bindParam(':password',$password,\PDO::PARAM_STR);
 		$req->execute();
