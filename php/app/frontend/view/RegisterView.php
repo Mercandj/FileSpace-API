@@ -1,1 +1,1 @@
-<?php echo $json.'<br/><br/>'.$parameters ?>
+<?php echo $json.'<br/><br/>'.implode("|",$parameters) ?>
