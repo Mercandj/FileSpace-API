@@ -42,7 +42,7 @@ class RegisterController extends \lib\Controller{
 		}
 		*/
 
-		$user = new User($value);
+		$user = new User($this->_app->_parameters);
 	    $userManager = $this->getManagerof('User');
 
 		// Check if User exist
