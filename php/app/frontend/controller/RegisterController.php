@@ -8,11 +8,6 @@ class RegisterController extends \lib\Controller{
 
 		$user = new User(NULL);
 
-		if(isset($_GET['username']))
-			$user->setUsername($_GET['username']);
-		if(isset($_GET['password']))
-			$user->setPassword($_GET['password']);
-
 		$request_body = file_get_contents('php://input');
 		$phpArray = json_decode($request_body, true);
 		if($phpArray!=null) {
@@ -24,11 +19,22 @@ class RegisterController extends \lib\Controller{
 				    	else if($k=="password")
 				    		$user->setPassword($v);
 				    }
+
+
+				    $userManager = $this->getManagerof('User');
+
+					// Check if User exist
+					if(!$userManager->exist($username){				
+						$userManager->add($user);
+					}else{ // username
+						$this->_app->_page->assign('error', true);
+					}
 				}
 			}
 		}
 
-
+		//{"user":{"username"="toto","password"="tata"}}
+		/*
 		//Check if password and username were submitted
 		if( !empty($user->getUsername()) && !empty($user->getPassword())){
 
@@ -45,7 +51,7 @@ class RegisterController extends \lib\Controller{
 		}else{
 			$this->_app->_page->assign('error', true);
 		}
-
+		*/
 
 		$this->_app->_page->assign('register', 'salut');
 
