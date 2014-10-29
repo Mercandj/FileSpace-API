@@ -1,5 +1,6 @@
 <?php
 namespace app\frontend;
+use \lib\Entities\User;
 
 class Applicationfrontend extends \lib\Application {
 	protected $_name;
