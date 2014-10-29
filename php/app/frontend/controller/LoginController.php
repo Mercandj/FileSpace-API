@@ -12,7 +12,7 @@ class RegisterController extends \lib\Controller{
 
 		// Check if User exist
 		if($userManager->exist($user->getUsername())) {				
-			$userbdd = $userManager->get($user->getUsername())
+			$userbdd = $userManager->get($user->getUsername());
 
 			if(crypt($user->getPassword()) === $userbdd->getPassword())
 				$json = '{"succeed":true,"token":""}';
