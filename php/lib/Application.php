@@ -3,21 +3,14 @@ namespace lib;
 use \lib\Models\ConfigManager;
 
 abstract class Application{
-	public $_config,
-		$_pdo,
-		$_page,
+	public $_page,
 		$_HTTPResponse,
-		$_HTTPRequest,
-		$_session;
+		$_HTTPRequest;
 
 	public function __construct(){
 		$this->_page = new Page($this);
 		$this->_HTTPResponse = new HTTPResponse($this);
-		$this->_request = new HTTPRequest($this);
-		$this->_session =  new Session();
-		$this->_config =  ConfigManager::getInstance();
-		$connexion = new Connexion();	
-		$this->_pdo = $connexion->getPDO();		
+		$this->_request = new HTTPRequest($this);	
 	}
 
 	abstract public function run();
