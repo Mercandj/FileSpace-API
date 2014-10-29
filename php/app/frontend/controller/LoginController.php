@@ -21,7 +21,8 @@ class LoginController extends \lib\Controller{
 	public function isUser() {
 		
 		$user = new User($this->_app->_parameters);
-		$user->setPassword(sha1($this->_app->_parameters['password']));
+		if(array_key_exists('password', $this->_app->_parameters))
+			$user->setPassword(sha1($this->_app->_parameters['password']));
 	    $userManager = $this->getManagerof('User');
 
 		// Check if User exist

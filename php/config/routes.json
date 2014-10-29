@@ -8,5 +8,10 @@
 		"url":"/jarvis/php/login",
 		"controller":"Login",
 		"action":"login"
+	},
+	{
+		"url":"/jarvis/php/refreshfile",
+		"controller":"RefreshFile",
+		"action":"refresh"
 	}
 ]
