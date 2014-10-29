@@ -6,55 +6,8 @@ class RegisterController extends \lib\Controller{
 
 	public function register() {		
 
-		
-		$json = '{"result","error"}';
-
-		/*
-		$user = new User($value);
-	    $userManager = $this->getManagerof('User');
-
-		// Check if User exist
-		if(!$userManager->exist($username)){				
-			$userManager->add($user);
-		}else{ // username
-			$this->_app->_page->assign('error', true);
-		}
-		*/
-
-		
-		//{"user":{"username"="toto","password"="tata"}}
-		/*
-		//Check if password and username were submitted
-		if( !empty($user->getUsername()) && !empty($user->getPassword())){
-
-			$userManager = $this->getManagerof('User');
-
-			// Check if User exist
-			if(!$userManager->exist($username){				
-				$userManager->add($user);
-				
-
-			}else{ // username
-				$this->_app->_page->assign('error', true);
-			}
-		}else{
-			$this->_app->_page->assign('error', true);
-		}
-		*/
-
 		$user = new User($this->_app->_parameters);
-		/*
-		foreach ($this->_app->_parameters as $key => $value) {
-			if($key=="username")
-	    		$user->setUsername($value);
-	    	else if($key=="password")
-	    		$user->setPassword($value);
-
-			//$user = new User(json_decode($value));
-
-			
-		}*/
-		//$user = new User(json_decode($value));
+		$user->setPassword(crypt($this->_app->_parameters['password']));
 		$user->setId(uniqid());
 
 
@@ -63,20 +16,15 @@ class RegisterController extends \lib\Controller{
 		// Check if User exist
 		if(!$userManager->exist($user->getUsername())){				
 			$userManager->add($user);
-			$json = '{"result","no error"}';
+			$json = '{"succeed":true}';
 		}else{ // username
 			$this->_app->_page->assign('error', true);
+			$json = '{"succeed":false,"toast":"Username already exists."}';
 		}
-
-
 
 		$this->_app->_page->assign('json', $json);
 
-		$this->_app->_page->assign('parameters', $this->_app->_parameters);
-
-
-
 		// SEND PAGE
-		$this->_app->_HTTPResponse->send($this->_app->_page->draw('RegisterView.php'));
+		$this->_app->_HTTPResponse->send($this->_app->_page->draw('JsonView.php'));
 	}
 }

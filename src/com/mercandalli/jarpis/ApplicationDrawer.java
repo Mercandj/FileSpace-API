@@ -11,7 +11,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.mercandalli.jarpis.fragments.MainFragment;
+import com.mercandalli.jarpis.fragments.FileManagerFragment;
 import com.mercandalli.jarpis.navdrawer.NavDrawerItem;
 import com.mercandalli.jarpis.navdrawer.NavDrawerItemListe;
 import com.mercandalli.jarpis.navdrawer.NavDrawerListAdapter;
@@ -22,7 +22,7 @@ public class ApplicationDrawer extends Application {
 	public static final int TYPE_NORMAL	 	= 1;
 	public static final int TYPE_SECTION	= 2;
     
-    MainFragment fragment;
+    FileManagerFragment fragment;
 
 	protected DrawerLayout mDrawerLayout;
 	protected ListView mDrawerList;
@@ -43,7 +43,7 @@ public class ApplicationDrawer extends Application {
         TAB_1 = new NavDrawerItem( "Resume", TYPE_NORMAL);
         navDrawerItems.add(TAB_1);        
         
-    	fragment = new MainFragment();
+    	fragment = new FileManagerFragment();
         FragmentManager fragmentManager = getFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();        
         

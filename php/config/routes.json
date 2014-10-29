@@ -3,5 +3,10 @@
 		"url":"/jarpis/php/register",
 		"controller":"Register",
 		"action":"register"
+	},
+	{
+		"url":"/jarpis/php/login",
+		"controller":"Login",
+		"action":"login"
 	}
 ]

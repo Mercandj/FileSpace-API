@@ -27,4 +27,8 @@ public class User {
 		}
 		return null;
 	}
+	
+	public JSONObject getJsonLogin() {
+		return getJsonRegister();
+	}
 }

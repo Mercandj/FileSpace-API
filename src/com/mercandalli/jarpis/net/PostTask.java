@@ -18,18 +18,22 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.os.AsyncTask;
+import android.util.Log;
 
 public class PostTask extends AsyncTask<Void, Void, String>{
 	
 	String url;
 	JSONObject json;
+	IPostExecuteListener listener;
 	
-	public PostTask(String url, JSONObject json) {
+	public PostTask(String url, IPostExecuteListener listener, JSONObject json) {
 		this.url = url; 
 		this.json = json;
+		this.listener = listener;
 	}	
 
 	@Override
@@ -76,5 +80,20 @@ public class PostTask extends AsyncTask<Void, Void, String>{
  
         inputStream.close();
         return result;
+    }
+    
+    @Override
+    protected void onPostExecute(String response) {
+    	Log.d("onPostExecute",""+response);
+    	if(response==null)
+    		this.listener.execute(null);
+    	else {    		
+    		try {
+				this.listener.execute(new JSONObject(response));
+			} catch (JSONException e) {
+				e.printStackTrace();
+				this.listener.execute(null);
+			}
+    	}
     }
 }

@@ -5,7 +5,7 @@ class User extends \lib\Entity{
 
 	const INVALID_USERNAME = 1,
 		INVALID_PASSWORD = 2,
-		KEY_ADMIN = 11111111111111111111;
+		KEY_ADMIN = 1;
 
 	protected $_id,
 		$_username,

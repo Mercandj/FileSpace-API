@@ -1,1 +1,0 @@
-<?php echo $json.'<br/><br/>'.implode("|",$parameters) ?>
