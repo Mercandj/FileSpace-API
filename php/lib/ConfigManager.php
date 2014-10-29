@@ -17,7 +17,7 @@ class ConfigManager{
 	}
 
 	private function parse_json(){
-		$json = file_get_contents(__DIR__.'/../../app/config.json');
+		$json = file_get_contents(__DIR__.'/../../config/config.json');
 		$this->_parsed_json = json_decode($json);
 	}
 
