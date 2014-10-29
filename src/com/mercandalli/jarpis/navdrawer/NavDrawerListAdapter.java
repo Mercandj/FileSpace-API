@@ -4,7 +4,7 @@
  * MERCANDALLI Jonathan
  */
 
-package com.mercandalli.jarpis;
+package com.mercandalli.jarpis.navdrawer;
 
 import java.util.ArrayList;
 
@@ -16,6 +16,10 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.ToggleButton;
+
+import com.mercandalli.jarpis.Font;
+import com.mercandalli.jarpis.MainActivity;
+import com.mercandalli.jarpis.R;
 
 /**
  * Sliding Menu stuff
@@ -55,7 +59,7 @@ public class NavDrawerListAdapter extends BaseAdapter {
 		
 		switch(navDrawerItems.get(position).SLIDING_MENU_TAB) {
 		case MainActivity.TYPE_IC:
-			convertView = inflater.inflate(R.layout.sliding_tab_ic, parent, false);
+			convertView = inflater.inflate(R.layout.tab_navdrawer_ic, parent, false);
 			
 			((TextView) convertView.findViewById(R.id.title)).setText(item.title);
 			Font.applyFont(context, ((TextView) convertView.findViewById(R.id.title)), "fonts/MYRIADAB.TTF");
@@ -68,7 +72,7 @@ public class NavDrawerListAdapter extends BaseAdapter {
 			break;		
 		
 		case MainActivity.TYPE_NORMAL:
-			convertView = inflater.inflate(R.layout.sliding_tab, parent, false);
+			convertView = inflater.inflate(R.layout.tab_navdrawer, parent, false);
 			
 			((TextView) convertView.findViewById(R.id.title)).setText(item.title);
 			Font.applyFont(context, ((TextView) convertView.findViewById(R.id.title)), "fonts/MYRIADAM.TTF");

@@ -29,7 +29,6 @@
         android:minHeight="?android:attr/listPreferredItemHeightSmall"
         android:paddingLeft="20dp"
         android:paddingRight="47dp"
-        android:text="Titre"
         android:textAppearance="?android:attr/textAppearanceListItemSmall"
         android:textColor="#000"
         android:textSize="24sp" />

@@ -17,7 +17,6 @@
         android:minHeight="?android:attr/listPreferredItemHeightSmall"
         android:paddingLeft="25dp"
         android:paddingRight="47dp"
-        android:text="titre"
         android:textAppearance="?android:attr/textAppearanceListItemSmall"
         android:textColor="#000"
         android:textSize="22sp" />
@@ -26,7 +25,7 @@
         android:id="@+id/toggle"
         android:layout_width="45dp"
         android:layout_height="30dp"
-        android:layout_alignBottom="@+id/name"
+        android:layout_alignBottom="@+id/title"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
         android:layout_marginBottom="9dp"

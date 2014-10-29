@@ -4,7 +4,7 @@
  * MERCANDALLI Jonathan
  */
 
-package com.mercandalli.jarpis;
+package com.mercandalli.jarpis.conf;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -23,7 +23,7 @@ public class Config {
 	private String file = "settings_json_1.txt";	
 	
 	private enum ENUM_Int {
-		CONTROL_MODE			(0, 								"int_control_mode"				),
+		LAST_TAB				(0, 								"int_last_tab"				),
 		;
 		
 		int value;
@@ -36,7 +36,6 @@ public class Config {
 	
 	private enum ENUM_Boolean {
 		DISPLAY_FPS				(true, 								"boolean_display_fps"			),
-		DISPLAY_POSITION		(false,								"boolean_display_position"		),
 		;
 		
 		boolean value;
@@ -48,7 +47,7 @@ public class Config {
 	}
 	
 	private enum ENUM_String {		
-		STRING				("com.faitout", 					"string_1"			),
+		STRING					("", 								"string_url_server_1"			),
 		;
 		
 		String value;
@@ -141,36 +140,13 @@ public class Config {
 			e.printStackTrace();
 		}
 	}
-	
-	public boolean isDisplayFPS() {
-		return ENUM_Boolean.DISPLAY_FPS.value;
+	public int getLastTab() {
+		return ENUM_Int.LAST_TAB.value;
 	}
 	
-	public void setDisplayFPS(boolean value) {
-		if(ENUM_Boolean.DISPLAY_FPS.value!=value) {
-			ENUM_Boolean.DISPLAY_FPS.value = value;
-			save(activity);
-		}
-	}
-	
-	public boolean isDisplayPosition() {
-		return ENUM_Boolean.DISPLAY_FPS.value;
-	}
-	
-	public void setDisplayPosition(boolean value) {
-		if(ENUM_Boolean.DISPLAY_POSITION.value!=value) {
-			ENUM_Boolean.DISPLAY_POSITION.value = value;
-			save(activity);
-		}
-	}
-	
-	public int getControlMode() {
-		return ENUM_Int.CONTROL_MODE.value;
-	}
-	
-	public void setControlMode(int value) {
-		if(ENUM_Int.CONTROL_MODE.value!=value) {
-			ENUM_Int.CONTROL_MODE.value = value;			
+	public void setDisplayPosition(int value) {
+		if(ENUM_Int.LAST_TAB.value!=value) {
+			ENUM_Int.LAST_TAB.value = value;
 			save(activity);
 		}
 	}
