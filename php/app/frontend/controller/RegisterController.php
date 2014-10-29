@@ -10,7 +10,6 @@ class RegisterController extends \lib\Controller{
 		$user->setPassword(sha1($this->_app->_parameters['password']));
 		$user->setId(uniqid());
 
-
 	    $userManager = $this->getManagerof('User');
 
 		// Check if User exist

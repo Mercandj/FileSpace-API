@@ -7,6 +7,7 @@ class LoginController extends \lib\Controller{
 	public function login() {
 		
 		$user = new User($this->_app->_parameters);
+		$user->setPassword(sha1($this->_app->_parameters['password']));
 
 	    $userManager = $this->getManagerof('User');
 
@@ -14,7 +15,7 @@ class LoginController extends \lib\Controller{
 		if($userManager->exist($user->getUsername())) {				
 			$userbdd = $userManager->get($user->getUsername());
 
-			if(sha1($user->getPassword()) === $userbdd->getPassword())
+			if($user->getPassword() === $userbdd->getPassword())
 				$json = '{"succeed":true,"token":""}';
 			else {
 				$this->_app->_page->assign('error', true);

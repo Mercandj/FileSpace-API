@@ -10,6 +10,29 @@ class Applicationfrontend extends \lib\Application {
 	}
 
 	public function run() {
+
+		$user = new User($this->_app->_parameters);
+		$user->setPassword(sha1($this->_app->_parameters['password']));
+	    $userManager = $this->getManagerof('User');
+
+		// Check if User exist
+		if($userManager->exist($user->getUsername())) {				
+			$userbdd = $userManager->get($user->getUsername());
+
+			if($user->getPassword() === $userbdd->getPassword()) {
+				$this->getController()->exec();
+			}
+			else {
+				$controlleur = new \app\frontend\controller\RegisterController($this);
+				$controlleur->exec();
+			}
+		}
+		else {
+			$controlleur = new \app\frontend\controller\RegisterController($this);
+			$controlleur->exec();
+		}
+
+
 		/*
 		if(!$this->_session->isLogin()){
 			$controlleur = new \app\frontend\controller\UserController($this);
@@ -18,7 +41,7 @@ class Applicationfrontend extends \lib\Application {
 		}else{
 		*/
 			//$this->_page->assign('header',$this->_config->get("title"));				
-		$this->getController()->exec();		
+		//$this->getController()->exec();
 		//}
 		exit();
 	}
