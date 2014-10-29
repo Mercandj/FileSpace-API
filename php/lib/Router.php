@@ -12,7 +12,8 @@ class Router{
 
 		$parsed = json_decode( file_get_contents(__DIR__.'/../config/routes.json') );
 
-		foreach($parsed as $route){
+		foreach($parsed as $route) {
+			echo $route->{'url'};
 			if( ($matches = self::match($route->{'url'},$url)) ){
 				return new Route($route->{'url'}, $route->{'controller'}, $route->{'action'}, $matches);
 			}
