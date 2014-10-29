@@ -31,8 +31,8 @@ public class MainActivity extends ApplicationDrawer {
 			@Override
 			public void onClick(View v) {				
 				User user = new User();
-				user.username = "toto";
-				user.password = "tata";
+				user.username = "toto111";
+				user.password = "tat2a";
 				(new RegisterTask(user)).execute("http://mercandalli.com/jarpis/php/register");
 				
 				dialog.dismiss();
