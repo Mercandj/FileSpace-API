@@ -54,7 +54,7 @@ class RegisterController extends \lib\Controller{
 
 			
 		}*/
-		$user = new User(json_decode($value));
+		//$user = new User(json_decode($value));
 		$user->setId(uniqid());
 
 
