@@ -47,14 +47,14 @@ class RegisterController extends \lib\Controller{
 		foreach ($this->_app->_parameters as $key => $value) {
 			echo $key. 'AAA'.$value;
 
-
+			
 			if($key=="username")
 	    		$user->setUsername('AAAA');
 	    	else if($key=="password")
 	    		$user->setPassword('BBBB');
+			
 
-
-			$user = new User($value);
+			//$user = new User(json_decode($value));
 
 			
 		}
