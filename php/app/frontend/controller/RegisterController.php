@@ -7,7 +7,7 @@ class RegisterController extends \lib\Controller{
 	public function register() {		
 
 		$user = new User($this->_app->_parameters);
-		$user->setPassword(sha1($this->_app->_parameters['password']));
+		$user->setPassword(($this->_app->_parameters['password']));
 		$user->setId(uniqid());
 
 
