@@ -12,7 +12,13 @@ class RegisterController extends \lib\Controller{
 		$request_body = file_get_contents('php://input');
 		$phpArray = json_decode($request_body, true);
 		if($phpArray!=null) {
+
+			$json = '{"result","no error"}';
+
 			foreach ($phpArray as $key => $value) {
+
+				$json = 'TEST : '.$value;
+
 			    if($key=="user") {
 			    	/*
 				    foreach ($value as $k => $v) {
