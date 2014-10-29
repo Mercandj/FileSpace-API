@@ -47,6 +47,9 @@ abstract class Application{
  
         // now how about PUT/POST bodies? These override what we got from GET
         $body = file_get_contents("php://input");
+
+        echo $body;
+
         $content_type = false;
         if(isset($_SERVER['CONTENT_TYPE'])) {
             $content_type = $_SERVER['CONTENT_TYPE'];
