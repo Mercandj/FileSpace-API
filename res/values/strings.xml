@@ -7,6 +7,13 @@
     <string name="app_name" translate="false">Jarpis</string>
     <string name="app_name_full" translate="false">Just A Remote Personal Intelligent System</string>
     <string name="author_full_name" translate="false">Jonathan Mercandalli</string>
-    <string name="image_description">Description Image</string>    
+    
+    <string name="image_description">Description Image</string>
+    
+    <string name="dialog_server_url">Server URL</string>
+    <string name="dialog_username">Username</string>
+    <string name="dialog_password">Password</string>
+    <string name="signin">Sign in</string>
+    <string name="cancel">Cancel</string>
     
 </resources>

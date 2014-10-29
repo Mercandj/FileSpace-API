@@ -11,7 +11,9 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:ems="10" >
+        android:gravity="center_vertical"
+        android:hint="@string/dialog_server_url"
+        android:padding="10dp" >
 
     </EditText>
 
@@ -23,7 +25,11 @@
         android:layout_alignParentRight="true"
         android:layout_below="@+id/username"
         android:ems="10"
-        android:inputType="textPassword" />
+        android:hint="@string/dialog_password"
+        android:inputType="textPassword"
+        android:padding="10dp" >
+        
+    </EditText>
 
     <EditText
         android:id="@+id/username"
@@ -32,16 +38,19 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/server"
-        android:ems="10" >
+        android:ems="10"
+        android:hint="@string/dialog_username"
+        android:padding="10dp" >
+
     </EditText>
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/signin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/password"
-        android:text="Button" />
+        android:text="@string/signin" />
 
 </RelativeLayout>

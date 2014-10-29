@@ -47,7 +47,9 @@ public class Config {
 	}
 	
 	private enum ENUM_String {		
-		STRING					("", 								"string_url_server_1"			),
+		STRING_URL_SERVER		("", 								"string_url_server_1"			),
+		STRING_USER_USERNAME	("", 								"string_user_username_1"		),
+		STRING_USER_PASSWORD	("", 								"string_user_password_1"		),
 		;
 		
 		String value;
@@ -65,33 +67,22 @@ public class Config {
 	
 	private static void write_txt(Activity activity, String file, String txt) {
 		try {
-    		// Flux interne
     		FileOutputStream output = activity.openFileOutput(file, Context.MODE_PRIVATE);
-
-    		// On écrit dans le flux interne
     		output.write((txt).getBytes());
-
-    		if(output != null)
-    			output.close();    		
+    		if(output != null) output.close();    		
     	} 
     	catch (FileNotFoundException e) {e.printStackTrace();} 
     	catch (IOException e) {e.printStackTrace();}
 	}
 	
 	private static String read_txt(Activity activity, String file) {
-		// Lecture
 		String res="";
 	    try {
 	    	FileInputStream input = activity.openFileInput(file);
 	        int value;
-	        // On utilise un StringBuffer pour construire la chaîne au fur et à mesure
 	        StringBuffer lu = new StringBuffer();
-	        // On lit les caractères les uns après les autres
-	        while((value = input.read()) != -1) {
-	        	// On écrit dans le fichier le caractère lu
+	        while((value = input.read()) != -1)
 	        	lu.append((char)value);
-	        }
-	        //Toast.makeText(PseudoActivity.this, "Bienvenue : " + lu.toString(), Toast.LENGTH_SHORT).show();
 	        if(input != null) {
 	        	input.close();
 	        	if(lu.toString()!=null)

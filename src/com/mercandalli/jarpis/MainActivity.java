@@ -27,10 +27,9 @@ public class MainActivity extends ApplicationDrawer {
         dialog.setTitle(R.string.app_name);
         dialog.setCancelable(false);        
         
-        ((Button) dialog.findViewById(R.id.button)).setOnClickListener(new OnClickListener() {
+        ((Button) dialog.findViewById(R.id.signin)).setOnClickListener(new OnClickListener() {
 			@Override
-			public void onClick(View v) {
-				
+			public void onClick(View v) {				
 				User user = new User();
 				user.username = "toto";
 				user.password = "tata";
@@ -38,9 +37,8 @@ public class MainActivity extends ApplicationDrawer {
 				
 				dialog.dismiss();
 			}        	
-        });		
-
-		dialog.show();        
+        });
+        dialog.show();
     }    
     
 }
