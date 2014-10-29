@@ -6,7 +6,7 @@ class RegisterController extends \lib\Controller{
 
 	public function register() {		
 
-		User $user;
+		User $user = new User(NULL);
 
 		if(isset($_GET['username']))
 			$user->setUsername($_GET['username']);
