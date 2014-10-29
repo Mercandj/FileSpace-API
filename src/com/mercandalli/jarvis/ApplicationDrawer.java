@@ -28,7 +28,7 @@ public class ApplicationDrawer extends Application {
 	protected ListView mDrawerList;
 	protected NavDrawerItemListe navDrawerItems;
 	protected ActionBarDrawerToggle mDrawerToggle;
-	public NavDrawerItem TAB_1, TAB_2;
+	public NavDrawerItem TAB_1, TAB_2, TAB_3;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {		
@@ -42,9 +42,20 @@ public class ApplicationDrawer extends Application {
         
         TAB_1 = new NavDrawerItem( config.getUserUsername(), R.drawable.ic_launcher, TYPE_IC);        
         TAB_2 = new NavDrawerItem( "Explore", TYPE_NORMAL);
+        TAB_3 = new NavDrawerItem( "Request", new IFunction() {
+			@Override
+			public boolean condition() {return true;}
+
+			@Override
+			public void execute() {
+				dialog = new DialogRequest(ApplicationDrawer.this);
+			}
+        	
+        }, TYPE_NORMAL);
         
         navDrawerItems.add(TAB_1);
         navDrawerItems.add(TAB_2);
+        navDrawerItems.add(TAB_3);
         
     	fragment = new FileManagerFragment();
         FragmentManager fragmentManager = getFragmentManager();
