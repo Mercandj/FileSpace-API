@@ -1,10 +1,10 @@
 <?php
 namespace app\frontend\controller;
+use \lib\Entities\User;
 
 class RegisterController extends \lib\Controller{
 
-	public function register() {
-		
+	public function register() {		
 
 		User $user;
 
