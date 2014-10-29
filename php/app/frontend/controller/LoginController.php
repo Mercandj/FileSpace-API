@@ -2,9 +2,9 @@
 namespace app\frontend\controller;
 use \lib\Entities\User;
 
-class RegisterController extends \lib\Controller{
+class LoginController extends \lib\Controller{
 
-	public function register() {
+	public function login() {
 		
 		$user = new User($this->_app->_parameters);
 
