@@ -131,6 +131,7 @@ public class Config {
 			e.printStackTrace();
 		}
 	}
+	
 	public int getLastTab() {
 		return ENUM_Int.LAST_TAB.value;
 	}
@@ -138,6 +139,39 @@ public class Config {
 	public void setDisplayPosition(int value) {
 		if(ENUM_Int.LAST_TAB.value!=value) {
 			ENUM_Int.LAST_TAB.value = value;
+			save(activity);
+		}
+	}
+	
+	public String getUrlServer() {
+		return ENUM_String.STRING_URL_SERVER.value;
+	}
+	
+	public void setUrlServer(String value) {
+		if(ENUM_String.STRING_URL_SERVER.value!=value) {
+			ENUM_String.STRING_URL_SERVER.value = value;
+			save(activity);
+		}
+	}
+	
+	public String getUserUsername() {
+		return ENUM_String.STRING_USER_USERNAME.value;
+	}
+	
+	public void setUserUsername(String value) {
+		if(ENUM_String.STRING_USER_USERNAME.value!=value) {
+			ENUM_String.STRING_USER_USERNAME.value = value;
+			save(activity);
+		}
+	}
+	
+	public String getUserPassword() {
+		return ENUM_String.STRING_USER_PASSWORD.value;
+	}
+	
+	public void setUserPassword(String value) {
+		if(ENUM_String.STRING_USER_PASSWORD.value!=value) {
+			ENUM_String.STRING_USER_PASSWORD.value = value;
 			save(activity);
 		}
 	}

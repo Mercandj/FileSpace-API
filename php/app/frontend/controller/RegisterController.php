@@ -43,7 +43,7 @@ class RegisterController extends \lib\Controller{
 		*/
 
 		$user = new User($this->_app->_parameters);
-
+		/*
 		foreach ($this->_app->_parameters as $key => $value) {
 			if($key=="username")
 	    		$user->setUsername($value);
@@ -53,7 +53,8 @@ class RegisterController extends \lib\Controller{
 			//$user = new User(json_decode($value));
 
 			
-		}
+		}*/
+		$user = new User(json_decode($value));
 		$user->setId(uniqid());
 
 
