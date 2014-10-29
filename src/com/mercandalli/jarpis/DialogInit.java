@@ -40,7 +40,7 @@ public class DialogInit extends Dialog {
         
         if(app.config.getUserPassword()!=null)
         	if(!app.config.getUserPassword().equals("")) {
-        		((EditText) this.findViewById(R.id.password)).setText(app.config.getUserPassword());  
+        		((EditText) this.findViewById(R.id.password)).setHint("Hash Saved");  
 		        firstUse = false;
 			}
         
@@ -67,7 +67,7 @@ public class DialogInit extends Dialog {
 					user.username = app.config.getUserUsername();
 				
 				if(!((EditText) DialogInit.this.findViewById(R.id.password)).getText().toString().equals("")) {
-					user.password = /*SHA1.execute(*/((EditText) DialogInit.this.findViewById(R.id.password)).getText().toString()/*)*/;
+					user.password = SHA1.execute(((EditText) DialogInit.this.findViewById(R.id.password)).getText().toString());
 					app.config.setUserPassword(user.password);
 				}
 				else
