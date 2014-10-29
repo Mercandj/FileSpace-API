@@ -67,7 +67,7 @@ class RegisterController extends \lib\Controller{
 
 		$this->_app->_page->assign('json', $json);
 
-		$this->_app->_page->assign('parameters', $this->_app->$_parameters);
+		$this->_app->_page->assign('parameters', $this->_app->_parameters);
 
 
 
