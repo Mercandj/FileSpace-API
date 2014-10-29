@@ -30,7 +30,7 @@ class User extends \lib\Entity{
 
 	public function setId($id){
 		if(!empty($id)){
-			$this->_id = (int) $id;
+			$this->_id = $id;
 		}
 	}
 

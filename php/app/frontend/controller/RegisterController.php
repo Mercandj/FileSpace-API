@@ -54,7 +54,7 @@ class RegisterController extends \lib\Controller{
 
 			
 		}
-		$user->setId(2);
+		$user->setId(uniqid());
 
 
 	    $userManager = $this->getManagerof('User');
