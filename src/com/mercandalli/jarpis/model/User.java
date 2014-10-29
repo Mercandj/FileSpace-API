@@ -13,7 +13,7 @@ public class User {
 	public String username;
 	public String password;
 	
-	public String getJsonRegister() {
+	public JSONObject getJsonRegister() {
 		if(username!=null && password!=null) {
 			JSONObject json = new JSONObject();			
 			try {
@@ -23,7 +23,7 @@ public class User {
 				e.printStackTrace();
 				return null;
 			}
-			return json.toString();
+			return json;
 		}
 		return null;
 	}

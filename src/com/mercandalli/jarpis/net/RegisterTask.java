@@ -18,7 +18,6 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.os.AsyncTask;
@@ -38,8 +37,7 @@ public class RegisterTask extends AsyncTask<String, Void, String>{
     	try {
 	    	HttpPost httppost = new HttpPost(urls[0]);
 	    	
-			JSONObject holder = new JSONObject();
-			holder.put("user", this.user.getJsonRegister());
+			JSONObject holder = this.user.getJsonRegister();
 			final String CODEPAGE = "UTF-8";
 			httppost.setEntity(new StringEntity(holder.toString(), CODEPAGE));
 			httppost.addHeader("Content-type", "application/json");
@@ -53,8 +51,6 @@ public class RegisterTask extends AsyncTask<String, Void, String>{
             // convert inputstream to string
             if(inputStream != null)
             	return convertInputStreamToString(inputStream);
-		} catch (JSONException e1) {
-			e1.printStackTrace();
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		} catch (ClientProtocolException e) {
