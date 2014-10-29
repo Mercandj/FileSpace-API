@@ -11,7 +11,7 @@ abstract class Application{
 		$_parameters;
 
 	public function __construct(){
-		parseIncomingParams();
+		$this->parseIncomingParams();
 		$this->_page = new Page($this);
 		$this->_HTTPResponse = new HTTPResponse($this);
 		$this->_request = new HTTPRequest($this);
