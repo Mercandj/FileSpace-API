@@ -2,7 +2,7 @@
 	require 'lib/autoload.php';
 	
 
-	echo 'json_decode '.json_decode(file_get_contents('php://input'), true);
+	echo 'json_decode '.json_decode(file_get_contents('php://input'));
 
 	echo 'file_get_contents '.file_get_contents('php://input');
 

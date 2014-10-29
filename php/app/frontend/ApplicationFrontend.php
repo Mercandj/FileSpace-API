@@ -18,7 +18,7 @@ class Applicationfrontend extends \lib\Application {
 		}else{
 		*/
 			//$this->_page->assign('header',$this->_config->get("title"));				
-			$this->getController()->exec();		
+		$this->getController()->exec();		
 		//}
 		exit();
 	}
