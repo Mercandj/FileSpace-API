@@ -24,6 +24,11 @@ import org.json.JSONObject;
 import android.os.AsyncTask;
 import android.util.Log;
 
+/**
+ * Global behavior : http Post
+ * @author Jonathan
+ *
+ */
 public class PostTask extends AsyncTask<Void, Void, String>{
 	
 	String url;

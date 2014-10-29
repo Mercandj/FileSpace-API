@@ -28,7 +28,7 @@ public class ApplicationDrawer extends Application {
 	protected ListView mDrawerList;
 	protected NavDrawerItemListe navDrawerItems;
 	protected ActionBarDrawerToggle mDrawerToggle;
-	public NavDrawerItem TAB_1;
+	public NavDrawerItem TAB_1, TAB_2;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {		
@@ -40,8 +40,11 @@ public class ApplicationDrawer extends Application {
         mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
         navDrawerItems = new NavDrawerItemListe();
         
-        TAB_1 = new NavDrawerItem( "Resume", TYPE_NORMAL);
-        navDrawerItems.add(TAB_1);        
+        TAB_1 = new NavDrawerItem( config.getUserUsername(), R.drawable.ic_launcher, TYPE_IC);        
+        TAB_2 = new NavDrawerItem( "Explore", TYPE_NORMAL);
+        
+        navDrawerItems.add(TAB_1);
+        navDrawerItems.add(TAB_2);
         
     	fragment = new FileManagerFragment();
         FragmentManager fragmentManager = getFragmentManager();
