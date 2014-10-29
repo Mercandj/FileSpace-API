@@ -10,14 +10,16 @@ class Applicationfrontend extends \lib\Application {
 	}
 
 	public function run() {
+		/*
 		if(!$this->_session->isLogin()){
 			$controlleur = new \app\frontend\controller\UserController($this);
 			$controlleur->login();
 
 		}else{
+		*/
 			$this->_page->assign('header',$this->_config->get("title"));				
 			$this->getController()->exec();		
-		}
+		//}
 		exit();
 	}
 }
