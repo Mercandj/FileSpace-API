@@ -9,42 +9,19 @@ class RegisterController extends \lib\Controller{
 		
 		$json = '{"result","error"}';
 
-		$request_body = file_get_contents('php://input');
-		$phpArray = json_decode($request_body, true);
-		if($phpArray!=null) {
+		/*
+		$user = new User($value);
+	    $userManager = $this->getManagerof('User');
 
-			$json = '{"result","no error"}';
-
-			foreach ($phpArray as $key => $value) {
-
-				$json = 'TEST : '.$value;
-
-			    if($key=="user") {
-			    	/*
-				    foreach ($value as $k => $v) {
-				    	if($k=="username")
-				    		$user->setUsername($v);
-				    	else if($k=="password")
-				    		$user->setPassword($v);
-				    }
-					*/
-
-				    $json = $value;
-
-					$user = new User($value);
-
-				    $userManager = $this->getManagerof('User');
-
-					// Check if User exist
-					if(!$userManager->exist($username)){				
-						$userManager->add($user);
-					}else{ // username
-						$this->_app->_page->assign('error', true);
-					}
-				}
-			}
+		// Check if User exist
+		if(!$userManager->exist($username)){				
+			$userManager->add($user);
+		}else{ // username
+			$this->_app->_page->assign('error', true);
 		}
+		*/
 
+		
 		//{"user":{"username"="toto","password"="tata"}}
 		/*
 		//Check if password and username were submitted

@@ -48,8 +48,14 @@ abstract class Application{
         // now how about PUT/POST bodies? These override what we got from GET
         $body = file_get_contents("php://input");
 
-        echo $body;
+        $body_params = json_decode($body);
+        if($body_params) {
+            foreach($body_params as $param_name => $param_value) {
+                $_parameters[$param_name] = $param_value;
+            }
+        }
 
+         /*
         $content_type = false;
         if(isset($_SERVER['CONTENT_TYPE'])) {
             $content_type = $_SERVER['CONTENT_TYPE'];
@@ -76,6 +82,7 @@ abstract class Application{
                 // we could parse other supported formats here
                 break;
         }
+        */
         $this->_parameters = $_parameters;
     }
 
