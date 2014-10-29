@@ -46,7 +46,7 @@ class RegisterController extends \lib\Controller{
 	    $userManager = $this->getManagerof('User');
 
 		// Check if User exist
-		if(!$userManager->exist($username)){				
+		if(!$userManager->exist($user->getUsername())){				
 			$userManager->add($user);
 			$json = '{"result","no error"}';
 		}else{ // username
