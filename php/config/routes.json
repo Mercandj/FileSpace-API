@@ -1,11 +1,6 @@
 [
 	{
-		"url":"/",
-		"controller":"Test",
-		"action":"getCategories"
-	},
-	{
-		"url":"/test",
+		"url":"/jarpis/php/",
 		"controller":"Test",
 		"action":"getCategories"
 	}
