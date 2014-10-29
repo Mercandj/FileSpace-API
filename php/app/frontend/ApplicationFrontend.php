@@ -12,26 +12,12 @@ class Applicationfrontend extends \lib\Application {
 
 	public function run() {
 
-		$user = new User($this->_parameters);
-		$user->setPassword(sha1($this->_parameters['password']));
-	    $userManager = $this->getManagerof('User');
 
-		// Check if User exist
-		if($userManager->exist($user->getUsername())) {				
-			$userbdd = $userManager->get($user->getUsername());
-
-			if($user->getPassword() === $userbdd->getPassword()) {
-				$this->getController()->exec();
-			}
-			else {
-				$controlleur = new \app\frontend\controller\RegisterController($this);
-				$controlleur->exec();
-			}
-		}
-		else {
-			$controlleur = new \app\frontend\controller\RegisterController($this);
-			$controlleur->exec();
-		}
+		$controlleur = new \app\frontend\controller\LoginController($this);
+		
+		if($controlleur->isUser() || $this->getController() instanceof \app\frontend\controller\RegisterController)
+			$this->getController()->exec();
+		//else
 
 
 		/*
