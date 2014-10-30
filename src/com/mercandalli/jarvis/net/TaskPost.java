@@ -68,6 +68,8 @@ public class TaskPost extends AsyncTask<Void, Void, String> {
 
 			HttpClient httpclient = new DefaultHttpClient();
 
+			
+			// TODO
 			if (file != null) {
 				MultipartEntity mpEntity = new MultipartEntity();
 				ContentBody cbFile = new FileBody(file, "*/*");
