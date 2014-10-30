@@ -25,6 +25,8 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.mercandalli.jarvis.listener.IPostExecuteListener;
+
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -34,21 +36,20 @@ import android.util.Log;
  * @author Jonathan
  * 
  */
-public class PostTask extends AsyncTask<Void, Void, String> {
+public class TaskPost extends AsyncTask<Void, Void, String> {
 
 	String url;
 	JSONObject json;
 	IPostExecuteListener listener;
 	File file;
 
-	public PostTask(String url, IPostExecuteListener listener, JSONObject json) {
+	public TaskPost(String url, IPostExecuteListener listener, JSONObject json) {
 		this.url = url;
 		this.json = json;
 		this.listener = listener;
 	}
 
-	public PostTask(String url, IPostExecuteListener listener, JSONObject json,
-			File file) {
+	public TaskPost(String url, IPostExecuteListener listener, JSONObject json, File file) {
 		this.url = url;
 		this.json = json;
 		this.listener = listener;
@@ -114,13 +115,13 @@ public class PostTask extends AsyncTask<Void, Void, String> {
 	protected void onPostExecute(String response) {
 		Log.d("onPostExecute", "" + response);
 		if (response == null)
-			this.listener.execute(null);
+			this.listener.execute(null, null);
 		else {
 			try {
-				this.listener.execute(new JSONObject(response));
+				this.listener.execute(new JSONObject(response), response);
 			} catch (JSONException e) {
 				e.printStackTrace();
-				this.listener.execute(null);
+				this.listener.execute(null, response);
 			}
 		}
 	}

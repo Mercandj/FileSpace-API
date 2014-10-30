@@ -6,6 +6,7 @@
 
 package com.mercandalli.jarvis;
 
+import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -17,8 +18,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.mercandalli.jarvis.dialog.DialogRequest;
 import com.mercandalli.jarvis.fragment.FileManagerFragment;
+import com.mercandalli.jarvis.fragment.RequestFragment;
 import com.mercandalli.jarvis.listener.IListener;
 import com.mercandalli.jarvis.navdrawer.NavDrawerItem;
 import com.mercandalli.jarvis.navdrawer.NavDrawerItemListe;
@@ -30,13 +31,12 @@ public class ApplicationDrawer extends Application {
 	public static final int TYPE_NORMAL	 	= 1;
 	public static final int TYPE_SECTION	= 2;
     
-    FileManagerFragment fragment;
+    Fragment fragment;
 
 	protected DrawerLayout mDrawerLayout;
 	protected ListView mDrawerList;
 	protected NavDrawerItemListe navDrawerItems;
 	protected ActionBarDrawerToggle mDrawerToggle;
-	public NavDrawerItem TAB_1, TAB_2, TAB_3;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {		
@@ -48,26 +48,39 @@ public class ApplicationDrawer extends Application {
         mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
         navDrawerItems = new NavDrawerItemListe();
         
-        TAB_1 = new NavDrawerItem( config.getUserUsername(), R.drawable.ic_launcher, TYPE_IC);        
-        TAB_2 = new NavDrawerItem( "Explore", TYPE_NORMAL);
-        TAB_3 = new NavDrawerItem( "Request", new IListener() {
-			@Override
-			public boolean condition() {return true;}
-
-			@Override
-			public void execute() {
-				dialog = new DialogRequest(ApplicationDrawer.this);
-			}
-        	
-        }, TYPE_NORMAL);
+        // Tab 1
+        navDrawerItems.add(
+        		new NavDrawerItem( config.getUserUsername(), R.drawable.ic_launcher, TYPE_IC)
+        		);        
+     
+        // Tab 2
+        navDrawerItems.add(
+        		new NavDrawerItem( "Explore", new IListener() {
+						@Override
+						public void execute() {
+							fragment = new FileManagerFragment(ApplicationDrawer.this);
+					        FragmentManager fragmentManager = getFragmentManager();
+					        fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
+						}        	
+			        }, TYPE_NORMAL)
+        		);
         
-        navDrawerItems.add(TAB_1);
-        navDrawerItems.add(TAB_2);
-        navDrawerItems.add(TAB_3);
+        // Tab 3
+        navDrawerItems.add(
+        		new NavDrawerItem( "Request", new IListener() {
+						@Override
+						public void execute() {
+							fragment = new RequestFragment(ApplicationDrawer.this);
+					        FragmentManager fragmentManager = getFragmentManager();
+					        fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
+						}        	
+			        }, TYPE_NORMAL)
+        		);
         
-    	fragment = new FileManagerFragment();
+        // Initial Fragment
+    	fragment = new FileManagerFragment(ApplicationDrawer.this);
         FragmentManager fragmentManager = getFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();        
+        fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
         
         getActionBar().setDisplayHomeAsUpEnabled(true);
         getActionBar().setIcon(R.drawable.transparent);
@@ -75,12 +88,7 @@ public class ApplicationDrawer extends Application {
         mDrawerList.setAdapter(new NavDrawerListAdapter(this, navDrawerItems.getListe()));
         mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
         
-        mDrawerToggle = new ActionBarDrawerToggle(
-                this,               
-                mDrawerLayout,      
-                R.string.app_name, 
-                R.string.app_name  
-                ) {
+        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.app_name, R.string.app_name) {
             public void onDrawerClosed(View view) {
             	super.onDrawerClosed(view);
                 invalidateOptionsMenu();
@@ -99,18 +107,16 @@ public class ApplicationDrawer extends Application {
     	for(NavDrawerItem nav : navDrawerItems.getListe())
     		if(navDrawerItems.get(position).equals(nav))
     			if(nav.listenerClick!=null)
-    				if(nav.listenerClick.condition())
-    					nav.listenerClick.execute();
-    	
+    				nav.listenerClick.execute();    	
         mDrawerLayout.closeDrawer(mDrawerList);
     }
     
-    private class DrawerItemClickListener implements ListView.OnItemClickListener {
-        @Override
-        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            selectItem(position);
-        }
-    }	
+	private class DrawerItemClickListener implements ListView.OnItemClickListener {
+		@Override
+		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+			selectItem(position);
+		}
+	}
     
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {

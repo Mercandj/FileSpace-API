@@ -6,30 +6,32 @@
 
 package com.mercandalli.jarvis.dialog;
 
+import java.io.File;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Dialog;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import com.mercandalli.jarvis.Application;
 import com.mercandalli.jarvis.R;
 import com.mercandalli.jarvis.listener.IModelFileListener;
+import com.mercandalli.jarvis.listener.IPostExecuteListener;
 import com.mercandalli.jarvis.model.ModelFile;
 import com.mercandalli.jarvis.model.ModelUser;
-import com.mercandalli.jarvis.net.IPostExecuteListener;
-import com.mercandalli.jarvis.net.PostTask;
+import com.mercandalli.jarvis.net.TaskPost;
 
 public class DialogRequest extends Dialog {
 	
 	DialogFileChooser dialogFileChooser;
-	Application app;	
+	Application app;
+	File file;
 	
-	public DialogRequest(final Application app) {
+	public DialogRequest(final Application app, final IPostExecuteListener listener) {
 		super(app);
 		this.app = app;
 		
@@ -54,19 +56,12 @@ public class DialogRequest extends Dialog {
 				}
 				
 				if(!((EditText) DialogRequest.this.findViewById(R.id.server)).getText().toString().equals(""))
-					(new PostTask(app.config.getUrlServer()+((EditText) DialogRequest.this.findViewById(R.id.server)).getText().toString(), new IPostExecuteListener() {
+					(new TaskPost(app.config.getUrlServer()+((EditText) DialogRequest.this.findViewById(R.id.server)).getText().toString(), new IPostExecuteListener() {
 						@Override
-						public void execute(JSONObject json) {
-							if(json==null) {
-								Log.d("DialogRequest", "json == null");
-								Toast.makeText(app, "json == null", Toast.LENGTH_SHORT).show();
-							}
-							else {
-								Log.d("DialogRequest", ""+json.toString());
-								Toast.makeText(app, ""+json.toString(), Toast.LENGTH_SHORT).show();
-							}
+						public void execute(JSONObject json, String body) {
+							listener.execute(json, body);
 						}						
-					}, json)).execute();
+					}, json, file)).execute();
 				DialogRequest.this.dismiss();
 			}        	
         });
@@ -76,8 +71,9 @@ public class DialogRequest extends Dialog {
 			public void onClick(View v) {
 				dialogFileChooser = new DialogFileChooser(DialogRequest.this.app, new IModelFileListener() {
 					@Override
-					public void execute(ModelFile file) {
-						Toast.makeText(app, ""+file.name, Toast.LENGTH_SHORT).show();
+					public void execute(ModelFile modelFile) {
+						((TextView) DialogRequest.this.findViewById(R.id.label)).setText(""+modelFile.name);
+						DialogRequest.this.file = new File(modelFile.url);
 					}					
 				});
 			}        	

@@ -19,7 +19,7 @@ import android.widget.ListView;
 
 import com.mercandalli.jarvis.Application;
 import com.mercandalli.jarvis.R;
-import com.mercandalli.jarvis.adapter.ModelFileAdapter;
+import com.mercandalli.jarvis.adapter.AdapterModelFile;
 import com.mercandalli.jarvis.listener.IModelFileListener;
 import com.mercandalli.jarvis.model.ModelFile;
 
@@ -49,7 +49,7 @@ public class DialogFileChooser extends Dialog {
 	
 	private void updateAdapter() {
 		getFiles();
-		files.setAdapter(new ModelFileAdapter(app, R.layout.tab_file, listModelFile ));
+		files.setAdapter(new AdapterModelFile(app, R.layout.tab_file, listModelFile ));
 		files.setOnItemClickListener(new OnItemClickListener() {
 		    @Override 
 		    public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {

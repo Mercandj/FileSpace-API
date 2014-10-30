@@ -22,9 +22,9 @@ import android.widget.ToggleButton;
 import com.mercandalli.jarvis.Application;
 import com.mercandalli.jarvis.R;
 import com.mercandalli.jarvis.SHA1;
+import com.mercandalli.jarvis.listener.IPostExecuteListener;
 import com.mercandalli.jarvis.model.ModelUser;
-import com.mercandalli.jarvis.net.IPostExecuteListener;
-import com.mercandalli.jarvis.net.PostTask;
+import com.mercandalli.jarvis.net.TaskPost;
 
 public class DialogInit extends Dialog {
 
@@ -93,9 +93,9 @@ public class DialogInit extends Dialog {
 				}				
 				
 				if(firstUse)
-					(new PostTask(app.config.getUrlServer()+"register", new IPostExecuteListener() {
+					(new TaskPost(app.config.getUrlServer()+"register", new IPostExecuteListener() {
 						@Override
-						public void execute(JSONObject json) {
+						public void execute(JSONObject json, String body) {
 							try {
 								if(json!=null) {
 									if(json.has("succeed"))
@@ -108,9 +108,9 @@ public class DialogInit extends Dialog {
 						}						
 					}, json)).execute();
 				else
-					(new PostTask(app.config.getUrlServer()+"login", new IPostExecuteListener() {
+					(new TaskPost(app.config.getUrlServer()+"login", new IPostExecuteListener() {
 						@Override
-						public void execute(JSONObject json) {
+						public void execute(JSONObject json, String body) {
 							try {
 								if(json!=null) {
 									if(json.has("succeed"))

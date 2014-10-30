@@ -6,6 +6,6 @@
 
 package com.mercandalli.jarvis.listener;
 
-public interface IListener {
-	public void execute();
+public interface IStringListener {
+	public void execute(String text);
 }

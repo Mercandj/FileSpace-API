@@ -46,7 +46,7 @@ class FileController extends \lib\Controller {
 		$this->_app->_page->assign('json', json_encode($this->_app->_parameters['content']));
 		$this->_app->_HTTPResponse->send($this->_app->_page->draw('JsonView.php'));
 
-
+		/*
 		$target_dir = $root . basename( $_FILES["file"]["name"]);
 
 		$extensions_valides = array( 'jpg' , 'jpeg' , 'gif' , 'png' , 'txt' );
@@ -68,5 +68,6 @@ class FileController extends \lib\Controller {
 			$this->_app->_page->assign('json', '{"succeed":false,"toast":"Bad extension."');
 
 		$this->_app->_HTTPResponse->send($this->_app->_page->draw('JsonView.php'));
+		*/
 	}	
 }

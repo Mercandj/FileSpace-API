@@ -25,6 +25,7 @@
     <string name="login">Log in</string>
     <string name="cancel">Cancel</string>
     <string name="up">Up</string>
+    <string name="console">Console</string>
     
     
 </resources>

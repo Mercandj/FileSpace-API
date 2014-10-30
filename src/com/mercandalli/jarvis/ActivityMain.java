@@ -10,7 +10,7 @@ import com.mercandalli.jarvis.dialog.DialogInit;
 
 import android.os.Bundle;
 
-public class MainActivity extends ApplicationDrawer {	
+public class ActivityMain extends ApplicationDrawer {	
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {    	

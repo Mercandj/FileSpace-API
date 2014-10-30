@@ -12,12 +12,12 @@ import com.mercandalli.jarvis.Application;
 import com.mercandalli.jarvis.R;
 import com.mercandalli.jarvis.model.ModelFile;
 
-public class ModelFileAdapter extends ArrayAdapter<ModelFile> {
+public class AdapterModelFile extends ArrayAdapter<ModelFile> {
 
 	Application app;
 	List<ModelFile> files;
 	
-	public ModelFileAdapter(Application app, int resource, List<ModelFile> files) {
+	public AdapterModelFile(Application app, int resource, List<ModelFile> files) {
 		super(app, resource, files);
 		this.app = app;
 		this.files = files;
