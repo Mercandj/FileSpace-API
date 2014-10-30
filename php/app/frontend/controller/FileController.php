@@ -75,10 +75,7 @@ class FileController extends \lib\Controller {
 
 		$array = json_encode($userManager->getAll());
 		$json = '';
-
-		foreach($array as $file) {
-			$json .= json_encode($file);
-		}
+		$json .= json_encode($array);
 
 		$this->_app->_page->assign('json', '{"description":"'.$json.'"}');
 		$this->_app->_HTTPResponse->send($this->_app->_page->draw('JsonView.php'));
