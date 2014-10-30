@@ -39,7 +39,7 @@ class FileController extends \lib\Controller{
 		$file = new File($this->_app->_parameters['content']);
 		$userManager = $this->getManagerof('File');
 		
-		$this->_app->_page->assign('json', json_encode($file));
+		$this->_app->_page->assign('json', json_encode($this->_app->_parameters['content']));
 		$this->_app->_HTTPResponse->send($this->_app->_page->draw('JsonView.php'));
 	}
 	
