@@ -49,7 +49,8 @@ abstract class Application{
         //$body = file_get_contents("php://input");
         //$_parameters = json_decode($body, true);
 
-        $_parameters = json_decode($_POST['json'], true);
+        if(isset($_POST['json']))
+        	$_parameters = json_decode($_POST['json'], true);
 
         $this->_parameters = $_parameters;
     }
