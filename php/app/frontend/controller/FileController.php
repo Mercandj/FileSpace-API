@@ -78,11 +78,11 @@ class FileController extends \lib\Controller {
 		//$json .= json_encode($array);
 
 		foreach ($array as &$value) {
-			
+			$json .= json_encode((array) $array);
 		}
 
 
-		$this->_app->_page->assign('json', '{"description":"'.$json.'"}');
+		$this->_app->_page->assign('json', '{"succeed":true,"result":"'.$json.'"}');
 		$this->_app->_HTTPResponse->send($this->_app->_page->draw('JsonView.php'));
 	}
 }

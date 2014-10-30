@@ -24,6 +24,6 @@ abstract class Entity{
 	public function isNew(){
 		return empty($this->_id);
 	}
-
+	
 	abstract function isValid();
 }
