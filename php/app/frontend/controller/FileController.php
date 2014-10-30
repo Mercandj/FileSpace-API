@@ -2,12 +2,13 @@
 namespace app\frontend\controller;
 use \lib\Entities\File;
 
-class FileController extends \lib\Controller{
+class FileController extends \lib\Controller {
+
+	const ROOT = __DIR__."\\..\\..\\..\\public\\";
 
 	public function test() {		
 		$files = array();
-		$dir = __DIR__."\\..\\..\\..\\public\\";
-		$files1 = scandir($dir);
+		$files1 = scandir(self::ROOT);
 
 		$i=0;
 		foreach($files1 as $var) {
@@ -24,7 +25,7 @@ class FileController extends \lib\Controller{
 		$array_json = array();
 		$array_json['files'] = $files;
 		$this->_app->_page->assign('json', json_encode($array_json));
-		$this->_app->_HTTPResponse->send($this->_app->_page->draw('JsonView.php'));		
+		$this->_app->_HTTPResponse->send($this->_app->_page->draw('JsonView.php'));
 	}
 
 	public function add() {
@@ -40,6 +41,23 @@ class FileController extends \lib\Controller{
 		$userManager = $this->getManagerof('File');
 		
 		$this->_app->_page->assign('json', json_encode($this->_app->_parameters['content']));
+		$this->_app->_HTTPResponse->send($this->_app->_page->draw('JsonView.php'));
+
+
+		$target_dir = self::ROOT . basename( $_FILES["uploadFile"]["name"]);
+
+		$extensions_valides = array( 'jpg' , 'jpeg' , 'gif' , 'png' , 'txt' );
+		$extension_upload = strtolower(  substr(  strrchr($_FILES['uploadFile']['name'], '.')  ,1)  );
+
+		if ( in_array($extension_upload,$extensions_valides) ) {
+			if (move_uploaded_file($_FILES["uploadFile"]["tmp_name"], $target_dir)) {
+			    $this->_app->_page->assign('json', '{"succeed":true,"toast":"The file '. basename( $_FILES["uploadFile"]["name"]) .' has been uploaded."');
+			else
+				$this->_app->_page->assign('json', '{"succeed":false,"toast":"Sorry, there was an error uploading your file."');
+		}
+		else
+			$this->_app->_page->assign('json', '{"succeed":false,"toast":"Bad extension."');
+
 		$this->_app->_HTTPResponse->send($this->_app->_page->draw('JsonView.php'));
 	}	
 }

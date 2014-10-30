@@ -2,7 +2,7 @@
 namespace app\frontend\controller;
 use \lib\Entities\User;
 
-class UserController extends \lib\Controller{
+class UserController extends \lib\Controller {
 
 	public function login() {
 
