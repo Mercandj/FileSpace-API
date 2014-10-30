@@ -6,6 +6,8 @@
 
 package com.mercandalli.jarvis;
 
+import com.mercandalli.jarvis.dialog.DialogInit;
+
 import android.os.Bundle;
 
 public class MainActivity extends ApplicationDrawer {	

@@ -1,4 +1,4 @@
-package com.mercandalli.jarvis;
+package com.mercandalli.jarvis.dialog;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -10,14 +10,20 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.mercandalli.jarvis.Application;
+import com.mercandalli.jarvis.R;
 import com.mercandalli.jarvis.model.User;
 import com.mercandalli.jarvis.net.IPostExecuteListener;
 import com.mercandalli.jarvis.net.PostTask;
 
 public class DialogRequest extends Dialog {
 	
+	DialogFileChooser dialogFileChooser;
+	Application app;	
+	
 	public DialogRequest(final Application app) {
 		super(app);
+		this.app = app;
 		
 		this.setContentView(R.layout.view_request);
 		this.setTitle(R.string.app_name);
@@ -56,6 +62,15 @@ public class DialogRequest extends Dialog {
 				DialogRequest.this.dismiss();
 			}        	
         });
+        
+        ((Button) this.findViewById(R.id.fileButton)).setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				dialogFileChooser = new DialogFileChooser(DialogRequest.this.app);
+			}        	
+        });
+        
+        
         DialogRequest.this.show();
 	}
 }

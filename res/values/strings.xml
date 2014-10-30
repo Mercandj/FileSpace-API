@@ -18,7 +18,8 @@
     <string name="dialog_login">Log in</string>
     <string name="dialog_json">Json</string>
     
-    
+    <string name="no_file">No File</string>
+    <string name="file">File</string>
     <string name="request">Request</string>
     <string name="signin">Sign in</string>
     <string name="login">Log in</string>

@@ -47,18 +47,18 @@ class FileController extends \lib\Controller {
 		$this->_app->_HTTPResponse->send($this->_app->_page->draw('JsonView.php'));
 
 
-		$target_dir = $root . basename( $_FILES["uploadFile"]["name"]);
+		$target_dir = $root . basename( $_FILES["file"]["name"]);
 
 		$extensions_valides = array( 'jpg' , 'jpeg' , 'gif' , 'png' , 'txt' );
-		$extension_upload = strtolower(  substr(  strrchr($_FILES['uploadFile']['name'], '.')  ,1)  );
+		$extension_upload = strtolower(  substr(  strrchr($_FILES['file']['name'], '.')  ,1)  );
 
 		if ( in_array($extension_upload,$extensions_valides) ) {
-			if (move_uploaded_file($_FILES["uploadFile"]["tmp_name"], $target_dir)) {
+			if (move_uploaded_file($_FILES["file"]["tmp_name"], $target_dir)) {
 			    
-				if ( 0 < $_FILES['uploadFile']['size'] && $_FILES['uploadFile']['size'] < 1000000  )
-			    	$this->_app->_page->assign('json', '{"succeed":true,"toast":"The file '. basename( $_FILES["uploadFile"]["name"]) .' has been uploaded."');
+				if ( 0 < $_FILES['file']['size'] && $_FILES['file']['size'] < 1000000  )
+			    	$this->_app->_page->assign('json', '{"succeed":true,"toast":"The file '. basename( $_FILES["file"]["name"]) .' has been uploaded."');
 				else
-					$this->_app->_page->assign('json', '{"succeed":false,"toast":"File size : '.$_FILES['uploadFile']['size'].'"}');
+					$this->_app->_page->assign('json', '{"succeed":false,"toast":"File size : '.$_FILES['file']['size'].'"}');
 
 			}
 			else

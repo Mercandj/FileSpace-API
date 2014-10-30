@@ -1,4 +1,4 @@
-package com.mercandalli.jarvis;
+package com.mercandalli.jarvis.dialog;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -13,6 +13,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import com.mercandalli.jarvis.Application;
+import com.mercandalli.jarvis.R;
+import com.mercandalli.jarvis.SHA1;
 import com.mercandalli.jarvis.model.User;
 import com.mercandalli.jarvis.net.IPostExecuteListener;
 import com.mercandalli.jarvis.net.PostTask;

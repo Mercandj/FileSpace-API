@@ -7,6 +7,7 @@
 package com.mercandalli.jarvis.net;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -17,6 +18,9 @@ import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
+import org.apache.http.entity.mime.MultipartEntity;
+import org.apache.http.entity.mime.content.ContentBody;
+import org.apache.http.entity.mime.content.FileBody;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -34,12 +38,20 @@ public class PostTask extends AsyncTask<Void, Void, String>{
 	String url;
 	JSONObject json;
 	IPostExecuteListener listener;
+	File file;
 	
 	public PostTask(String url, IPostExecuteListener listener, JSONObject json) {
 		this.url = url; 
 		this.json = json;
 		this.listener = listener;
-	}	
+	}
+	
+	public PostTask(String url, IPostExecuteListener listener, JSONObject json, File file) {
+		this.url = url; 
+		this.json = json;
+		this.listener = listener;
+		this.file = file;
+	}
 
 	@Override
     protected String doInBackground(Void... urls) {
@@ -52,6 +64,14 @@ public class PostTask extends AsyncTask<Void, Void, String>{
 			httppost.addHeader("Content-type", "application/json");
 			
 			HttpClient httpclient = new DefaultHttpClient();
+			
+			if(file!=null) {
+				MultipartEntity mpEntity = new MultipartEntity();
+		        ContentBody cbFile = new FileBody(file, "*/*");
+		        mpEntity.addPart("file", cbFile);	        
+		        httppost.setEntity(mpEntity);
+			}			
+			
 			HttpResponse response = httpclient.execute(httppost);
 			
 			// receive response as inputStream

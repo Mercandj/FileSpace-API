@@ -2,7 +2,7 @@
 	Personal Project : Control server
 		MERCANDALLI Jonathan
 -->
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
 
     <style name="AppBaseTheme" parent="android:Theme.Material.Light">
         <!--
@@ -23,7 +23,7 @@
     </style>
 
     <style name="MyActionBar" parent="@android:style/Widget.Holo.Light.ActionBar.Solid.Inverse">
-        <item name="android:background">@color/actionbar</item>
+        <item name="android:background">@color/actionbar</item>        
     </style>
     
 </resources>
