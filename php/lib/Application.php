@@ -46,10 +46,10 @@ abstract class Application{
         }
  
         // now how about PUT/POST bodies? These override what we got from GET
-        $body = file_get_contents("php://input");
-        $_parameters = json_decode($body, true);
+        //$body = file_get_contents("php://input");
+        //$_parameters = json_decode($body, true);
 
-        //$_parameters = json_decode($_POST['json'], true);
+        $_parameters = json_decode($_POST['json'], true);
 
         $this->_parameters = $_parameters;
     }
