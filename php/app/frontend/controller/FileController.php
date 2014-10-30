@@ -40,7 +40,7 @@ class FileController extends \lib\Controller {
 			return;
 		}
 
-		$file = new File(json_decode($this->_app->_parameters['file'], true));
+		$file = new File($this->_app->_parameters['file']);
 		$userManager = $this->getManagerof('File');
 		
 		$target_dir = $root . basename( $_FILES["file"]["name"]);
