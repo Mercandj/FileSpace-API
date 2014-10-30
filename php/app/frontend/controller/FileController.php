@@ -4,11 +4,11 @@ use \lib\Entities\File;
 
 class FileController extends \lib\Controller {
 
-	const ROOT = __DIR__."\\..\\..\\..\\public\\";
+	$root = __DIR__."\\..\\..\\..\\public\\";
 
 	public function test() {		
 		$files = array();
-		$files1 = scandir(self::ROOT);
+		$files1 = scandir($this->root);
 
 		$i=0;
 		foreach($files1 as $var) {
@@ -44,7 +44,7 @@ class FileController extends \lib\Controller {
 		$this->_app->_HTTPResponse->send($this->_app->_page->draw('JsonView.php'));
 
 
-		$target_dir = self::ROOT . basename( $_FILES["uploadFile"]["name"]);
+		$target_dir = $this->root . basename( $_FILES["uploadFile"]["name"]);
 
 		$extensions_valides = array( 'jpg' , 'jpeg' , 'gif' , 'png' , 'txt' );
 		$extension_upload = strtolower(  substr(  strrchr($_FILES['uploadFile']['name'], '.')  ,1)  );
