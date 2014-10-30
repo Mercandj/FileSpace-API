@@ -18,10 +18,10 @@ class RefreshFileController extends \lib\Controller{
 			$files['size'] = filesize($dir.$var);
 		}
 		
-		//$this->_app->_page->assign('json', json_encode($array));
+		$this->_app->_page->assign('json', json_encode($array));
 		
 
-		$this->_app->_page->assign('json', "".__DIR__);
+		//$this->_app->_page->assign('json', "".__DIR__);
 
 		// SEND PAGE
 		$this->_app->_HTTPResponse->send($this->_app->_page->draw('JsonView.php'));		
