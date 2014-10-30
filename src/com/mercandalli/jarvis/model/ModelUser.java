@@ -9,7 +9,7 @@ package com.mercandalli.jarvis.model;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class User {
+public class ModelUser {
 	public String username;
 	public String password;
 	

@@ -6,7 +6,7 @@
 
 package com.mercandalli.jarvis.navdrawer;
 
-import com.mercandalli.jarvis.IFunction;
+import com.mercandalli.jarvis.listener.IListener;
 
 import android.widget.CompoundButton.OnCheckedChangeListener;
 
@@ -20,7 +20,7 @@ public class NavDrawerItem {
 	public int icon;
 	public int SLIDING_MENU_TAB;
 	public boolean isImage;
-	public IFunction listenerClick = null;
+	public IListener listenerClick = null;
 	
 	public boolean initChecked = false;
 	public OnCheckedChangeListener onCheckedChangeListener = null;
@@ -33,7 +33,7 @@ public class NavDrawerItem {
 		this.isImage = true;
 	}
 	
-	public NavDrawerItem(String title, int icon, IFunction listenerClick, int SLIDING_MENU_TAB) {
+	public NavDrawerItem(String title, int icon, IListener listenerClick, int SLIDING_MENU_TAB) {
 		super();
 		this.title = title;
 		this.icon = icon;
@@ -58,7 +58,7 @@ public class NavDrawerItem {
 		this.isImage = false;
 	}
 	
-	public NavDrawerItem(String title, IFunction listenerClick, int SLIDING_MENU_TAB) {
+	public NavDrawerItem(String title, IListener listenerClick, int SLIDING_MENU_TAB) {
 		super();
 		this.title = title;
 		this.SLIDING_MENU_TAB = SLIDING_MENU_TAB;

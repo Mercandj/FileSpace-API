@@ -4,7 +4,7 @@
  * MERCANDALLI Jonathan
  */
 
-package com.mercandalli.jarvis.fragments;
+package com.mercandalli.jarvis.fragment;
 
 import android.app.Fragment;
 import android.os.Bundle;

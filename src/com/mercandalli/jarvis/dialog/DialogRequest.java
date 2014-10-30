@@ -18,7 +18,9 @@ import android.widget.Toast;
 
 import com.mercandalli.jarvis.Application;
 import com.mercandalli.jarvis.R;
-import com.mercandalli.jarvis.model.User;
+import com.mercandalli.jarvis.listener.IModelFileListener;
+import com.mercandalli.jarvis.model.ModelFile;
+import com.mercandalli.jarvis.model.ModelUser;
 import com.mercandalli.jarvis.net.IPostExecuteListener;
 import com.mercandalli.jarvis.net.PostTask;
 
@@ -38,7 +40,7 @@ public class DialogRequest extends Dialog {
         ((Button) this.findViewById(R.id.request)).setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				User user = new User();				
+				ModelUser user = new ModelUser();				
 				user.username = app.config.getUserUsername();
 				user.password = app.config.getUserPassword();
 				
@@ -72,10 +74,14 @@ public class DialogRequest extends Dialog {
         ((Button) this.findViewById(R.id.fileButton)).setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				dialogFileChooser = new DialogFileChooser(DialogRequest.this.app);
+				dialogFileChooser = new DialogFileChooser(DialogRequest.this.app, new IModelFileListener() {
+					@Override
+					public void execute(ModelFile file) {
+						Toast.makeText(app, ""+file.name, Toast.LENGTH_SHORT).show();
+					}					
+				});
 			}        	
-        });
-        
+        });        
         
         DialogRequest.this.show();
 	}

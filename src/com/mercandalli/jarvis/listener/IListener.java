@@ -4,9 +4,9 @@
  * MERCANDALLI Jonathan
  */
 
-package com.mercandalli.jarvis;
+package com.mercandalli.jarvis.listener;
 
-public interface IFunction {
+public interface IListener {
 	public boolean condition();
 	public void execute();
 }

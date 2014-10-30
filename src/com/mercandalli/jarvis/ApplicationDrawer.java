@@ -1,3 +1,9 @@
+/**
+ * Personal Project : Control server
+ *
+ * MERCANDALLI Jonathan
+ */
+
 package com.mercandalli.jarvis;
 
 import android.app.FragmentManager;
@@ -12,7 +18,8 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.mercandalli.jarvis.dialog.DialogRequest;
-import com.mercandalli.jarvis.fragments.FileManagerFragment;
+import com.mercandalli.jarvis.fragment.FileManagerFragment;
+import com.mercandalli.jarvis.listener.IListener;
 import com.mercandalli.jarvis.navdrawer.NavDrawerItem;
 import com.mercandalli.jarvis.navdrawer.NavDrawerItemListe;
 import com.mercandalli.jarvis.navdrawer.NavDrawerListAdapter;
@@ -43,7 +50,7 @@ public class ApplicationDrawer extends Application {
         
         TAB_1 = new NavDrawerItem( config.getUserUsername(), R.drawable.ic_launcher, TYPE_IC);        
         TAB_2 = new NavDrawerItem( "Explore", TYPE_NORMAL);
-        TAB_3 = new NavDrawerItem( "Request", new IFunction() {
+        TAB_3 = new NavDrawerItem( "Request", new IListener() {
 			@Override
 			public boolean condition() {return true;}
 

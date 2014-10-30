@@ -22,7 +22,7 @@ import android.widget.ToggleButton;
 import com.mercandalli.jarvis.Application;
 import com.mercandalli.jarvis.R;
 import com.mercandalli.jarvis.SHA1;
-import com.mercandalli.jarvis.model.User;
+import com.mercandalli.jarvis.model.ModelUser;
 import com.mercandalli.jarvis.net.IPostExecuteListener;
 import com.mercandalli.jarvis.net.PostTask;
 
@@ -66,7 +66,7 @@ public class DialogInit extends Dialog {
         ((Button) this.findViewById(R.id.signin)).setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				User user = new User();
+				ModelUser user = new ModelUser();
 				
 				if(!((EditText) DialogInit.this.findViewById(R.id.username)).getText().toString().equals("")) {
 					user.username = ((EditText) DialogInit.this.findViewById(R.id.username)).getText().toString();
