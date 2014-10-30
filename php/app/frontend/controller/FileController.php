@@ -4,11 +4,12 @@ use \lib\Entities\File;
 
 class FileController extends \lib\Controller {
 
-	$root = __DIR__."\\..\\..\\..\\public\\";
+	public function test() {
 
-	public function test() {		
+		$root = __DIR__."\\..\\..\\..\\public\\";
+
 		$files = array();
-		$files1 = scandir($this->root);
+		$files1 = scandir($root);
 
 		$i=0;
 		foreach($files1 as $var) {
@@ -30,6 +31,8 @@ class FileController extends \lib\Controller {
 
 	public function add() {
 
+		$root = __DIR__."\\..\\..\\..\\public\\";
+
 		if(!array_key_exists('content', $this->_app->_parameters)) {
 			$json = '{"succeed":false,"toast":"FileController : ERROR : !array_key_exists(content, $this->_app->_parameters)."}';
 			$this->_app->_page->assign('json', $json);
@@ -44,14 +47,20 @@ class FileController extends \lib\Controller {
 		$this->_app->_HTTPResponse->send($this->_app->_page->draw('JsonView.php'));
 
 
-		$target_dir = $this->root . basename( $_FILES["uploadFile"]["name"]);
+		$target_dir = $root . basename( $_FILES["uploadFile"]["name"]);
 
 		$extensions_valides = array( 'jpg' , 'jpeg' , 'gif' , 'png' , 'txt' );
 		$extension_upload = strtolower(  substr(  strrchr($_FILES['uploadFile']['name'], '.')  ,1)  );
 
 		if ( in_array($extension_upload,$extensions_valides) ) {
 			if (move_uploaded_file($_FILES["uploadFile"]["tmp_name"], $target_dir)) {
-			    $this->_app->_page->assign('json', '{"succeed":true,"toast":"The file '. basename( $_FILES["uploadFile"]["name"]) .' has been uploaded."');
+			    
+				if ( 0 < $_FILES['uploadFile']['size'] && $_FILES['uploadFile']['size'] < 1000000  )
+			    	$this->_app->_page->assign('json', '{"succeed":true,"toast":"The file '. basename( $_FILES["uploadFile"]["name"]) .' has been uploaded."');
+				else
+					$this->_app->_page->assign('json', '{"succeed":false,"toast":"File size : '.$_FILES['uploadFile']['size'].'"}');
+
+			}
 			else
 				$this->_app->_page->assign('json', '{"succeed":false,"toast":"Sorry, there was an error uploading your file."');
 		}
