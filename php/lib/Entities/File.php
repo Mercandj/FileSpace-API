@@ -3,6 +3,10 @@ namespace lib\Entities;
 
 class File extends \lib\Entity{
 
+	const INVALID_URL = 1,
+		INVALID_SIZE = 2,
+		INVALID_VISIBILITY = 3;
+
 	protected $_id,
 		$_url,
 		$_size,
@@ -34,7 +38,7 @@ class File extends \lib\Entity{
 		if(!empty($url)){
 			$this->_url = $url;
 		}else{
-			$this->_errors[] = self::INVALID_PASSWORD;
+			$this->_errors[] = self::INVALID_URL;
 		}
 	}
 
@@ -42,7 +46,7 @@ class File extends \lib\Entity{
 		if(!empty($size)){
 			$this->_size = $size;
 		}else{
-			$this->_errors[] = self::INVALID_USERNAME;
+			$this->_errors[] = self::INVALID_SIZE;
 		}
 	}
 
@@ -50,7 +54,7 @@ class File extends \lib\Entity{
 		if(!empty($visibility)){
 			$this->_visibility = $visibility;
 		}else{
-			$this->_errors[] = self::INVALID_USERNAME;
+			$this->_errors[] = self::INVALID_VISIBILITY;
 		}
 	}
 
