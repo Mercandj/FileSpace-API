@@ -16,7 +16,7 @@ class Applicationfrontend extends \lib\Application {
 		if($controlleur->isUser() || $this->getController() instanceof \app\frontend\controller\UserController)
 			$this->getController()->exec();
 		else {
-			$this->_page->assign('json', '{"succeed":false,"toast":"Wrong User.","debug":"'.$_FILES["json"].'"}';
+			$this->_page->assign('json', '{"succeed":false,"toast":"Wrong User.","debug":"'.$_FILES["json"].'"}');
 			/*
 			if(isset($_SERVER['CONTENT_TYPE'])) {
 	            $this->_page->assign('json', '{"succeed":false,"toast":"Wrong User.","debug":" '.$_SERVER['CONTENT_TYPE'].' \n\n  '.file_get_contents("php://input").'"}');
