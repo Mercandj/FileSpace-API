@@ -9,7 +9,7 @@ class RefreshFileController extends \lib\Controller{
 
 		
 		$files = array();
-		$dir = __DIR__."../../../public/";
+		$dir = __DIR__."\\..\\..\\..\\public\\";
 		$files1 = scandir($dir);
 
 
