@@ -4,10 +4,15 @@ use \lib\Entities\User;
 
 class RegisterController extends \lib\Controller{
 
-	public function register() {		
+	public function register() {
 
-		$user = new User($this->_app->_parameters);
-		$user->setPassword(sha1($this->_app->_parameters['password']));
+		if(!array_key_exists('user', $this->_app->_parameters)) {
+			echo 'RegisterController : ERROR : !array_key_exists(user, $this->_app->_parameters)';
+			return true;
+		}
+
+		$user = new User($this->_app->_parameters['user']);
+		$user->setPassword(sha1($this->_app->_parameters['user']['password']));
 		$user->setId(uniqid());
 
 	    $userManager = $this->getManagerof('User');

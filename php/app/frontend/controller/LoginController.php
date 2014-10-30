@@ -19,10 +19,16 @@ class LoginController extends \lib\Controller{
 	}
 
 	public function isUser() {
+
+		if(!array_key_exists('user', $this->_app->_parameters)) {
+			echo 'ERROR : !array_key_exists(user, $this->_app->_parameters)';
+			return true;
+		}
+
 		
-		$user = new User($this->_app->_parameters);
-		if(array_key_exists('password', $this->_app->_parameters))
-			$user->setPassword(sha1($this->_app->_parameters['password']));
+		$user = new User($this->_app->_parameters['user']);
+		if(array_key_exists('password', $this->_app->_parameters['user']))
+			$user->setPassword(sha1($this->_app->_parameters['user']['password']));
 	    $userManager = $this->getManagerof('User');
 
 		// Check if User exist

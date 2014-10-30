@@ -1,5 +1,6 @@
 package com.mercandalli.jarvis;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Dialog;
@@ -29,6 +30,13 @@ public class DialogRequest extends Dialog {
 				user.username = app.config.getUserUsername();
 				user.password = app.config.getUserPassword();
 				
+				JSONObject json = new JSONObject();
+				try {
+					json.put("user", user.getJsonRegister());
+				} catch (JSONException e1) {
+					e1.printStackTrace();
+				}
+				
 				if(!((EditText) DialogRequest.this.findViewById(R.id.server)).getText().toString().equals(""))				
 					(new PostTask(app.config.getUrlServer()+((EditText) DialogRequest.this.findViewById(R.id.server)).getText().toString(), new IPostExecuteListener() {
 						@Override
@@ -42,7 +50,7 @@ public class DialogRequest extends Dialog {
 								Toast.makeText(app, ""+json.toString(), Toast.LENGTH_SHORT).show();
 							}
 						}						
-					}, user.getJsonRegister())).execute();
+					}, json)).execute();
 				DialogRequest.this.dismiss();
 			}        	
         });

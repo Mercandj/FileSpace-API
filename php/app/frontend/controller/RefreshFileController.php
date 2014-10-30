@@ -1,17 +1,14 @@
 <?php
 namespace app\frontend\controller;
-use \lib\Entities\User;
 use \lib\Entities\File;
 
 class RefreshFileController extends \lib\Controller{
 
-	public function refresh() {		
-
+	public function refresh() {
 		
 		$files = array();
 		$dir = __DIR__."\\..\\..\\..\\public\\";
 		$files1 = scandir($dir);
-
 
 		foreach($files1 as $var) {
 			$files['url'] = $var;
@@ -19,9 +16,6 @@ class RefreshFileController extends \lib\Controller{
 		}
 		
 		$this->_app->_page->assign('json', json_encode($files));
-		
-
-		//$this->_app->_page->assign('json', "".__DIR__);
 
 		// SEND PAGE
 		$this->_app->_HTTPResponse->send($this->_app->_page->draw('JsonView.php'));		

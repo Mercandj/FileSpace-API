@@ -76,6 +76,16 @@ public class DialogInit extends Dialog {
 				if(!((EditText) DialogInit.this.findViewById(R.id.server)).getText().toString().equals(""))
 					app.config.setUrlServer(((EditText) DialogInit.this.findViewById(R.id.server)).getText().toString());
 				
+				
+				
+				JSONObject json = new JSONObject();
+				try {
+					json.put("user", user.getJsonRegister());
+				} catch (JSONException e1) {
+					e1.printStackTrace();
+				}
+				
+				
 				if(firstUse)
 					(new PostTask(app.config.getUrlServer()+"register", new IPostExecuteListener() {
 						@Override
@@ -90,7 +100,7 @@ public class DialogInit extends Dialog {
 								}
 							} catch (JSONException e) {e.printStackTrace();}
 						}						
-					}, user.getJsonRegister())).execute();
+					}, json)).execute();
 				else
 					(new PostTask(app.config.getUrlServer()+"login", new IPostExecuteListener() {
 						@Override
@@ -105,7 +115,7 @@ public class DialogInit extends Dialog {
 								}
 							} catch (JSONException e) {e.printStackTrace();}
 						}						
-					}, user.getJsonLogin())).execute();				
+					}, json)).execute();				
 			}        	
         });
         DialogInit.this.show();

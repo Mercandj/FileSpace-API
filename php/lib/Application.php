@@ -47,13 +47,15 @@ abstract class Application{
  
         // now how about PUT/POST bodies? These override what we got from GET
         $body = file_get_contents("php://input");
-
+        /*
         $body_params = json_decode($body);
         if($body_params) {
             foreach($body_params as $param_name => $param_value) {
                 $_parameters[$param_name] = $param_value;
             }
         }
+        */
+        $_parameters = json_decode($body, true);
 
          /*
         $content_type = false;
