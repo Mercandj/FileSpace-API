@@ -33,8 +33,8 @@ class FileController extends \lib\Controller {
 
 		$root = __DIR__."\\..\\..\\..\\public\\";
 
-		if(!$this->_app->_parameters['file'])) {
-			$json = '{"succeed":false,"toast":"FileController : !isset($_POST[file])."}';
+		if(!@array_key_exists('file', $this->_app->_parameters)) {
+			$json = '{"succeed":false,"toast":"FileController : file key (json) not found."}';
 			$this->_app->_page->assign('json', $json);
 			$this->_app->_HTTPResponse->send($this->_app->_page->draw('JsonView.php'));
 			return;
