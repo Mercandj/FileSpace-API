@@ -66,7 +66,7 @@ class FileManager extends \lib\Manager{
 	public function getAll(){
 		$file = array();
 
-		$req = $this->_db->query('SELECT id,url FROM file');
+		$req = $this->_db->query('SELECT id,url,size FROM file');
 
     	while ($donnees = $req->fetch(\PDO::FETCH_ASSOC)){
 	    	$file[] = new File($donnees);
