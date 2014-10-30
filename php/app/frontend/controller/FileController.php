@@ -72,7 +72,7 @@ class FileController extends \lib\Controller {
 
 	public function get() {
 		$userManager = $this->getManagerof('File');
-		$this->_app->_page->assign('json', json_encode($userManager->getAll()));
+		$this->_app->_page->assign('json', '{"description":"'.json_encode($userManager->getAll()).'"}');
 		$this->_app->_HTTPResponse->send($this->_app->_page->draw('JsonView.php'));
 	}
 }
