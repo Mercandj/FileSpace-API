@@ -18,7 +18,7 @@ class Applicationfrontend extends \lib\Application {
 		else {
 			
 			if(isset($_FILES['file']))
-				$this->_page->assign('json', '{"succeed":false,"toast":"Wrong User.","debug":"$_FILES[file][name]:'.$_FILES['file']['name'].'"}');
+				$this->_page->assign('json', '{"succeed":false,"toast":"Wrong User.","debug":"$_FILES[file][name]:'.$_FILES['file']['name'].'\n\n'.file_get_contents("php://input").'"}');
 			else if(isset($_FILES['json']))
 				$this->_page->assign('json', '{"succeed":false,"toast":"Wrong User.","debug":"$_FILES[json][name]:'.$_FILES['json']['name'].'"}');
 			else
