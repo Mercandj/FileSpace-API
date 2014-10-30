@@ -30,56 +30,58 @@ import android.util.Log;
 
 /**
  * Global behavior : http Post
+ * 
  * @author Jonathan
- *
+ * 
  */
-public class PostTask extends AsyncTask<Void, Void, String>{
-	
+public class PostTask extends AsyncTask<Void, Void, String> {
+
 	String url;
 	JSONObject json;
 	IPostExecuteListener listener;
 	File file;
-	
+
 	public PostTask(String url, IPostExecuteListener listener, JSONObject json) {
-		this.url = url; 
+		this.url = url;
 		this.json = json;
 		this.listener = listener;
 	}
-	
-	public PostTask(String url, IPostExecuteListener listener, JSONObject json, File file) {
-		this.url = url; 
+
+	public PostTask(String url, IPostExecuteListener listener, JSONObject json,
+			File file) {
+		this.url = url;
 		this.json = json;
 		this.listener = listener;
 		this.file = file;
 	}
 
 	@Override
-    protected String doInBackground(Void... urls) {
-    	try {
-	    	HttpPost httppost = new HttpPost(url);
-	    	
+	protected String doInBackground(Void... urls) {
+		try {
+			HttpPost httppost = new HttpPost(url);
+
 			JSONObject holder = json;
 			final String CODEPAGE = "UTF-8";
 			httppost.setEntity(new StringEntity(holder.toString(), CODEPAGE));
 			httppost.addHeader("Content-type", "application/json");
-			
+
 			HttpClient httpclient = new DefaultHttpClient();
-			
-			if(file!=null) {
+
+			if (file != null) {
 				MultipartEntity mpEntity = new MultipartEntity();
-		        ContentBody cbFile = new FileBody(file, "*/*");
-		        mpEntity.addPart("file", cbFile);	        
-		        httppost.setEntity(mpEntity);
-			}			
-			
+				ContentBody cbFile = new FileBody(file, "*/*");
+				mpEntity.addPart("file", cbFile);
+				httppost.setEntity(mpEntity);
+			}
+
 			HttpResponse response = httpclient.execute(httppost);
-			
+
 			// receive response as inputStream
 			InputStream inputStream = response.getEntity().getContent();
-            
-            // convert inputstream to string
-            if(inputStream != null)
-            	return convertInputStreamToString(inputStream);
+
+			// convert inputstream to string
+			if (inputStream != null)
+				return convertInputStreamToString(inputStream);
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		} catch (ClientProtocolException e) {
@@ -88,37 +90,38 @@ public class PostTask extends AsyncTask<Void, Void, String>{
 			e.printStackTrace();
 		}
 		return null;
-    }
-    
-    /**
-     * Get http response to String
-     * @param inputStream
-     * @return
-     * @throws IOException
-     */
-    private String convertInputStreamToString(InputStream inputStream) throws IOException {
-        BufferedReader bufferedReader = new BufferedReader( new InputStreamReader(inputStream));
-        String line = "";
-        String result = "";
-        while((line = bufferedReader.readLine()) != null)
-            result += line;
- 
-        inputStream.close();
-        return result;
-    }
-    
-    @Override
-    protected void onPostExecute(String response) {
-    	Log.d("onPostExecute",""+response);
-    	if(response==null)
-    		this.listener.execute(null);
-    	else {    		
-    		try {
+	}
+
+	/**
+	 * Get http response to String
+	 * 
+	 * @param inputStream
+	 * @return
+	 * @throws IOException
+	 */
+	private String convertInputStreamToString(InputStream inputStream) throws IOException {
+		BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+		String line = "";
+		String result = "";
+		while ((line = bufferedReader.readLine()) != null)
+			result += line;
+
+		inputStream.close();
+		return result;
+	}
+
+	@Override
+	protected void onPostExecute(String response) {
+		Log.d("onPostExecute", "" + response);
+		if (response == null)
+			this.listener.execute(null);
+		else {
+			try {
 				this.listener.execute(new JSONObject(response));
 			} catch (JSONException e) {
 				e.printStackTrace();
 				this.listener.execute(null);
 			}
-    	}
-    }
+		}
+	}
 }
