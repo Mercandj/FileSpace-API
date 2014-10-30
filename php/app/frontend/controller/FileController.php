@@ -33,14 +33,14 @@ class FileController extends \lib\Controller {
 
 		$root = __DIR__."\\..\\..\\..\\public\\";
 
-		if(!isset($_POST['file'])) {
+		if(!$this->_app->_parameters['file'])) {
 			$json = '{"succeed":false,"toast":"FileController : !isset($_POST[file])."}';
 			$this->_app->_page->assign('json', $json);
 			$this->_app->_HTTPResponse->send($this->_app->_page->draw('JsonView.php'));
 			return;
 		}
 
-		$file = new File(json_decode($_POST['file'], true));
+		$file = new File(json_decode($this->_app->_parameters['file'], true));
 		$userManager = $this->getManagerof('File');
 		
 		$target_dir = $root . basename( $_FILES["file"]["name"]);
