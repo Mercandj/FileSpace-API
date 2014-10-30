@@ -11,7 +11,7 @@ class Applicationfrontend extends \lib\Application {
 
 	public function run() {
 
-		$controlleur = new \app\frontend\controller\LoginController($this);
+		$controlleur = new \app\frontend\controller\UserController($this);
 		
 		if($controlleur->isUser() || $this->getController() instanceof \app\frontend\controller\UserController)
 
