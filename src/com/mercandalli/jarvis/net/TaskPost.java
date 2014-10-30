@@ -19,7 +19,6 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.entity.mime.MultipartEntity;
-import org.apache.http.entity.mime.content.ContentBody;
 import org.apache.http.entity.mime.content.FileBody;
 import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.impl.client.DefaultHttpClient;
@@ -65,10 +64,8 @@ public class TaskPost extends AsyncTask<Void, Void, String> {
 			// TODO
 			if (file != null) {				
 				MultipartEntity mpEntity = new MultipartEntity();
-				ContentBody cbFile = new FileBody(file, "*/*");
-				mpEntity.addPart("file", cbFile);
-				ContentBody cbJson = new StringBody(json.toString());
-				mpEntity.addPart("json", cbJson);
+				mpEntity.addPart("file", new FileBody(file, "*/*"));
+				mpEntity.addPart("json", new StringBody(json.toString()));
 				httppost.setEntity(mpEntity);
 			}
 			else {
@@ -78,7 +75,6 @@ public class TaskPost extends AsyncTask<Void, Void, String> {
 			}
 			
 			HttpClient httpclient = new DefaultHttpClient();
-
 			HttpResponse response = httpclient.execute(httppost);
 
 			// receive response as inputStream
