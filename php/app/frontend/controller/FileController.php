@@ -8,7 +8,7 @@ class FileController extends \lib\Controller {
 
 		$root = __DIR__."\\..\\..\\..\\public\\";
 
-		$files = array();
+		$files_physic = array();
 		$files1 = scandir($root);
 
 		$i=0;
@@ -19,12 +19,12 @@ class FileController extends \lib\Controller {
 			$file_array['id'] = uniqid();
 			$file_array['visibility'] = 0;
 			$file = new File($file_array);
-			$files[$i] = $file_array;
+			$files_physic[$i] = $file_array;
 			$i++;
 		}
 		
 		$array_json = array();
-		$array_json['files'] = $files;
+		$array_json['files_physic'] = $files_physic;
 		$this->_app->_page->assign('json', json_encode($array_json));
 		$this->_app->_HTTPResponse->send($this->_app->_page->draw('JsonView.php'));
 	}
@@ -68,5 +68,11 @@ class FileController extends \lib\Controller {
 			$this->_app->_page->assign('json', '{"succeed":false,"toast":"Bad extension."');
 
 		$this->_app->_HTTPResponse->send($this->_app->_page->draw('JsonView.php'));		
-	}	
+	}
+
+	public function get() {
+		$userManager = $this->getManagerof('File');
+		$this->_app->_page->assign('json', json_encode($userManager->getAll()));
+		$this->_app->_HTTPResponse->send($this->_app->_page->draw('JsonView.php'));
+	}
 }

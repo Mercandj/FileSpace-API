@@ -18,5 +18,10 @@
 		"url":"/jarvis/php/file/add",
 		"controller":"File",
 		"action":"add"
+	},
+	{
+		"url":"/jarvis/php/file/get",
+		"controller":"File",
+		"action":"get"
 	}
 ]
