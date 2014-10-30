@@ -9,7 +9,7 @@ class UserController extends \lib\Controller{
 		if($this->isUser())
 			$json = '{"succeed":true,"token":""}';
 		else
-			$json = '{"succeed":false,"toast":"LoginController : Wrong Login."}';
+			$json = '{"succeed":false,"toast":"Wrong Login."}';
 
 		$this->_app->_page->assign('json', $json);
 		$this->_app->_HTTPResponse->send($this->_app->_page->draw('JsonView.php'));
@@ -17,12 +17,8 @@ class UserController extends \lib\Controller{
 
 	public function isUser() {
 
-		if(!array_key_exists('user', $this->_app->_parameters)) {
-			$json = '{"succeed":false,"toast":"LoginController : ERROR : !array_key_exists(user, $this->_app->_parameters)."}';
-			$this->_app->_page->assign('json', $json);
-			$this->_app->_HTTPResponse->send($this->_app->_page->draw('JsonView.php'));
+		if(!@array_key_exists('user', $this->_app->_parameters))
 			return false;
-		}
 		
 		$user = new User($this->_app->_parameters['user']);
 		if(array_key_exists('password', $this->_app->_parameters['user']))
@@ -40,7 +36,7 @@ class UserController extends \lib\Controller{
 
 	public function register() {
 
-		if(!array_key_exists('user', $this->_app->_parameters)) {
+		if(!@array_key_exists('user', $this->_app->_parameters)) {
 			$json = '{"succeed":false,"toast":"RegisterController : ERROR : !array_key_exists(user, $this->_app->_parameters)."}';
 			$this->_app->_page->assign('json', $json);
 			$this->_app->_HTTPResponse->send($this->_app->_page->draw('JsonView.php'));
