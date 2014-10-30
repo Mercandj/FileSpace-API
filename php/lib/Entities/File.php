@@ -53,4 +53,8 @@ class File extends \lib\Entity{
 			$this->_errors[] = self::INVALID_USERNAME;
 		}
 	}
+
+	public function isValid(){
+		return !empty($this->_id) && !empty($this->_url);
+	}
 }
