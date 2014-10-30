@@ -21,7 +21,9 @@ class FileController extends \lib\Controller{
 			$i++;
 		}
 		
-		$this->_app->_page->assign('json', json_encode($files));
+		$array_json = array();
+		$array_json['files'] = $files;
+		$this->_app->_page->assign('json', json_encode($array_json));
 		$this->_app->_HTTPResponse->send($this->_app->_page->draw('JsonView.php'));		
 	}
 
