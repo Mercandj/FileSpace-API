@@ -39,12 +39,14 @@ class UserController extends \lib\Controller{
 	}
 
 	public function register() {
+
 		if(!array_key_exists('user', $this->_app->_parameters)) {
 			$json = '{"succeed":false,"toast":"RegisterController : ERROR : !array_key_exists(user, $this->_app->_parameters)."}';
 			$this->_app->_page->assign('json', $json);
 			$this->_app->_HTTPResponse->send($this->_app->_page->draw('JsonView.php'));
 			return;
 		}
+		
 		$user = new User($this->_app->_parameters['user']);
 		$user->setPassword(sha1($this->_app->_parameters['user']['password']));
 		$user->setId(uniqid());

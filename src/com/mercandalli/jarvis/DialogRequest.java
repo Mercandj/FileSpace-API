@@ -32,12 +32,14 @@ public class DialogRequest extends Dialog {
 				
 				JSONObject json = new JSONObject();
 				try {
-					json.put("user", user.getJsonRegister());
+					json.put("user", user.getJsonRegister());					
+					if(!((EditText) DialogRequest.this.findViewById(R.id.json)).getText().toString().replace(" ", "").equals(""))
+						json.put("content", new JSONObject(((EditText) DialogRequest.this.findViewById(R.id.json)).getText().toString()));					
 				} catch (JSONException e1) {
 					e1.printStackTrace();
 				}
 				
-				if(!((EditText) DialogRequest.this.findViewById(R.id.server)).getText().toString().equals(""))				
+				if(!((EditText) DialogRequest.this.findViewById(R.id.server)).getText().toString().equals(""))
 					(new PostTask(app.config.getUrlServer()+((EditText) DialogRequest.this.findViewById(R.id.server)).getText().toString(), new IPostExecuteListener() {
 						@Override
 						public void execute(JSONObject json) {

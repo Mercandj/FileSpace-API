@@ -27,9 +27,18 @@ class FileController extends \lib\Controller{
 
 	public function add() {
 
+		if(!array_key_exists('content', $this->_app->_parameters)) {
+			$json = '{"succeed":false,"toast":"FileController : ERROR : !array_key_exists(content, $this->_app->_parameters)."}';
+			$this->_app->_page->assign('json', $json);
+			$this->_app->_HTTPResponse->send($this->_app->_page->draw('JsonView.php'));
+			return;
+		}
+
+		$file = new File($this->_app->_parameters['content']);
 		$userManager = $this->getManagerof('File');
 		
-		
+		$this->_app->_page->assign('json', json_encode($file));
+		$this->_app->_HTTPResponse->send($this->_app->_page->draw('JsonView.php'));
 	}
 	
 }
