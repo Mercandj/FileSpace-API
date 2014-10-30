@@ -13,7 +13,7 @@ J.A.R.V.I.S
 APIs : "android-support-v7.jar" on libs folder is used for the sliding menu in order to use DrawerLayout.class
 
 * Android : API supported : 14 to 21 (Lollipop)
-* Required : OpenGL ES2.0 (include in Android)
+* Required : PHP server
 * Theme : API<21 Holo.Light and API>=21 Material !!!!
 
 

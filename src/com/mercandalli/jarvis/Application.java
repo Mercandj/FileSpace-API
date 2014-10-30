@@ -16,7 +16,6 @@ public class Application extends Activity {
 		super.onCreate(savedInstanceState);
 		
 		config = new Config(this);
-	}
-	
+	}	
 }
 
