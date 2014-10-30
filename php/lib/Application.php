@@ -46,45 +46,11 @@ abstract class Application{
         }
  
         // now how about PUT/POST bodies? These override what we got from GET
-        $body = file_get_contents("php://input");
-        /*
-        $body_params = json_decode($body);
-        if($body_params) {
-            foreach($body_params as $param_name => $param_value) {
-                $_parameters[$param_name] = $param_value;
-            }
-        }
-        */
-        $_parameters = json_decode($body, true);
+        //$body = file_get_contents("php://input");
+        //$_parameters = json_decode($body, true);
 
-         /*
-        $content_type = false;
-        if(isset($_SERVER['CONTENT_TYPE'])) {
-            $content_type = $_SERVER['CONTENT_TYPE'];
-        }
-        switch($content_type) {
-            case "application/json":
-                $body_params = json_decode($body);
-                if($body_params) {
-                    foreach($body_params as $param_name => $param_value) {
-                        $_parameters[$param_name] = $param_value;
-                    }
-                }
-                $this->format = "json";
-                break;
-            case "application/x-www-form-urlencoded":
-                parse_str($body, $postvars);
-                foreach($postvars as $field => $value) {
-                    $_parameters[$field] = $value;
- 
-                }
-                $this->format = "html";
-                break;
-            default:
-                // we could parse other supported formats here
-                break;
-        }
-        */
+        $_parameters = json_decode($_POST['json'], true);
+
         $this->_parameters = $_parameters;
     }
 
