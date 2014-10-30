@@ -7,19 +7,19 @@ class RefreshFileController extends \lib\Controller{
 
 	public function refresh() {		
 
-		/*
-		$array = new array();
-		$dir = "./public/";
+		
+		$files = new array();
+		$dir = "../../../public/";
 		$files1 = scandir($dir);
 
 
 		foreach($files1 as $var) {
-			$array['url'] = $var;
-			$array['size'] = filesize($dir.$var);
+			$files['url'] = $var;
+			$files['size'] = filesize($dir.$var);
 		}
 		
-		$this->_app->_page->assign('json', json_encode($array));
-		*/
+		//$this->_app->_page->assign('json', json_encode($array));
+		
 
 		$this->_app->_page->assign('json', "".__DIR__);
 
