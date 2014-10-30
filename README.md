@@ -14,6 +14,8 @@ J.A.R.V.I.S
 
 ## ANDROID DESCRIPTION
 
+Now : Remote and secure file manager. (upload + management)
+
 APIs : "android-support-v7.jar" on libs folder is used for the sliding menu in order to use DrawerLayout.class
 
 * Android : API supported : 14 to 21 (Lollipop)

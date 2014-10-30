@@ -17,7 +17,6 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
 import org.apache.http.entity.mime.MultipartEntity;
 import org.apache.http.entity.mime.content.FileBody;
 import org.apache.http.entity.mime.content.StringBody;
@@ -60,19 +59,11 @@ public class TaskPost extends AsyncTask<Void, Void, String> {
 	protected String doInBackground(Void... urls) {
 		try {
 			HttpPost httppost = new HttpPost(url);
-			
-			// TODO
-			//if (file != null) {				
-				MultipartEntity mpEntity = new MultipartEntity();
-				if (file != null) mpEntity.addPart("file", new FileBody(file, "*/*"));
-				mpEntity.addPart("json", new StringBody(json.toString()));
-				httppost.setEntity(mpEntity);
-			//}
-			//else {
-			//	final String CODEPAGE = "UTF-8";
-			//	httppost.setEntity(new StringEntity(json.toString(), CODEPAGE));
-			//	httppost.addHeader("Content-type", "application/json");				
-			//}
+						
+			MultipartEntity mpEntity = new MultipartEntity();
+			if (file != null) mpEntity.addPart("file", new FileBody(file, "*/*"));
+			mpEntity.addPart("json", new StringBody(json.toString()));
+			httppost.setEntity(mpEntity);
 			
 			HttpClient httpclient = new DefaultHttpClient();
 			HttpResponse response = httpclient.execute(httppost);

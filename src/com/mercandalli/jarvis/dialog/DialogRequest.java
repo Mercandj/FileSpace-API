@@ -30,6 +30,7 @@ public class DialogRequest extends Dialog {
 	DialogFileChooser dialogFileChooser;
 	Application app;
 	File file;
+	ModelFile modelFile;
 	
 	public DialogRequest(final Application app, final IPostExecuteListener listener) {
 		super(app);
@@ -50,7 +51,9 @@ public class DialogRequest extends Dialog {
 				try {
 					json.put("user", user.getJsonRegister());					
 					if(!((EditText) DialogRequest.this.findViewById(R.id.json)).getText().toString().replace(" ", "").equals(""))
-						json.put("content", new JSONObject(((EditText) DialogRequest.this.findViewById(R.id.json)).getText().toString()));					
+						json.put("content", new JSONObject(((EditText) DialogRequest.this.findViewById(R.id.json)).getText().toString()));
+					if(file!=null && DialogRequest.this.modelFile != null)
+						json.put("file", DialogRequest.this.modelFile.getJSONRequest());
 				} catch (JSONException e1) {
 					e1.printStackTrace();
 				}
@@ -74,6 +77,7 @@ public class DialogRequest extends Dialog {
 					public void execute(ModelFile modelFile) {
 						((TextView) DialogRequest.this.findViewById(R.id.label)).setText(""+modelFile.name);
 						DialogRequest.this.file = new File(modelFile.url);
+						DialogRequest.this.modelFile = modelFile;
 					}					
 				});
 			}        	
