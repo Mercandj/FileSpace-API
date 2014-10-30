@@ -1,6 +1,6 @@
 <?php
 namespace lib\Models;
-use \lib\Entities\User;
+use \lib\Entities\File;
 
 class FileManager extends \lib\Manager{
 	protected static $instance;
