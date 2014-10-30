@@ -78,8 +78,8 @@ class FileController extends \lib\Controller {
 		
 		foreach ($array as $value) {
 			$file = array();
-			$file['url'] $value->getUrl();
-			$file['size'] $value->getSize();
+			$file['url'] = $value->getUrl();
+			$file['size'] = $value->getSize();
 			$json[] = $file;
 		}		
 
