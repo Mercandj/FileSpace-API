@@ -61,17 +61,9 @@ public class TaskPost extends AsyncTask<Void, Void, String> {
 	protected String doInBackground(Void... urls) {
 		try {
 			HttpPost httppost = new HttpPost(url);
-
-			JSONObject holder = json;
-			final String CODEPAGE = "UTF-8";
-			httppost.setEntity(new StringEntity(holder.toString(), CODEPAGE));
-			httppost.addHeader("Content-type", "application/json");
-
-			HttpClient httpclient = new DefaultHttpClient();
-
 			
 			// TODO
-			if (file != null) {
+			if (file != null) {				
 				MultipartEntity mpEntity = new MultipartEntity();
 				ContentBody cbFile = new FileBody(file, "*/*");
 				mpEntity.addPart("file", cbFile);
@@ -79,6 +71,13 @@ public class TaskPost extends AsyncTask<Void, Void, String> {
 				mpEntity.addPart("json", cbJson);
 				httppost.setEntity(mpEntity);
 			}
+			else {
+				final String CODEPAGE = "UTF-8";
+				httppost.setEntity(new StringEntity(json.toString(), CODEPAGE));
+				httppost.addHeader("Content-type", "application/json");				
+			}
+			
+			HttpClient httpclient = new DefaultHttpClient();
 
 			HttpResponse response = httpclient.execute(httppost);
 
