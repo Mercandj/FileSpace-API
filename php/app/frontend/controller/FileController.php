@@ -74,10 +74,10 @@ class FileController extends \lib\Controller {
 		$userManager = $this->getManagerof('File');
 
 		$array = json_encode($userManager->getAll());
-		$json =  implode("|",$array);//'';
+		//$json =  implode("|",$array);//'';
 		//$json .= json_encode($array);
 
-		$this->_app->_page->assign('json', '{"description":"'.$json.'"}');
+		$this->_app->_page->assign('json', '{"description":"'.$array.'"}');
 		$this->_app->_HTTPResponse->send($this->_app->_page->draw('JsonView.php'));
 	}
 }
