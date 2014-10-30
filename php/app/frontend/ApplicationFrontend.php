@@ -16,7 +16,7 @@ class Applicationfrontend extends \lib\Application {
 		if($controlleur->isUser() || $this->getController() instanceof \app\frontend\controller\UserController)
 			$this->getController()->exec();
 		else {
-			$this->_page->assign('json', '{"succeed":false,"toast":"Wrong Login."}');		
+			$this->_page->assign('json', '{"succeed":false,"toast":"Wrong User."}');		
 			$this->_HTTPResponse->send($this->_app->_page->draw('JsonView.php'));
 		}
 		
