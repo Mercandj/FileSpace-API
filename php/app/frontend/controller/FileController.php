@@ -2,10 +2,9 @@
 namespace app\frontend\controller;
 use \lib\Entities\File;
 
-class RefreshFileController extends \lib\Controller{
+class FileController extends \lib\Controller{
 
-	public function refresh() {
-		
+	public function test() {		
 		$files = array();
 		$dir = __DIR__."\\..\\..\\..\\public\\";
 		$files1 = scandir($dir);
@@ -23,9 +22,14 @@ class RefreshFileController extends \lib\Controller{
 		}
 		
 		$this->_app->_page->assign('json', json_encode($files));
-
-		// SEND PAGE
 		$this->_app->_HTTPResponse->send($this->_app->_page->draw('JsonView.php'));		
+	}
+
+	public function add() {
+
+		$userManager = $this->getManagerof('File');
+		
+		
 	}
 	
 }

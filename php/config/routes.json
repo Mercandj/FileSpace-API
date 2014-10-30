@@ -1,17 +1,22 @@
 [
 	{
 		"url":"/jarvis/php/register",
-		"controller":"Register",
+		"controller":"User",
 		"action":"register"
 	},
 	{
 		"url":"/jarvis/php/login",
-		"controller":"Login",
+		"controller":"User",
 		"action":"login"
 	},
 	{
-		"url":"/jarvis/php/refreshfile",
-		"controller":"RefreshFile",
-		"action":"refresh"
+		"url":"/jarvis/php/file/test",
+		"controller":"File",
+		"action":"test"
+	},
+	{
+		"url":"/jarvis/php/file/add",
+		"controller":"File",
+		"action":"add"
 	}
 ]

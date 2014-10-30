@@ -74,17 +74,14 @@ public class DialogInit extends Dialog {
 					user.password = app.config.getUserPassword();
 				
 				if(!((EditText) DialogInit.this.findViewById(R.id.server)).getText().toString().equals(""))
-					app.config.setUrlServer(((EditText) DialogInit.this.findViewById(R.id.server)).getText().toString());
-				
-				
+					app.config.setUrlServer(((EditText) DialogInit.this.findViewById(R.id.server)).getText().toString());				
 				
 				JSONObject json = new JSONObject();
 				try {
 					json.put("user", user.getJsonRegister());
 				} catch (JSONException e1) {
 					e1.printStackTrace();
-				}
-				
+				}				
 				
 				if(firstUse)
 					(new PostTask(app.config.getUrlServer()+"register", new IPostExecuteListener() {

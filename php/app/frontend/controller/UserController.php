@@ -2,7 +2,7 @@
 namespace app\frontend\controller;
 use \lib\Entities\User;
 
-class LoginController extends \lib\Controller{
+class UserController extends \lib\Controller{
 
 	public function login() {
 
@@ -11,10 +11,7 @@ class LoginController extends \lib\Controller{
 		else
 			$json = '{"succeed":false,"toast":"LoginController : Wrong Login."}';
 
-
 		$this->_app->_page->assign('json', $json);
-		
-		// SEND PAGE
 		$this->_app->_HTTPResponse->send($this->_app->_page->draw('JsonView.php'));
 	}
 
@@ -26,14 +23,12 @@ class LoginController extends \lib\Controller{
 			$this->_app->_HTTPResponse->send($this->_app->_page->draw('JsonView.php'));
 			return false;
 		}
-
 		
 		$user = new User($this->_app->_parameters['user']);
 		if(array_key_exists('password', $this->_app->_parameters['user']))
 			$user->setPassword(sha1($this->_app->_parameters['user']['password']));
 	    $userManager = $this->getManagerof('User');
 
-		// Check if User exist
 		if($userManager->exist($user->getUsername())) {				
 			$userbdd = $userManager->get($user->getUsername());
 
@@ -41,5 +36,29 @@ class LoginController extends \lib\Controller{
 				return true;
 		}
 		return false;
+	}
+
+	public function register() {
+		if(!array_key_exists('user', $this->_app->_parameters)) {
+			$json = '{"succeed":false,"toast":"RegisterController : ERROR : !array_key_exists(user, $this->_app->_parameters)."}';
+			$this->_app->_page->assign('json', $json);
+			$this->_app->_HTTPResponse->send($this->_app->_page->draw('JsonView.php'));
+			return;
+		}
+		$user = new User($this->_app->_parameters['user']);
+		$user->setPassword(sha1($this->_app->_parameters['user']['password']));
+		$user->setId(uniqid());
+		$userManager = $this->getManagerof('User');
+		// Check if User exist
+		if(!$userManager->exist($user->getUsername())) {
+			$userManager->add($user);
+			$json = '{"succeed":true}';
+		}
+		else {
+			$this->_app->_page->assign('error', true);
+			$json = '{"succeed":false,"toast":"Username already exists."}';
+		}
+		$this->_app->_page->assign('json', $json);
+		$this->_app->_HTTPResponse->send($this->_app->_page->draw('JsonView.php'));
 	}
 }
