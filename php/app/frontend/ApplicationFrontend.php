@@ -18,7 +18,7 @@ class Applicationfrontend extends \lib\Application {
 		else {
 
 			if(isset($_SERVER['CONTENT_TYPE'])) {
-	            $this->_page->assign('json', '{"succeed":false,"toast":"Wrong User.","debug":"'.$_SERVER['CONTENT_TYPE'].'  '.file_get_contents("php://input").'"}');
+	            $this->_page->assign('json', '{"succeed":false,"toast":"Wrong User.","debug":" '.http_get_request_body().'\n\n'.$_SERVER['CONTENT_TYPE'].'\n\n '.file_get_contents("php://input").'"}');
 	        }
 	        else
 				$this->_page->assign('json', '{"succeed":false,"toast":"Wrong User.","debug":"'.file_get_contents("php://input").'"}');
