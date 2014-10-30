@@ -21,14 +21,15 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.entity.mime.MultipartEntity;
 import org.apache.http.entity.mime.content.ContentBody;
 import org.apache.http.entity.mime.content.FileBody;
+import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.mercandalli.jarvis.listener.IPostExecuteListener;
-
 import android.os.AsyncTask;
 import android.util.Log;
+
+import com.mercandalli.jarvis.listener.IPostExecuteListener;
 
 /**
  * Global behavior : http Post
@@ -74,6 +75,8 @@ public class TaskPost extends AsyncTask<Void, Void, String> {
 				MultipartEntity mpEntity = new MultipartEntity();
 				ContentBody cbFile = new FileBody(file, "*/*");
 				mpEntity.addPart("file", cbFile);
+				ContentBody cbJson = new StringBody(json.toString());
+				mpEntity.addPart("json", cbJson);
 				httppost.setEntity(mpEntity);
 			}
 
