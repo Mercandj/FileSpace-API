@@ -10,9 +10,16 @@ class RefreshFileController extends \lib\Controller{
 		$dir = __DIR__."\\..\\..\\..\\public\\";
 		$files1 = scandir($dir);
 
+		$i=0;
 		foreach($files1 as $var) {
-			$files['url'] = $var;
-			$files['size'] = filesize($dir.$var);
+			$file_array = array();
+			$file_array['url'] = $var;
+			$file_array['size'] = filesize($dir.$var);
+			$file_array['id'] = uniqid();
+			$file_array['visibility'] = 0;
+			$file = new File($file_array);
+			$files[$i] = $file_array;
+			$i++;
 		}
 		
 		$this->_app->_page->assign('json', json_encode($files));
