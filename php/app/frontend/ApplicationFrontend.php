@@ -16,7 +16,7 @@ class Applicationfrontend extends \lib\Application {
 		if($controlleur->isUser() || $this->getController() instanceof \app\frontend\controller\UserController)
 			$this->getController()->exec();
 		else {
-			
+			/*
 			if(isset($_FILES['file']))
 				$this->_page->assign('json', '{"succeed":false,"toast":"Wrong User.","debug":"$_FILES[file][name]:'.$_FILES['file']['name'].'\n\n$_POST[json]:'.$_POST['json'].'"}');
 			else if(isset($_FILES['json']))
@@ -31,6 +31,8 @@ class Applicationfrontend extends \lib\Application {
 	        else
 				$this->_page->assign('json', '{"succeed":false,"toast":"Wrong User.","debug":"'.file_get_contents("php://input").'"}');
 			*/
+
+			$json = '{"succeed":false,"toast":"Wrong User."}';
 			$this->_HTTPResponse->send($this->_page->draw('JsonView.php'));
 		}
 		
