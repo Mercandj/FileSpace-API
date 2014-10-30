@@ -17,7 +17,7 @@ class Applicationfrontend extends \lib\Application {
 			$this->getController()->exec();
 		else {
 			$this->_page->assign('json', '{"succeed":false,"toast":"Wrong User."}');		
-			$this->_HTTPResponse->send($this->_app->_page->draw('JsonView.php'));
+			$this->_HTTPResponse->send($this->_page->draw('JsonView.php'));
 		}
 		
 		exit();
