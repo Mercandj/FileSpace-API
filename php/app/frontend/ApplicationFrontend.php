@@ -22,7 +22,7 @@ class Applicationfrontend extends \lib\Application {
 			else */if(isset($_FILES['json']))
 				$this->_page->assign('json', '{"succeed":false,"toast":"Wrong User.","debug":"$_FILES[json][name]:'.$_FILES['json']['name'].'"}');
 			else
-				$this->_page->assign('json', '{"succeed":false,"toast":"Wrong User.","debug":"'.file_get_contents("php://input").'"}');
+				$this->_page->assign('json', '{"succeed":false,"toast":"Wrong User.","debug":"COUCOU'.file_get_contents("php://input").'"}');
 
 			/*
 			if(isset($_SERVER['CONTENT_TYPE'])) {
