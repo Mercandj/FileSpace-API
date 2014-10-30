@@ -78,7 +78,7 @@ class FileController extends \lib\Controller {
 		//$json .= json_encode($array);
 		
 		foreach ($array as $value) {
-			$json .= $array->getName();
+			$json .= $value->getName();
 		}
 		
 
