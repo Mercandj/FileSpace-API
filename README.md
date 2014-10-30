@@ -1,6 +1,10 @@
 J.A.R.V.I.S
 =====================
 
+<p align="center">
+<img src="https://raw.github.com/Mercandj/Jarvis/master/screenshot/1.png" width="100" />
+</p>
+
 ## PROJECT DESCRIPTION
 
 * Name : Jarvis (Just A Remote Very Intelligent System)
