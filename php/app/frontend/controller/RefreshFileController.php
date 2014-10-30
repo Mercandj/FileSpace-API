@@ -8,7 +8,7 @@ class RefreshFileController extends \lib\Controller{
 	public function refresh() {		
 
 		
-		$files = new array();
+		$files = array();
 		$dir = "../../../public/";
 		$files1 = scandir($dir);
 
