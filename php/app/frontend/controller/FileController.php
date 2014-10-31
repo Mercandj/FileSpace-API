@@ -11,7 +11,7 @@ class FileController extends \lib\Controller {
 		$files1 = scandir($root);
 
 		foreach($files1 as $var) {
-			if($file_array['url'] != '.' && $file_array['url'] != '..') {
+			if($var != '.' && $var != '..') {
 				$file_array = array();
 				$file_array['url'] = $var;
 				$file_array['size'] = filesize($root.$var);
