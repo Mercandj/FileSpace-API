@@ -23,5 +23,10 @@
 		"url":"/jarvis/php/file/get",
 		"controller":"File",
 		"action":"get"
+	},
+	{
+		"url":"/jarvis/php/file/ddl",
+		"controller":"File",
+		"action":"ddl"
 	}
 ]
