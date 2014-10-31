@@ -46,7 +46,7 @@ class FileController extends \lib\Controller {
 		$extensions_valides = array( 'jpg' , 'jpeg' , 'gif' , 'png' , 'txt' );
 		$extension_upload = strtolower(  substr(  strrchr($_FILES['file']['name'], '.')  ,1)  );
 
-		if(!$userManage->exist($file->getUrl())) {
+		if(!$userManager->exist($file->getUrl())) {
 			if ( in_array($extension_upload,$extensions_valides) ) {
 				if ( 0 < $_FILES['file']['size'] && $_FILES['file']['size'] < 1000000  ) {
 					if (move_uploaded_file($_FILES["file"]["tmp_name"], $target_dir)) {
