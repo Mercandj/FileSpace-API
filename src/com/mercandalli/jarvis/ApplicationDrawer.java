@@ -71,7 +71,7 @@ public class ApplicationDrawer extends Application {
 							fragment = new FileManagerFragment(ApplicationDrawer.this);
 					        FragmentManager fragmentManager = getFragmentManager();
 					        fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
-						}        	
+						}
 			        }, TYPE_NORMAL)
         		);
         
@@ -83,7 +83,7 @@ public class ApplicationDrawer extends Application {
 							fragment = new RequestFragment(ApplicationDrawer.this);
 					        FragmentManager fragmentManager = getFragmentManager();
 					        fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
-						}        	
+						}
 			        }, TYPE_NORMAL)
         		);
         
