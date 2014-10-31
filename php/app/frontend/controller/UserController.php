@@ -34,17 +34,17 @@ class UserController extends \lib\Controller {
 		return false;
 	}
 
-	public function register() {
+	public function register() {		
 
-		if(!$this->_app->_config->get('registration_open')) {
-			$json = '{"succeed":false,"toast":"Redistration close."}';
+		if(!@array_key_exists('user', $this->_app->_parameters)) {
+			$json = '{"succeed":false,"toast":"Wrong User."}';
 			$this->_app->_page->assign('json', $json);
 			$this->_app->_HTTPResponse->send($this->_app->_page->draw('JsonView.php'));
 			return;
 		}
 
-		if(!@array_key_exists('user', $this->_app->_parameters)) {
-			$json = '{"succeed":false,"toast":"Wrong User."}';
+		if(!$this->_app->_config->get('registration_open')) {
+			$json = '{"succeed":false,"toast":"Registration close."}';
 			$this->_app->_page->assign('json', $json);
 			$this->_app->_HTTPResponse->send($this->_app->_page->draw('JsonView.php'));
 			return;
