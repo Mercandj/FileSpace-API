@@ -41,6 +41,10 @@ public class FileManagerFragmentServer extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_filemanager_fragment, container, false);
         files = (ListView) rootView.findViewById(R.id.files);
+        
+        if(this.app.config.connected)
+        	refreshList();
+        
         return rootView;
     }	
 	

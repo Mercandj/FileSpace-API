@@ -12,10 +12,11 @@
 
     <ListView
         android:id="@+id/files"
+        style="@style/whiteedittext"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/request"
-        style="@style/whiteedittext" />
+        android:layout_alignParentTop="true" />
 
     <Button
         android:id="@+id/request"

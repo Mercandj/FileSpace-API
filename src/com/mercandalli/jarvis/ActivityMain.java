@@ -23,6 +23,7 @@ public class ActivityMain extends ApplicationDrawer {
 		dialog = new DialogInit(this, new IListener() {			
 			@Override
 			public void execute() {
+				ActivityMain.this.config.connected = true;
 				if(fragment instanceof FileManagerFragment) {
 					FileManagerFragment fragmentFileManager = (FileManagerFragment) fragment;
 					if(fragmentFileManager.listFragment[0]!=null)
