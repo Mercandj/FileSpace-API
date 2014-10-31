@@ -10,14 +10,13 @@ import com.mercandalli.jarvis.dialog.DialogInit;
 
 import android.os.Bundle;
 
-public class ActivityMain extends ApplicationDrawer {	
-	
-    @Override
-    public void onCreate(Bundle savedInstanceState) {    	
-    	setContentView(R.layout.activity_main);
-        super.onCreate(savedInstanceState);
-        
-        dialog = new DialogInit(this);        
-    }    
-    
+public class ActivityMain extends ApplicationDrawer {
+
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		setContentView(R.layout.activity_main);
+		super.onCreate(savedInstanceState);
+
+		dialog = new DialogInit(this);
+	}
 }
