@@ -93,7 +93,7 @@ public class DialogInit extends Dialog {
 				}				
 				
 				if(firstUse)
-					(new TaskPost(app.config.getUrlServer()+"register", new IPostExecuteListener() {
+					(new TaskPost(app.config.getUrlServer()+"user/register", new IPostExecuteListener() {
 						@Override
 						public void execute(JSONObject json, String body) {
 							try {
@@ -108,7 +108,7 @@ public class DialogInit extends Dialog {
 						}						
 					}, json)).execute();
 				else
-					(new TaskPost(app.config.getUrlServer()+"login", new IPostExecuteListener() {
+					(new TaskPost(app.config.getUrlServer()+"user/login", new IPostExecuteListener() {
 						@Override
 						public void execute(JSONObject json, String body) {
 							try {
