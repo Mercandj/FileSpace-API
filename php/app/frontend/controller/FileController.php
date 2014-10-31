@@ -10,20 +10,27 @@ class FileController extends \lib\Controller {
 		$files_physic = array();
 		$files1 = scandir($root);
 
-		$i=0;
 		foreach($files1 as $var) {
 			$file_array = array();
 			$file_array['url'] = $var;
 			$file_array['size'] = filesize($root.$var);
-			$file_array['id'] = uniqid();
-			$file_array['visibility'] = 0;
-			$file = new File($file_array);
-			$files_physic[$i] = $file_array;
-			$i++;
+			$files_physic[] = $file_array;
+		}
+
+		$userManager = $this->getManagerof('File');		
+		$array = $userManager->getAll();
+		$files_bdd = array();
+		
+		foreach ($array as $value) {
+			$file = array();
+			$file['url'] = $value->getUrl();
+			$file['size'] = $value->getSize();
+			$files_bdd[] = $file;
 		}
 		
 		$array_json = array();
 		$array_json['files_physic'] = $files_physic;
+		$array_json['files_bdd'] = $files_bdd;
 		$this->_app->_page->assign('json', json_encode($array_json));
 		$this->_app->_HTTPResponse->send($this->_app->_page->draw('JsonView.php'));
 	}
@@ -96,7 +103,7 @@ class FileController extends \lib\Controller {
 			$file['url'] = $value->getUrl();
 			$file['size'] = $value->getSize();
 			$json[] = $file;
-		}		
+		}
 
 		$this->_app->_page->assign('json', '{"succeed":true,"result":"'.json_encode($json).'"}');
 		$this->_app->_HTTPResponse->send($this->_app->_page->draw('JsonView.php'));
