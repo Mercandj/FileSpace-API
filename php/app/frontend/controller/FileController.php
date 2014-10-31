@@ -55,19 +55,19 @@ class FileController extends \lib\Controller {
 						$file->setSize($_FILES['file']['size']);
 						$userManager->add($file);
 
-			    		$this->_app->_page->assign('json', '{"succeed":true,"toast":"The file '. basename( $_FILES["file"]["name"]) .' has been uploaded."');
+			    		$this->_app->_page->assign('json', '{"succeed":true,"toast":"The file '. basename( $_FILES["file"]["name"]) .' has been uploaded."}');
 					}
 					else
-						$this->_app->_page->assign('json', '{"succeed":false,"toast":"Sorry, there was an error uploading your file."');
+						$this->_app->_page->assign('json', '{"succeed":false,"toast":"Sorry, there was an error uploading your file."}');
 			    }
 				else
 					$this->_app->_page->assign('json', '{"succeed":false,"toast":"File size : '.$_FILES['file']['size'].'"}');
 			}
 			else
-				$this->_app->_page->assign('json', '{"succeed":false,"toast":"Bad extension."');
+				$this->_app->_page->assign('json', '{"succeed":false,"toast":"Bad extension."}');
 		}
 		else
-			$this->_app->_page->assign('json', '{"succeed":false,"toast":"File exists."');
+			$this->_app->_page->assign('json', '{"succeed":false,"toast":"File exists."}');
 
 		$this->_app->_HTTPResponse->send($this->_app->_page->draw('JsonView.php'));		
 	}
