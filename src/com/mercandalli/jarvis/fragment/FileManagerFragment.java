@@ -20,11 +20,12 @@ import com.mercandalli.jarvis.R;
 
 public class FileManagerFragment extends Fragment {
 	
+	private final int NB_FRAGMENT = 4;
 	Application app;
 	ViewPager mViewPager;
 	FileManagerFragmentPagerAdapter mPagerAdapter;
 	View rootView;
-	public Fragment listFragment[] = new Fragment[2];
+	public Fragment listFragment[] = new Fragment[NB_FRAGMENT];
 	
 	public FileManagerFragment(Application app) {
 		this.app = app;
@@ -62,7 +63,7 @@ public class FileManagerFragment extends Fragment {
 
         @Override
         public int getCount() {
-            return 4;
+            return NB_FRAGMENT;
         }
 
         @Override
