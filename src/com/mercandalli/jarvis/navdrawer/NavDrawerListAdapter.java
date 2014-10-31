@@ -58,13 +58,16 @@ public class NavDrawerListAdapter extends BaseAdapter {
 		NavDrawerItem item = navDrawerItems.get(position);
 		
 		switch(navDrawerItems.get(position).SLIDING_MENU_TAB) {
-		case ApplicationDrawer.TYPE_IC:
-			convertView = inflater.inflate(R.layout.tab_navdrawer_ic, parent, false);
+		case ApplicationDrawer.TYPE_PROFIL:
+			convertView = inflater.inflate(R.layout.tab_navdrawer_profil, parent, false);
 			
 			((TextView) convertView.findViewById(R.id.title)).setText(item.title);
 			Font.applyFont(context, ((TextView) convertView.findViewById(R.id.title)), "fonts/MYRIADAB.TTF");
 			
-			if(navDrawerItems.get(position).isImage)
+			((TextView) convertView.findViewById(R.id.subtitle)).setText(item.subtitle);
+			Font.applyFont(context, ((TextView) convertView.findViewById(R.id.subtitle)), "fonts/MYRIADAM.TTF");
+			
+			if(navDrawerItems.get(position).containsImage)
 				((ImageView) convertView.findViewById(R.id.icon)).setImageDrawable(context.getResources().getDrawable(item.icon));
 			else
 				((ImageView) convertView.findViewById(R.id.icon)).setVisibility(View.GONE);
@@ -75,13 +78,31 @@ public class NavDrawerListAdapter extends BaseAdapter {
 			convertView = inflater.inflate(R.layout.tab_navdrawer, parent, false);
 			
 			((TextView) convertView.findViewById(R.id.title)).setText(item.title);
-			Font.applyFont(context, ((TextView) convertView.findViewById(R.id.title)), "fonts/MYRIADAM.TTF");
+			if(item.isSelected)
+				Font.applyFont(context, ((TextView) convertView.findViewById(R.id.title)), "fonts/MYRIADAB.TTF");
+			else
+				Font.applyFont(context, ((TextView) convertView.findViewById(R.id.title)), "fonts/MYRIADAM.TTF");
 			
 			if(navDrawerItems.get(position).onCheckedChangeListener!=null) {
 				((ToggleButton) convertView.findViewById(R.id.toggle)).setVisibility(View.VISIBLE);
 				((ToggleButton) convertView.findViewById(R.id.toggle)).setChecked(item.initChecked);
 				((ToggleButton) convertView.findViewById(R.id.toggle)).setOnCheckedChangeListener(item.onCheckedChangeListener);
 			}
+			
+			break;
+			
+		case ApplicationDrawer.TYPE_SECTION:
+			convertView = inflater.inflate(R.layout.tab_navdrawer_section, parent, false);
+			break;
+			
+		case ApplicationDrawer.TYPE_SETTING:
+			convertView = inflater.inflate(R.layout.tab_navdrawer_setting, parent, false);
+			
+			((TextView) convertView.findViewById(R.id.title)).setText(item.title);
+			if(item.isSelected)
+				Font.applyFont(context, ((TextView) convertView.findViewById(R.id.title)), "fonts/MYRIADAB.TTF");
+			else
+				Font.applyFont(context, ((TextView) convertView.findViewById(R.id.title)), "fonts/MYRIADAM.TTF");			
 			
 			break;		
 		}

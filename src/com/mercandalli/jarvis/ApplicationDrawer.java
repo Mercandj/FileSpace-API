@@ -29,9 +29,12 @@ import com.mercandalli.jarvis.navdrawer.NavDrawerListAdapter;
 
 public class ApplicationDrawer extends Application {	
 	
-	public static final int TYPE_IC 		= 0;
+	public static final int TYPE_PROFIL		= 0;
 	public static final int TYPE_NORMAL	 	= 1;
 	public static final int TYPE_SECTION	= 2;
+	public static final int TYPE_SETTING	= 3;
+	
+	public static final int[] noSelectable = new int[] {TYPE_PROFIL, TYPE_SECTION};
     
     Fragment fragment;
 
@@ -50,10 +53,15 @@ public class ApplicationDrawer extends Application {
         mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
         navDrawerItems = new NavDrawerItemListe();
         
+        // Tab 0
+        navDrawerItems.add(
+        		new NavDrawerItem( config.getUserUsername(), config.getUrlServer(), R.drawable.ic_launcher, TYPE_PROFIL)
+        		);
+        
         // Tab 1
         navDrawerItems.add(
-        		new NavDrawerItem( config.getUserUsername(), R.drawable.ic_launcher, TYPE_IC)
-        		);        
+        		new NavDrawerItem( "", R.drawable.ic_launcher, TYPE_SECTION)
+        		);
      
         // Tab 2
         navDrawerItems.add(
@@ -79,10 +87,23 @@ public class ApplicationDrawer extends Application {
 			        }, TYPE_NORMAL)
         		);
         
+        // Tab 4
+        navDrawerItems.add(
+        		new NavDrawerItem( "", R.drawable.ic_launcher, TYPE_SECTION)
+        		);
+        
+        // Tab 5
+        navDrawerItems.add(
+        		new NavDrawerItem( "Settings", TYPE_SETTING)
+        		);
+        
+        // Tab 6
+        navDrawerItems.add(
+        		new NavDrawerItem( "About Dev", TYPE_SETTING)
+        		);
+        
         // Initial Fragment
-    	fragment = new FileManagerFragment(ApplicationDrawer.this);
-        FragmentManager fragmentManager = getFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
+        selectItem(2);
         
         getActionBar().setDisplayHomeAsUpEnabled(true);
         getActionBar().setIcon(R.drawable.transparent);
@@ -105,12 +126,23 @@ public class ApplicationDrawer extends Application {
         mDrawerLayout.setDrawerListener(mDrawerToggle);
 	}
 	
-	private void selectItem(int position) {    	
-    	for(NavDrawerItem nav : navDrawerItems.getListe())
-    		if(navDrawerItems.get(position).equals(nav))
+	private void selectItem(int position) {		
+		for(NavDrawerItem nav : navDrawerItems.getListe())
+			if(navDrawerItems.get(position).equals(nav))
+				for(int i : noSelectable)
+					if(nav.SLIDING_MENU_TAB == i)
+						return;		
+    	for(NavDrawerItem nav : navDrawerItems.getListe()) {
+    		nav.isSelected = false;
+    		if(navDrawerItems.get(position).equals(nav)) {
+    			nav.isSelected = true;
     			if(nav.listenerClick!=null)
-    				nav.listenerClick.execute();    	
+    				nav.listenerClick.execute();
+    		}
+    	}
         mDrawerLayout.closeDrawer(mDrawerList);
+        mDrawerList.setAdapter(new NavDrawerListAdapter(this, navDrawerItems.getListe()));
+        mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
     }
     
 	private class DrawerItemClickListener implements ListView.OnItemClickListener {
