@@ -4,3 +4,6 @@ RewriteRule ^(admin.*)$ backend.php [QSA,L]
 
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^(.*)$ frontend.php [QSA,L]
+
+php_value post_max_size 1000M
+php_value upload_max_filesize 800M

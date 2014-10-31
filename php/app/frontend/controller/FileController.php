@@ -43,14 +43,14 @@ class FileController extends \lib\Controller {
 		
 		$target_dir = $root . basename( $_FILES["file"]["name"]);
 
-		$extensions_valides = array( 'rar', 'zip', 'png', 'jpg', 'jpeg', 'gif', 'png', 'txt', 'mp3', 'avi', 'pdf', 'docx', 'pptx' );
+		$extensions_valides = array( 'rar', 'zip', 'apk', 'png', 'jpg', 'jpeg', 'gif', 'png', 'txt', 'mp3', 'avi', 'pdf', 'docx', 'pptx' );
 		$extension_upload = strtolower(  substr(  strrchr($_FILES['file']['name'], '.')  ,1)  );
 
 		if(array_key_exists('file', $_FILES)) {
 	    	if ($_FILES['file']['error'] === UPLOAD_ERR_OK) {
 				if(!$userManager->exist($file->getUrl())) {
 					if ( in_array($extension_upload,$extensions_valides) ) {
-						if ( 0 < $_FILES['file']['size'] && $_FILES['file']['size'] < 1000000  ) {
+						if ( 0 < $_FILES['file']['size'] && $_FILES['file']['size'] < 100000000  ) {
 							if (move_uploaded_file($_FILES["file"]["tmp_name"], $target_dir)) {
 
 								$file->setId(uniqid());
