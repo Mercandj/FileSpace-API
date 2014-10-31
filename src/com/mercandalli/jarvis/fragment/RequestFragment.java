@@ -26,6 +26,7 @@ import com.mercandalli.jarvis.listener.IPostExecuteListener;
 public class RequestFragment extends Fragment {
 
 	Application app;
+	View rootView;
 
 	public RequestFragment(Application app) {
 		this.app = app;
@@ -33,7 +34,7 @@ public class RequestFragment extends Fragment {
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		final View rootView = inflater.inflate(R.layout.fragment_request, container, false);		
+		rootView = inflater.inflate(R.layout.fragment_request, container, false);		
 		
 		((ImageView) rootView.findViewById(R.id.circle)).setOnClickListener(new OnClickListener() {			
 			@Override
@@ -51,5 +52,9 @@ public class RequestFragment extends Fragment {
 		});
 		
         return rootView;
+	}
+	
+	public void deleteConsole() {
+		((EditText) rootView.findViewById(R.id.console)).setText("");
 	}
 }

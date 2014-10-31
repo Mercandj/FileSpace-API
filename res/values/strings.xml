@@ -27,5 +27,6 @@
     <string name="up">Up</string>
     <string name="console">Console</string>
     
+    <string name="menu_action_delete">Delete</string>
     
 </resources>

@@ -2,10 +2,10 @@
 namespace lib\Models;
 use \lib\Entities\File;
 
-class FileManager extends \lib\Manager{
+class FileManager extends \lib\Manager {
 	protected static $instance;
 
-	public function add(File $file){
+	public function add(File $file) {
 		$id = $file->getId();
 		$url = $file->getUrl();
 		$size = $file->getSize();
@@ -20,14 +20,14 @@ class FileManager extends \lib\Manager{
 		$req->closeCursor();
 	}
 
-	public function delete($id){
+	public function delete($id) {
 		$req = $this->_db->prepare('DELETE FROM file WHERE id = :id');
     	$req->bindParam(':id', $id, \PDO::PARAM_INT);
     	$req->execute();
 		$req->closeCursor();
 	}
 
-	public function update(User $user){
+	public function update(User $user) {
 		
 		$id = $file->getId();
 		$url = $file->getUrl();
@@ -43,7 +43,7 @@ class FileManager extends \lib\Manager{
 		$req->closeCursor();
 	}
 
-	public function get($url){
+	public function get($url) {
 		$req = $this->_db->prepare('SELECT id,url,size,visibility FROM file WHERE url = :url');
     	$req->bindParam(':url', $url, \PDO::PARAM_STR);
     	$req->execute();
@@ -53,7 +53,7 @@ class FileManager extends \lib\Manager{
     	return new User($donnee);
 	}
 
-	public function getById($id){
+	public function getById($id) {
 		$req = $this->_db->prepare('SELECT id,url,size,visibility FROM file WHERE id = :id');
     	$req->bindParam(':id', $id, \PDO::PARAM_INT);
     	$req->execute();
@@ -63,7 +63,7 @@ class FileManager extends \lib\Manager{
     	return new User($donnee);
 	}
 
-	public function getAll(){
+	public function getAll() {
 		$file = array();
 
 		$req = $this->_db->query('SELECT id,url,size FROM file');
@@ -75,7 +75,7 @@ class FileManager extends \lib\Manager{
 	    return $file;
 	}
 
-	public function exist($url){
+	public function exist($url) {
 		$req = $this->_db->prepare('SELECT id FROM file WHERE url = :url');
     	$req->bindParam(':url', $url,\PDO::PARAM_STR);
     	$req->execute();
