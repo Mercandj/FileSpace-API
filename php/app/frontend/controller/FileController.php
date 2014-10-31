@@ -23,7 +23,7 @@ class FileController extends \lib\Controller {
 		$array = $userManager->getAll();
 		$files_bdd = array();
 		
-		foreach($array as $value) {
+		foreach ($array as $value) {
 			$file = array();
 			$file['url'] = $value->getUrl();
 			$file['size'] = $value->getSize();
@@ -107,7 +107,7 @@ class FileController extends \lib\Controller {
 			$json[] = $file;
 		}
 
-		$this->_app->_page->assign('json', '{"succeed":true,"result":'.json_encode($json).'}');
+		$this->_app->_page->assign('json', '{"succeed":true,"result":"'.json_encode($json).'"}');
 		$this->_app->_HTTPResponse->send($this->_app->_page->draw('JsonView.php'));
 	}
 }

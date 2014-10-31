@@ -6,13 +6,9 @@
 
 package com.mercandalli.jarvis;
 
-import android.os.Bundle;
-import android.util.Log;
-
 import com.mercandalli.jarvis.dialog.DialogInit;
-import com.mercandalli.jarvis.fragment.FileManagerFragment;
-import com.mercandalli.jarvis.fragment.FileManagerFragmentServer;
-import com.mercandalli.jarvis.listener.IListener;
+
+import android.os.Bundle;
 
 public class ActivityMain extends ApplicationDrawer {
 
@@ -21,18 +17,6 @@ public class ActivityMain extends ApplicationDrawer {
 		setContentView(R.layout.activity_main);
 		super.onCreate(savedInstanceState);
 
-		dialog = new DialogInit(this, new IListener() {			
-			@Override
-			public void execute() {				
-				if(fragment instanceof FileManagerFragment) {
-					FileManagerFragment fragmentFileManager = (FileManagerFragment) fragment;
-					if(fragmentFileManager.listFragment[0]!=null)
-						if(fragmentFileManager.listFragment[0] instanceof FileManagerFragmentServer) {
-							FileManagerFragmentServer fragmentFileManagerFragment = (FileManagerFragmentServer) fragmentFileManager.listFragment[0];
-							fragmentFileManagerFragment.refreshList();
-						}
-				}
-			}
-		});
+		dialog = new DialogInit(this);
 	}
 }

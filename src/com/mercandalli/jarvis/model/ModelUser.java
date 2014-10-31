@@ -13,16 +13,6 @@ public class ModelUser {
 	public String username;
 	public String password;
 	
-	public ModelUser() {
-		
-	}
-	
-	public ModelUser(String username, String password) {
-		super();
-		this.username = username;
-		this.password = password;
-	}
-
 	public JSONObject getJsonRegister() {
 		if(username!=null && password!=null) {
 			JSONObject json = new JSONObject();			
