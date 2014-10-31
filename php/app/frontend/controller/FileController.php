@@ -48,7 +48,7 @@ class FileController extends \lib\Controller {
 
 		if(!$userManager->exist($file->getUrl())) {
 			if ( in_array($extension_upload,$extensions_valides) ) {
-				if ( 0 < $_FILES['file']['size'] && $_FILES['file']['size'] < 1000000  ) {
+				if ( /*0 < $_FILES['file']['size'] &&*/ $_FILES['file']['size'] < 1000000  ) {
 					if (move_uploaded_file($_FILES["file"]["tmp_name"], $target_dir)) {
 
 						$file->setId(uniqid());
