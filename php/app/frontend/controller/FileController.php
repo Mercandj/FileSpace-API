@@ -43,7 +43,7 @@ class FileController extends \lib\Controller {
 		
 		$target_dir = $root . basename( $_FILES["file"]["name"]);
 
-		$extensions_valides = array( 'jpg' , 'jpeg' , 'gif' , 'png' , 'txt' );
+		$extensions_valides = array( 'rar', 'zip', 'png', 'jpg', 'jpeg', 'gif', 'png', 'txt', 'mp3', 'avi', 'pdf', 'docx', 'pptx' );
 		$extension_upload = strtolower(  substr(  strrchr($_FILES['file']['name'], '.')  ,1)  );
 
 		if(!$userManager->exist($file->getUrl())) {
