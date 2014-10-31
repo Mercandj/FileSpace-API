@@ -22,6 +22,7 @@ import android.widget.ToggleButton;
 import com.mercandalli.jarvis.Application;
 import com.mercandalli.jarvis.R;
 import com.mercandalli.jarvis.SHA1;
+import com.mercandalli.jarvis.listener.IListener;
 import com.mercandalli.jarvis.listener.IPostExecuteListener;
 import com.mercandalli.jarvis.model.ModelUser;
 import com.mercandalli.jarvis.net.TaskPost;
@@ -29,9 +30,12 @@ import com.mercandalli.jarvis.net.TaskPost;
 public class DialogInit extends Dialog {
 
 	boolean firstUse = true;
+	IListener listenerLoginOK;
 	
-	public DialogInit(final Application app) {
+	public DialogInit(final Application app, IListener listenerLoginOK) {
 		super(app);
+		
+		this.listenerLoginOK = listenerLoginOK;
 		
 		this.setContentView(R.layout.view_login);
 		this.setTitle(R.string.app_name);
@@ -90,7 +94,7 @@ public class DialogInit extends Dialog {
 					json.put("user", user.getJsonRegister());
 				} catch (JSONException e1) {
 					e1.printStackTrace();
-				}				
+				}
 				
 				if(firstUse)
 					(new TaskPost(app.config.getUrlServer()+"user/register", new IPostExecuteListener() {
@@ -99,8 +103,10 @@ public class DialogInit extends Dialog {
 							try {
 								if(json!=null) {
 									if(json.has("succeed"))
-										if(json.getBoolean("succeed"))
+										if(json.getBoolean("succeed")) {
 											DialogInit.this.dismiss();
+											DialogInit.this.listenerLoginOK.execute();
+										}
 									if(json.has("toast"))										
 										Toast.makeText(app, json.getString("toast"), Toast.LENGTH_SHORT).show();
 								}
@@ -114,8 +120,10 @@ public class DialogInit extends Dialog {
 							try {
 								if(json!=null) {
 									if(json.has("succeed"))
-										if(json.getBoolean("succeed"))									
+										if(json.getBoolean("succeed")) {
 											DialogInit.this.dismiss();
+											DialogInit.this.listenerLoginOK.execute();
+										}
 									if(json.has("toast"))										
 										Toast.makeText(app, json.getString("toast"), Toast.LENGTH_SHORT).show();
 								}

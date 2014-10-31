@@ -17,6 +17,8 @@ import org.json.JSONObject;
 import android.app.Activity;
 import android.content.Context;
 
+import com.mercandalli.jarvis.model.ModelUser;
+
 public class Config {
 
 	private Activity activity;
@@ -174,5 +176,9 @@ public class Config {
 			ENUM_String.STRING_USER_PASSWORD.value = value;
 			save(activity);
 		}
+	}
+	
+	public ModelUser getUser() {		
+		return new ModelUser(getUserUsername(), getUserPassword());
 	}
 }

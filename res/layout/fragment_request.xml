@@ -19,6 +19,8 @@
         android:layout_margin="10dp"
         android:hint="@string/console"
         android:inputType="text|textMultiLine"
+        android:editable="false"
+        android:focusable="false"
         android:maxLines="999999"
         android:scrollbars="vertical"
         android:textSize="12sp" />
