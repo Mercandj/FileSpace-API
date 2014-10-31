@@ -3,5 +3,5 @@
 	"bdd_name":"jarvis",
 	"bdd_login":"root",
 	"bdd_password":"",
-	"registration_open":true
+	"registration_open":false
 }
