@@ -11,10 +11,12 @@ class FileController extends \lib\Controller {
 		$files1 = scandir($root);
 
 		foreach($files1 as $var) {
-			$file_array = array();
-			$file_array['url'] = $var;
-			$file_array['size'] = filesize($root.$var);
-			$files_physic[] = $file_array;
+			if($file_array['url'] != '.' && $file_array['url'] != '..') {
+				$file_array = array();
+				$file_array['url'] = $var;
+				$file_array['size'] = filesize($root.$var);
+				$files_physic[] = $file_array;
+			}
 		}
 
 		$userManager = $this->getManagerof('File');		
