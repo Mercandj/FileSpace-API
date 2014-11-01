@@ -52,4 +52,4 @@ Temporary Items
 .apdisk
 
 #Jarvis files to ignore
-/php/public/
+/php/upload/
