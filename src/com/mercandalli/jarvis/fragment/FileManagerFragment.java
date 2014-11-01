@@ -11,7 +11,6 @@ import android.app.FragmentManager;
 import android.os.Bundle;
 import android.support.v13.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +20,7 @@ import com.mercandalli.jarvis.R;
 
 public class FileManagerFragment extends Fragment {
 	
-	private final int NB_FRAGMENT = 4;
+	private final int NB_FRAGMENT = 2;
 	public Fragment listFragment[] = new Fragment[NB_FRAGMENT];
 	Application app;
 	ViewPager mViewPager;
@@ -33,25 +32,20 @@ public class FileManagerFragment extends Fragment {
 	}
 	
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		
-		// TODO Error with ViewPager when ApplicationDrawer change fragment (with tab) fragmentManager.beginTransaction().replace
-		Log.d("FileManagerFragment","onCreateView rootView:"+rootView);
-		
-		rootView = inflater.inflate(R.layout.fragment_filemanager, container, false);		
-		
-		mPagerAdapter = new FileManagerFragmentPagerAdapter(this.app.getFragmentManager());		
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {		
+		rootView = inflater.inflate(R.layout.fragment_filemanager, container, false);
+		mPagerAdapter = new FileManagerFragmentPagerAdapter(this.getChildFragmentManager());
 		
 		mViewPager = (ViewPager) rootView.findViewById(R.id.pager);
-        mViewPager.setAdapter(mPagerAdapter);
+		mViewPager.setAdapter(mPagerAdapter);		
 		
         return rootView;
-	}
+	}	
 	
 	public class FileManagerFragmentPagerAdapter extends FragmentPagerAdapter {
 
 		public FileManagerFragmentPagerAdapter(FragmentManager fm) {
-			super(fm);			
+			super(fm);
 		}
 		
 		@Override
