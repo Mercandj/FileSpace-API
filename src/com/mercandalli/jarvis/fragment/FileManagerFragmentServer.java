@@ -19,6 +19,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 
 import com.mercandalli.jarvis.Application;
 import com.mercandalli.jarvis.R;
@@ -32,6 +33,7 @@ public class FileManagerFragmentServer extends Fragment {
 	Application app;
 	ListView files;
 	List<ModelFile> listModelFile;
+	ProgressBar circulerProgressBar;
 	
 	public FileManagerFragmentServer(Application app) {
 		this.app = app;
@@ -40,6 +42,7 @@ public class FileManagerFragmentServer extends Fragment {
 	@Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {		
         View rootView = inflater.inflate(R.layout.fragment_filemanager_fragment, container, false);
+        circulerProgressBar = (ProgressBar) rootView.findViewById(R.id.circulerProgressBar);
         files = (ListView) rootView.findViewById(R.id.files);
         
         if(this.app.config.connected)
@@ -69,7 +72,8 @@ public class FileManagerFragmentServer extends Fragment {
 										modelFile.name = fileJson.getString("url");
 									}
 									listModelFile.add(modelFile);
-								}						
+								}
+								circulerProgressBar.setVisibility(View.INVISIBLE);
 							}
 						}
 					} catch (JSONException e) {
