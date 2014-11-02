@@ -5,16 +5,16 @@ use \lib\Entities\File;
 class FileController extends \lib\Controller {
 
 	public function test() {
-		$root = __DIR__.$this->_app->_config->get('root');
+		$root_upload = __DIR__.$this->_app->_config->get('root_upload');
 
 		$files_physic = array();
-		$files1 = scandir($root);
+		$files1 = scandir($root_upload);
 
 		foreach($files1 as $var) {
 			if($var != '.' && $var != '..') {
 				$file_array = array();
 				$file_array['url'] = $var;
-				$file_array['size'] = filesize($root.$var);
+				$file_array['size'] = filesize($root_upload.$var);
 				$files_physic[] = $file_array;
 			}
 		}
@@ -38,7 +38,7 @@ class FileController extends \lib\Controller {
 	}
 
 	public function add() {
-		$root = __DIR__.$this->_app->_config->get('root');
+		$root_upload = __DIR__.$this->_app->_config->get('root_upload');
 
 		if(!@array_key_exists('file', $this->_app->_parameters)) {
 			$json = '{"succeed":false,"toast":"FileController : file key (json) not found."}';
@@ -50,7 +50,7 @@ class FileController extends \lib\Controller {
 		$file = new File($this->_app->_parameters['file']);
 		$userManager = $this->getManagerof('File');
 		
-		$target_dir = $root . basename( $_FILES["file"]["name"]);
+		$target_dir = $root_upload . basename( $_FILES["file"]["name"]);
 
 		$extensions_valides = array( 'rar', 'zip', 'apk', 'png', 'jpg', 'jpeg', 'gif', 'png', 'txt', 'mp3', 'avi', 'mp4', 'pdf', 'docx', 'pptx' );
 		$extension_upload = strtolower(  substr(  strrchr($_FILES['file']['name'], '.')  ,1)  );
@@ -112,7 +112,7 @@ class FileController extends \lib\Controller {
 	}
 
 	public function ddl() {
-		$root = __DIR__.$this->_app->_config->get('root');
+		$root_upload = __DIR__.$this->_app->_config->get('root_upload');
 
 		if(!@array_key_exists('file', $this->_app->_parameters)) {
 			$json = '{"succeed":false,"toast":"FileController : file key (json) not found."}';
@@ -125,7 +125,7 @@ class FileController extends \lib\Controller {
 		$userManager = $this->getManagerof('File');
 
 		if($userManager->exist($file->getUrl())) {
-			$file_name = $root . $file->getUrl();
+			$file_name = $root_upload . $file->getUrl();
 
 			if(is_file($file_name)) {
 				// required for IE
