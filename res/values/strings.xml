@@ -29,5 +29,8 @@
     <string name="server_error">No server response.</string>
     
     <string name="menu_action_delete">Delete</string>
+    <string name="menu_action_add">Add</string>
+    <string name="menu_action_upload">Upload</string>
+    <string name="menu_action_download">Download</string>
     
 </resources>

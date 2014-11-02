@@ -36,21 +36,21 @@ public class ApplicationDrawer extends Application {
 	public static final int TYPE_SECTION	= 2;
 	public static final int TYPE_SETTING	= 3;
 	
-	public static final int[] noSelectable = new int[] {TYPE_PROFIL, TYPE_SECTION};
+	public static final int[] noSelectable 	= new int[] {TYPE_PROFIL, TYPE_SECTION};
     
     Fragment fragment;
-
-	protected DrawerLayout mDrawerLayout;
-	protected ListView mDrawerList;
-	protected NavDrawerItemListe navDrawerItems;
-	protected ActionBarDrawerToggle mDrawerToggle;
+    
+	protected DrawerLayout 				mDrawerLayout;
+	protected ListView 					mDrawerList;
+	protected NavDrawerItemListe 		navDrawerItems;
+	protected ActionBarDrawerToggle 	mDrawerToggle;
 		
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {		
-		super.onCreate(savedInstanceState);     
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
         
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        mDrawerList = (ListView) findViewById(R.id.left_drawer);        
+        mDrawerLayout 	= (DrawerLayout) 	findViewById(R.id.drawer_layout);
+        mDrawerList 	= (ListView) 		findViewById(R.id.left_drawer);
         
         mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
         navDrawerItems = new NavDrawerItemListe();
@@ -142,12 +142,12 @@ public class ApplicationDrawer extends Application {
         mDrawerLayout.setDrawerListener(mDrawerToggle);
 	}
 	
-	private void selectItem(int position) {		
+	private void selectItem(int position) {
 		for(NavDrawerItem nav : navDrawerItems.getListe())
 			if(navDrawerItems.get(position).equals(nav))
 				for(int i : noSelectable)
 					if(nav.SLIDING_MENU_TAB == i)
-						return;		
+						return;
     	for(NavDrawerItem nav : navDrawerItems.getListe()) {
     		nav.isSelected = false;
     		if(navDrawerItems.get(position).equals(nav)) {
@@ -192,9 +192,13 @@ public class ApplicationDrawer extends Application {
         	if(fragment instanceof RequestFragment)
         		((RequestFragment)fragment).deleteConsole();
         	return true;
-        }
+	    case R.id.action_add:
+	    	if(fragment instanceof RequestFragment)
+	    		((RequestFragment)fragment).deleteConsole();
+	    	return true;
+	    }
         return super.onOptionsItemSelected(item);
-    }    
+    }
     
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -206,7 +210,27 @@ public class ApplicationDrawer extends Application {
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
     	boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerList);
-        menu.findItem(R.id.action_delete).setVisible(fragment instanceof RequestFragment && !drawerOpen);        
+    	
+    	menu.findItem(R.id.action_delete)	.setVisible(false);
+		menu.findItem(R.id.action_add)		.setVisible(false);
+		menu.findItem(R.id.action_download)	.setVisible(false);
+		menu.findItem(R.id.action_upload)	.setVisible(false);
+		
+    	if(fragment instanceof RequestFragment) {
+    		menu.findItem(R.id.action_delete)	.setVisible(!drawerOpen);
+    	}
+    	else if(fragment instanceof FileManagerFragment) {
+    		FileManagerFragment tmp_fragment = (FileManagerFragment) fragment;
+    		menu.findItem(R.id.action_add)		.setVisible(!drawerOpen);
+    		switch(tmp_fragment.getCurrentFragmentIndex()) {
+    		case 0:
+    			menu.findItem(R.id.action_download)	.setVisible(!drawerOpen);
+    			break;
+    		case 1:
+    			menu.findItem(R.id.action_upload)	.setVisible(!drawerOpen);
+    			break;
+    		}
+    	}
         return super.onPrepareOptionsMenu(menu);
     }
 }

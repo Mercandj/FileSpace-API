@@ -11,6 +11,8 @@ import android.app.FragmentManager;
 import android.os.Bundle;
 import android.support.v13.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v4.view.ViewPager.OnPageChangeListener;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,10 +24,9 @@ public class FileManagerFragment extends Fragment {
 	
 	private final int NB_FRAGMENT = 2;
 	public Fragment listFragment[] = new Fragment[NB_FRAGMENT];
-	Application app;
-	ViewPager mViewPager;
-	FileManagerFragmentPagerAdapter mPagerAdapter;
-	View rootView;	
+	private Application app;
+	private ViewPager mViewPager;
+	private FileManagerFragmentPagerAdapter mPagerAdapter;
 	
 	public FileManagerFragment(Application app) {
 		this.app = app;
@@ -33,14 +34,33 @@ public class FileManagerFragment extends Fragment {
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {		
-		rootView = inflater.inflate(R.layout.fragment_filemanager, container, false);
+		View rootView = inflater.inflate(R.layout.fragment_filemanager, container, false);
 		mPagerAdapter = new FileManagerFragmentPagerAdapter(this.getChildFragmentManager());
 		
 		mViewPager = (ViewPager) rootView.findViewById(R.id.pager);
-		mViewPager.setAdapter(mPagerAdapter);		
+		mViewPager.setAdapter(mPagerAdapter);
+		mViewPager.setOnPageChangeListener(new OnPageChangeListener() {			
+			@Override
+			public void onPageSelected(int arg0) {
+				Log.d("CC", "TEST "+arg0);
+				FileManagerFragment.this.app.invalidateOptionsMenu();
+			}			
+			@Override
+			public void onPageScrolled(int arg0, float arg1, int arg2) {
+				
+			}			
+			@Override
+			public void onPageScrollStateChanged(int arg0) {
+				
+			}
+		});
 		
         return rootView;
-	}	
+	}
+	
+	public int getCurrentFragmentIndex() {
+		return mViewPager.getCurrentItem();
+	}
 	
 	public class FileManagerFragmentPagerAdapter extends FragmentPagerAdapter {
 
