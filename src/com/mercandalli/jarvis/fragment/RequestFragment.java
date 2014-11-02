@@ -34,12 +34,12 @@ public class RequestFragment extends Fragment {
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		rootView = inflater.inflate(R.layout.fragment_request, container, false);		
+		rootView = inflater.inflate(R.layout.fragment_request, container, false);
 		
-		((ImageView) rootView.findViewById(R.id.circle)).setOnClickListener(new OnClickListener() {			
+		((ImageView) rootView.findViewById(R.id.circle)).setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				app.dialog = new DialogRequest(app, new IPostExecuteListener() {					
+				app.dialog = new DialogRequest(app, new IPostExecuteListener() {
 					@Override
 					public void execute(JSONObject json, String body) {
 						if(json!=null)

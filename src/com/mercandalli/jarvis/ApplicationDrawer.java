@@ -22,6 +22,8 @@ import android.widget.ListView;
 
 import com.mercandalli.jarvis.fragment.FileManagerFragment;
 import com.mercandalli.jarvis.fragment.RequestFragment;
+import com.mercandalli.jarvis.fragment.SettingsFragment;
+import com.mercandalli.jarvis.fragment.WebFragment;
 import com.mercandalli.jarvis.listener.IListener;
 import com.mercandalli.jarvis.navdrawer.NavDrawerItem;
 import com.mercandalli.jarvis.navdrawer.NavDrawerItemListe;
@@ -94,12 +96,26 @@ public class ApplicationDrawer extends Application {
         
         // Tab 5
         navDrawerItems.add(
-        		new NavDrawerItem( "Settings", TYPE_SETTING)
+        		new NavDrawerItem( "Settings", new IListener() {
+					@Override
+					public void execute() {
+						fragment = new SettingsFragment(ApplicationDrawer.this);
+				        FragmentManager fragmentManager = getFragmentManager();
+				        fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
+					}
+		        }, TYPE_SETTING)
         		);
         
         // Tab 6
         navDrawerItems.add(
-        		new NavDrawerItem( "About Dev", TYPE_SETTING)
+        		new NavDrawerItem( "About Dev", new IListener() {
+					@Override
+					public void execute() {
+						fragment = new WebFragment(ApplicationDrawer.this, ApplicationDrawer.this.config.aboutURL);
+				        FragmentManager fragmentManager = getFragmentManager();
+				        fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
+					}
+		        }, TYPE_SETTING)
         		);
         
         // Initial Fragment

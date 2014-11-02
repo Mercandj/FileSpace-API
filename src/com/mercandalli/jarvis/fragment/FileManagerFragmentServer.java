@@ -31,7 +31,7 @@ import com.mercandalli.jarvis.net.TaskPost;
 public class FileManagerFragmentServer extends Fragment {
 	
 	Application app;
-	ListView files;
+	ListView listView;
 	List<ModelFile> listModelFile;
 	ProgressBar circulerProgressBar;
 	
@@ -43,7 +43,7 @@ public class FileManagerFragmentServer extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {		
         View rootView = inflater.inflate(R.layout.fragment_filemanager_online, container, false);
         circulerProgressBar = (ProgressBar) rootView.findViewById(R.id.circulerProgressBar);
-        files = (ListView) rootView.findViewById(R.id.files);
+        listView = (ListView) rootView.findViewById(R.id.listView);
         
         if(this.app.config.connected)
         	refreshList();
@@ -89,7 +89,7 @@ public class FileManagerFragmentServer extends Fragment {
 	}
 	
 	private void updateAdapter() {
-		if(files!=null && listModelFile!=null)
-			files.setAdapter(new AdapterModelFile(app, R.layout.tab_file, listModelFile ));
+		if(listView!=null && listModelFile!=null)
+			listView.setAdapter(new AdapterModelFile(app, R.layout.tab_file, listModelFile ));
 	}
 }

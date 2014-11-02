@@ -110,6 +110,8 @@ public class DialogInit extends Dialog {
 									if(json.has("toast"))										
 										Toast.makeText(app, json.getString("toast"), Toast.LENGTH_SHORT).show();
 								}
+								else
+									Toast.makeText(app, app.getString(R.string.server_error), Toast.LENGTH_SHORT).show();
 							} catch (JSONException e) {e.printStackTrace();}
 						}						
 					}, json)).execute();
@@ -127,6 +129,8 @@ public class DialogInit extends Dialog {
 									if(json.has("toast"))										
 										Toast.makeText(app, json.getString("toast"), Toast.LENGTH_SHORT).show();
 								}
+								else
+									Toast.makeText(app, app.getString(R.string.server_error), Toast.LENGTH_SHORT).show();
 							} catch (JSONException e) {e.printStackTrace();}
 						}						
 					}, json)).execute();				
