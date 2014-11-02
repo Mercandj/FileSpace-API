@@ -3,5 +3,6 @@
 	"bdd_name":"jarvis",
 	"bdd_login":"root",
 	"bdd_password":"",
+	"root":"\\..\\..\\..\\upload\\",
 	"registration_open":false
 }

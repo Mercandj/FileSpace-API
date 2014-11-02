@@ -5,7 +5,7 @@ use \lib\Entities\File;
 class FileController extends \lib\Controller {
 
 	public function test() {
-		$root = __DIR__."\\..\\..\\..\\upload\\";
+		$root = __DIR__.$this->_app->_config->get('root');
 
 		$files_physic = array();
 		$files1 = scandir($root);
@@ -38,7 +38,7 @@ class FileController extends \lib\Controller {
 	}
 
 	public function add() {
-		$root = __DIR__."\\..\\..\\..\\upload\\";
+		$root = __DIR__.$this->_app->_config->get('root');
 
 		if(!@array_key_exists('file', $this->_app->_parameters)) {
 			$json = '{"succeed":false,"toast":"FileController : file key (json) not found."}';
@@ -112,7 +112,7 @@ class FileController extends \lib\Controller {
 	}
 
 	public function ddl() {
-		$root = __DIR__."\\..\\..\\..\\upload\\";
+		$root = __DIR__.$this->_app->_config->get('root');
 
 		if(!@array_key_exists('file', $this->_app->_parameters)) {
 			$json = '{"succeed":false,"toast":"FileController : file key (json) not found."}';
