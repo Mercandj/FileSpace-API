@@ -193,8 +193,16 @@ public class ApplicationDrawer extends Application {
         		((RequestFragment)fragment).deleteConsole();
         	return true;
 	    case R.id.action_add:
-	    	if(fragment instanceof RequestFragment)
-	    		((RequestFragment)fragment).deleteConsole();
+	    	if(fragment instanceof FileManagerFragment)
+	    		((FileManagerFragment)fragment).add();
+	    	return true;
+	    case R.id.action_download:
+	    	if(fragment instanceof FileManagerFragment)
+	    		((FileManagerFragment)fragment).download();
+	    	return true;
+	    case R.id.action_upload:
+	    	if(fragment instanceof FileManagerFragment)
+	    		((FileManagerFragment)fragment).upload();
 	    	return true;
 	    }
         return super.onOptionsItemSelected(item);
@@ -220,10 +228,10 @@ public class ApplicationDrawer extends Application {
     		menu.findItem(R.id.action_delete)	.setVisible(!drawerOpen);
     	}
     	else if(fragment instanceof FileManagerFragment) {
-    		FileManagerFragment tmp_fragment = (FileManagerFragment) fragment;
-    		menu.findItem(R.id.action_add)		.setVisible(!drawerOpen);
+    		FileManagerFragment tmp_fragment = (FileManagerFragment) fragment;    		
     		switch(tmp_fragment.getCurrentFragmentIndex()) {
     		case 0:
+    			menu.findItem(R.id.action_add)		.setVisible(!drawerOpen);
     			menu.findItem(R.id.action_download)	.setVisible(!drawerOpen);
     			break;
     		case 1:

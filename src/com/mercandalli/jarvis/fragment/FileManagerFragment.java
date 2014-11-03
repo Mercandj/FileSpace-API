@@ -12,13 +12,13 @@ import android.os.Bundle;
 import android.support.v13.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.mercandalli.jarvis.Application;
 import com.mercandalli.jarvis.R;
+import com.mercandalli.jarvis.listener.IListener;
 
 public class FileManagerFragment extends Fragment {
 	
@@ -42,7 +42,6 @@ public class FileManagerFragment extends Fragment {
 		mViewPager.setOnPageChangeListener(new OnPageChangeListener() {			
 			@Override
 			public void onPageSelected(int arg0) {
-				Log.d("CC", "TEST "+arg0);
 				FileManagerFragment.this.app.invalidateOptionsMenu();
 			}			
 			@Override
@@ -95,4 +94,26 @@ public class FileManagerFragment extends Fragment {
 			return title;
         }
     }
+	
+	public void add() {
+		
+	}
+	
+	public void download() {
+		this.app.alert("Download", "Download all files ?", "Yes", new IListener() {			
+			@Override
+			public void execute() {
+				
+			}
+		}, "No", null);
+	}
+
+	public void upload() {
+		this.app.alert("Upload", "Upload all files ?", "Yes", new IListener() {			
+			@Override
+			public void execute() {
+				
+			}
+		}, "No", null);
+	}
 }
