@@ -6,6 +6,8 @@
 
 package com.mercandalli.jarvis.fragment;
 
+import org.json.JSONObject;
+
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.os.Bundle;
@@ -18,7 +20,9 @@ import android.view.ViewGroup;
 
 import com.mercandalli.jarvis.Application;
 import com.mercandalli.jarvis.R;
+import com.mercandalli.jarvis.dialog.DialogUpload;
 import com.mercandalli.jarvis.listener.IListener;
+import com.mercandalli.jarvis.listener.IPostExecuteListener;
 
 public class FileManagerFragment extends Fragment {
 	
@@ -95,8 +99,22 @@ public class FileManagerFragment extends Fragment {
         }
     }
 	
+	public void refreshListServer() {
+		if(this.listFragment[0]!=null)
+			if(this.listFragment[0] instanceof FileManagerFragmentServer) {
+				FileManagerFragmentServer fragmentFileManagerFragment = (FileManagerFragmentServer) this.listFragment[0];
+				fragmentFileManagerFragment.refreshList();
+			}
+	}
+	
 	public void add() {
-		
+		app.dialog = new DialogUpload(app, new IPostExecuteListener() {
+			@Override
+			public void execute(JSONObject json, String body) {
+				if(json!=null)
+					refreshListServer();
+			}
+		});
 	}
 	
 	public void download() {

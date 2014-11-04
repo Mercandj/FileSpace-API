@@ -27,12 +27,12 @@ import com.mercandalli.jarvis.listener.IPostExecuteListener;
 import com.mercandalli.jarvis.model.ModelUser;
 import com.mercandalli.jarvis.net.TaskPost;
 
-public class DialogInit extends Dialog {
+public class DialogRegisterLogin extends Dialog {
 
 	boolean firstUse = true;
 	IListener listenerLoginOK;
 	
-	public DialogInit(final Application app, IListener listenerLoginOK) {
+	public DialogRegisterLogin(final Application app, IListener listenerLoginOK) {
 		super(app);
 		
 		this.listenerLoginOK = listenerLoginOK;
@@ -72,22 +72,22 @@ public class DialogInit extends Dialog {
 			public void onClick(View v) {
 				ModelUser user = new ModelUser();
 				
-				if(!((EditText) DialogInit.this.findViewById(R.id.username)).getText().toString().equals("")) {
-					user.username = ((EditText) DialogInit.this.findViewById(R.id.username)).getText().toString();
+				if(!((EditText) DialogRegisterLogin.this.findViewById(R.id.username)).getText().toString().equals("")) {
+					user.username = ((EditText) DialogRegisterLogin.this.findViewById(R.id.username)).getText().toString();
 					app.config.setUserUsername(user.username);
 				}
 				else
 					user.username = app.config.getUserUsername();
 				
-				if(!((EditText) DialogInit.this.findViewById(R.id.password)).getText().toString().equals("")) {
-					user.password = SHA1.execute(((EditText) DialogInit.this.findViewById(R.id.password)).getText().toString());
+				if(!((EditText) DialogRegisterLogin.this.findViewById(R.id.password)).getText().toString().equals("")) {
+					user.password = SHA1.execute(((EditText) DialogRegisterLogin.this.findViewById(R.id.password)).getText().toString());
 					app.config.setUserPassword(user.password);
 				}
 				else
 					user.password = app.config.getUserPassword();
 				
-				if(!((EditText) DialogInit.this.findViewById(R.id.server)).getText().toString().equals(""))
-					app.config.setUrlServer(((EditText) DialogInit.this.findViewById(R.id.server)).getText().toString());				
+				if(!((EditText) DialogRegisterLogin.this.findViewById(R.id.server)).getText().toString().equals(""))
+					app.config.setUrlServer(((EditText) DialogRegisterLogin.this.findViewById(R.id.server)).getText().toString());				
 				
 				JSONObject json = new JSONObject();
 				try {
@@ -97,18 +97,16 @@ public class DialogInit extends Dialog {
 				}
 				
 				if(firstUse)
-					(new TaskPost(app.config.getUrlServer()+"user/register", new IPostExecuteListener() {
+					(new TaskPost(app, app.config.getUrlServer()+app.config.routeUserRegisterPost, new IPostExecuteListener() {
 						@Override
 						public void execute(JSONObject json, String body) {
 							try {
 								if(json!=null) {
 									if(json.has("succeed"))
 										if(json.getBoolean("succeed")) {
-											DialogInit.this.dismiss();
-											DialogInit.this.listenerLoginOK.execute();
+											DialogRegisterLogin.this.dismiss();
+											DialogRegisterLogin.this.listenerLoginOK.execute();
 										}
-									if(json.has("toast"))										
-										Toast.makeText(app, json.getString("toast"), Toast.LENGTH_SHORT).show();
 								}
 								else
 									Toast.makeText(app, app.getString(R.string.server_error), Toast.LENGTH_SHORT).show();
@@ -116,18 +114,16 @@ public class DialogInit extends Dialog {
 						}						
 					}, json)).execute();
 				else
-					(new TaskPost(app.config.getUrlServer()+"user/login", new IPostExecuteListener() {
+					(new TaskPost(app, app.config.getUrlServer()+app.config.routeUserLoginPost, new IPostExecuteListener() {
 						@Override
 						public void execute(JSONObject json, String body) {
 							try {
 								if(json!=null) {
 									if(json.has("succeed"))
 										if(json.getBoolean("succeed")) {
-											DialogInit.this.dismiss();
-											DialogInit.this.listenerLoginOK.execute();
+											DialogRegisterLogin.this.dismiss();
+											DialogRegisterLogin.this.listenerLoginOK.execute();
 										}
-									if(json.has("toast"))										
-										Toast.makeText(app, json.getString("toast"), Toast.LENGTH_SHORT).show();
 								}
 								else
 									Toast.makeText(app, app.getString(R.string.server_error), Toast.LENGTH_SHORT).show();
@@ -136,7 +132,7 @@ public class DialogInit extends Dialog {
 					}, json)).execute();				
 			}        	
         });
-        DialogInit.this.show();
+        DialogRegisterLogin.this.show();
 	}
 
 	public void bindRegisterLogin() {

@@ -45,7 +45,7 @@ public class FileManagerFragmentServer extends Fragment {
         circulerProgressBar = (ProgressBar) rootView.findViewById(R.id.circulerProgressBar);
         listView = (ListView) rootView.findViewById(R.id.listView);
         
-        if(this.app.config.connected)
+        if(this.app.config.isLoginSucceed)
         	refreshList();
         
         return rootView;
@@ -56,7 +56,7 @@ public class FileManagerFragmentServer extends Fragment {
 		try {
 			json.put("user", this.app.config.getUser().getJsonRegister());
 			
-			new TaskPost(this.app.config.getUrlServer()+"file/get", new IPostExecuteListener() {
+			new TaskPost(app, this.app.config.getUrlServer()+"file/get", new IPostExecuteListener() {
 				@Override
 				public void execute(JSONObject json, String body) {
 					listModelFile = new ArrayList<ModelFile>();

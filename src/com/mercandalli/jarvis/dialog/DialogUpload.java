@@ -14,8 +14,8 @@ import org.json.JSONObject;
 import android.app.Dialog;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.mercandalli.jarvis.Application;
 import com.mercandalli.jarvis.R;
@@ -25,18 +25,18 @@ import com.mercandalli.jarvis.model.ModelFile;
 import com.mercandalli.jarvis.model.ModelUser;
 import com.mercandalli.jarvis.net.TaskPost;
 
-public class DialogRequest extends Dialog {
+public class DialogUpload extends Dialog {
 	
 	DialogFileChooser dialogFileChooser;
 	Application app;
 	File file;
 	ModelFile modelFile;
 	
-	public DialogRequest(final Application app, final IPostExecuteListener listener) {
+	public DialogUpload(final Application app, final IPostExecuteListener listener) {
 		super(app);
 		this.app = app;
 		
-		this.setContentView(R.layout.view_request);
+		this.setContentView(R.layout.view_upload);
 		this.setTitle(R.string.app_name);
 		this.setCancelable(true);
 	    
@@ -49,41 +49,42 @@ public class DialogRequest extends Dialog {
 				
 				JSONObject json = new JSONObject();
 				try {
-					json.put("user", user.getJsonRegister());					
-					if(!((EditText) DialogRequest.this.findViewById(R.id.json)).getText().toString().replace(" ", "").equals(""))
-						json.put("content", new JSONObject(((EditText) DialogRequest.this.findViewById(R.id.json)).getText().toString()));
-					if(file!=null && DialogRequest.this.modelFile != null)
-						json.put("file", DialogRequest.this.modelFile.getJSONRequest());
+					json.put("user", user.getJsonRegister());
+					if(file!=null && DialogUpload.this.modelFile != null)
+						json.put("file", DialogUpload.this.modelFile.getJSONRequest());
 				} catch (JSONException e1) {
 					e1.printStackTrace();
 				}
 				
-				if(!((EditText) DialogRequest.this.findViewById(R.id.server)).getText().toString().equals(""))
-					(new TaskPost(app, app.config.getUrlServer()+((EditText) DialogRequest.this.findViewById(R.id.server)).getText().toString(), new IPostExecuteListener() {
+				if(file!=null)
+					(new TaskPost(app, app.config.getUrlServer()+app.config.routeFilePost, new IPostExecuteListener() {
 						@Override
 						public void execute(JSONObject json, String body) {
 							if(listener!=null)
 								listener.execute(json, body);
 						}						
 					}, json, file)).execute();
-				DialogRequest.this.dismiss();
+				else
+					Toast.makeText(app, app.getString(R.string.no_file), Toast.LENGTH_SHORT).show();
+				
+				DialogUpload.this.dismiss();
 			}        	
         });
         
         ((Button) this.findViewById(R.id.fileButton)).setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				dialogFileChooser = new DialogFileChooser(DialogRequest.this.app, new IModelFileListener() {
+				dialogFileChooser = new DialogFileChooser(DialogUpload.this.app, new IModelFileListener() {
 					@Override
 					public void execute(ModelFile modelFile) {
-						((TextView) DialogRequest.this.findViewById(R.id.label)).setText(""+modelFile.name);
-						DialogRequest.this.file = new File(modelFile.url);
-						DialogRequest.this.modelFile = modelFile;
+						((TextView) DialogUpload.this.findViewById(R.id.label)).setText(""+modelFile.name);
+						DialogUpload.this.file = new File(modelFile.url);
+						DialogUpload.this.modelFile = modelFile;
 					}					
 				});
 			}        	
         });        
         
-        DialogRequest.this.show();
+        DialogUpload.this.show();
 	}
 }

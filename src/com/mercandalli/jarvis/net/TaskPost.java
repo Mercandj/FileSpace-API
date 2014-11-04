@@ -26,7 +26,10 @@ import org.json.JSONObject;
 
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.Toast;
 
+import com.mercandalli.jarvis.Application;
+import com.mercandalli.jarvis.R;
 import com.mercandalli.jarvis.listener.IPostExecuteListener;
 
 /**
@@ -41,14 +44,17 @@ public class TaskPost extends AsyncTask<Void, Void, String> {
 	JSONObject json;
 	IPostExecuteListener listener;
 	File file;
+	Application app;
 
-	public TaskPost(String url, IPostExecuteListener listener, JSONObject json) {
+	public TaskPost(Application app, String url, IPostExecuteListener listener, JSONObject json) {
+		this.app = app;
 		this.url = url;
 		this.json = json;
 		this.listener = listener;
 	}
 
-	public TaskPost(String url, IPostExecuteListener listener, JSONObject json, File file) {
+	public TaskPost(Application app, String url, IPostExecuteListener listener, JSONObject json, File file) {
+		this.app = app;
 		this.url = url;
 		this.json = json;
 		this.listener = listener;
@@ -109,9 +115,13 @@ public class TaskPost extends AsyncTask<Void, Void, String> {
 			this.listener.execute(null, null);
 		else {
 			try {
-				this.listener.execute(new JSONObject(response), response);
+				JSONObject json = new JSONObject(response);				
+				this.listener.execute(json, response);				
+				if(json.has("toast"))										
+					Toast.makeText(app, json.getString("toast"), Toast.LENGTH_SHORT).show();				
 			} catch (JSONException e) {
 				e.printStackTrace();
+				Toast.makeText(app, app.getString(R.string.action_failed), Toast.LENGTH_SHORT).show();
 				this.listener.execute(null, response);
 			}
 		}

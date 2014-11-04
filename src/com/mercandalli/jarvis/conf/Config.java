@@ -21,8 +21,13 @@ import com.mercandalli.jarvis.model.ModelUser;
 
 public class Config {
 
-	public String aboutURL = "http://mercandalli.com/";
-	public boolean connected = false;	
+	public final String aboutURL 				= "http://mercandalli.com/";
+	
+	public boolean isLoginSucceed 				= false;
+	
+	public final String routeFilePost 			= "file/add";
+	public final String routeUserRegisterPost 	= "user/register";
+	public final String routeUserLoginPost 		= "user/login";
 	
 	private Activity activity;
 	private String file = "settings_json_1.txt";	
