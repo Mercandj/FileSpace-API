@@ -18,19 +18,22 @@ J.A.R.V.I.S
 
 For each file request : basic-authentication token:empty
 
+* File Controller
 
-|Root             | Method   | Description   | Input      | Output
-|-----------------|----------|---------------|------------|-----------
-| /file/          | GET 	 | List
-| /file/          | POST     | Add file      | json file  | json id file
-| /file/:id       | GET      | Get file      |            | json bdd infos include ddl url
-| /file/:id       | PUT      | Update file   |            |  
-| /file/:id       | DELETE   | Delete file   |            |  
+|Root             | Method   | Description   | Input                           | Output
+|-----------------|----------|---------------|---------------------------------|-----------
+| /file/          | GET 	 | List          |                                 |  
+| /file/          | POST     | Add file      | json file                       | json id file
+| /file/:id       | GET      | Get file      |                                 | json bdd infos include ddl url
+| /file/:id       | PUT      | Update file   |                                 |  
+| /file/:id       | DELETE   | Delete file   |                                 |  
 
-|Root             | Method   | Description
-|-----------------|----------|------------------
-| /user/login     | POST     | (input basic-authentication login:pass, output token)
-| /user/register  | POST 	 | (input json user, output token)
+* User Controller
+
+|Root             | Method   | Description   | Input                           | Output
+|-----------------|----------|---------------|---------------------------------|-----------
+| /user/login     | POST     |               | basic-authentication login:pass | output token
+| /user/register  | POST 	 |               | json user                       | token
 
 
 ## ANDROID DESCRIPTION
