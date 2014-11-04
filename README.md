@@ -19,16 +19,18 @@ J.A.R.V.I.S
 For each file request : basic-authentication token:empty
 
 
-|Root | Method | Description
-|------|----------|------------
-| /file/      | GET 	| = List
-| /file/      |    POST 	| = add file (intput json file, output json id file)
-| /file/:id  |    GET 	| = get file (output json bdd infos include ddl url)
-| /file/:id   |     PUT 	| = update file
-| /file/:id   |    DELETE 	| = delete file
+|Root             | Method   | Description   | Input      | Output
+|-----------------|----------|---------------|------------|-----------
+| /file/          | GET 	 | List
+| /file/          | POST     | Add file      | json file  | json id file
+| /file/:id       | GET      | Get file      |            | json bdd infos include ddl url
+| /file/:id       | PUT      | Update file   |            |  
+| /file/:id       | DELETE   | Delete file   |            |  
 
-* /user/login       POST 	= (input basic-authentication login:pass, output token)
-* /user/register    POST 	= (input json user, output token)
+|Root             | Method   | Description
+|-----------------|----------|------------------
+| /user/login     | POST     | (input basic-authentication login:pass, output token)
+| /user/register  | POST 	 | (input json user, output token)
 
 
 ## ANDROID DESCRIPTION
