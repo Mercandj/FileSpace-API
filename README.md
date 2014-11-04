@@ -1,6 +1,8 @@
 J.A.R.V.I.S
 =====================
 
+**_Unfinished project, still in development_**
+
 <p align="center">
 <img src="https://raw.github.com/Mercandj/Jarvis/master/screenshot/1.png" width="250" />
 </p>
