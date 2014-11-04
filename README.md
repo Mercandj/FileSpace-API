@@ -40,7 +40,7 @@ Remote and secure file manager. (upload files + download files + management)
 ## DEVELOPER
 
 * Mercandalli Jonathan (Front Android + Rest API)
-* Thibault Patois (Front Web + Rest API)
+* 7h1b0 (Front Web + Rest API)
 
 
 ## LICENSE
