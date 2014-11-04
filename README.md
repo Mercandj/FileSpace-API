@@ -16,13 +16,13 @@ J.A.R.V.I.S
 
 ## REST API ROUTES
 
+For each file request : basic-authentication token:empty
+
 * /file/ 			GET 	= List
 * /file/ 			POST 	= add file (intput json file, output json id file)
 * /file/:id 		GET 	= get file (output json bdd infos include ddl url)
 * /file/:id 		PUT 	= update file
 * /file/:id  		DELETE 	= delete file
-
-For each file request : basic-authentication token:empty
 
 * /user/login 		POST 	= (input basic-authentication login:pass, output token)
 * /user/register 	POST 	= (input json user, output token)
@@ -37,7 +37,7 @@ Remote and secure file manager. (upload files + download files + management)
 * Theme : API<21 Holo.Light and API>=21 Material !!!!
 
 
-## DEVELOPER
+## DEVELOPERS
 
 * Mercandalli Jonathan (Front Android + Rest API)
 * 7h1b0 (Front Web + Rest API)
