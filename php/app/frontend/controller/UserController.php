@@ -72,7 +72,6 @@ class UserController extends \lib\Controller {
 		
 		$user = new User($json['user']);
 		$user->setPassword(sha1($json['user']['password']));
-		$user->setId(uniqid());
 		$userManager = $this->getManagerof('User');
 		// Check if User exist
 		if(!$userManager->exist($user->getUsername())) {

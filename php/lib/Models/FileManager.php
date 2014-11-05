@@ -6,16 +6,15 @@ class FileManager extends \lib\Manager {
 	protected static $instance;
 
 	public function add(File $file) {
-		$id = $file->getId();
 		$url = $file->getUrl();
 		$size = $file->getSize();
 		$visibility = $file->getVisibility();
 
 		$req = $this->_db->prepare('INSERT INTO file(id,url,size,visibility) VALUES (:id, :url, :size, :visibility)');
-		$req->bindParam(':id',$id,\PDO::PARAM_STR);
 		$req->bindParam(':url',$url,\PDO::PARAM_STR);
 		$req->bindParam(':size',$size,\PDO::PARAM_STR);
 		$req->bindParam(':visibility',$visibility,\PDO::PARAM_STR);
+		$req->bindParam(':date_create',date('Y-m-d H:i:s'),\PDO::PARAM_STR);
 		$req->execute();
 		$req->closeCursor();
 	}
@@ -68,9 +67,8 @@ class FileManager extends \lib\Manager {
 
 		$req = $this->_db->query('SELECT id,url,size FROM file');
 
-    	while ($donnees = $req->fetch(\PDO::FETCH_ASSOC)){
+    	while ($donnees = $req->fetch(\PDO::FETCH_ASSOC))
 	    	$file[] = new File($donnees);
-	    }
 	    $req->closeCursor();
 	    return $file;
 	}

@@ -5,27 +5,27 @@ use \lib\Entities\User;
 class UserManager extends \lib\Manager{
 	protected static $instance;
 
-	public function add(User $user){
-		$id = $user->getId();
+	public function add(User $user) {
 		$username = $user->getUsername();
 		$password = $user->getPassword();
 
 		$req = $this->_db->prepare('INSERT INTO user(id,username,password) VALUES (:id, :username, :password)');
-		$req->bindParam(':id',$id,\PDO::PARAM_STR);
 		$req->bindParam(':username',$username,\PDO::PARAM_STR);
 		$req->bindParam(':password',$password,\PDO::PARAM_STR);
+		$req->bindParam(':date_create',date('Y-m-d H:i:s'),\PDO::PARAM_STR);
+		$req->bindParam(':date_last_connection',date('Y-m-d H:i:s'),\PDO::PARAM_STR);
 		$req->execute();
 		$req->closeCursor();
 	}
 
-	public function delete($id){
+	public function delete($id) {
 		$req = $this->_db->prepare('DELETE FROM user WHERE id = :id');
     	$req->bindParam(':id', $id, \PDO::PARAM_INT);
     	$req->execute();
 		$req->closeCursor();
 	}
 
-	public function update(User $user){
+	public function update(User $user) {
 		
 		$id = $user->getId();
 		$username = $user->getUsername();
@@ -39,7 +39,7 @@ class UserManager extends \lib\Manager{
 		$req->closeCursor();
 	}
 
-	public function get($username){
+	public function get($username) {
 		$req = $this->_db->prepare('SELECT id,username,password,admin FROM user WHERE username = :username');
     	$req->bindParam(':username', $username, \PDO::PARAM_STR);
     	$req->execute();
@@ -49,7 +49,7 @@ class UserManager extends \lib\Manager{
     	return new User($donnee);
 	}
 
-	public function getById($id){
+	public function getById($id) {
 		$req = $this->_db->prepare('SELECT id,username,password,admin FROM user WHERE id = :id');
     	$req->bindParam(':id', $id, \PDO::PARAM_INT);
     	$req->execute();
@@ -59,19 +59,18 @@ class UserManager extends \lib\Manager{
     	return new User($donnee);
 	}
 
-	public function getAll(){
+	public function getAll() {
 		$user = array();
 
 		$req = $this->_db->query('SELECT id,username FROM user');
 
-    	while ($donnees = $req->fetch(\PDO::FETCH_ASSOC)){
+    	while ($donnees = $req->fetch(\PDO::FETCH_ASSOC))
 	    	$user[] = new User($donnees);
-	    }
 	    $req->closeCursor();
 	    return $user;
 	}
 
-	public function exist($username){
+	public function exist($username) {
 		$req = $this->_db->prepare('SELECT id FROM user WHERE username = :username');
     	$req->bindParam(':username', $username,\PDO::PARAM_STR);
     	$req->execute();
