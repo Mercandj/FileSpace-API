@@ -3,36 +3,36 @@
 		"url":"/jarvis/php/user/register",
 		"controller":"User",
 		"action":"register",
-		"method":"post"
+		"method":"POST"
 	},
 	{
 		"url":"/jarvis/php/user/login",
 		"controller":"User",
 		"action":"login",
-		"method":"post"
+		"method":"POST"
 	},
 	{
 		"url":"/jarvis/php/file/test",
 		"controller":"File",
 		"action":"test",
-		"method":"post"
+		"method":"POST"
 	},
 	{
 		"url":"/jarvis/php/file/add",
 		"controller":"File",
 		"action":"add",
-		"method":"post"
+		"method":"POST"
 	},
 	{
 		"url":"/jarvis/php/file/get",
 		"controller":"File",
 		"action":"get",
-		"method":"post"
+		"method":"POST"
 	},
 	{
 		"url":"/jarvis/php/file/ddl",
 		"controller":"File",
 		"action":"ddl",
-		"method":"post"
+		"method":"POST"
 	}
 ]
