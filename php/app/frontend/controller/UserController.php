@@ -23,7 +23,7 @@ class UserController extends \lib\Controller {
 	*/
 	public function isUser() {
 
-		if(isset($_SERVER['PHP_AUTH_USER']) || isset($_SERVER['PHP_AUTH_PW']))
+		if(!isset($_SERVER['PHP_AUTH_USER']) || !isset($_SERVER['PHP_AUTH_PW']))
 			return false;
 
 		$user_param = array();
