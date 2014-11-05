@@ -34,7 +34,7 @@ For each file request : basic-authentication token:empty
 
 |Root             | Method   | Description   | Input                           | Output
 |-----------------|----------|---------------|---------------------------------|-----------
-| /user/login     | POST     |               | basic-authentication login:pass | output token
+| /user/login     | POST     |               | basic-authentication login:pass | token
 | /user/register  | POST 	 |               | json user                       | token
 
 

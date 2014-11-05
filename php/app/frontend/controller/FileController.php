@@ -37,7 +37,7 @@ class FileController extends \lib\Controller {
 		$this->_app->_HTTPResponse->send($this->_app->_page->draw('JsonView.php'));
 	}
 
-	public function add() {
+	public function post() {
 
 		$json = $this->_app->_HTTPRequest->get('json');
 

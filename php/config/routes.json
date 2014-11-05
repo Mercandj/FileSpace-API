@@ -18,9 +18,9 @@
 		"method":"POST"
 	},
 	{
-		"url":"/jarvis/php/file/add",
+		"url":"/jarvis/php/file",
 		"controller":"File",
-		"action":"add",
+		"action":"post",
 		"method":"POST"
 	},
 	{
