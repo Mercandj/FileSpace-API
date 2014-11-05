@@ -11,7 +11,7 @@ class FileManager extends \lib\Manager {
 		$visibility = $file->getVisibility();
 		$date_create = date('Y-m-d H:i:s');
 
-		$req = $this->_db->prepare('INSERT INTO file(id,url,size,visibility,date_create) VALUES (:id, :url, :size, :visibility, :date_create)');
+		$req = $this->_db->prepare('INSERT INTO file(url,size,visibility,date_create) VALUES (:url, :size, :visibility, :date_create)');
 		$req->bindParam(':url',$url,\PDO::PARAM_STR);
 		$req->bindParam(':size',$size,\PDO::PARAM_STR);
 		$req->bindParam(':visibility',$visibility,\PDO::PARAM_STR);
