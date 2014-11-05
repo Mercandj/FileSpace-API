@@ -97,7 +97,7 @@ public class DialogRegisterLogin extends Dialog {
 				}
 				
 				if(firstUse)
-					(new TaskPost(app, app.config.getUrlServer()+app.config.routeUserRegisterPost, new IPostExecuteListener() {
+					(new TaskPost(app, app.config.getUrlServer()+app.config.routeUserRegister, new IPostExecuteListener() {
 						@Override
 						public void execute(JSONObject json, String body) {
 							try {
@@ -114,7 +114,7 @@ public class DialogRegisterLogin extends Dialog {
 						}						
 					}, json)).execute();
 				else
-					(new TaskPost(app, app.config.getUrlServer()+app.config.routeUserLoginPost, new IPostExecuteListener() {
+					(new TaskPost(app, app.config.getUrlServer()+app.config.routeUserLogin, new IPostExecuteListener() {
 						@Override
 						public void execute(JSONObject json, String body) {
 							try {

@@ -12,10 +12,10 @@
 		"method":"POST"
 	},
 	{
-		"url":"/jarvis/php/file/test",
+		"url":"/jarvis/php/file",
 		"controller":"File",
-		"action":"test",
-		"method":"POST"
+		"action":"get",
+		"method":"GET"
 	},
 	{
 		"url":"/jarvis/php/file",
@@ -24,9 +24,9 @@
 		"method":"POST"
 	},
 	{
-		"url":"/jarvis/php/file/get",
+		"url":"/jarvis/php/file/test",
 		"controller":"File",
-		"action":"get",
+		"action":"test",
 		"method":"POST"
 	},
 	{

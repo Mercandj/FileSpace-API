@@ -4,6 +4,9 @@ use \lib\Entities\File;
 
 class FileController extends \lib\Controller {
 
+	/**
+	*	POST file/test
+	*/
 	public function test() {
 		$root_upload = __DIR__.$this->_app->_config->get('root_upload');
 
@@ -38,6 +41,9 @@ class FileController extends \lib\Controller {
 		$this->_app->_HTTPResponse->send($this->_app->_page->draw('JsonView.php'));
 	}
 
+	/**
+	*	POST file
+	*/
 	public function post() {
 
 		$json = $this->_app->_HTTPRequest->get('json');
@@ -105,6 +111,9 @@ class FileController extends \lib\Controller {
 		$this->_app->_HTTPResponse->send($this->_app->_page->draw('JsonView.php'));		
 	}
 
+	/**
+	*	GET file
+	*/
 	public function get() {
 		$userManager = $this->getManagerof('File');
 

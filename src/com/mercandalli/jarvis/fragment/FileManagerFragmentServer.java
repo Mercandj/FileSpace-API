@@ -26,7 +26,7 @@ import com.mercandalli.jarvis.R;
 import com.mercandalli.jarvis.adapter.AdapterModelFile;
 import com.mercandalli.jarvis.listener.IPostExecuteListener;
 import com.mercandalli.jarvis.model.ModelFile;
-import com.mercandalli.jarvis.net.TaskPost;
+import com.mercandalli.jarvis.net.TaskGet;
 
 public class FileManagerFragmentServer extends Fragment {
 	
@@ -52,40 +52,34 @@ public class FileManagerFragmentServer extends Fragment {
     }	
 	
 	public void refreshList() {
-		JSONObject json = new JSONObject();
-		try {
-			json.put("user", this.app.config.getUser().getJsonRegister());
 			
-			new TaskPost(app, this.app.config.getUrlServer()+"file/get", new IPostExecuteListener() {
-				@Override
-				public void execute(JSONObject json, String body) {
-					listModelFile = new ArrayList<ModelFile>();
-					try {
-						if(json!=null) {
-							if(json.has("result")) {							
-								JSONArray array = json.getJSONArray("result");
-								for(int i=0; i<array.length();i++) {
-									ModelFile modelFile = new ModelFile();
-									JSONObject fileJson = array.getJSONObject(i);
-									if(fileJson.has("url")) {
-										modelFile.url = fileJson.getString("url");
-										modelFile.name = fileJson.getString("url");
-									}
-									listModelFile.add(modelFile);
+		new TaskGet(app, this.app.config.getUrlServer()+this.app.config.routeFile, new IPostExecuteListener() {
+			@Override
+			public void execute(JSONObject json, String body) {
+				listModelFile = new ArrayList<ModelFile>();
+				try {
+					if(json!=null) {
+						if(json.has("result")) {							
+							JSONArray array = json.getJSONArray("result");
+							for(int i=0; i<array.length();i++) {
+								ModelFile modelFile = new ModelFile();
+								JSONObject fileJson = array.getJSONObject(i);
+								if(fileJson.has("url")) {
+									modelFile.url = fileJson.getString("url");
+									modelFile.name = fileJson.getString("url");
 								}
-								circulerProgressBar.setVisibility(View.INVISIBLE);
+								listModelFile.add(modelFile);
 							}
+							circulerProgressBar.setVisibility(View.INVISIBLE);
 						}
-					} catch (JSONException e) {
-						e.printStackTrace();
-					}				
-					updateAdapter();
-				}			
-			}, json).execute();
+					}
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}				
+				updateAdapter();
+			}			
+		}, null).execute();
 			
-		} catch (JSONException e1) {
-			e1.printStackTrace();
-		}
 	}
 	
 	private void updateAdapter() {

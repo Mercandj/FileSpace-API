@@ -4,6 +4,9 @@ use \lib\Entities\User;
 
 class UserController extends \lib\Controller {
 
+	/**
+	*	POST user/register
+	*/
 	public function login() {
 
 		if($this->isUser())
@@ -15,19 +18,19 @@ class UserController extends \lib\Controller {
 		$this->_app->_HTTPResponse->send($this->_app->_page->draw('JsonView.php'));
 	}
 
+	/**
+	*	Used by $this->login() and Applicationfrontend
+	*/
 	public function isUser() {
 
-		$json = $this->_app->_HTTPRequest->get('json');
-
-		if($json==null)
+		if(isset($_SERVER['PHP_AUTH_USER']) || isset($_SERVER['PHP_AUTH_PW']))
 			return false;
 
-		if(!@array_key_exists('user', $json))
-			return false;
-		
-		$user = new User($json['user']);
-		if(array_key_exists('password', $json['user']))
-			$user->setPassword(sha1($json['user']['password']));
+		$user_param = array();
+		$user_param['username'] = $_SERVER['PHP_AUTH_USER'];
+		$user_param['password'] = sha1(isset($_SERVER['PHP_AUTH_PW']));
+
+		$user = new User($user_param);
 		$userManager = $this->getManagerof('User');
 
 		if($userManager->exist($user->getUsername())) {				
@@ -39,6 +42,9 @@ class UserController extends \lib\Controller {
 		return false;
 	}
 
+	/**
+	*	POST user/register
+	*/
 	public function register() {
 
 		$json = $this->_app->_HTTPRequest->get('json');

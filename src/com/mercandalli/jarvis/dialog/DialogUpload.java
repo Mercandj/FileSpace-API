@@ -57,7 +57,7 @@ public class DialogUpload extends Dialog {
 				}
 				
 				if(file!=null)
-					(new TaskPost(app, app.config.getUrlServer()+app.config.routeFilePost, new IPostExecuteListener() {
+					(new TaskPost(app, app.config.getUrlServer()+app.config.routeFile, new IPostExecuteListener() {
 						@Override
 						public void execute(JSONObject json, String body) {
 							if(listener!=null)
