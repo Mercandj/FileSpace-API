@@ -5,39 +5,22 @@ use \lib\Entities\File;
 class FileController extends \lib\Controller {
 
 	/**
-	*	POST file/test
+	*	GET file
 	*/
-	public function test() {
-		$root_upload = __DIR__.$this->_app->_config->get('root_upload');
+	public function get() {
+		$userManager = $this->getManagerof('File');
 
-		$files_physic = array();
-		$files1 = scandir($root_upload);
-
-		foreach($files1 as $var) {
-			if($var != '.' && $var != '..') {
-				$file_array = array();
-				$file_array['url'] = $var;
-				$file_array['size'] = filesize($root_upload.$var);
-				$files_physic[] = $file_array;
-			}
-		}
-
-		$userManager = $this->getManagerof('File');		
 		$array = $userManager->getAll();
-		$files_bdd = array();
+		$json = array();
 		
 		foreach ($array as $value) {
 			$file = array();
 			$file['url'] = $value->getUrl();
 			$file['size'] = $value->getSize();
-			$files_bdd[] = $file;
+			$json[] = $file;
 		}
-		
-		$array_json = array();
-		$array_json['files_physic'] = $files_physic;
-		$array_json['files_bdd'] = $files_bdd;
-		$array_json['test'] = $_SERVER['PHP_AUTH_USER'].' '.$_SERVER['PHP_AUTH_PW'];
-		$this->_app->_page->assign('json', json_encode($array_json));
+
+		$this->_app->_page->assign('json', '{"succeed":true,"result":'.json_encode($json).'}');
 		$this->_app->_HTTPResponse->send($this->_app->_page->draw('JsonView.php'));
 	}
 
@@ -112,24 +95,55 @@ class FileController extends \lib\Controller {
 	}
 
 	/**
-	*	GET file
+	*	PUT file
 	*/
-	public function get() {
-		$userManager = $this->getManagerof('File');
+	public function put() {
+		// TODO
+	}
 
+	/**
+	*	DELETE file
+	*/
+	public function delete() {
+		// TODO
+	}
+
+	/**
+	*	POST file/test
+	*/
+	public function test() {
+		$root_upload = __DIR__.$this->_app->_config->get('root_upload');
+
+		$files_physic = array();
+		$files1 = scandir($root_upload);
+
+		foreach($files1 as $var) {
+			if($var != '.' && $var != '..') {
+				$file_array = array();
+				$file_array['url'] = $var;
+				$file_array['size'] = filesize($root_upload.$var);
+				$files_physic[] = $file_array;
+			}
+		}
+
+		$userManager = $this->getManagerof('File');		
 		$array = $userManager->getAll();
-		$json = array();
+		$files_bdd = array();
 		
 		foreach ($array as $value) {
 			$file = array();
 			$file['url'] = $value->getUrl();
 			$file['size'] = $value->getSize();
-			$json[] = $file;
+			$files_bdd[] = $file;
 		}
-
-		$this->_app->_page->assign('json', '{"succeed":true,"result":'.json_encode($json).'}');
+		
+		$array_json = array();
+		$array_json['files_physic'] = $files_physic;
+		$array_json['files_bdd'] = $files_bdd;
+		$array_json['test'] = $_SERVER['PHP_AUTH_USER'].' '.$_SERVER['PHP_AUTH_PW'];
+		$this->_app->_page->assign('json', json_encode($array_json));
 		$this->_app->_HTTPResponse->send($this->_app->_page->draw('JsonView.php'));
-	}
+	}	
 
 	public function ddl() {
 

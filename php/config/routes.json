@@ -24,6 +24,18 @@
 		"method":"POST"
 	},
 	{
+		"url":"/jarvis/php/file",
+		"controller":"File",
+		"action":"put",
+		"method":"PUT"
+	},
+	{
+		"url":"/jarvis/php/file",
+		"controller":"File",
+		"action":"delete",
+		"method":"DELETE"
+	},
+	{
 		"url":"/jarvis/php/file/test",
 		"controller":"File",
 		"action":"test",
