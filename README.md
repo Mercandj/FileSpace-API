@@ -26,9 +26,9 @@ For each file request : basic-authentication token:empty
 |-----------------|----------|---------------|---------------------------------|-----------
 | /file/          | GET 	 | List          |                                 |  
 | /file/          | POST     | Add file      | json file                       | json id file
-| /file/:id       | GET      | Get file      |                                 | json bdd infos include ddl url
-| /file/:id       | PUT      | Update file   |                                 |  
-| /file/:id       | DELETE   | Delete file   |                                 |  
+| /file?id=       | GET      | Get file      | file id                         | ddl file
+| /file?id=       | PUT      | Update file   | file id                         |  
+| /file?id=       | DELETE   | Delete file   | file id                         |  
 
 * User Controller
 
@@ -50,7 +50,7 @@ Remote and secure file manager. (upload files + download files + management)
 ## DEVELOPERS
 
 * Mercandalli Jonathan (Front Android + Rest API)
-* 7h1b0 (Front Web + Rest API)
+* Maybe : 7h1b0 (Front Web + Rest API)
 
 
 ## LICENSE

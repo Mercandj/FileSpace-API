@@ -40,11 +40,5 @@
 		"controller":"File",
 		"action":"test",
 		"method":"POST"
-	},
-	{
-		"url":"/jarvis/php/file/ddl",
-		"controller":"File",
-		"action":"ddl",
-		"method":"POST"
 	}
 ]

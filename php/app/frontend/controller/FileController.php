@@ -8,6 +8,12 @@ class FileController extends \lib\Controller {
 	*	GET file
 	*/
 	public function get() {
+
+		if($this->_app->_HTTPRequest->exist('id')) {
+			$this->download($this->_app->_HTTPRequest->get('id'));
+			return;
+		}
+
 		$userManager = $this->getManagerof('File');
 
 		$array = $userManager->getAll();
@@ -15,6 +21,7 @@ class FileController extends \lib\Controller {
 		
 		foreach ($array as $value) {
 			$file = array();
+			$file['id'] = $value->getId();
 			$file['url'] = $value->getUrl();
 			$file['size'] = $value->getSize();
 			$json[] = $file;
@@ -145,30 +152,13 @@ class FileController extends \lib\Controller {
 		$this->_app->_HTTPResponse->send($this->_app->_page->draw('JsonView.php'));
 	}	
 
-	public function ddl() {
-
-		$json = $this->_app->_HTTPRequest->get('json');
-
-		if($json==null) {
-			$json = '{"succeed":false,"toast":"Wrong User."}';
-			$this->_app->_page->assign('json', $json);
-			$this->_app->_HTTPResponse->send($this->_app->_page->draw('JsonView.php'));
-			return;
-		}
-
+	public function download($id) {
 		$root_upload = __DIR__.$this->_app->_config->get('root_upload');
 
-		if(!@array_key_exists('file', $json)) {
-			$json = '{"succeed":false,"toast":"FileController : file key (json) not found."}';
-			$this->_app->_page->assign('json', $json);
-			$this->_app->_HTTPResponse->send($this->_app->_page->draw('JsonView.php'));
-			return;
-		}
-
-		$file = new File($json['file']);
 		$userManager = $this->getManagerof('File');
+		$file = $userManager->getById($id);
 
-		if($userManager->exist($file->getUrl())) {
+		if($file != null) {
 			$file_name = $root_upload . $file->getUrl();
 
 			if(is_file($file_name)) {

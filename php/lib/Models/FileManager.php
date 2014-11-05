@@ -27,7 +27,7 @@ class FileManager extends \lib\Manager {
 		$req->closeCursor();
 	}
 
-	public function update(User $user) {
+	public function update(File $file) {
 		
 		$id = $file->getId();
 		$url = $file->getUrl();
@@ -50,7 +50,7 @@ class FileManager extends \lib\Manager {
 
     	$donnee = $req->fetch(\PDO::FETCH_ASSOC);
     	$req->closeCursor();
-    	return new User($donnee);
+    	return new File($donnee);
 	}
 
 	public function getById($id) {
@@ -60,7 +60,7 @@ class FileManager extends \lib\Manager {
 
     	$donnee = $req->fetch(\PDO::FETCH_ASSOC);
     	$req->closeCursor();
-    	return new User($donnee);
+    	return new File($donnee);
 	}
 
 	public function getAll() {
