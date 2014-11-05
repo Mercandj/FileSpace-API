@@ -12,7 +12,7 @@ abstract class Application{
 	public function __construct() {
 		$this->_page = new Page($this);
 		$this->_HTTPResponse = new HTTPResponse($this);
-		$this->_request = new HTTPRequest($this);
+		$this->_HTTPRequest = new HTTPRequest($this);
 		$this->_config =  ConfigManager::getInstance();
 		$connexion = new Connexion($this);	
 		$this->_pdo = $connexion->getPDO();	
