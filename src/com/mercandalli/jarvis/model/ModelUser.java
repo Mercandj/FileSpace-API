@@ -12,15 +12,17 @@ import org.json.JSONObject;
 public class ModelUser {
 	public String username;
 	public String password;
+	public String currentToken;
 	
 	public ModelUser() {
 		
 	}
 	
-	public ModelUser(String username, String password) {
+	public ModelUser(String username, String password, String currentToken) {
 		super();
 		this.username = username;
 		this.password = password;
+		this.currentToken = currentToken;
 	}
 
 	public JSONObject getJsonRegister() {
@@ -40,5 +42,17 @@ public class ModelUser {
 	
 	public JSONObject getJsonLogin() {
 		return getJsonRegister();
+	}
+	
+	public String getAccessLogin() {
+		if(currentToken==null)
+			return username;
+		return currentToken;
+	}
+	
+	public String getAccessPassword() {
+		if(currentToken==null)
+			return password;
+		return "empty";
 	}
 }

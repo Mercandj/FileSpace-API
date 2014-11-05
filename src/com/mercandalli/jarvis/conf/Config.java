@@ -21,13 +21,12 @@ import com.mercandalli.jarvis.model.ModelUser;
 
 public class Config {
 
-	public final String aboutURL 				= "http://mercandalli.com/";
-	
-	public boolean isLoginSucceed 				= false;
-	
+	public final String aboutURL 				= "http://mercandalli.com/";	
+	public boolean isLoginSucceed 				= false;	
 	public final String routeFilePost 			= "file/add";
 	public final String routeUserRegisterPost 	= "user/register";
 	public final String routeUserLoginPost 		= "user/login";
+	public String currentToken					= null;
 	
 	private Activity activity;
 	private String file = "settings_json_1.txt";	
@@ -187,6 +186,6 @@ public class Config {
 	}
 	
 	public ModelUser getUser() {		
-		return new ModelUser(getUserUsername(), getUserPassword());
+		return new ModelUser(getUserUsername(), getUserPassword(), currentToken);
 	}
 }
