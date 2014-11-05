@@ -33,6 +33,7 @@ class FileController extends \lib\Controller {
 		$array_json = array();
 		$array_json['files_physic'] = $files_physic;
 		$array_json['files_bdd'] = $files_bdd;
+		$array_json['test'] = $_SERVER['PHP_AUTH_USER'].' '.$_SERVER['PHP_AUTH_PW'];
 		$this->_app->_page->assign('json', json_encode($array_json));
 		$this->_app->_HTTPResponse->send($this->_app->_page->draw('JsonView.php'));
 	}
@@ -69,7 +70,7 @@ class FileController extends \lib\Controller {
 		$toast = '';
 
 		if(array_key_exists('file', $_FILES)) {
-	    	if ($_FILES['file']['error'] === UPLOAD_ERR_OK) {
+			if ($_FILES['file']['error'] === UPLOAD_ERR_OK) {
 				if(!$userManager->exist($file->getUrl())) {
 					if ( in_array($extension_upload,$extensions_valides) ) {
 						if ( 0 < $_FILES['file']['size'] && $_FILES['file']['size'] < 800000000  ) {
@@ -80,11 +81,11 @@ class FileController extends \lib\Controller {
 								$userManager->add($file);
 
 								$succeed = true;
-					    		$toast = 'The file '. basename( $_FILES["file"]["name"]) .' has been uploaded.';
+								$toast = 'The file '. basename( $_FILES["file"]["name"]) .' has been uploaded.';
 							}
 							else
 								$toast = 'Sorry, there was an error uploading your file.';
-					    }
+						}
 						else
 							$toast = 'File size : '.$_FILES['file']['size'].'.';
 					}

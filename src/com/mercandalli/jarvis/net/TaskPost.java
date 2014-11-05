@@ -71,6 +71,10 @@ public class TaskPost extends AsyncTask<Void, Void, String> {
 			mpEntity.addPart("json", new StringBody(json.toString()));
 			httppost.setEntity(mpEntity);
 			
+			StringBuilder authentication = new StringBuilder().append(app.config.getUser().getAccessLogin()).append(":").append(app.config.getUser().getAccessPassword());
+	        String result = Base64.encodeBytes(authentication.toString().getBytes());
+	        httppost.setHeader("Authorization", "Basic " + result);
+			
 			HttpClient httpclient = new DefaultHttpClient();
 			HttpResponse response = httpclient.execute(httppost);
 
