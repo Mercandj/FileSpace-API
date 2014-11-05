@@ -61,12 +61,12 @@ public class TaskGet extends AsyncTask<Void, Void, String> {
 			
 			List<NameValuePair> params = new LinkedList<NameValuePair>();
 	        //params.add(new BasicNameValuePair("pseudo", String.valueOf(lib.user.getPseudo())));
-			if(parameters!=null)
+			if(parameters!=null) {
 				for(BasicNameValuePair b : parameters)
-					params.add(b);
-	        
-	        String paramString = URLEncodedUtils.format(params, "utf-8");        
-	    	url += "?"+paramString;			
+					params.add(b);	        
+		        String paramString = URLEncodedUtils.format(params, "utf-8");        
+		    	url += "?"+paramString;	
+			}
 			
 			HttpGet httpget = new HttpGet(url);						
 
