@@ -17,12 +17,17 @@ class UserController extends \lib\Controller {
 
 	public function isUser() {
 
-		if(!@array_key_exists('user', $this->_app->_parameters))
+		$json = $this->_app->_HTTPRequest->get('json');
+
+		if($json==null)
+			return false;
+
+		if(!@array_key_exists('user', $json))
 			return false;
 		
-		$user = new User($this->_app->_parameters['user']);
-		if(array_key_exists('password', $this->_app->_parameters['user']))
-			$user->setPassword(sha1($this->_app->_parameters['user']['password']));
+		$user = new User($json['user']);
+		if(array_key_exists('password', $json['user']))
+			$user->setPassword(sha1($json['user']['password']));
 	    $userManager = $this->getManagerof('User');
 
 		if($userManager->exist($user->getUsername())) {				
@@ -34,9 +39,18 @@ class UserController extends \lib\Controller {
 		return false;
 	}
 
-	public function register() {		
+	public function register() {
 
-		if(!@array_key_exists('user', $this->_app->_parameters)) {
+		$json = $this->_app->_HTTPRequest->get('json');
+
+		if($json==null) {
+			$json = '{"succeed":false,"toast":"Wrong User."}';
+			$this->_app->_page->assign('json', $json);
+			$this->_app->_HTTPResponse->send($this->_app->_page->draw('JsonView.php'));
+			return;
+		}
+
+		if(!@array_key_exists('user', $json)) {
 			$json = '{"succeed":false,"toast":"Wrong User."}';
 			$this->_app->_page->assign('json', $json);
 			$this->_app->_HTTPResponse->send($this->_app->_page->draw('JsonView.php'));
@@ -50,8 +64,8 @@ class UserController extends \lib\Controller {
 			return;
 		}
 		
-		$user = new User($this->_app->_parameters['user']);
-		$user->setPassword(sha1($this->_app->_parameters['user']['password']));
+		$user = new User($json['user']);
+		$user->setPassword(sha1($json['user']['password']));
 		$user->setId(uniqid());
 		$userManager = $this->getManagerof('User');
 		// Check if User exist

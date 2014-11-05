@@ -38,16 +38,26 @@ class FileController extends \lib\Controller {
 	}
 
 	public function add() {
+
+		$json = $this->_app->_HTTPRequest->get('json');
+
+		if($json==null) {
+			$json = '{"succeed":false,"toast":"Wrong User."}';
+			$this->_app->_page->assign('json', $json);
+			$this->_app->_HTTPResponse->send($this->_app->_page->draw('JsonView.php'));
+			return;
+		}
+
 		$root_upload = __DIR__.$this->_app->_config->get('root_upload');
 
-		if(!@array_key_exists('file', $this->_app->_parameters)) {
+		if(!@array_key_exists('file', $json)) {
 			$json = '{"succeed":false,"toast":"FileController : file key (json) not found."}';
 			$this->_app->_page->assign('json', $json);
 			$this->_app->_HTTPResponse->send($this->_app->_page->draw('JsonView.php'));
 			return;
 		}
 
-		$file = new File($this->_app->_parameters['file']);
+		$file = new File($json['file']);
 		$userManager = $this->getManagerof('File');
 		
 		$target_dir = $root_upload . basename( $_FILES["file"]["name"]);
@@ -112,16 +122,26 @@ class FileController extends \lib\Controller {
 	}
 
 	public function ddl() {
+
+		$json = $this->_app->_HTTPRequest->get('json');
+
+		if($json==null) {
+			$json = '{"succeed":false,"toast":"Wrong User."}';
+			$this->_app->_page->assign('json', $json);
+			$this->_app->_HTTPResponse->send($this->_app->_page->draw('JsonView.php'));
+			return;
+		}
+
 		$root_upload = __DIR__.$this->_app->_config->get('root_upload');
 
-		if(!@array_key_exists('file', $this->_app->_parameters)) {
+		if(!@array_key_exists('file', $json)) {
 			$json = '{"succeed":false,"toast":"FileController : file key (json) not found."}';
 			$this->_app->_page->assign('json', $json);
 			$this->_app->_HTTPResponse->send($this->_app->_page->draw('JsonView.php'));
 			return;
 		}
 
-		$file = new File($this->_app->_parameters['file']);
+		$file = new File($json['file']);
 		$userManager = $this->getManagerof('File');
 
 		if($userManager->exist($file->getUrl())) {

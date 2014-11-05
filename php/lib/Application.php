@@ -7,11 +7,9 @@ abstract class Application{
 		$_pdo,
 		$_page,
 		$_HTTPResponse,
-		$_HTTPRequest,
-		$_parameters;
+		$_HTTPRequest;
 
-	public function __construct(){
-		$this->parseIncomingParams();
+	public function __construct() {
 		$this->_page = new Page($this);
 		$this->_HTTPResponse = new HTTPResponse($this);
 		$this->_request = new HTTPRequest($this);
@@ -36,23 +34,4 @@ abstract class Application{
 		$controleurPath = '\app\\'.$this->_name.'\\controller\\'.$route->getController().'Controller';
 		return new $controleurPath($this,$route->getAction(), $route->getMatches());
 	}
-
-	private function parseIncomingParams() {
-        $_parameters = array();
- 
-        // first of all, pull the GET vars
-        if (isset($_SERVER['QUERY_STRING'])) {
-            parse_str($_SERVER['QUERY_STRING'], $_parameters);
-        }
- 
-        // now how about PUT/POST bodies? These override what we got from GET
-        //$body = file_get_contents("php://input");
-        //$_parameters = json_decode($body, true);
-
-        if(isset($_POST['json']))
-        	$_parameters = json_decode($_POST['json'], true);
-
-        $this->_parameters = $_parameters;
-    }
-
 }
