@@ -4,5 +4,5 @@
 	"bdd_login":"root",
 	"bdd_password":"",
 	"root_upload":"\\..\\..\\..\\upload\\",
-	"registration_open":false
+	"registration_open":true
 }
