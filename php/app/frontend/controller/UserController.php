@@ -28,7 +28,7 @@ class UserController extends \lib\Controller {
 
 		$user_param = array();
 		$user_param['username'] = $_SERVER['PHP_AUTH_USER'];
-		$user_param['password'] = sha1(isset($_SERVER['PHP_AUTH_PW']));
+		$user_param['password'] = sha1($_SERVER['PHP_AUTH_PW']);
 
 		$user = new User($user_param);
 		$userManager = $this->getManagerof('User');
