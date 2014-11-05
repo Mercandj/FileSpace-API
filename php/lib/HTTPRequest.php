@@ -27,11 +27,11 @@ class HTTPRequest{
 	public function exist($key) {
 		switch($_SERVER['REQUEST_METHOD']) {		
 		case 'GET': 
-		if(getExist($key))
+		if($this->getExist($key))
 			return true;
 		break;
 		case 'POST': 
-		if(postExist($key))
+		if($this->postExist($key))
 			return true;
 		break;
 		}
@@ -41,12 +41,12 @@ class HTTPRequest{
 	public function get($key) {
 		switch($_SERVER['REQUEST_METHOD']) {		
 		case 'GET':
-		if(getExist($key))
-			return getData($key);
+		if($this->getExist($key))
+			return $this->getData($key);
 		break;
 		case 'POST': 
-		if(postExist($key))
-			return json_decode(postData($key), true);
+		if($this->postExist($key))
+			return json_decode($this->postData($key), true);
 		break;
 		}
 		return null;
