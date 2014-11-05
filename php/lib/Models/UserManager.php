@@ -2,7 +2,7 @@
 namespace lib\Models;
 use \lib\Entities\User;
 
-class UserManager extends \lib\Manager{
+class UserManager extends \lib\Manager {
 	protected static $instance;
 
 	public function add(User $user) {

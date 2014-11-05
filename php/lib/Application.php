@@ -2,7 +2,7 @@
 namespace lib;
 use \lib\Models\ConfigManager;
 
-abstract class Application{
+abstract class Application {
 	public $_config,
 		$_pdo,
 		$_page,
@@ -20,14 +20,15 @@ abstract class Application{
 
 	abstract public function run();
 
-	public function getName(){
+	public function getName() {
 		return $this->_name;
 	}
 
-	public function getController(){	
-		try{
+	public function getController() {
+		try {
 			$route = Router::get($_SERVER['REQUEST_URI']);
-		}catch(\RuntimeException $e){
+		}
+		catch(\RuntimeException $e) {
 			$this->_HTTPResponse->redirect404();
 		}
 		
