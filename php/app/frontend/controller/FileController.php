@@ -151,12 +151,13 @@ class FileController extends \lib\Controller {
 	*/
 	public function download() {
 
-		if(!$this->_app->_HTTPRequest->exist('id')) {
+		$id = $this->getMatches(':id');
+
+		if($id == null) {
 			$this->_app->_page->assign('json', '{"succeed":false,"toast":"Bad id."}');
 			$this->_app->_HTTPResponse->send($this->_app->_page->draw('JsonView.php'));
 			return;
 		}
-		$id = $this->_app->_HTTPRequest->get('id');
 
 		$root_upload = __DIR__.$this->_app->_config->get('root_upload');
 
