@@ -23,6 +23,7 @@ import com.mercandalli.jarvis.listener.IModelFileListener;
 import com.mercandalli.jarvis.listener.IPostExecuteListener;
 import com.mercandalli.jarvis.model.ModelFile;
 import com.mercandalli.jarvis.model.ModelUser;
+import com.mercandalli.jarvis.net.TaskGet;
 import com.mercandalli.jarvis.net.TaskPost;
 
 public class DialogRequest extends Dialog {
@@ -30,7 +31,14 @@ public class DialogRequest extends Dialog {
 	DialogFileChooser dialogFileChooser;
 	Application app;
 	File file;
-	ModelFile modelFile;
+	ModelFile modelFile;	
+	
+	private final int GET			= 0;
+	private final int POST			= 1;
+	private final int PUT			= 2;
+	private final int DELETE		= 3;
+	private final int nbMethod		= 4;
+	private int currentMethod 		= GET;
 	
 	public DialogRequest(final Application app, final IPostExecuteListener listener) {
 		super(app);
@@ -43,29 +51,54 @@ public class DialogRequest extends Dialog {
         ((Button) this.findViewById(R.id.request)).setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				ModelUser user = new ModelUser();				
-				user.username = app.config.getUserUsername();
-				user.password = app.config.getUserPassword();
 				
-				JSONObject json = new JSONObject();
-				try {
-					json.put("user", user.getJsonRegister());					
-					if(!((EditText) DialogRequest.this.findViewById(R.id.json)).getText().toString().replace(" ", "").equals(""))
-						json.put("content", new JSONObject(((EditText) DialogRequest.this.findViewById(R.id.json)).getText().toString()));
-					if(file!=null && DialogRequest.this.modelFile != null)
-						json.put("file", DialogRequest.this.modelFile.getJSONRequest());
-				} catch (JSONException e1) {
-					e1.printStackTrace();
+				switch(currentMethod) {
+				
+				case POST:
+					ModelUser user = new ModelUser();				
+					user.username = app.config.getUserUsername();
+					user.password = app.config.getUserPassword();
+					
+					JSONObject json = new JSONObject();
+					try {
+						json.put("user", user.getJsonRegister());					
+						if(!((EditText) DialogRequest.this.findViewById(R.id.json)).getText().toString().replace(" ", "").equals(""))
+							json.put("content", new JSONObject(((EditText) DialogRequest.this.findViewById(R.id.json)).getText().toString()));
+						if(file!=null && DialogRequest.this.modelFile != null)
+							json.put("file", DialogRequest.this.modelFile.getJSONRequest());
+					} catch (JSONException e1) {
+						e1.printStackTrace();
+					}
+					
+					if(!((EditText) DialogRequest.this.findViewById(R.id.server)).getText().toString().equals(""))
+						(new TaskPost(app, app.config.getUrlServer()+((EditText) DialogRequest.this.findViewById(R.id.server)).getText().toString(), new IPostExecuteListener() {
+							@Override
+							public void execute(JSONObject json, String body) {
+								if(listener!=null)
+									listener.execute(json, body);
+							}
+						}, json, file)).execute();
+					break;
+					
+				case PUT:
+					//TODO
+					break;
+					
+				case DELETE:
+					//TODO
+					break;
+					
+				default: //GET
+					if(!((EditText) DialogRequest.this.findViewById(R.id.server)).getText().toString().equals(""))
+						(new TaskGet(app, app.config.getUrlServer()+((EditText) DialogRequest.this.findViewById(R.id.server)).getText().toString(), new IPostExecuteListener() {
+							@Override
+							public void execute(JSONObject json, String body) {
+								if(listener!=null)
+									listener.execute(json, body);
+							}
+						}, null)).execute();
+					
 				}
-				
-				if(!((EditText) DialogRequest.this.findViewById(R.id.server)).getText().toString().equals(""))
-					(new TaskPost(app, app.config.getUrlServer()+((EditText) DialogRequest.this.findViewById(R.id.server)).getText().toString(), new IPostExecuteListener() {
-						@Override
-						public void execute(JSONObject json, String body) {
-							if(listener!=null)
-								listener.execute(json, body);
-						}						
-					}, json, file)).execute();
 				DialogRequest.this.dismiss();
 			}        	
         });
@@ -82,8 +115,28 @@ public class DialogRequest extends Dialog {
 					}					
 				});
 			}        	
-        });        
+        });
+        
+        ((TextView) this.findViewById(R.id.method)).setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				currentMethod++;
+				if(currentMethod>=nbMethod)
+					currentMethod=0;
+				refreshButtonMethod();
+			}        	
+        });
+        refreshButtonMethod();
         
         DialogRequest.this.show();
+	}
+	
+	public void refreshButtonMethod() {
+		switch(currentMethod) {
+		case 1: ((TextView) this.findViewById(R.id.method)).setText("POST"); break;
+		case 2: ((TextView) this.findViewById(R.id.method)).setText("PUT"); break;
+		case 3: ((TextView) this.findViewById(R.id.method)).setText("DELETE"); break;
+		default: ((TextView) this.findViewById(R.id.method)).setText("GET");
+		}
 	}
 }

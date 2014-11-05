@@ -28,6 +28,7 @@
     <string name="up">Up</string>
     <string name="console">Console</string>
     <string name="server_error">No server response.</string>
+    <string name="method">Method</string>
     
     <string name="menu_action_delete">Delete</string>
     <string name="menu_action_add">Add</string>

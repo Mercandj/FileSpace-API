@@ -5,14 +5,14 @@ class Route{
 	private $_url,
 		$_controller,
 		$_action,
-		$method,
+		$_method,
 		$_matches;
 
 	public function __construct($url, $controller, $action, $method, $matches){
 		$this->_url = $url;
 		$this->_controller= $controller;
 		$this->_action = $action;
-		$this->method = $method;
+		$this->_method = $method;
 		$this->_matches = $matches;
 	}
 
@@ -33,6 +33,6 @@ class Route{
 	}
 
 	public function getMethod(){
-		return $this->method;
+		return $this->_method;
 	}
 }

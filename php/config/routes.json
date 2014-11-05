@@ -36,6 +36,12 @@
 		"method":"DELETE"
 	},
 	{
+		"url":"/jarvis/php/file/:id_file",
+		"controller":"File",
+		"action":"download",
+		"method":"GET"
+	},
+	{
 		"url":"/jarvis/php/file/test",
 		"controller":"File",
 		"action":"test",

@@ -28,9 +28,24 @@ class Router{
 	*	@return boolean
 	*/
 	private static function match($url_json,$url_client,$method_json,$method_client){
-		if ($method_json === $method_client)
-			if(preg_match('`^'.$url_json.'$`', $url_client, $matches))
-				return explode("/",$matches[0]);
+		if ($method_json === $method_client) {
+			//Extract variables
+			preg_match_all('#:[a-z\_]+#', $url_json, $var_id);
+			// Clean URL
+			$url_json = preg_replace('#:[a-z\_]+#', '[0-9]{1,4}',$url_json);
+			// Try to matche clean URL with URL Client
+			if(preg_match('`^'.$url_json.'$`', $url_client, $matches)){
+				// Match variables with URL params
+				preg_match_all('#[0-9]+#',$url_client, $matches);
+				$res = array();
+				for($i = 0; $i<count($var_id[0]); $i++){
+					$res[$var_id[0][$i]] = $matches[0][$i];
+				}
+				return $res;
+			}
+			else
+				return false;
+		}
 		return false;
 	}
 }

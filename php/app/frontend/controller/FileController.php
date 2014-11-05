@@ -9,11 +9,6 @@ class FileController extends \lib\Controller {
 	*/
 	public function get() {
 
-		if($this->_app->_HTTPRequest->exist('id')) {
-			$this->download($this->_app->_HTTPRequest->get('id'));
-			return;
-		}
-
 		$userManager = $this->getManagerof('File');
 
 		$array = $userManager->getAll();
@@ -98,7 +93,7 @@ class FileController extends \lib\Controller {
 			$toast = 'Upload failed : !array_key_exists(file, $_FILES).';
 
 		$this->_app->_page->assign('json', '{"succeed":'.$succeed.',"toast":"'.$toast.'"}');
-		$this->_app->_HTTPResponse->send($this->_app->_page->draw('JsonView.php'));		
+		$this->_app->_HTTPResponse->send($this->_app->_page->draw('JsonView.php'));
 	}
 
 	/**
@@ -152,7 +147,18 @@ class FileController extends \lib\Controller {
 		$this->_app->_HTTPResponse->send($this->_app->_page->draw('JsonView.php'));
 	}	
 
-	public function download($id) {
+	/**
+	*	GET file/:id
+	*/
+	public function download() {
+
+		if(!$this->_app->_HTTPRequest->exist('id')) {
+			$this->_app->_page->assign('json', '{"succeed":false,"toast":"Bad id."}');
+			$this->_app->_HTTPResponse->send($this->_app->_page->draw('JsonView.php'));
+			return;
+		}
+		$id = $this->_app->_HTTPRequest->get('id');
+
 		$root_upload = __DIR__.$this->_app->_config->get('root_upload');
 
 		$userManager = $this->getManagerof('File');

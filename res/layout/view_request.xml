@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
         android:ems="10"
         android:gravity="center_vertical"
         android:hint="@string/dialog_server_route"
@@ -24,7 +24,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/server"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
         android:ems="10"
         android:hint="@string/dialog_json"
         android:padding="10dp" >
@@ -37,7 +37,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/json"
-        android:layout_marginTop="15dp" >
+        android:layout_marginTop="5dp" >
 
         <TextView
             android:id="@+id/label"
@@ -60,6 +60,16 @@
             android:layout_centerVertical="true"
             android:text="@string/file" />
    </RelativeLayout>
+   
+    <TextView
+        android:id="@+id/method"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/file"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="7dp"
+        android:text="@string/method"
+        android:textSize="22sp" />
 
     <Button
         android:id="@+id/request"
@@ -67,8 +77,10 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
-        android:layout_below="@+id/file"
-        android:layout_marginTop="10dp"
+        android:layout_below="@+id/method"
+        android:layout_marginTop="5dp"
         android:text="@string/request" />
+
+    
 
 </RelativeLayout>
