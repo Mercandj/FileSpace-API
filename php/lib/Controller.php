@@ -8,7 +8,7 @@ abstract class Controller extends ApplicationComponent {
 	public function __construct(Application $app,$action='run',$matches=0) {
 		parent::__construct($app);
 		$this->_action=$action;
-		$this->matches = $matches;
+		$this->_matches = $matches;
 	}
 
 	public function exec() {
