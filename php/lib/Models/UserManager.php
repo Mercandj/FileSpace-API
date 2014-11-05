@@ -8,12 +8,13 @@ class UserManager extends \lib\Manager{
 	public function add(User $user) {
 		$username = $user->getUsername();
 		$password = $user->getPassword();
+		$date_create = date('Y-m-d H:i:s');
 
 		$req = $this->_db->prepare('INSERT INTO user(id,username,password,date_create,date_last_connection) VALUES (:id, :username, :password, :date_create, :date_last_connection)');
 		$req->bindParam(':username',$username,\PDO::PARAM_STR);
 		$req->bindParam(':password',$password,\PDO::PARAM_STR);
-		$req->bindParam(':date_create',date('Y-m-d H:i:s'),\PDO::PARAM_STR);
-		$req->bindParam(':date_last_connection',date('Y-m-d H:i:s'),\PDO::PARAM_STR);
+		$req->bindParam(':date_create',$date_create,\PDO::PARAM_STR);
+		$req->bindParam(':date_last_connection',$date_create,\PDO::PARAM_STR);
 		$req->execute();
 		$req->closeCursor();
 	}
