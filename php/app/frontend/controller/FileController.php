@@ -16,13 +16,13 @@ class FileController extends \lib\Controller {
 		$json = [];
 		
 		foreach ($list_file as $file) {
-			$result[] = json_encode($file);
+			$result[] = $file->toArray();
 		}
 
 		$json['succeed'] = true;
 		$json['result'] = $result;
 
-		HTTPResponse::send(json_encode($json));
+		HTTPResponse::send(json_encode($json),JSON_UNESCAPED_UNICODE);
 	}
 
 	/**
