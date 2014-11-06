@@ -69,17 +69,18 @@ public class DialogFileChooser extends Dialog {
 	}
 	
 	private void getFiles() {
-		String path = Environment.getExternalStorageDirectory().toString()+currentUrl;
+		String path = Environment.getExternalStorageDirectory().getPath()+currentUrl;
 		File f = new File(path);        
 		File fs[] = f.listFiles();
 		listModelFile = new ArrayList<ModelFile>();
-		for(File file : fs) {
-			ModelFile modelFile = new ModelFile();
-			modelFile.url = file.getAbsolutePath();
-			modelFile.name = file.getName();
-			modelFile.size = ""+file.getTotalSpace();
-			modelFile.isDirectory = file.isDirectory();
-			listModelFile.add(modelFile);
-		}
+		if(fs!=null)
+			for(File file : fs) {
+				ModelFile modelFile = new ModelFile();
+				modelFile.url = file.getAbsolutePath();
+				modelFile.name = file.getName();
+				modelFile.size = ""+file.getTotalSpace();
+				modelFile.isDirectory = file.isDirectory();
+				listModelFile.add(modelFile);
+			}
 	}
 }

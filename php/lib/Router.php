@@ -8,12 +8,12 @@ class Router {
 	*	@param URL Client
 	*	@return Object Route
 	*/
-	public static function get($url) {
+	public static function get($url, $local_root) {
 		$parsed = json_decode( file_get_contents(__DIR__.'/../config/routes.json') );
 
 		foreach($parsed as $route){
-			if( ($matches = self::match($route->{'url'},$url,$route->{'method'},$_SERVER['REQUEST_METHOD'])) !== false ){
-				return new Route($route->{'url'}, $route->{'controller'}, $route->{'action'}, $route->{'method'}, $matches);
+			if( ($matches = self::match($local_root.$route->{'url'},$url,$route->{'method'},$_SERVER['REQUEST_METHOD'])) !== false ){
+				return new Route($local_root.$route->{'url'}, $route->{'controller'}, $route->{'action'}, $route->{'method'}, $matches);
 			}
 		}
 		

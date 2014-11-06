@@ -61,4 +61,12 @@ class User extends \lib\Entity{
 	public function isValid(){
 		return !empty($this->_username) && !empty($this->_password);
 	}
+
+	public function jsonSerialize() {
+		$json = [];
+		$json['id'] = $this->getId();
+		$json['username'] = $this->getUsername();
+		$json['admin'] = $this->isAdmin();
+        return $json;
+    }
 }

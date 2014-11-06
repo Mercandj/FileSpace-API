@@ -3,6 +3,7 @@
 	"bdd_name":"jarvis",
 	"bdd_login":"root",
 	"bdd_password":"",
+	"root":"/jarvis/php",
 	"root_upload":"\\..\\..\\..\\upload\\",
 	"registration_open":true
 }
