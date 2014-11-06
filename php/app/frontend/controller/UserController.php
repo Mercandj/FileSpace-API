@@ -24,7 +24,7 @@ class UserController extends \lib\Controller {
 	*	Used by $this->login() and Applicationfrontend
 	*/
 	public function isUser() {
-		return true; // Only for test
+		//return true; // Only for test
 
 		if(!isset($_SERVER['PHP_AUTH_USER']) || !isset($_SERVER['PHP_AUTH_PW'])){
 			return false;
