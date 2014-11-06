@@ -55,11 +55,11 @@ class FileController extends \lib\Controller {
 
 		$extensions_valides = array( 'rar', 'zip', 'apk', 'png', 'jpg', 'jpeg', 'gif', 'png', 'txt', 'mp3', 'avi', 'mp4', 'pdf', 'docx', 'pptx' );
 		$extension_upload = strtolower(  substr(  strrchr($_FILES['file']['name'], '.')  ,1)  );
-
+	
 		$succeed = false;
 		$toast = '';
 
-		if(array_key_exists('file', $_FILES)) {
+		if(HTTPRequest::fileExist('file')) {
 			if ($_FILES['file']['error'] === UPLOAD_ERR_OK) {
 				if(!$userManager->exist($file->getUrl())) {
 					if ( in_array($extension_upload,$extensions_valides) ) {
@@ -88,7 +88,7 @@ class FileController extends \lib\Controller {
 				$toast = 'Upload failed with error code '.$_FILES['file']['error'].'.';
 		}
 		else
-			$toast = 'Upload failed : !array_key_exists(file, $_FILES).';
+			$toast = 'Upload failed : no file';
 
 		$this->_app->_page->assign('json', '{"succeed":'.$succeed.',"toast":"'.$toast.'"}');
 		HTTPResponse::send($this->_app->_page->draw('JsonView.php'));

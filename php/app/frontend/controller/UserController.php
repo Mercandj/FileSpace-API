@@ -24,7 +24,7 @@ class UserController extends \lib\Controller {
 	*	Used by $this->login() and Applicationfrontend
 	*/
 	public function isUser() {
-		// return true; // Only for test
+		return true; // Only for test
 
 		if(!isset($_SERVER['PHP_AUTH_USER']) || !isset($_SERVER['PHP_AUTH_PW'])){
 			return false;
@@ -58,39 +58,37 @@ class UserController extends \lib\Controller {
 		$json = HTTPRequest::get('json');
 
 		if($json==null) {
-			$json = '{"succeed":false,"toast":"Wrong User."}';
-			$this->_app->_page->assign('json', $json);
-			HTTPResponse::send($this->_app->_page->draw('JsonView.php'));
+			HTTPResponse::send('{"succeed":false,"toast":"Wrong User."}');
 			return;
 		}
 
-		if(!@array_key_exists('user', $json)) {
-			$json = '{"succeed":false,"toast":"Wrong User."}';
-			$this->_app->_page->assign('json', $json);
-			HTTPResponse::send($this->_app->_page->draw('JsonView.php'));
+		else if(isset($json['user']) || array_key_exists('user',$json)) {
+			HTTPResponse::send('{"succeed":false,"toast":"Wrong User."}');
 			return;
 		}
 
-		if(!$this->_app->_config->get('registration_open')) {
-			$json = '{"succeed":false,"toast":"Registration close."}';
-			$this->_app->_page->assign('json', $json);
-			HTTPResponse::send($this->_app->_page->draw('JsonView.php'));
+		else if(!$this->_app->_config->get('registration_open')) {
+			HTTPResponse::send('{"succeed":false,"toast":"Registration close."}');
 			return;
 		}
-		
-		$user = new User($json['user']);
-		$user->setPassword(sha1($json['user']['password']));
-		$userManager = $this->getManagerof('User');
-		// Check if User exist
-		if(!$userManager->exist($user->getUsername())) {
-			$userManager->add($user);
-			$json = '{"succeed":true}';
-		}
-		else {
-			$this->_app->_page->assign('error', true);
-			$json = '{"succeed":false,"toast":"Username already exists."}';
-		}
-		$this->_app->_page->assign('json', $json);
-		HTTPResponse::send($this->_app->_page->draw('JsonView.php'));
+
+		else{
+			$user = new User($json['user']);
+			$user->setPassword(sha1($json['user']['password']));
+			$userManager = $this->getManagerof('User');
+
+			// Check if User exist
+			if(!$userManager->exist($user->getUsername())) {
+				$userManager->add($user);
+				$json = '{"succeed":true}';
+			}
+			else {
+				$this->_app->_page->assign('error', true);
+				$json = '{"succeed":false,"toast":"Username already exists."}';
+			}
+
+			$this->_app->_page->assign('json', $json);
+			HTTPResponse::send($this->_app->_page->draw('JsonView.php'));
+		}	
 	}
 }

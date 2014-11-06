@@ -3,20 +3,28 @@ namespace lib;
 
 class HTTPRequest {
 
-	private static function getData($key) {
+	public static function getData($key) {
 		return isset($_GET[$key]) ? $_GET[$key] : null;
 	}
 
-	private static function getExist($key) {
+	public static function getExist($key) {
 		return isset($_GET[$key]);
 	}
 
-	private static function postData($key) {
+	public static function postData($key) {
 		return isset($_POST[$key]) ? $_POST[$key] : null;
 	}
 
-	private static function postExist($key) {
+	public static function postExist($key) {
 		return isset($_POST[$key]);
+	}
+
+	public static function fileData($key){
+		return isset($_FILES[$key]) ? $_FILES[$key] : null;
+	}
+
+	public static function fileExist($key){
+		return isset($_FILES[$key]);
 	}
 
 	private static function defaultData($key) {
