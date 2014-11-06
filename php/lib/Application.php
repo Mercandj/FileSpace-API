@@ -10,15 +10,10 @@ abstract class Application {
 	public function __construct() {
 		$this->_page = new Page($this);
 		$this->_config =  ConfigManager::getInstance();
-		$connexion = new Connexion($this);	
-		$this->_pdo = $connexion->getPDO();	
+		$this->_pdo = (new Connexion($this))->getPDO();	
 	}
 
 	abstract public function run();
-
-	public function getName() {
-		return $this->_name;
-	}
 
 	public function getController() {
 		try {
@@ -28,7 +23,7 @@ abstract class Application {
 			$this->_HTTPResponse->redirect404();
 		}
 		
-		$controleurPath = '\app\\'.$this->_name.'\\controller\\'.$route->getController().'Controller';
+		$controleurPath = '\app\frontend\controller\\'.$route->getController().'Controller';
 		return new $controleurPath($this,$route->getAction(), $route->getMatches());
 	}
 }

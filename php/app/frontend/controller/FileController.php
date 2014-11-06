@@ -11,21 +11,22 @@ class FileController extends \lib\Controller {
 	*/
 	public function get() {
 
-		$userManager = $this->getManagerof('File');
-
-		$array = $userManager->getAll();
-		$json = array();
+		$list_file = $this->getManagerof('File')->getAll();
+		$result = [];
+		$json = [];
 		
-		foreach ($array as $value) {
-			$file = array();
-			$file['id'] = $value->getId();
-			$file['url'] = $value->getUrl();
-			$file['size'] = $value->getSize();
-			$json[] = $file;
+		foreach ($list_file as $file) {
+			$file_array = [];
+			$file_array['id'] = $file->getId();
+			$file_array['url'] = $file->getUrl();
+			$file_array['size'] = $file->getSize();
+			$result[] = $file_array;
 		}
 
-		$this->_app->_page->assign('json', '{"succeed":true,"result":'.json_encode($json).'}');
-		HTTPResponse::send($this->_app->_page->draw('JsonView.php'));
+		$json['succeed'] = true;
+		$json['result'] = $result;
+
+		HTTPResponse::send(json_encode($json));
 	}
 
 	/**

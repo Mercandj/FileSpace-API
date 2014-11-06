@@ -26,12 +26,8 @@ class Page extends ApplicationComponent{
 		extract($this->_hashmap);
 
 		ob_start();
-		require __DIR__.'/../app/'.$this->_app->getName().'/view/'.$view;
+		require __DIR__.'/../app/frontend/view/'.$view;
 
-		if($this->_app->getName() != 'backend'){
-			return $this->minify(ob_get_clean());
-		}else{
-			return ob_get_clean();
-		}
+		return $this->minify(ob_get_clean());
 	}
 }

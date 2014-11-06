@@ -11,10 +11,11 @@ class UserController extends \lib\Controller {
 	*/
 	public function login() {
 
-		if($this->isUser())
+		if($this->isUser()){
 			$json = '{"succeed":true,"token":""}';
-		else
+		}else{
 			$json = '{"succeed":false,"toast":"Wrong User."}';
+		}
 
 		$this->_app->_page->assign('json', $json);
 		HTTPResponse::send($this->_app->_page->draw('JsonView.php'));
@@ -24,6 +25,7 @@ class UserController extends \lib\Controller {
 	*	Used by $this->login() and Applicationfrontend
 	*/
 	public function isUser() {
+		// return true; // Only for test
 
 		if(!isset($_SERVER['PHP_AUTH_USER']) || !isset($_SERVER['PHP_AUTH_PW']))
 			return false;
