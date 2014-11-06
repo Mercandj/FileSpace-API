@@ -43,14 +43,14 @@ For each file request : basic-authentication token:empty
 Remote and secure file manager. (upload files + download files + management)
 
 * Android : API supported : 14 to 21 (Lollipop)
-* Required : PHP server with PHP>5 support
+* Required : PHP server with PHP>=5.4 support
 * Theme : API<21 Holo.Light and API>=21 Material !!!!
 
 
 ## DEVELOPERS
 
 * Mercandalli Jonathan (Front Android + Rest API)
-* Maybe : 7h1b0 (Front Web)
+* 7h1b0 (Front Web + Rest API)
 
 
 ## LICENSE

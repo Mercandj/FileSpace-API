@@ -20,7 +20,7 @@ abstract class Application {
 			$route = Router::get($_SERVER['REQUEST_URI']);
 		}
 		catch(\RuntimeException $e) {
-			$this->_HTTPResponse->redirect404();
+			HTTPResponse::redirect404();
 		}
 		
 		$controleurPath = '\app\frontend\controller\\'.$route->getController().'Controller';
