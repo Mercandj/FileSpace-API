@@ -1,7 +1,7 @@
 <?php
 namespace lib\Entities;
 
-class File extends \lib\Entity{
+class File extends \lib\Entity implements \JsonSerializable{
 
 	const INVALID_URL = 1,
 		INVALID_SIZE = 2,
@@ -61,4 +61,12 @@ class File extends \lib\Entity{
 	public function isValid(){
 		return !empty($this->_id) && !empty($this->_url);
 	}
+
+	public function jsonSerialize() {
+		$json = [];
+		$json['id'] = $this->getId();
+		$json['url'] = $this->getUrl();
+		$json['size'] = $this->getSize();
+        return $json;
+    }
 }

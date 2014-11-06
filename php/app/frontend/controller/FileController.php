@@ -16,11 +16,7 @@ class FileController extends \lib\Controller {
 		$json = [];
 		
 		foreach ($list_file as $file) {
-			$file_array = [];
-			$file_array['id'] = $file->getId();
-			$file_array['url'] = $file->getUrl();
-			$file_array['size'] = $file->getSize();
-			$result[] = $file_array;
+			$result[] = json_encode($file);
 		}
 
 		$json['succeed'] = true;
