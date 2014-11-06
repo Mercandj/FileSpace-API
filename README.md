@@ -42,7 +42,7 @@ For each file request : basic-authentication token:empty
 
 Remote and secure file manager. (upload files + download files + management)
 
-* Android : SDK supported : 14 to 21 (Lollipop)
+* Android : SDK supported : 14 (Ice Cream Sandwich) to 21 (Lollipop)
 * Required : PHP server with PHP>=5.4 support
 * Theme : Before Android 5.0 Lollipop Holo.Light, after Material.Light !!!!
 
