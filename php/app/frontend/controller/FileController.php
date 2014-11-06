@@ -1,6 +1,8 @@
 <?php
 namespace app\frontend\controller;
 use \lib\Entities\File;
+use \lib\HTTPRequest;
+use \lib\HTTPResponse;
 
 class FileController extends \lib\Controller {
 
@@ -23,7 +25,7 @@ class FileController extends \lib\Controller {
 		}
 
 		$this->_app->_page->assign('json', '{"succeed":true,"result":'.json_encode($json).'}');
-		$this->_app->_HTTPResponse->send($this->_app->_page->draw('JsonView.php'));
+		HTTPResponse::send($this->_app->_page->draw('JsonView.php'));
 	}
 
 	/**
@@ -31,12 +33,12 @@ class FileController extends \lib\Controller {
 	*/
 	public function post() {
 
-		$json = $this->_app->_HTTPRequest->get('json');
+		$json = HTTPRequest::get('json');
 
 		if($json==null) {
 			$json = '{"succeed":false,"toast":"Wrong User."}';
 			$this->_app->_page->assign('json', $json);
-			$this->_app->_HTTPResponse->send($this->_app->_page->draw('JsonView.php'));
+			HTTPResponse::send($this->_app->_page->draw('JsonView.php'));
 			return;
 		}
 
@@ -45,7 +47,7 @@ class FileController extends \lib\Controller {
 		if(!@array_key_exists('file', $json)) {
 			$json = '{"succeed":false,"toast":"FileController : file key (json) not found."}';
 			$this->_app->_page->assign('json', $json);
-			$this->_app->_HTTPResponse->send($this->_app->_page->draw('JsonView.php'));
+			HTTPResponse::send($this->_app->_page->draw('JsonView.php'));
 			return;
 		}
 
@@ -92,7 +94,7 @@ class FileController extends \lib\Controller {
 			$toast = 'Upload failed : !array_key_exists(file, $_FILES).';
 
 		$this->_app->_page->assign('json', '{"succeed":'.$succeed.',"toast":"'.$toast.'"}');
-		$this->_app->_HTTPResponse->send($this->_app->_page->draw('JsonView.php'));
+		HTTPResponse::send($this->_app->_page->draw('JsonView.php'));
 	}
 
 	/**
@@ -143,7 +145,7 @@ class FileController extends \lib\Controller {
 		$array_json['files_bdd'] = $files_bdd;
 		$array_json['test'] = $_SERVER['PHP_AUTH_USER'].' '.$_SERVER['PHP_AUTH_PW'];
 		$this->_app->_page->assign('json', json_encode($array_json));
-		$this->_app->_HTTPResponse->send($this->_app->_page->draw('JsonView.php'));
+		HTTPResponse::send($this->_app->_page->draw('JsonView.php'));
 	}	
 
 	/**
@@ -155,7 +157,7 @@ class FileController extends \lib\Controller {
 
 		if($id == null) {
 			$this->_app->_page->assign('json', '{"succeed":false,"toast":"Bad id."}');
-			$this->_app->_HTTPResponse->send($this->_app->_page->draw('JsonView.php'));
+			HTTPResponse::send($this->_app->_page->draw('JsonView.php'));
 			return;
 		}
 
@@ -193,13 +195,13 @@ class FileController extends \lib\Controller {
 			}
 			else {
 				$this->_app->_page->assign('json', '{"succeed":false,"result":"Physic : Bad File url."}');
-				$this->_app->_HTTPResponse->send($this->_app->_page->draw('JsonView.php'));
+				HTTPResponse::send($this->_app->_page->draw('JsonView.php'));
 			}
 
 		}
 		else {
 			$this->_app->_page->assign('json', '{"succeed":false,"result":"Bdd : Bad File url."}');
-			$this->_app->_HTTPResponse->send($this->_app->_page->draw('JsonView.php'));
+			HTTPResponse::send($this->_app->_page->draw('JsonView.php'));
 		}
 	}
 }

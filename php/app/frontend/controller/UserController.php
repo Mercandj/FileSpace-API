@@ -1,6 +1,8 @@
 <?php
 namespace app\frontend\controller;
 use \lib\Entities\User;
+use \lib\HTTPRequest;
+use \lib\HTTPResponse;
 
 class UserController extends \lib\Controller {
 
@@ -15,7 +17,7 @@ class UserController extends \lib\Controller {
 			$json = '{"succeed":false,"toast":"Wrong User."}';
 
 		$this->_app->_page->assign('json', $json);
-		$this->_app->_HTTPResponse->send($this->_app->_page->draw('JsonView.php'));
+		HTTPResponse::send($this->_app->_page->draw('JsonView.php'));
 	}
 
 	/**
@@ -47,26 +49,26 @@ class UserController extends \lib\Controller {
 	*/
 	public function register() {
 
-		$json = $this->_app->_HTTPRequest->get('json');
+		$json = HTTPRequest::get('json');
 
 		if($json==null) {
 			$json = '{"succeed":false,"toast":"Wrong User."}';
 			$this->_app->_page->assign('json', $json);
-			$this->_app->_HTTPResponse->send($this->_app->_page->draw('JsonView.php'));
+			HTTPResponse::send($this->_app->_page->draw('JsonView.php'));
 			return;
 		}
 
 		if(!@array_key_exists('user', $json)) {
 			$json = '{"succeed":false,"toast":"Wrong User."}';
 			$this->_app->_page->assign('json', $json);
-			$this->_app->_HTTPResponse->send($this->_app->_page->draw('JsonView.php'));
+			HTTPResponse::send($this->_app->_page->draw('JsonView.php'));
 			return;
 		}
 
 		if(!$this->_app->_config->get('registration_open')) {
 			$json = '{"succeed":false,"toast":"Registration close."}';
 			$this->_app->_page->assign('json', $json);
-			$this->_app->_HTTPResponse->send($this->_app->_page->draw('JsonView.php'));
+			HTTPResponse::send($this->_app->_page->draw('JsonView.php'));
 			return;
 		}
 		
@@ -83,6 +85,6 @@ class UserController extends \lib\Controller {
 			$json = '{"succeed":false,"toast":"Username already exists."}';
 		}
 		$this->_app->_page->assign('json', $json);
-		$this->_app->_HTTPResponse->send($this->_app->_page->draw('JsonView.php'));
+		HTTPResponse::send($this->_app->_page->draw('JsonView.php'));
 	}
 }

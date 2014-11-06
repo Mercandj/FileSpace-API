@@ -1,48 +1,48 @@
 [
 	{
-		"url":"/jarvis/php/user/register",
+		"url":"/user/register",
 		"controller":"User",
 		"action":"register",
 		"method":"POST"
 	},
 	{
-		"url":"/jarvis/php/user/login",
+		"url":"/user/login",
 		"controller":"User",
 		"action":"login",
 		"method":"POST"
 	},
 	{
-		"url":"/jarvis/php/file",
+		"url":"/file",
 		"controller":"File",
 		"action":"get",
 		"method":"GET"
 	},
 	{
-		"url":"/jarvis/php/file",
+		"url":"/file",
 		"controller":"File",
 		"action":"post",
 		"method":"POST"
 	},
 	{
-		"url":"/jarvis/php/file",
+		"url":"/file",
 		"controller":"File",
 		"action":"put",
 		"method":"PUT"
 	},
 	{
-		"url":"/jarvis/php/file",
+		"url":"/file",
 		"controller":"File",
 		"action":"delete",
 		"method":"DELETE"
 	},
 	{
-		"url":"/jarvis/php/file/:id",
+		"url":"/file/:id",
 		"controller":"File",
 		"action":"download",
 		"method":"GET"
 	},
 	{
-		"url":"/jarvis/php/file/test",
+		"url":"/file/test",
 		"controller":"File",
 		"action":"test",
 		"method":"POST"

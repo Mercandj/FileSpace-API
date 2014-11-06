@@ -5,14 +5,10 @@ use \lib\Models\ConfigManager;
 abstract class Application {
 	public $_config,
 		$_pdo,
-		$_page,
-		$_HTTPResponse,
-		$_HTTPRequest;
+		$_page;
 
 	public function __construct() {
 		$this->_page = new Page($this);
-		$this->_HTTPResponse = new HTTPResponse($this);
-		$this->_HTTPRequest = new HTTPRequest($this);
 		$this->_config =  ConfigManager::getInstance();
 		$connexion = new Connexion($this);	
 		$this->_pdo = $connexion->getPDO();	
