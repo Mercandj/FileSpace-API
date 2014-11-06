@@ -5,5 +5,5 @@
 	"bdd_password":"",
 	"root":"/jarvis/php",
 	"root_upload":"\\..\\..\\..\\upload\\",
-	"registration_open":true
+	"registration_open":false
 }
