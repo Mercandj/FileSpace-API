@@ -12,8 +12,6 @@ class FileController extends \lib\Controller {
 	public function get() {
 
 		$list_file = $this->getManagerof('File')->getAll();
-		$result = [];
-		$json = [];
 		
 		foreach ($list_file as $file) {
 			$result[] = $file->toArray();
@@ -22,7 +20,7 @@ class FileController extends \lib\Controller {
 		$json['succeed'] = true;
 		$json['result'] = $result;
 
-		HTTPResponse::send(json_encode($json),JSON_UNESCAPED_UNICODE);
+		HTTPResponse::send(json_encode($json));
 	}
 
 	/**

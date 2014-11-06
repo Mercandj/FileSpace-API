@@ -63,7 +63,6 @@ class File extends \lib\Entity{
 	}
 
     public function toArray(){
-		$json = [];
 		$json['id'] = $this->getId();
 		$json['url'] = $this->getUrl();
 		$json['size'] = $this->getSize();
