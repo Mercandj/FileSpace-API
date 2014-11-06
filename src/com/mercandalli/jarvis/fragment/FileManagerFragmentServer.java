@@ -20,6 +20,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.mercandalli.jarvis.Application;
 import com.mercandalli.jarvis.R;
@@ -34,6 +35,7 @@ public class FileManagerFragmentServer extends Fragment {
 	ListView listView;
 	List<ModelFile> listModelFile;
 	ProgressBar circulerProgressBar;
+	TextView message;
 	
 	public FileManagerFragmentServer(Application app) {
 		this.app = app;
@@ -43,6 +45,7 @@ public class FileManagerFragmentServer extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {		
         View rootView = inflater.inflate(R.layout.fragment_filemanager_online, container, false);
         circulerProgressBar = (ProgressBar) rootView.findViewById(R.id.circulerProgressBar);
+        message = (TextView) rootView.findViewById(R.id.message);
         listView = (ListView) rootView.findViewById(R.id.listView);
         
         if(this.app.config.isLoginSucceed)
@@ -75,7 +78,7 @@ public class FileManagerFragmentServer extends Fragment {
 					}
 				} catch (JSONException e) {
 					e.printStackTrace();
-				}				
+				}
 				updateAdapter();
 			}			
 		}, null).execute();
@@ -83,7 +86,16 @@ public class FileManagerFragmentServer extends Fragment {
 	}
 	
 	private void updateAdapter() {
-		if(listView!=null && listModelFile!=null)
+		if(listView!=null && listModelFile!=null) {
+			
+			if(listModelFile.size()==0) {
+				message.setText(getString(R.string.no_file_server));
+				message.setVisibility(View.VISIBLE);
+			}
+			else
+				message.setVisibility(View.GONE);
+			
 			listView.setAdapter(new AdapterModelFile(app, R.layout.tab_file, listModelFile ));
+		}
 	}
 }

@@ -4,7 +4,7 @@
  * MERCANDALLI Jonathan
  */
 
-package com.mercandalli.jarvis.conf;
+package com.mercandalli.jarvis.config;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -21,8 +21,9 @@ import com.mercandalli.jarvis.model.ModelUser;
 
 public class Config {
 
-	public final String aboutURL 				= "http://mercandalli.com/";	
-	public boolean isLoginSucceed 				= false;	
+	public final String localFolderName			= "Jarvis";
+	public final String aboutURL 				= "http://mercandalli.com/";
+	public boolean isLoginSucceed 				= false;
 	public final String routeFile	 			= "file";
 	public final String routeUserRegister 		= "user/register";
 	public final String routeUserLogin 			= "user/login";

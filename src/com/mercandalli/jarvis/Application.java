@@ -12,7 +12,7 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 
-import com.mercandalli.jarvis.conf.Config;
+import com.mercandalli.jarvis.config.Config;
 import com.mercandalli.jarvis.listener.IListener;
 
 public class Application extends Activity {
