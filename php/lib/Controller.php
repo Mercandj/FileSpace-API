@@ -26,11 +26,6 @@ abstract class Controller extends ApplicationComponent {
 		return $path::getInstance($this->_app->_pdo);
 	}
 
-	protected function getFlashMessage() {
-		if($this->_app->_session->hasFlashMessage())
-			$this->_app->_page->assign('flashMessage', $this->_app->_session->getFlashMessage() );
-	}
-
 	protected function getMatches($key) {
 		if(isset($this->_matches[$key]))
 			return $this->_matches[$key];		

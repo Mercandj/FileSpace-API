@@ -1,5 +1,5 @@
 <?php
-namespace app\frontend\controller;
+namespace app\controller;
 use \lib\Entities\User;
 use \lib\HTTPRequest;
 use \lib\HTTPResponse;
@@ -24,7 +24,7 @@ class UserController extends \lib\Controller {
 	*	Used by $this->login() and Applicationfrontend
 	*/
 	public function isUser() {
-		//return true; // Only for test
+		// return true; // Only for test
 
 		if(!isset($_SERVER['PHP_AUTH_USER']) || !isset($_SERVER['PHP_AUTH_PW'])){
 			return false;
@@ -83,12 +83,10 @@ class UserController extends \lib\Controller {
 				$json = '{"succeed":true}';
 			}
 			else {
-				$this->_app->_page->assign('error', true);
 				$json = '{"succeed":false,"toast":"Username already exists."}';
 			}
 
-			$this->_app->_page->assign('json', $json);
-			HTTPResponse::send($this->_app->_page->draw('JsonView.php'));
+			HTTPResponse::send($json);
 		}	
 	}
 }

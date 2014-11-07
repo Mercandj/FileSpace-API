@@ -4,11 +4,9 @@ use \lib\Models\ConfigManager;
 
 abstract class Application {
 	public $_config,
-		$_pdo,
-		$_page;
+		$_pdo;
 
 	public function __construct() {
-		$this->_page = new Page($this);
 		$this->_config =  ConfigManager::getInstance();
 		$this->_pdo = (new Connexion($this))->getPDO();	
 	}
@@ -23,7 +21,7 @@ abstract class Application {
 			HTTPResponse::redirect404();
 		}
 		
-		$controleurPath = '\app\frontend\controller\\'.$route->getController().'Controller';
+		$controleurPath = '\app\controller\\'.$route->getController().'Controller';
 		return new $controleurPath($this,$route->getAction(), $route->getMatches());
 	}
 }

@@ -1,5 +1,5 @@
 <?php
-namespace app\frontend\controller;
+namespace app\controller;
 use \lib\Entities\File;
 use \lib\HTTPRequest;
 use \lib\HTTPResponse;
@@ -7,8 +7,11 @@ use \lib\HTTPResponse;
 class FileController extends \lib\Controller {
 
 	/**
-	*	GET file
-	*/
+	 * Return Get list of files
+	 * @url    	/file
+	 * @method 	GET
+	 * @return 	JSON List of files
+	 */
 	public function get() {
 
 		$list_file = $this->getManagerof('File')->getAll();
@@ -24,25 +27,23 @@ class FileController extends \lib\Controller {
 	}
 
 	/**
-	*	POST file
-	*/
+	 * Add file
+	 * @url    	/file
+	 * @method 	POST
+	 */
 	public function post() {
 
 		$json = HTTPRequest::get('json');
 
 		if($json==null) {
-			$json = '{"succeed":false,"toast":"Wrong User."}';
-			$this->_app->_page->assign('json', $json);
-			HTTPResponse::send($this->_app->_page->draw('JsonView.php'));
+			HTTPResponse::send('{"succeed":false,"toast":"Wrong User."}');
 			return;
 		}
 
 		$root_upload = __DIR__.$this->_app->_config->get('root_upload');
 
 		if(!@array_key_exists('file', $json)) {
-			$json = '{"succeed":false,"toast":"FileController : file key (json) not found."}';
-			$this->_app->_page->assign('json', $json);
-			HTTPResponse::send($this->_app->_page->draw('JsonView.php'));
+			HTTPResponse::send('{"succeed":false,"toast":"FileController : file key (json) not found."}');
 			return;
 		}
 
@@ -85,23 +86,27 @@ class FileController extends \lib\Controller {
 			else
 				$toast = 'Upload failed with error code '.$_FILES['file']['error'].'.';
 		}
-		else
+		else{
 			$toast = 'Upload failed : no file';
+		}
 
-		$this->_app->_page->assign('json', '{"succeed":'.$succeed.',"toast":"'.$toast.'"}');
-		HTTPResponse::send($this->_app->_page->draw('JsonView.php'));
+		HTTPResponse::send('{"succeed":'.$succeed.',"toast":"'.$toast.'"}');
 	}
 
 	/**
-	*	PUT file
-	*/
+	 * Update a file
+	 * @url   	/file/:id    
+	 * @method 	PUT
+	 */
 	public function put() {
 		// TODO
 	}
 
 	/**
-	*	DELETE file
-	*/
+	 * Delete a file
+	 * @url   	/file/:id    
+	 * @method 	DELETE
+	 */
 	public function delete() {
 		// TODO
 	}
@@ -139,20 +144,21 @@ class FileController extends \lib\Controller {
 		$array_json['files_physic'] = $files_physic;
 		$array_json['files_bdd'] = $files_bdd;
 		$array_json['test'] = $_SERVER['PHP_AUTH_USER'].' '.$_SERVER['PHP_AUTH_PW'];
-		$this->_app->_page->assign('json', json_encode($array_json));
-		HTTPResponse::send($this->_app->_page->draw('JsonView.php'));
+		HTTPResponse::send(json_encode($array_json));
 	}	
 
 	/**
-	*	GET file/:id
-	*/
+	 * Get file ( Download )
+	 * @url   	/file/:id    
+	 * @method 	GET
+	 * @return 	FILE
+	 */
 	public function download() {
 
 		$id = $this->getMatches(':id');
 
 		if($id == null) {
-			$this->_app->_page->assign('json', '{"succeed":false,"toast":"Bad id."}');
-			HTTPResponse::send($this->_app->_page->draw('JsonView.php'));
+			HTTPResponse::send('{"succeed":false,"toast":"Bad id."}');
 			return;
 		}
 
@@ -189,14 +195,12 @@ class FileController extends \lib\Controller {
 				readfile($file_name);		// push it out
 			}
 			else {
-				$this->_app->_page->assign('json', '{"succeed":false,"result":"Physic : Bad File url."}');
-				HTTPResponse::send($this->_app->_page->draw('JsonView.php'));
+				HTTPResponse::send('{"succeed":false,"result":"Physic : Bad File url."}');
 			}
 
 		}
 		else {
-			$this->_app->_page->assign('json', '{"succeed":false,"result":"Bdd : Bad File url."}');
-			HTTPResponse::send($this->_app->_page->draw('JsonView.php'));
+			HTTPResponse::send('{"succeed":false,"result":"Bdd : Bad File url."}');
 		}
 	}
 }

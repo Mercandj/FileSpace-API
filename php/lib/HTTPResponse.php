@@ -9,13 +9,11 @@ class HTTPResponse{
 
 	public static function redirect404(){
 		header($_SERVER["SERVER_PROTOCOL"]." 404 Not Found");
-		//include_once("app/404.html");
 		exit();
 	}
 
 	public static function redirect403(){
 		header($_SERVER["SERVER_PROTOCOL"]." 403 Forbidden");
-		//include_once("app/403.html");
 		exit();
 	}
 

@@ -24,13 +24,13 @@
 		"method":"POST"
 	},
 	{
-		"url":"/file",
+		"url":"/file/:id",
 		"controller":"File",
 		"action":"put",
 		"method":"PUT"
 	},
 	{
-		"url":"/file",
+		"url":"/file/:id",
 		"controller":"File",
 		"action":"delete",
 		"method":"DELETE"

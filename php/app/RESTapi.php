@@ -1,8 +1,8 @@
 <?php
-namespace app\frontend;
-use \app\frontend\controller\UserController;
+namespace app;
+use \app\controller\UserController;
 
-class Applicationfrontend extends \lib\Application {
+class RESTapi extends \lib\Application {
 
 	public function __construct() {
 		parent::__construct();
