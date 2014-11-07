@@ -13,6 +13,7 @@ class User extends \lib\Entity{
 		$_password,
 		$_admin,
 		$_date_create,
+		$_date_last_connection,
 		$_first_name,
 		$_last_name,
 		$_email;
@@ -43,6 +44,10 @@ class User extends \lib\Entity{
 
 	public function getDate_create(){
 		return $this->_date_create;
+	}
+
+	public function getDate_last_connection(){
+		return $this->_date_last_connection;
 	}
 
 	public function isAdmin(){
@@ -106,6 +111,12 @@ class User extends \lib\Entity{
 	public function setDate_create($date){
 		if(!empty($date)){
 			$this->_date_create = $date;
+		}
+	}
+
+	public function setDate_last_connection($date){
+		if(!empty($date)){
+			$this->_date_last_connection = $date;
 		}
 	}
 

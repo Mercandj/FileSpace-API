@@ -11,6 +11,7 @@ class HTTPRequest {
 		return isset($_GET[$key]) && !empty($_GET[$key]);
 	}
 
+
 	public static function postData($key) {
 		return isset($_POST[$key]) ? $_POST[$key] : null;
 	}
@@ -19,6 +20,16 @@ class HTTPRequest {
 		return isset($_POST[$key]) && !empty($_POST[$key]);
 	}
 
+
+	public static function serverExist($key){
+		return isset($_SERVER[$key]) && !empty($_SERVER[$key]);
+	}
+
+	public static function serverData($key){
+		return isset($_SERVER[$key]) ? $_SERVER[$key] : null;
+	}
+
+
 	public static function fileData($key){
 		return isset($_FILES[$key]) ? $_FILES[$key] : null;
 	}
@@ -26,6 +37,7 @@ class HTTPRequest {
 	public static function fileExist($key){
 		return isset($_FILES[$key]);
 	}
+
 
 	private static function defaultData($key) {
 		$array = array();

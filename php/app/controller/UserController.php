@@ -24,27 +24,32 @@ class UserController extends \lib\Controller {
 	*	Used by $this->login() and Applicationfrontend
 	*/
 	public function isUser() {
-		// return true; // Only for test
+		//return true; // Only for test
 
-		if(!isset($_SERVER['PHP_AUTH_USER']) || !isset($_SERVER['PHP_AUTH_PW'])){
+		if( !HTTPRequest::serverExist('PHP_AUTH_USER') && !HTTPRequest::serverExist('PHP_AUTH_PW')){
 			return false;
 		}else{
 
-			$user_param = [];
-			$user_param['username'] = $_SERVER['PHP_AUTH_USER'];
-			$user_param['password'] = sha1($_SERVER['PHP_AUTH_PW']);
+			$user = new User(array(
+				'username' => HTTPRequest::serverData('PHP_AUTH_USER'),
+				'password' => sha1(HTTPRequest::serverExist('PHP_AUTH_PW')),
+				'date_last_connection' => date('Y-m-d H:i:s')
+			));
 
-			$user = new User($user_param);
 			$userManager = $this->getManagerof('User');
 
-			if($userManager->exist($user->getUsername())) {				
+			if(!$userManager->exist($user->getUsername())) {	
+		
 				$userbdd = $userManager->get($user->getUsername());
 
 				if($user->getPassword() === $userbdd->getPassword()){
+					$userManager->updateConnection($user);
 					return true;
 				}
+
+			}else{
+				return false;
 			}
-			return false;
 		}
 
 		return false;
@@ -82,6 +87,7 @@ class UserController extends \lib\Controller {
 				'username' => HTTPRequest::postData('username'),
 				'password' => sha1(HTTPRequest::postData('password')),
 				'date_create' => date('Y-m-d H:i:s'),
+				'date_last_connection' => date('Y-m-d H:i:s'),
 				'last_name' => HTTPRequest::postData('last_name'),
 				'first_name' => HTTPRequest::postData('first_name'),
 				'email' => HTTPRequest::postData('email')
