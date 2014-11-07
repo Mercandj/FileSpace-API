@@ -5,12 +5,17 @@ class User extends \lib\Entity{
 
 	const INVALID_USERNAME = 1,
 		INVALID_PASSWORD = 2,
+		INVALID_EMAIL = 3,
 		KEY_ADMIN = 1;
 
 	protected $_id,
 		$_username,
 		$_password,
-		$_admin;
+		$_admin,
+		$_date_create,
+		$_first_name,
+		$_last_name,
+		$_email;
 
 	public function getId(){
 		return $this->_id;
@@ -22,6 +27,22 @@ class User extends \lib\Entity{
 
 	public function getPassword(){
 		return $this->_password;
+	}
+
+	public function getFirst_name(){
+		return $this->_first_name;
+	}
+
+	public function getLast_name(){
+		return $this->_last_name;
+	}
+
+	public function getEmail(){
+		return $this->_email;
+	}
+
+	public function getDate_create(){
+		return $this->_date_create;
 	}
 
 	public function isAdmin(){
@@ -55,6 +76,36 @@ class User extends \lib\Entity{
 			$this->_admin = self::KEY_ADMIN;
 		}else{
 			$this->_admin = 0;
+		}
+	}
+
+	public function setFirst_name($first_name){
+		if(!empty($first_name)){
+			$this->_first_name = $first_name;
+		}else{
+			// Well ...
+		}
+	}
+
+	public function setLast_name($last_name){
+		if(!empty($last_name)){
+			$this->_last_name = $last_name;
+		}else{
+			// Well ...
+		}
+	}
+
+	public function setEmail($email){
+		if(!empty($email)){ // Need a REGEX
+			$this->_email = $email;
+		}else{
+			$this->_errors[] = self::INVALID_EMAIL;
+		}
+	}
+
+	public function setDate_create($date){
+		if(!empty($date)){
+			$this->_date_create = $date;
 		}
 	}
 

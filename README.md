@@ -32,10 +32,10 @@ For each file request : basic-authentication token:empty
 
 * User Controller
 
-|Root             | Method   | Description   | Input                           | Output
-|-----------------|----------|---------------|---------------------------------|-----------
-| /user/login     | POST     |               | basic-authentication login:pass | json token
-| /user/register  | POST 	 |               | 'json'.'user'                   | json token
+|Root             | Method   | Description   | Input                           	| Output
+|-----------------|----------|---------------|----------------------------------|-----------
+| /user/login     | POST     |               | basic-authentication login:pass 	| json token
+| /user/register  | POST 	 |               | POST 'username' + POST 'password'| json token
 
 
 ## ANDROID DESCRIPTION

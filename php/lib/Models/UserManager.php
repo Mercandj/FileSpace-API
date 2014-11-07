@@ -8,13 +8,19 @@ class UserManager extends \lib\Manager {
 	public function add(User $user) {
 		$username = $user->getUsername();
 		$password = $user->getPassword();
-		$date_create = date('Y-m-d H:i:s');
+		$date_create = $user->getDate_create();
+		$last_name = $user->getLast_name();
+		$first_name = $user->getFirst_name();
+		$email = $user->getEmail();
 
-		$req = $this->_db->prepare('INSERT INTO user(username,password,date_create,date_last_connection) VALUES (:username, :password, :date_create, :date_last_connection)');
+		$req = $this->_db->prepare('INSERT INTO user(username,password,date_create,date_last_connection, last_name, first_name, email) VALUES (:username, :password, :date_create, :date_last_connection, :last_name, :first_name, :email)');
 		$req->bindParam(':username',$username,\PDO::PARAM_STR);
 		$req->bindParam(':password',$password,\PDO::PARAM_STR);
 		$req->bindParam(':date_create',$date_create,\PDO::PARAM_STR);
 		$req->bindParam(':date_last_connection',$date_create,\PDO::PARAM_STR);
+		$req->bindParam(':last_name',$last_name,\PDO::PARAM_STR);
+		$req->bindParam(':first_name',$first_name,\PDO::PARAM_STR);
+		$req->bindParam(':email',$email,\PDO::PARAM_STR);
 		$req->execute();
 		$req->closeCursor();
 	}

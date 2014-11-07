@@ -51,34 +51,46 @@ class UserController extends \lib\Controller {
 	}
 
 	/**
-	*	POST user/register
-	*/
+	 * Register a new user
+	 * @url    /user/register
+	 * @param  username   REQUIRED
+	 * @param  password   REQUIRED
+	 * @param  last_name  OPTIONAL
+	 * @param  first_name OPTIONAL
+	 * @param  email      OPTIONAL
+	 */
 	public function register() {
 
-		$json = HTTPRequest::get('json');
-
-		if($json==null) {
+		if(!HTTPRequest::postExist('username')) {
 			HTTPResponse::send('{"succeed":false,"toast":"Wrong User."}');
-			return;
+			exit();
 		}
 
-		else if(isset($json['user']) || array_key_exists('user',$json)) {
-			HTTPResponse::send('{"succeed":false,"toast":"Wrong User."}');
-			return;
+		else if(!HTTPRequest::postExist('password')) {
+			HTTPResponse::send('{"succeed":false,"toast":"Wrong Password."}');
+			exit();
 		}
 
 		else if(!$this->_app->_config->get('registration_open')) {
 			HTTPResponse::send('{"succeed":false,"toast":"Registration close."}');
-			return;
+			exit();
 		}
 
 		else{
-			$user = new User($json['user']);
-			$user->setPassword(sha1($json['user']['password']));
+			$user = new User(array(
+				'id'=> 0,
+				'username' => HTTPRequest::postData('username'),
+				'password' => sha1(HTTPRequest::postData('password')),
+				'date_create' => date('Y-m-d H:i:s'),
+				'last_name' => HTTPRequest::postData('last_name'),
+				'first_name' => HTTPRequest::postData('first_name'),
+				'email' => HTTPRequest::postData('email')
+			));
+
 			$userManager = $this->getManagerof('User');
 
-			// Check if User exist
-			if(!$userManager->exist($user->getUsername())) {
+			// Check if User exist and is valid
+			if($user->isValid() && !$userManager->exist(HTTPRequest::postData('username'))  ) {
 				$userManager->add($user);
 				$json = '{"succeed":true}';
 			}

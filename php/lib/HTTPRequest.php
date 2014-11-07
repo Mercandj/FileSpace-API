@@ -8,7 +8,7 @@ class HTTPRequest {
 	}
 
 	public static function getExist($key) {
-		return isset($_GET[$key]);
+		return isset($_GET[$key]) && !empty($_GET[$key]);
 	}
 
 	public static function postData($key) {
@@ -16,7 +16,7 @@ class HTTPRequest {
 	}
 
 	public static function postExist($key) {
-		return isset($_POST[$key]);
+		return isset($_POST[$key]) && !empty($_POST[$key]);
 	}
 
 	public static function fileData($key){
