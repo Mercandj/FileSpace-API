@@ -24,22 +24,22 @@ class UserController extends \lib\Controller {
 	*	Used by $this->login() and Applicationfrontend
 	*/
 	public function isUser() {
-		//return true; // Only for test
 
 		if( !HTTPRequest::serverExist('PHP_AUTH_USER') && !HTTPRequest::serverExist('PHP_AUTH_PW')){
 			return false;
+
 		}else{
 
 			$user = new User(array(
 				'username' => HTTPRequest::serverData('PHP_AUTH_USER'),
-				'password' => sha1(HTTPRequest::serverExist('PHP_AUTH_PW')),
+				'password' => sha1(HTTPRequest::serverData('PHP_AUTH_PW')),
 				'date_last_connection' => date('Y-m-d H:i:s')
 			));
 
 			$userManager = $this->getManagerof('User');
 
-			if(!$userManager->exist($user->getUsername())) {	
-		
+			if($userManager->exist($user->getUsername())) {	
+
 				$userbdd = $userManager->get($user->getUsername());
 
 				if($user->getPassword() === $userbdd->getPassword()){

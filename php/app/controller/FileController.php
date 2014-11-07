@@ -15,6 +15,7 @@ class FileController extends \lib\Controller {
 	public function get() {
 
 		$list_file = $this->getManagerof('File')->getAll();
+		$result = []; //In case where list_file is empty;
 		
 		foreach ($list_file as $file) {
 			$result[] = $file->toArray();

@@ -48,6 +48,7 @@ class UserManager extends \lib\Manager {
 	}
 
 	public function updateConnection(User $user){
+		echo 'coucou';
 		$username = $user->getUsername();
 		$date_last_connection = $user->getDate_last_connection();
 
@@ -64,7 +65,6 @@ class UserManager extends \lib\Manager {
     	$req->execute();
 
     	$donnee = $req->fetch(\PDO::FETCH_ASSOC);
-    	print_r($donnee);
     	$req->closeCursor();
     	return new User($donnee);
 	}
