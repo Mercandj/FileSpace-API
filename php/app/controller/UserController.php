@@ -12,7 +12,8 @@ class UserController extends \lib\Controller {
 	public function login() {
 
 		if($this->isUser()){
-			$json = '{"succeed":true,"token":""}';
+			$info_user = json_encode($this->getManagerof('User')->get(HTTPRequest::serverData('PHP_AUTH_USER'))->toArray());
+			$json = '{"succeed":true,"token":"","user":'.$info_user.'}';
 		}else{
 			$json = '{"succeed":false,"toast":"Wrong User."}';
 		}
@@ -58,6 +59,7 @@ class UserController extends \lib\Controller {
 	/**
 	 * Register a new user
 	 * @url    /user/register
+	 * @method POST
 	 * @param  username   REQUIRED
 	 * @param  password   REQUIRED
 	 * @param  last_name  OPTIONAL

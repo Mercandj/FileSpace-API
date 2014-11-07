@@ -11,9 +11,9 @@ class RESTapi extends \lib\Application {
 	public function run() {
 		$controlleur = new UserController($this);
 		
-		if($controlleur->isUser() || $this->getController() instanceof UserController)
+		if($controlleur->isUser() || $controller = $this->getController() instanceof UserController){
 			$this->getController()->exec();
-		else {
+		}else {
 			\lib\HTTPResponse::redirect401();
 		}
 		

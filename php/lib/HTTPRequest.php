@@ -4,7 +4,7 @@ namespace lib;
 class HTTPRequest {
 
 	public static function getData($key) {
-		return isset($_GET[$key]) ? $_GET[$key] : null;
+		return self::getExist($key) ? $_GET[$key] : null;
 	}
 
 	public static function getExist($key) {
@@ -13,7 +13,7 @@ class HTTPRequest {
 
 
 	public static function postData($key) {
-		return isset($_POST[$key]) ? $_POST[$key] : null;
+		return self::postExist($key) ? $_POST[$key] : null;
 	}
 
 	public static function postExist($key) {
@@ -21,12 +21,12 @@ class HTTPRequest {
 	}
 
 
-	public static function serverExist($key){
-		return isset($_SERVER[$key]) && !empty($_SERVER[$key]);
+	public static function serverData($key){
+		return self::serverExist($key) ? $_SERVER[$key] : null;
 	}
 
-	public static function serverData($key){
-		return isset($_SERVER[$key]) ? $_SERVER[$key] : null;
+	public static function serverExist($key){
+		return isset($_SERVER[$key]) && !empty($_SERVER[$key]);
 	}
 
 

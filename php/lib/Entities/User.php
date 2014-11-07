@@ -124,11 +124,14 @@ class User extends \lib\Entity{
 		return !empty($this->_username) && !empty($this->_password);
 	}
 
-	public function jsonSerialize() {
-		$json = [];
+	public function toArray() {
 		$json['id'] = $this->getId();
 		$json['username'] = $this->getUsername();
-		$json['admin'] = $this->isAdmin();
+		$json['last_name'] = $this->getLast_name();
+		$json['first_name'] = $this->getFirst_name();
+		$json['email'] = $this->getEmail();
+		$json['date_creation'] = $this->getDate_create();
+		$json['date_last_connection'] = $this->getDate_last_connection(); 
         return $json;
     }
 }

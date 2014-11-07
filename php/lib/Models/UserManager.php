@@ -48,7 +48,6 @@ class UserManager extends \lib\Manager {
 	}
 
 	public function updateConnection(User $user){
-		echo 'coucou';
 		$username = $user->getUsername();
 		$date_last_connection = $user->getDate_last_connection();
 
@@ -60,7 +59,7 @@ class UserManager extends \lib\Manager {
 	}
 
 	public function get($username) {
-		$req = $this->_db->prepare('SELECT id,username,password,admin FROM user WHERE username = :username');
+		$req = $this->_db->prepare('SELECT id,username,password,last_name,first_name,email,date_create,date_last_connection,admin FROM user WHERE username = :username');
     	$req->bindParam(':username', $username, \PDO::PARAM_STR);
     	$req->execute();
 
@@ -70,7 +69,7 @@ class UserManager extends \lib\Manager {
 	}
 
 	public function getById($id) {
-		$req = $this->_db->prepare('SELECT id,username,password,admin FROM user WHERE id = :id');
+		$req = $this->_db->prepare('SELECT id,username,last_name,first_name,email,date_creation,date_last_connection FROM user WHERE id = :id');
     	$req->bindParam(':id', $id, \PDO::PARAM_INT);
     	$req->execute();
 
