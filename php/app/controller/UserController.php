@@ -34,7 +34,7 @@ class UserController extends \lib\Controller {
 	 * @param  first_name OPTIONAL
 	 * @param  email      OPTIONAL
 	 */
-	public function register() {
+	public function post() {
 
 		if(!HTTPRequest::postExist('username')) {
 			HTTPResponse::send('{"succeed":false,"toast":"Wrong User."}');
