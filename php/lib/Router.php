@@ -1,44 +1,55 @@
 <?php
 namespace lib;
 
-class Router {
-	
-	/**
-	*	Find Route
-	*	@param URL Client
-	*	@return Object Route
-	*/
-	public static function get($url, $local_root) {
-		$parsed = json_decode( file_get_contents(__DIR__.'/../config/routes.json') );
+class Router extends ApplicationComponent{
 
-		foreach($parsed as $route){
-			if( ($match = self::match($local_root.$route->{'url'},$url,$route->{'method'},$_SERVER['REQUEST_METHOD'])) !== false ){
-				return new Route($local_root.$route->{'url'}, $route->{'controller'}, $route->{'action'}, $route->{'method'}, $match);
-			}
-		}
-		
-		throw new \RuntimeException('No Route');
+	public function __construct(Application $app){
+		parent::__construct($app);
+	}
+	
+	public function get($url, $controller_action){
+		return $this->match($url,'GET',$controller_action);
 	}
 
-	/**
-	*	Return True if url client match with url
-	*	@param url client
-	*	@return boolean
-	*/
-	private static function match($url_json,$url_client,$method_json,$method_client) {
-		if ($method_json === $method_client) {
+	public function post($url, $controller_action){
+		return $this->match($url,'POST',$controller_action);
+	}
+
+	public function put($url, $controller_action){
+		return $this->match($url,'PUT',$controller_action);
+	}	
+
+	public function delete($url, $controller_action){
+		return $this->match($url,'DELETE',$controller_action);
+	}	
+
+
+	private function match($url,$method, $controller_action) {
+		if ($method === $_SERVER['REQUEST_METHOD']) {
+			$url = $this->_app->_config->get('root').$url;
 
 			// Clean URL
-			$url_json = preg_replace('#:[a-z_]+#','[0-9]+',$url_json);
+			$url = preg_replace('#:[a-z_]+#','[0-9]+',$url);
 
 			// Try to match clean URL with URL Client
-			if(preg_match('`^'.$url_json.'$`', $url_client)){
+			if(preg_match('`^'.$url.'$`', $_SERVER['REQUEST_URI'])){
 
 				// Match variables with URL params
-				preg_match('#[0-9]+#',$url_client, $match);
-				return $match;
+				preg_match('#[0-9]+#',$_SERVER['REQUEST_URI'], $match);
+
+				$controller_action = explode('#',$controller_action);
+
+				$controleurPath = '\app\controller\\'.$controller_action[0].'Controller';
+				$controller = new $controleurPath($this->_app);
+
+				if(method_exists($controller, $controller_action[1])){
+					call_user_func_array(array($controller, $controller_action[1]), $match);
+					exit();
+				}else{
+					return $this;
+				}
 			}
 		}
-		return false;
+		return $this;
 	}
 }

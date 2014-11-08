@@ -109,7 +109,7 @@ class FileController extends \lib\Controller {
 	 * @url   	/file/:id    
 	 * @method 	PUT
 	 */
-	public function put() {
+	public function put($id) {
 		// TODO
 	}
 
@@ -118,7 +118,7 @@ class FileController extends \lib\Controller {
 	 * @url   	/file/:id    
 	 * @method 	DELETE
 	 */
-	public function delete() {
+	public function delete($id) {
 		// TODO
 	}
 
