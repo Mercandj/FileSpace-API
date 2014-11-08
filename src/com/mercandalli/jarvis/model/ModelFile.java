@@ -1,26 +1,19 @@
 package com.mercandalli.jarvis.model;
 
-import org.json.JSONException;
-import org.json.JSONObject;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.http.message.BasicNameValuePair;
 
 public class ModelFile {
 	public String url;
-	public String name;
 	public String size;
 	public boolean isDirectory;
 	
-	public JSONObject getJSONRequest() {
-		if(url!=null) {
-			JSONObject json = new JSONObject();			
-			try {
-				json.put("name", name);
-				json.put("url", name);
-			} catch (JSONException e) {
-				e.printStackTrace();
-				return null;
-			}
-			return json;
-		}
+	public List<BasicNameValuePair> getForUpload() {
+		List<BasicNameValuePair> parameters = new ArrayList<BasicNameValuePair>();
+		if(url!=null)
+			parameters.add(new BasicNameValuePair("url", url));
 		return null;
 	}
 }

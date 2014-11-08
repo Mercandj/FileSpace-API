@@ -10,7 +10,8 @@ class File extends \lib\Entity{
 	protected $_id,
 		$_url,
 		$_size,
-		$_visibility;
+		$_visibility,
+		$_date_creation;
 
 	public function getId(){
 		return $this->_id;
@@ -26,6 +27,10 @@ class File extends \lib\Entity{
 
 	public function getVisibility(){
 		return $this->_visibility;
+	}
+
+	public function getDate_creation(){
+		return $this->_date_creation;
 	}
 
 	public function setId($id){
@@ -58,6 +63,12 @@ class File extends \lib\Entity{
 		}
 	}
 
+	public function setDate_creation($date){
+		if(!empty($date)){
+			$this->_date_creation = $date;
+		}
+	}
+
 	public function isValid(){
 		return !empty($this->_id) && !empty($this->_url);
 	}
@@ -66,6 +77,7 @@ class File extends \lib\Entity{
 		$json['id'] = $this->getId();
 		$json['url'] = $this->getUrl();
 		$json['size'] = $this->getSize();
+		$json['date_creation'] = $this->getDate_creation();
         return $json;
     }
 }

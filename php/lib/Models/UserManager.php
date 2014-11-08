@@ -8,16 +8,16 @@ class UserManager extends \lib\Manager {
 	public function add(User $user) {
 		$username = $user->getUsername();
 		$password = $user->getPassword();
-		$date_create = $user->getDate_create();
+		$date_creation = $user->getDate_creation();
 		$date_last_connection = $user->getDate_last_connection();
 		$last_name = $user->getLast_name();
 		$first_name = $user->getFirst_name();
 		$email = $user->getEmail();
 
-		$req = $this->_db->prepare('INSERT INTO user(username,password,date_create,date_last_connection, last_name, first_name, email) VALUES (:username, :password, :date_create, :date_last_connection, :last_name, :first_name, :email)');
+		$req = $this->_db->prepare('INSERT INTO user(username,password,date_creation,date_last_connection, last_name, first_name, email) VALUES (:username, :password, :date_creation, :date_last_connection, :last_name, :first_name, :email)');
 		$req->bindParam(':username',$username,\PDO::PARAM_STR);
 		$req->bindParam(':password',$password,\PDO::PARAM_STR);
-		$req->bindParam(':date_create',$date_create,\PDO::PARAM_STR);
+		$req->bindParam(':date_creation',$date_creation,\PDO::PARAM_STR);
 		$req->bindParam(':date_last_connection',$date_last_connection,\PDO::PARAM_STR);
 		$req->bindParam(':last_name',$last_name,\PDO::PARAM_STR);
 		$req->bindParam(':first_name',$first_name,\PDO::PARAM_STR);
@@ -59,7 +59,7 @@ class UserManager extends \lib\Manager {
 	}
 
 	public function get($username) {
-		$req = $this->_db->prepare('SELECT id,username,password,last_name,first_name,email,date_create,date_last_connection,admin FROM user WHERE username = :username');
+		$req = $this->_db->prepare('SELECT id,username,password,last_name,first_name,email,date_creation,date_last_connection,admin FROM user WHERE username = :username');
     	$req->bindParam(':username', $username, \PDO::PARAM_STR);
     	$req->execute();
 

@@ -21,7 +21,7 @@ CREATE TABLE IF NOT EXISTS `User` (
   `username` VARCHAR(100) NOT NULL,
   `password` VARCHAR(100) NOT NULL,
   `token` VARCHAR(500) NULL,
-  `date_create` DATETIME NULL,
+  `date_creation` DATETIME NULL,
   `date_last_connection` DATETIME NULL,
   `first_name` VARCHAR(100) NULL,
   `last_name` VARCHAR(100) NULL,
@@ -52,7 +52,7 @@ CREATE TABLE IF NOT EXISTS `File` (
   `url` VARCHAR(500) NOT NULL,
   `size` INT UNSIGNED NULL,
   `visibility` TINYINT NULL,
-  `date_create` DATETIME NULL,
+  `date_creation` DATETIME NULL,
   `id_User` INT NOT NULL,
   PRIMARY KEY (`id`))
 ENGINE = MyISAM;

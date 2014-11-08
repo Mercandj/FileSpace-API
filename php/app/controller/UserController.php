@@ -88,7 +88,7 @@ class UserController extends \lib\Controller {
 				'id'=> 0,
 				'username' => HTTPRequest::postData('username'),
 				'password' => sha1(HTTPRequest::postData('password')),
-				'date_create' => date('Y-m-d H:i:s'),
+				'date_creation' => date('Y-m-d H:i:s'),
 				'date_last_connection' => date('Y-m-d H:i:s'),
 				'last_name' => HTTPRequest::postData('last_name'),
 				'first_name' => HTTPRequest::postData('first_name'),

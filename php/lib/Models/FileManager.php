@@ -9,13 +9,13 @@ class FileManager extends \lib\Manager {
 		$url = $file->getUrl();
 		$size = $file->getSize();
 		$visibility = $file->getVisibility();
-		$date_create = date('Y-m-d H:i:s');
+		$date_creation = date('Y-m-d H:i:s');
 
-		$req = $this->_db->prepare('INSERT INTO file(url,size,visibility,date_create) VALUES (:url, :size, :visibility, :date_create)');
+		$req = $this->_db->prepare('INSERT INTO file(url,size,visibility,date_creation) VALUES (:url, :size, :visibility, :date_creation)');
 		$req->bindParam(':url',$url,\PDO::PARAM_STR);
 		$req->bindParam(':size',$size,\PDO::PARAM_STR);
 		$req->bindParam(':visibility',$visibility,\PDO::PARAM_STR);
-		$req->bindParam(':date_create',$date_create,\PDO::PARAM_STR);
+		$req->bindParam(':date_creation',$date_creation,\PDO::PARAM_STR);
 		$req->execute();
 		$req->closeCursor();
 	}

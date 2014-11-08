@@ -69,7 +69,6 @@ public class FileManagerFragmentServer extends Fragment {
 								JSONObject fileJson = array.getJSONObject(i);
 								if(fileJson.has("url")) {
 									modelFile.url = fileJson.getString("url");
-									modelFile.name = fileJson.getString("url");
 								}
 								listModelFile.add(modelFile);
 							}

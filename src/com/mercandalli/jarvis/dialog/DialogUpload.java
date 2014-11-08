@@ -7,7 +7,6 @@
 package com.mercandalli.jarvis.dialog;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.http.message.BasicNameValuePair;
@@ -45,8 +44,9 @@ public class DialogUpload extends Dialog {
 			@Override
 			public void onClick(View v) {				
 				if(file!=null) {
-					List<BasicNameValuePair> parameters = new ArrayList<BasicNameValuePair>();
-					parameters.add(new BasicNameValuePair("file","TODO")); //TODO
+					List<BasicNameValuePair> parameters = null;
+					if(DialogUpload.this.modelFile != null)
+						parameters = DialogUpload.this.modelFile.getForUpload();
 					(new TaskPost(app, app.config.getUrlServer()+app.config.routeFile, new IPostExecuteListener() {
 						@Override
 						public void execute(JSONObject json, String body) {
@@ -68,7 +68,7 @@ public class DialogUpload extends Dialog {
 				dialogFileChooser = new DialogFileChooser(DialogUpload.this.app, new IModelFileListener() {
 					@Override
 					public void execute(ModelFile modelFile) {
-						((TextView) DialogUpload.this.findViewById(R.id.label)).setText(""+modelFile.name);
+						((TextView) DialogUpload.this.findViewById(R.id.label)).setText(""+modelFile.url);
 						DialogUpload.this.file = new File(modelFile.url);
 						DialogUpload.this.modelFile = modelFile;
 					}					

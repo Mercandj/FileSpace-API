@@ -12,7 +12,7 @@ class User extends \lib\Entity{
 		$_username,
 		$_password,
 		$_admin,
-		$_date_create,
+		$_date_creation,
 		$_date_last_connection,
 		$_first_name,
 		$_last_name,
@@ -42,8 +42,8 @@ class User extends \lib\Entity{
 		return $this->_email;
 	}
 
-	public function getDate_create(){
-		return $this->_date_create;
+	public function getDate_creation(){
+		return $this->_date_creation;
 	}
 
 	public function getDate_last_connection(){
@@ -108,9 +108,9 @@ class User extends \lib\Entity{
 		}
 	}
 
-	public function setDate_create($date){
+	public function setDate_creation($date){
 		if(!empty($date)){
-			$this->_date_create = $date;
+			$this->_date_creation = $date;
 		}
 	}
 
@@ -130,7 +130,7 @@ class User extends \lib\Entity{
 		$json['last_name'] = $this->getLast_name();
 		$json['first_name'] = $this->getFirst_name();
 		$json['email'] = $this->getEmail();
-		$json['date_creation'] = $this->getDate_create();
+		$json['date_creation'] = $this->getDate_creation();
 		$json['date_last_connection'] = $this->getDate_last_connection(); 
         return $json;
     }

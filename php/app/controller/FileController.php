@@ -34,64 +34,62 @@ class FileController extends \lib\Controller {
 	 */
 	public function post() {
 
-		$json = HTTPRequest::get('json');
-
-		if($json==null) {
-			HTTPResponse::send('{"succeed":false,"toast":"Wrong User."}');
-			return;
+		if(!HTTPRequest::getExist('url')) {
+			HTTPResponse::send('{"succeed":false,"toast":"No Url."}');
+			exit();
 		}
 
-		$root_upload = __DIR__.$this->_app->_config->get('root_upload');
+		else{
+			$file = new File(array(
+				'id'=> 0,
+				'url' => sha1(HTTPRequest::getData('url')),
+				'date_creation' => date('Y-m-d H:i:s')
+			));
 
-		if(!@array_key_exists('file', $json)) {
-			HTTPResponse::send('{"succeed":false,"toast":"FileController : file key (json) not found."}');
-			return;
-		}
+			$userManager = $this->getManagerof('File');
+			
+			$target_dir = $root_upload . basename( $_FILES["file"]["name"]);
 
-		$file = new File($json['file']);
-		$userManager = $this->getManagerof('File');
+			$extensions_valides = array( 'rar', 'zip', 'apk', 'png', 'jpg', 'jpeg', 'gif', 'png', 'txt', 'mp3', 'avi', 'mp4', 'pdf', 'docx', 'pptx' );
+			$extension_upload = strtolower(  substr(  strrchr($_FILES['file']['name'], '.')  ,1)  );
 		
-		$target_dir = $root_upload . basename( $_FILES["file"]["name"]);
+			$succeed = false;
+			$toast = '';
 
-		$extensions_valides = array( 'rar', 'zip', 'apk', 'png', 'jpg', 'jpeg', 'gif', 'png', 'txt', 'mp3', 'avi', 'mp4', 'pdf', 'docx', 'pptx' );
-		$extension_upload = strtolower(  substr(  strrchr($_FILES['file']['name'], '.')  ,1)  );
-	
-		$succeed = false;
-		$toast = '';
+			if(HTTPRequest::fileExist('file')) {
+				if ($_FILES['file']['error'] === UPLOAD_ERR_OK) {
+					if(!$userManager->exist($file->getUrl())) {
+						if ( in_array($extension_upload,$extensions_valides) ) {
+							if ( 0 < $_FILES['file']['size'] && $_FILES['file']['size'] < 800000000  ) {
+								if (move_uploaded_file($_FILES["file"]["tmp_name"], $target_dir)) {
 
-		if(HTTPRequest::fileExist('file')) {
-			if ($_FILES['file']['error'] === UPLOAD_ERR_OK) {
-				if(!$userManager->exist($file->getUrl())) {
-					if ( in_array($extension_upload,$extensions_valides) ) {
-						if ( 0 < $_FILES['file']['size'] && $_FILES['file']['size'] < 800000000  ) {
-							if (move_uploaded_file($_FILES["file"]["tmp_name"], $target_dir)) {
+									$file->setSize($_FILES['file']['size']);
+									$userManager->add($file);
 
-								$file->setSize($_FILES['file']['size']);
-								$userManager->add($file);
-
-								$succeed = true;
-								$toast = 'The file '. basename( $_FILES["file"]["name"]) .' has been uploaded.';
+									$succeed = true;
+									$toast = 'The file '. basename( $_FILES["file"]["name"]) .' has been uploaded.';
+								}
+								else
+									$toast = 'Sorry, there was an error uploading your file.';
 							}
 							else
-								$toast = 'Sorry, there was an error uploading your file.';
+								$toast = 'File size : '.$_FILES['file']['size'].'.';
 						}
 						else
-							$toast = 'File size : '.$_FILES['file']['size'].'.';
+							$toast = 'Bad extension.';
 					}
 					else
-						$toast = 'Bad extension.';
+						$toast = 'File exists.';
 				}
 				else
-					$toast = 'File exists.';
+					$toast = 'Upload failed with error code '.$_FILES['file']['error'].'.';
 			}
-			else
-				$toast = 'Upload failed with error code '.$_FILES['file']['error'].'.';
-		}
-		else{
-			$toast = 'Upload failed : no file';
-		}
+			else{
+				$toast = 'Upload failed : no file';
+			}
 
-		HTTPResponse::send('{"succeed":'.$succeed.',"toast":"'.$toast.'"}');
+			HTTPResponse::send('{"succeed":'.$succeed.',"toast":"'.$toast.'"}');
+		}		
 	}
 
 	/**

@@ -92,7 +92,7 @@ public class DialogRequest extends Dialog {
 				dialogFileChooser = new DialogFileChooser(DialogRequest.this.app, new IModelFileListener() {
 					@Override
 					public void execute(ModelFile modelFile) {
-						((TextView) DialogRequest.this.findViewById(R.id.label)).setText(""+modelFile.name);
+						((TextView) DialogRequest.this.findViewById(R.id.label)).setText(""+modelFile.url);
 						DialogRequest.this.file = new File(modelFile.url);
 						DialogRequest.this.modelFile = modelFile;
 					}					
