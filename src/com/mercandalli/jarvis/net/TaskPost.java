@@ -98,9 +98,16 @@ public class TaskPost extends AsyncTask<Void, Void, String> {
 			// receive response as inputStream
 			InputStream inputStream = response.getEntity().getContent();
 
+			String resultString = null;
+			
 			// convert inputstream to string
 			if (inputStream != null)
-				return convertInputStreamToString(inputStream);
+				resultString = convertInputStreamToString(inputStream);			
+			
+			int responseCode = response.getStatusLine().getStatusCode();
+			if(responseCode>=300)
+				resultString = "Status Code "+responseCode+". "+resultString;
+			return resultString;
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		} catch (ClientProtocolException e) {
