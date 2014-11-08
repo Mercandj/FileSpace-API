@@ -14,7 +14,7 @@ public class ModelFile {
 	public List<BasicNameValuePair> getForUpload() {
 		List<BasicNameValuePair> parameters = new ArrayList<BasicNameValuePair>();
 		if(url!=null)
-			parameters.add(new BasicNameValuePair("url", url));
+			parameters.add(new BasicNameValuePair("name", name));
 		return parameters;
 	}
 }

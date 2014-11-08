@@ -22,20 +22,20 @@ For each file request : basic-authentication token:empty
 
 * File Controller
 
-|Root             | Method   | Description                 | Input           | Output
-|-----------------|----------|-----------------------------|-----------------|-----------------------------
-| /file/          | GET 	 | Get list of files (bdd)     |                 | jsonArray files (include ids)
-| /file/          | POST     | Add file (bdd + physic)     | 'json' + 'file' | json file id
-| /file/:id       | GET      | Get file (physic)           |                 | real file (download)
-| /file/:id       | PUT      | Update file (bdd + physic)  | 'json'          | 
-| /file/:id       | DELETE   | Delete file (bdd + physic)  |                 |
+|Root             | Method   | Description                 | Input                      | Output
+|-----------------|----------|-----------------------------|----------------------------|-----------------------------
+| /file/          | GET 	 | Get list of files (bdd)     |                            | jsonArray files (include ids)
+| /file/          | POST     | Add file (bdd + physic)     | 'url','visibility','file'  | json file id
+| /file/:id       | GET      | Get file (physic)           |                            | real file (download)
+| /file/:id       | PUT      | Update file (bdd + physic)  |                            | 
+| /file/:id       | DELETE   | Delete file (bdd + physic)  |                            |
 
 * User Controller
 
 |Root             | Method   | Description   | Input                           	| Output
 |-----------------|----------|---------------|----------------------------------|-----------
 | /user/login     | POST     |               | basic-authentication login:pass 	| json
-| /user/register  | POST 	 |               | POST 'username' + POST 'password'| json token
+| /user/register  | POST 	 |               | 'username','password'            | json token
 
 
 ## ANDROID DESCRIPTION
