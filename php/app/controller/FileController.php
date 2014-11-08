@@ -164,9 +164,7 @@ class FileController extends \lib\Controller {
 	 * @method 	GET
 	 * @return 	FILE
 	 */
-	public function download() {
-
-		$id = $this->getMatches(':id');
+	public function download($id) {
 
 		if($id == null) {
 			HTTPResponse::send('{"succeed":false,"toast":"Bad id."}');

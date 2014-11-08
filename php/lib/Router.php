@@ -12,8 +12,8 @@ class Router {
 		$parsed = json_decode( file_get_contents(__DIR__.'/../config/routes.json') );
 
 		foreach($parsed as $route){
-			if( ($matches = self::match($local_root.$route->{'url'},$url,$route->{'method'},$_SERVER['REQUEST_METHOD'])) !== false ){
-				return new Route($local_root.$route->{'url'}, $route->{'controller'}, $route->{'action'}, $route->{'method'}, $matches);
+			if( ($match = self::match($local_root.$route->{'url'},$url,$route->{'method'},$_SERVER['REQUEST_METHOD'])) !== false ){
+				return new Route($local_root.$route->{'url'}, $route->{'controller'}, $route->{'action'}, $route->{'method'}, $match);
 			}
 		}
 		
@@ -28,23 +28,15 @@ class Router {
 	private static function match($url_json,$url_client,$method_json,$method_client) {
 		if ($method_json === $method_client) {
 
-			//Extract variables
-			preg_match_all('#:[a-z\_]+#', $url_json, $var_id);
-
 			// Clean URL
-			$url_json = preg_replace('#:[a-z\_]+#', '[0-9]{1,4}',$url_json);
+			$url_json = preg_replace('#:[a-z_]+#','[0-9]+',$url_json);
 
 			// Try to match clean URL with URL Client
 			if(preg_match('`^'.$url_json.'$`', $url_client, $matches)){
 
 				// Match variables with URL params
-				preg_match_all('#[0-9]+#',$url_client, $matches);
-				$res = array();
-				for($i = 0; $i<count($var_id[0]); $i++){
-					$res[$var_id[0][$i]] = $matches[0][$i];
-				}
-
-				return $res;
+				preg_match('#[0-9]+#',$url_client, $match);
+				return $match;
 			}
 		}
 		return false;
