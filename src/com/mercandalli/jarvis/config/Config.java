@@ -25,8 +25,8 @@ public class Config {
 	public final String aboutURL 				= "http://mercandalli.com/";
 	public boolean isLoginSucceed 				= false;
 	public final String routeFile	 			= "file";
-	public final String routeUserRegister 		= "user/register";
-	public final String routeUserLogin 			= "user/login";
+	public final String routeUserRegister 		= "user";
+	public final String routeUserLogin 			= "user";
 	public String currentToken					= null;
 	
 	private Activity activity;
