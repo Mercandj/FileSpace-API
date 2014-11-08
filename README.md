@@ -34,8 +34,8 @@ For each file request : basic-authentication token:empty
 
 |Root             | Method   | Description   | Input                           	| Output
 |-----------------|----------|---------------|----------------------------------|-----------
-| /user/login     | POST     |               | basic-authentication login:pass 	| json
-| /user/register  | POST 	 |               | 'username','password'            | json token
+| /user     	  | GET      |               | basic-authentication login:pass 	| json
+| /user			  | POST 	 |               | 'username','password'            | json token
 
 
 ## ANDROID DESCRIPTION
@@ -50,7 +50,7 @@ Remote and secure file manager. (upload files + download files + management)
 ## DEVELOPERS
 
 * Mercandalli Jonathan (Front Android + Rest API)
-* 7h1b0 (Front Web + Rest API)
+* 7h1b0 ([Front Web](https://github.com/7h1b0/JarvisJS) + Rest API)
 
 
 ## LICENSE

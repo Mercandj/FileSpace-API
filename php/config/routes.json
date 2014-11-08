@@ -1,15 +1,15 @@
 [
 	{
-		"url":"/user/register",
+		"url":"/user",
 		"controller":"User",
-		"action":"register",
+		"action":"post",
 		"method":"POST"
 	},
 	{
-		"url":"/user/login",
+		"url":"/user",
 		"controller":"User",
-		"action":"login",
-		"method":"POST"
+		"action":"get",
+		"method":"GET"
 	},
 	{
 		"url":"/file",

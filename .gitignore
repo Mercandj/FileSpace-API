@@ -53,3 +53,5 @@ Temporary Items
 
 #Jarvis files to ignore
 /php/upload/
+*.sublime-workspace
+*.sublime-project
