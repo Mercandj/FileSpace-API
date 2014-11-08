@@ -48,6 +48,12 @@ public class TaskGet extends AsyncTask<Void, Void, String> {
 	Application app;
 	List<BasicNameValuePair> parameters;
 
+	public TaskGet(Application app, String url, IPostExecuteListener listener) {
+		this.app = app;
+		this.url = url;
+		this.listener = listener;
+	}
+	
 	public TaskGet(Application app, String url, IPostExecuteListener listener, List<BasicNameValuePair> parameters) {
 		this.app = app;
 		this.url = url;

@@ -80,7 +80,7 @@ class UserController extends \lib\Controller {
 
 
 	/**
-	*	Used by $this->login() and Applicationfrontend
+	*	Check BDD AUTH user : Used by $this->get() and RESTapi.php
 	*/
 	public function isUser() {
 		//return true;

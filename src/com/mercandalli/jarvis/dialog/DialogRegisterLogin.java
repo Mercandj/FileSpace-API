@@ -29,6 +29,7 @@ import com.mercandalli.jarvis.SHA1;
 import com.mercandalli.jarvis.listener.IListener;
 import com.mercandalli.jarvis.listener.IPostExecuteListener;
 import com.mercandalli.jarvis.model.ModelUser;
+import com.mercandalli.jarvis.net.TaskGet;
 import com.mercandalli.jarvis.net.TaskPost;
 
 public class DialogRegisterLogin extends Dialog {
@@ -94,7 +95,7 @@ public class DialogRegisterLogin extends Dialog {
 					app.config.setUrlServer(((EditText) DialogRegisterLogin.this.findViewById(R.id.server)).getText().toString());				
 				
 				
-				
+				// Register : POST /user
 				if(firstUse) {
 					List<BasicNameValuePair> parameters = new ArrayList<BasicNameValuePair>();
 					parameters.add(new BasicNameValuePair("username",""+user.username));
@@ -116,8 +117,9 @@ public class DialogRegisterLogin extends Dialog {
 						}						
 					}, parameters)).execute();
 				}
+				// Login : GET /user
 				else
-					(new TaskPost(app, app.config.getUrlServer()+app.config.routeUserLogin, new IPostExecuteListener() {
+					(new TaskGet(app, app.config.getUrlServer()+app.config.routeUserLogin, new IPostExecuteListener() {
 						@Override
 						public void execute(JSONObject json, String body) {
 							try {
