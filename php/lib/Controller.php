@@ -2,23 +2,11 @@
 namespace lib;
 
 abstract class Controller extends ApplicationComponent {
-	private $_matches,$_action;
 
-	public function __construct(Application $app,$action='run',$matches=0) {
+	public function __construct(Application $app) {
 		parent::__construct($app);
-		$this->_action=$action;
-		$this->_matches = $matches;
 	}
 
-	public function exec(){
-		$action = $this->_action;
-
-		if(count($this->_matches) != 0){
-			$this->$action($this->_matches[0]);
-		}else{
-			$this->$action();
-		}
-	}
 
 	/**
 	*	Create Instance of Manager

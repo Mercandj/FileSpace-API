@@ -32,7 +32,7 @@ class Router {
 			$url_json = preg_replace('#:[a-z_]+#','[0-9]+',$url_json);
 
 			// Try to match clean URL with URL Client
-			if(preg_match('`^'.$url_json.'$`', $url_client, $matches)){
+			if(preg_match('`^'.$url_json.'$`', $url_client)){
 
 				// Match variables with URL params
 				preg_match('#[0-9]+#',$url_client, $match);

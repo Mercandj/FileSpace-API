@@ -11,9 +11,7 @@ abstract class Application {
 		$this->_pdo = (new Connexion($this))->getPDO();	
 	}
 
-	abstract public function run();
-
-	public function getController() {
+	public function exec() {
 		try {
 			$route = Router::get($_SERVER['REQUEST_URI'], $this->_config->get('root'));
 		}
@@ -22,6 +20,22 @@ abstract class Application {
 		}
 		
 		$controleurPath = '\app\controller\\'.$route->getController().'Controller';
-		return new $controleurPath($this,$route->getAction(), $route->getMatches());
+		$controller = new $controleurPath($this);
+		$action = $route->getAction();
+		
+		if(method_exists($controller, $action)){
+
+			if(count($route->getMatches()) != 0){
+				$controller->$action($route->getMatches()[0]);
+			}else{
+				$controller->$action();
+			}
+
+		}else{
+			HTTPResponse::redirect404();
+		}
+		
 	}
+
+	abstract public function run();
 }
