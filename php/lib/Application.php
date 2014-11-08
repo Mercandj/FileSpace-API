@@ -34,5 +34,17 @@ abstract class Application {
 		
 	}
 
+	public function getController(){
+		try {
+			$route = Router::get($_SERVER['REQUEST_URI'], $this->_config->get('root'));
+		}
+		catch(\RuntimeException $e) {
+			HTTPResponse::redirect404();
+		}
+		
+		$controleurPath = '\app\controller\\'.$route->getController().'Controller';
+		return new $controleurPath($this);
+	}
+
 	abstract public function run();
 }
