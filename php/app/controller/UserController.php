@@ -15,13 +15,18 @@ class UserController extends \lib\Controller {
 	public function get() {
 
 		if($this->isUser()){
-			$info_user = json_encode($this->getManagerof('User')->get(HTTPRequest::serverData('PHP_AUTH_USER'))->toArray());
-			$json = '{"succeed":true,"token":"","user":'.$info_user.'}';
+			$json['succeed'] = true;
+			$json['user'] = $this->getManagerof('User')->get(HTTPRequest::serverData('PHP_AUTH_USER'))->toArray();
+			$json['token'] = sha1(uniqid().' '.date('Y-m-d H:i:s'));
+
+			// TODO add $json['token'] => BDD
+
 		}else{
-			$json = '{"succeed":false,"toast":"Wrong User."}';
+			$json['succeed'] = false;
+			$json['toast'] = 'Wrong User.';
 		}
 
-		HTTPResponse::send($json);
+		HTTPResponse::send(json_encode($json));
 	}
 
 	/**
