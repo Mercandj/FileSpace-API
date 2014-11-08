@@ -48,7 +48,8 @@ class FileController extends \lib\Controller {
 			'id'=> 0,
 			'url' => $input_url,
 			'visibility' => $visibility,
-			'date_creation' => date('Y-m-d H:i:s')
+			'date_creation' => date('Y-m-d H:i:s'),
+			'id_user' => 1 // TODO
 		));
 
 		$userManager = $this->getManagerof('File');
