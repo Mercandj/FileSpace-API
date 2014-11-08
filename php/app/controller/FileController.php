@@ -40,9 +40,11 @@ class FileController extends \lib\Controller {
 		}
 
 		else{
+			$root_upload = __DIR__.$this->_app->_config->get('root_upload');
+			
 			$file = new File(array(
 				'id'=> 0,
-				'url' => sha1(HTTPRequest::getData('url')),
+				'url' => sha1(HTTPRequest::postData('url')),
 				'date_creation' => date('Y-m-d H:i:s')
 			));
 

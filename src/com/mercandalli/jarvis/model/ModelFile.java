@@ -15,6 +15,6 @@ public class ModelFile {
 		List<BasicNameValuePair> parameters = new ArrayList<BasicNameValuePair>();
 		if(url!=null)
 			parameters.add(new BasicNameValuePair("url", url));
-		return null;
+		return parameters;
 	}
 }
