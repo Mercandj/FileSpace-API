@@ -7,6 +7,7 @@ import org.apache.http.message.BasicNameValuePair;
 
 public class ModelFile {
 	public String url;
+	public String name;
 	public String size;
 	public boolean isDirectory;
 	

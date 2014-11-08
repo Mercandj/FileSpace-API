@@ -34,7 +34,7 @@ class FileController extends \lib\Controller {
 	 */
 	public function post() {
 
-		if(!HTTPRequest::getExist('url')) {
+		if(!HTTPRequest::postExist('url')) {
 			HTTPResponse::send('{"succeed":false,"toast":"No Url."}');
 			exit();
 		}
