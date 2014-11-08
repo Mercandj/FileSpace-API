@@ -7,8 +7,10 @@
 package com.mercandalli.jarvis.dialog;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
-import org.json.JSONException;
+import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONObject;
 
 import android.app.Dialog;
@@ -22,7 +24,6 @@ import com.mercandalli.jarvis.R;
 import com.mercandalli.jarvis.listener.IModelFileListener;
 import com.mercandalli.jarvis.listener.IPostExecuteListener;
 import com.mercandalli.jarvis.model.ModelFile;
-import com.mercandalli.jarvis.model.ModelUser;
 import com.mercandalli.jarvis.net.TaskPost;
 
 public class DialogUpload extends Dialog {
@@ -42,28 +43,18 @@ public class DialogUpload extends Dialog {
 	    
         ((Button) this.findViewById(R.id.request)).setOnClickListener(new View.OnClickListener() {
 			@Override
-			public void onClick(View v) {
-				ModelUser user = new ModelUser();				
-				user.username = app.config.getUserUsername();
-				user.password = app.config.getUserPassword();
-				
-				JSONObject json = new JSONObject();
-				try {
-					json.put("user", user.getJsonRegister());
-					if(file!=null && DialogUpload.this.modelFile != null)
-						json.put("file", DialogUpload.this.modelFile.getJSONRequest());
-				} catch (JSONException e1) {
-					e1.printStackTrace();
-				}
-				
-				if(file!=null)
+			public void onClick(View v) {				
+				if(file!=null) {
+					List<BasicNameValuePair> parameters = new ArrayList<BasicNameValuePair>();
+					parameters.add(new BasicNameValuePair("file","TODO")); //TODO
 					(new TaskPost(app, app.config.getUrlServer()+app.config.routeFile, new IPostExecuteListener() {
 						@Override
 						public void execute(JSONObject json, String body) {
 							if(listener!=null)
 								listener.execute(json, body);
 						}						
-					}, json, file)).execute();
+					}, parameters, file)).execute();
+				}
 				else
 					Toast.makeText(app, app.getString(R.string.no_file), Toast.LENGTH_SHORT).show();
 				

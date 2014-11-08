@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.util.List;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
@@ -21,6 +22,7 @@ import org.apache.http.entity.mime.MultipartEntity;
 import org.apache.http.entity.mime.content.FileBody;
 import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -41,22 +43,35 @@ import com.mercandalli.jarvis.listener.IPostExecuteListener;
 public class TaskPost extends AsyncTask<Void, Void, String> {
 
 	String url;
-	JSONObject json;
+	List<BasicNameValuePair> parameters;
 	IPostExecuteListener listener;
 	File file;
 	Application app;
-
-	public TaskPost(Application app, String url, IPostExecuteListener listener, JSONObject json) {
+	
+	public TaskPost(Application app, String url, IPostExecuteListener listener) {
 		this.app = app;
 		this.url = url;
-		this.json = json;
 		this.listener = listener;
 	}
 
-	public TaskPost(Application app, String url, IPostExecuteListener listener, JSONObject json, File file) {
+	public TaskPost(Application app, String url, IPostExecuteListener listener, List<BasicNameValuePair> parameters) {
 		this.app = app;
 		this.url = url;
-		this.json = json;
+		this.parameters = parameters;
+		this.listener = listener;
+	}
+
+	public TaskPost(Application app, String url, IPostExecuteListener listener, List<BasicNameValuePair> parameters, File file) {
+		this.app = app;
+		this.url = url;
+		this.parameters = parameters;
+		this.listener = listener;
+		this.file = file;
+	}
+	
+	public TaskPost(Application app, String url, IPostExecuteListener listener, File file) {
+		this.app = app;
+		this.url = url;
 		this.listener = listener;
 		this.file = file;
 	}
@@ -67,8 +82,10 @@ public class TaskPost extends AsyncTask<Void, Void, String> {
 			HttpPost httppost = new HttpPost(url);
 						
 			MultipartEntity mpEntity = new MultipartEntity();
-			if (file != null) mpEntity.addPart("file", new FileBody(file, "*/*"));
-			mpEntity.addPart("json", new StringBody(json.toString()));
+			if(this.file != null) mpEntity.addPart("file", new FileBody(file, "*/*"));
+			if(this.parameters != null)
+				for(BasicNameValuePair b : parameters)
+					mpEntity.addPart(b.getName(), new StringBody(b.getValue()));
 			httppost.setEntity(mpEntity);
 			
 			StringBuilder authentication = new StringBuilder().append(app.config.getUser().getAccessLogin()).append(":").append(app.config.getUser().getAccessPassword());

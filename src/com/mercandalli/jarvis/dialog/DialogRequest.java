@@ -8,7 +8,6 @@ package com.mercandalli.jarvis.dialog;
 
 import java.io.File;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Dialog;
@@ -22,7 +21,6 @@ import com.mercandalli.jarvis.R;
 import com.mercandalli.jarvis.listener.IModelFileListener;
 import com.mercandalli.jarvis.listener.IPostExecuteListener;
 import com.mercandalli.jarvis.model.ModelFile;
-import com.mercandalli.jarvis.model.ModelUser;
 import com.mercandalli.jarvis.net.TaskGet;
 import com.mercandalli.jarvis.net.TaskPost;
 
@@ -54,22 +52,7 @@ public class DialogRequest extends Dialog {
 				
 				switch(currentMethod) {
 				
-				case POST:
-					ModelUser user = new ModelUser();				
-					user.username = app.config.getUserUsername();
-					user.password = app.config.getUserPassword();
-					
-					JSONObject json = new JSONObject();
-					try {
-						json.put("user", user.getJsonRegister());					
-						if(!((EditText) DialogRequest.this.findViewById(R.id.json)).getText().toString().replace(" ", "").equals(""))
-							json.put("content", new JSONObject(((EditText) DialogRequest.this.findViewById(R.id.json)).getText().toString()));
-						if(file!=null && DialogRequest.this.modelFile != null)
-							json.put("file", DialogRequest.this.modelFile.getJSONRequest());
-					} catch (JSONException e1) {
-						e1.printStackTrace();
-					}
-					
+				case POST:					
 					if(!((EditText) DialogRequest.this.findViewById(R.id.server)).getText().toString().equals(""))
 						(new TaskPost(app, app.config.getUrlServer()+((EditText) DialogRequest.this.findViewById(R.id.server)).getText().toString(), new IPostExecuteListener() {
 							@Override
@@ -77,7 +60,7 @@ public class DialogRequest extends Dialog {
 								if(listener!=null)
 									listener.execute(json, body);
 							}
-						}, json, file)).execute();
+						}, file)).execute();
 					break;
 					
 				case PUT:

@@ -6,6 +6,10 @@
 
 package com.mercandalli.jarvis.dialog;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -89,14 +93,12 @@ public class DialogRegisterLogin extends Dialog {
 				if(!((EditText) DialogRegisterLogin.this.findViewById(R.id.server)).getText().toString().equals(""))
 					app.config.setUrlServer(((EditText) DialogRegisterLogin.this.findViewById(R.id.server)).getText().toString());				
 				
-				JSONObject json = new JSONObject();
-				try {
-					json.put("user", user.getJsonRegister());
-				} catch (JSONException e1) {
-					e1.printStackTrace();
-				}
 				
-				if(firstUse)
+				
+				if(firstUse) {
+					List<BasicNameValuePair> parameters = new ArrayList<BasicNameValuePair>();
+					parameters.add(new BasicNameValuePair("username",""+user.username));
+					parameters.add(new BasicNameValuePair("password",""+user.password));
 					(new TaskPost(app, app.config.getUrlServer()+app.config.routeUserRegister, new IPostExecuteListener() {
 						@Override
 						public void execute(JSONObject json, String body) {
@@ -112,7 +114,8 @@ public class DialogRegisterLogin extends Dialog {
 									Toast.makeText(app, app.getString(R.string.server_error), Toast.LENGTH_SHORT).show();
 							} catch (JSONException e) {e.printStackTrace();}
 						}						
-					}, json)).execute();
+					}, parameters)).execute();
+				}
 				else
 					(new TaskPost(app, app.config.getUrlServer()+app.config.routeUserLogin, new IPostExecuteListener() {
 						@Override
@@ -128,8 +131,8 @@ public class DialogRegisterLogin extends Dialog {
 								else
 									Toast.makeText(app, app.getString(R.string.server_error), Toast.LENGTH_SHORT).show();
 							} catch (JSONException e) {e.printStackTrace();}
-						}						
-					}, json)).execute();				
+						}
+					})).execute();				
 			}        	
         });
         DialogRegisterLogin.this.show();
