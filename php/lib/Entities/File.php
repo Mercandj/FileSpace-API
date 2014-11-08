@@ -35,7 +35,7 @@ class File extends \lib\Entity{
 	}
 
 	public function getId_User(){
-		return $this->getId_User;
+		return $this->_id_user;
 	}
 
 	public function setId($id){
