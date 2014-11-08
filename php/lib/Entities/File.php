@@ -11,7 +11,8 @@ class File extends \lib\Entity{
 		$_url,
 		$_size,
 		$_visibility,
-		$_date_creation;
+		$_date_creation,
+		$_id_user;
 
 	public function getId(){
 		return $this->_id;
@@ -31,6 +32,10 @@ class File extends \lib\Entity{
 
 	public function getDate_creation(){
 		return $this->_date_creation;
+	}
+
+	public function getId_User(){
+		return $this->getId_User;
 	}
 
 	public function setId($id){
@@ -66,6 +71,12 @@ class File extends \lib\Entity{
 	public function setDate_creation($date){
 		if(!empty($date)){
 			$this->_date_creation = $date;
+		}
+	}
+
+	public function setId_User($id){
+		if(!empty($id)){
+			$this->_id_user = $id;
 		}
 	}
 

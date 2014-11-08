@@ -9,13 +9,15 @@ class FileManager extends \lib\Manager {
 		$url = $file->getUrl();
 		$size = $file->getSize();
 		$visibility = $file->getVisibility();
-		$date_creation = date('Y-m-d H:i:s');
+		$date_creation = $file->getDate_creation();
+		$id_User = $file->getId_User();
 
-		$req = $this->_db->prepare('INSERT INTO file(url,size,visibility,date_creation) VALUES (:url, :size, :visibility, :date_creation)');
+		$req = $this->_db->prepare('INSERT INTO file(url,size,visibility,date_creation, id_User) VALUES (:url, :size, :visibility, :date_creation, :id_User)');
 		$req->bindParam(':url',$url,\PDO::PARAM_STR);
-		$req->bindParam(':size',$size,\PDO::PARAM_STR);
+		$req->bindParam(':size',$size,\PDO::PARAM_INT);
 		$req->bindParam(':visibility',$visibility,\PDO::PARAM_STR);
 		$req->bindParam(':date_creation',$date_creation,\PDO::PARAM_STR);
+		$req->bindParam(':id_User',$id_User,\PDO::PARAM_INT);
 		$req->execute();
 		$req->closeCursor();
 	}
@@ -54,7 +56,7 @@ class FileManager extends \lib\Manager {
 	}
 
 	public function getById($id) {
-		$req = $this->_db->prepare('SELECT id,url,size,visibility FROM file WHERE id = :id');
+		$req = $this->_db->prepare('SELECT id,url,size,visibility,id_User FROM file WHERE id = :id');
     	$req->bindParam(':id', $id, \PDO::PARAM_INT);
     	$req->execute();
 
@@ -63,13 +65,24 @@ class FileManager extends \lib\Manager {
     	return new File($donnee);
 	}
 
-	public function getAll() {
-		$file = array();
+	/**
+	 * Warning : $id_user will be REQUIRED soon and not OPTIONAL
+	 */
+	public function getAll($id_user = 0) {
+		$file = [];
 
-		$req = $this->_db->query('SELECT id,url,size FROM file');
+		if($id_user == 0){
+			$req = $this->_db->query('SELECT id,url,size,date_creation FROM file');
+
+		}else{
+			$req = $this->_db->prepare('SELECT id,url,size,date_creation FROM file WHERE id_User = :id_User');
+			$req->bindParam(':id_User', $id_user, \PDO::PARAM_INT);
+			$req->execute();
+		}
 
     	while ($donnees = $req->fetch(\PDO::FETCH_ASSOC))
 	    	$file[] = new File($donnees);
+
 	    $req->closeCursor();
 	    return $file;
 	}
@@ -81,6 +94,6 @@ class FileManager extends \lib\Manager {
 
     	$donnee = $req->fetch(\PDO::FETCH_ASSOC);
     	$req->closeCursor();
-    	return ($donnee['id'] != NULL) ? true : false;
+    	return $donnee['id'] != NULL;
 	}
 }
