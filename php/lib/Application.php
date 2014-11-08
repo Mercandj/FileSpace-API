@@ -11,6 +11,9 @@ abstract class Application {
 		$this->_pdo = (new Connexion($this))->getPDO();	
 	}
 
+	/**
+	 * Match URL client with URL in JSON file and launch the controller method associated
+	 */
 	public function exec() {
 		try {
 			$route = Router::get($_SERVER['REQUEST_URI'], $this->_config->get('root'));
@@ -24,13 +27,7 @@ abstract class Application {
 		$action = $route->getAction();
 		
 		if(method_exists($controller, $action)){
-
-			if(count($route->getMatches()) != 0){
-				$controller->$action($route->getMatches()[0]);
-			}else{
-				$controller->$action();
-			}
-
+			call_user_func_array(array($controller, $action), $route->getMatches());
 		}else{
 			HTTPResponse::redirect404();
 		}
