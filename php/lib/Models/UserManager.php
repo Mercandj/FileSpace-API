@@ -58,6 +58,17 @@ class UserManager extends \lib\Manager {
 		$req->closeCursor();
 	}
 
+	public function updateToken(User $user){
+		$username = $user->getUsername();
+		$token = $user->getToken();
+
+		$req = $this->_db->prepare('UPDATE user SET token = :token WHERE username = :username');
+		$req->bindParam(':username',$username,\PDO::PARAM_STR);
+		$req->bindParam(':token',$token,\PDO::PARAM_STR);
+		$req->execute();
+		$req->closeCursor();
+	}
+
 	public function get($username) {
 		$req = $this->_db->prepare('SELECT id,username,password,last_name,first_name,email,date_creation,date_last_connection,admin FROM user WHERE username = :username');
     	$req->bindParam(':username', $username, \PDO::PARAM_STR);

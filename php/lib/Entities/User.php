@@ -50,6 +50,10 @@ class User extends \lib\Entity{
 		return $this->_date_last_connection;
 	}
 
+	public function getToken(){
+		return $this->_token;
+	}
+
 	public function isAdmin(){
 		return ($this->_admin == self::KEY_ADMIN ) ? true : false;
 	}
@@ -120,6 +124,12 @@ class User extends \lib\Entity{
 		}
 	}
 
+	public function setToken($token){
+		if(!empty($token)){
+			$this->_token = $token;
+		}
+	}
+
 	public function isValid(){
 		return !empty($this->_username) && !empty($this->_password);
 	}
@@ -132,6 +142,7 @@ class User extends \lib\Entity{
 		$json['email'] = $this->getEmail();
 		$json['date_creation'] = $this->getDate_creation();
 		$json['date_last_connection'] = $this->getDate_last_connection(); 
+		$json['token'] = $this->getToken();
         return $json;
     }
 }
