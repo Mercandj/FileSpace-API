@@ -36,15 +36,15 @@ class FileController extends \lib\Controller {
 	 * @param   [$_POST] url   		OPTIONAL
 	 */
 	public function post() {
-		$succeed = false;
-		$toast = '';
+		$json['succeed'] = false;
+		$json['toast'] = '';
 
 		// Check required parameters
 		if(!HTTPRequest::fileExist('file')){
-			$toast = 'Upload failed : no file';
+			$json['toast'] = 'Upload failed : No file.';
 
 		}else if($_FILES['file']['error'] !== UPLOAD_ERR_OK){
-			$toast = 'Upload failed with error code '.$_FILES['file']['error'].'.';
+			$json['toast'] = 'Upload failed with error code '.$_FILES['file']['error'].'.';
 
 		}else{
 			$root_upload = __DIR__.$this->_app->_config->get('root_upload');
@@ -81,27 +81,32 @@ class FileController extends \lib\Controller {
 						if (move_uploaded_file($_FILES["file"]["tmp_name"], $target_dir)) {
 
 							$file->setSize($_FILES['file']['size']);
+
+							// add BDD
 							$userManager->add($file);
 
-							$succeed = true;
-							$toast = 'The file '. basename( $_FILES["file"]["name"]) .' has been uploaded.';
+							// get file : get id !
+							$file = $userManager->get($file->getUrl());
+
+							$json['succeed'] = true;
+							$json['file'] = $file->toArray();							
+							$json['toast'] = 'The file '. basename( $_FILES["file"]["name"]) .' has been uploaded.';
 						}
 						else
-							$toast = 'Sorry, there was an error uploading your file.';
+							$json['toast'] = 'Sorry, there was an error uploading your file.';
 					}
 					else
-						$toast = 'File size : '.$_FILES['file']['size'].'.';
+						$json['toast'] = 'File size : '.$_FILES['file']['size'].'.';
 				}
 				else
-					$toast = 'Bad extension.';
+					$json['toast'] = 'Bad extension.';
 			}
 			else
-				$toast = 'File exists.';
+				$json['toast'] = 'File exists.';
 			
-		}	
+		}
 
-		HTTPResponse::send('{"succeed":'.$succeed.',"toast":"'.$toast.'"}');
-			
+		HTTPResponse::send(json_encode($json));			
 	}
 
 	/**
