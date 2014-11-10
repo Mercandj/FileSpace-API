@@ -6,6 +6,10 @@ class Router extends ApplicationComponent{
 	public function __construct(Application $app){
 		parent::__construct($app);
 	}
+
+	public function authorize($boolean){
+		return $boolean ? $this : HTTPResponse::redirect401();
+	}
 	
 	public function get($url, $controller_action){
 		return $this->match($url,'GET',$controller_action);
@@ -22,6 +26,10 @@ class Router extends ApplicationComponent{
 	public function delete($url, $controller_action){
 		return $this->match($url,'DELETE',$controller_action);
 	}	
+
+	public function otherwise(\Closure $closure){
+		$closure();
+	}
 
 
 	private function match($url,$method, $controller_action) {
