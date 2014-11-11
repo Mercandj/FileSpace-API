@@ -1,4 +1,6 @@
 RewriteEngine On
 
-RewriteCond %{REQUEST_URI} !^/php
-RewriteRule ^(.*) 404.html [L]
+RewriteRule ^(.*)$ index.php [QSA,L]
+
+php_value post_max_size 1000M
+php_value upload_max_filesize 800M
