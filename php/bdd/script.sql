@@ -30,12 +30,13 @@ CREATE TABLE IF NOT EXISTS `User` (
   `sexe` TINYINT(1) NULL,
   `admin` TINYINT(1) NULL,
   `url_image_profil` VARCHAR(100) NULL,
-  `description` VARCHAR(999) NULL,
-  `version_jarvis` VARCHAR(45) NULL,
-  `version_android` VARCHAR(60) NULL,
+  `description` VARCHAR(999) NULL,  
   `language` VARCHAR(50) NULL,
   `longitude` VARCHAR(80) NULL,
   `latitude` VARCHAR(80) NULL,
+  `android_jarvis_version` VARCHAR(45) NULL,
+  `android_sdk` VARCHAR(60) NULL,
+  `android_id` VARCHAR(600) NULL,
   PRIMARY KEY (`id`))
 ENGINE = MyISAM;
 
@@ -53,6 +54,9 @@ CREATE TABLE IF NOT EXISTS `File` (
   `size` INT UNSIGNED NULL,
   `visibility` TINYINT NULL,
   `date_creation` DATETIME NULL,
+  `type` VARCHAR(60) NULL,
+  `number_read` INT UNSIGNED NULL,
+  `number_download` INT UNSIGNED NULL,
   `id_User` INT NOT NULL,
   PRIMARY KEY (`id`))
 ENGINE = MyISAM;
