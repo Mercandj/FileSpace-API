@@ -11,13 +11,15 @@ class FileManager extends \lib\Manager {
 		$visibility = $file->getVisibility();
 		$date_creation = $file->getDate_creation();
 		$id_User = $file->getId_User();
+		$type = $file->getType();
 
-		$req = $this->_db->prepare('INSERT INTO file(url,size,visibility,date_creation,id_User) VALUES (:url, :size, :visibility, :date_creation, :id_User)');
+		$req = $this->_db->prepare('INSERT INTO file(url,size,visibility,date_creation,id_User,type) VALUES (:url, :size, :visibility, :date_creation, :id_User, :type)');
 		$req->bindParam(':url',$url,\PDO::PARAM_STR);
 		$req->bindParam(':size',$size,\PDO::PARAM_INT);
 		$req->bindParam(':visibility',$visibility,\PDO::PARAM_STR);
 		$req->bindParam(':date_creation',$date_creation,\PDO::PARAM_STR);
 		$req->bindParam(':id_User',$id_User,\PDO::PARAM_INT);
+		$req->bindParam(':type',$type,\PDO::PARAM_INT);
 		$req->execute();
 		$req->closeCursor();
 	}
@@ -46,7 +48,7 @@ class FileManager extends \lib\Manager {
 	}
 
 	public function get($url) {
-		$req = $this->_db->prepare('SELECT id,url,size,visibility,date_creation,id_User FROM file WHERE url = :url');
+		$req = $this->_db->prepare('SELECT id,url,size,visibility,date_creation,id_User,type FROM file WHERE url = :url');
     	$req->bindParam(':url', $url, \PDO::PARAM_STR);
     	$req->execute();
 
@@ -56,7 +58,7 @@ class FileManager extends \lib\Manager {
 	}
 
 	public function getById($id) {
-		$req = $this->_db->prepare('SELECT id,url,size,visibility,date_creation,id_User FROM file WHERE id = :id');
+		$req = $this->_db->prepare('SELECT id,url,size,visibility,date_creation,id_User,type FROM file WHERE id = :id');
     	$req->bindParam(':id', $id, \PDO::PARAM_INT);
     	$req->execute();
 
@@ -72,10 +74,10 @@ class FileManager extends \lib\Manager {
 		$file = [];
 
 		if($id_user == 0){
-			$req = $this->_db->query('SELECT id,url,size,visibility,date_creation,id_User FROM file');
+			$req = $this->_db->query('SELECT id,url,size,visibility,date_creation,id_User,type FROM file');
 
 		}else{
-			$req = $this->_db->prepare('SELECT id,url,size,visibility,date_creation,id_User FROM file WHERE id_User = :id_User');
+			$req = $this->_db->prepare('SELECT id,url,size,visibility,date_creation,id_User,type FROM file WHERE id_User = :id_User');
 			$req->bindParam(':id_User', $id_user, \PDO::PARAM_INT);
 			$req->execute();
 		}

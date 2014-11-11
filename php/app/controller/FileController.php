@@ -59,21 +59,22 @@ class FileController extends \lib\Controller {
 				$visibility = HTTPRequest::postData('visibility');
 
 
-			$file = new File(array(
-				'id'=> 0,
-				'url' => $input_url,
-				'visibility' => $visibility,
-				'date_creation' => date('Y-m-d H:i:s'),
-				'id_user' => 1
-			));
-
-			$userManager = $this->getManagerof('File');
-			
 			$target_dir = $root_upload . $input_url;
 
 			$extensions_valides = array( 'rar', 'zip', 'apk', 'png', 'jpg', 'jpeg', 'gif', 'png', 'txt', 'mp3', 'avi', 'mp4', 'pdf', 'docx', 'pptx' );
 			$extension_upload = strtolower(  substr(  strrchr($_FILES['file']['name'], '.')  ,1)  );
 			
+
+			$file = new File(array(
+				'id'=> 0,
+				'url' => $input_url,
+				'visibility' => $visibility,
+				'date_creation' => date('Y-m-d H:i:s'),
+				'id_user' => 1,
+				'type' => $extension_upload
+			));
+
+			$userManager = $this->getManagerof('File');
 
 			if(!$userManager->exist($file->getUrl())) {
 				if ( in_array($extension_upload,$extensions_valides) ) {
@@ -173,7 +174,7 @@ class FileController extends \lib\Controller {
 
 		if($id == null) {
 			HTTPResponse::send('{"succeed":false,"toast":"Bad id."}');
-			return;
+			exit;
 		}
 
 		$root_upload = __DIR__.$this->_app->_config->get('root_upload');

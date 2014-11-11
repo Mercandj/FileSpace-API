@@ -12,7 +12,8 @@ class File extends \lib\Entity{
 		$_size,
 		$_visibility,
 		$_date_creation,
-		$_id_user;
+		$_id_user,
+		$_type;
 
 	public function getId(){
 		return $this->_id;
@@ -36,6 +37,10 @@ class File extends \lib\Entity{
 
 	public function getId_User(){
 		return $this->_id_user;
+	}
+
+	public function getType(){
+		return $this->_type;
 	}
 
 	public function setId($id){
@@ -80,6 +85,12 @@ class File extends \lib\Entity{
 		}
 	}
 
+	public function setType($type){
+		if(!empty($type)){
+			$this->_type = $type;
+		}
+	}
+
 	public function isValid(){
 		return !empty($this->_id) && !empty($this->_url);
 	}
@@ -89,6 +100,7 @@ class File extends \lib\Entity{
 		$json['url'] = $this->getUrl();
 		$json['size'] = $this->getSize();
 		$json['date_creation'] = $this->getDate_creation();
+		$json['type'] = $this->getType();
         return $json;
     }
 }
