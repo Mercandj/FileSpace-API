@@ -52,6 +52,6 @@ Temporary Items
 .apdisk
 
 #Jarvis files to ignore
-/php/upload/
+/upload/
 *.sublime-workspace
 *.sublime-project
