@@ -106,6 +106,6 @@ class FileManager extends \lib\Manager {
 
     	$donnee = $req->fetch(\PDO::FETCH_ASSOC);
     	$req->closeCursor();
-    	return $donnee['id'] != NULL;
+    	return $donnee['url'] != NULL;
 	}
 }
