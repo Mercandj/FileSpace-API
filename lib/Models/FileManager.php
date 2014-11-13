@@ -98,4 +98,14 @@ class FileManager extends \lib\Manager {
     	$req->closeCursor();
     	return $donnee['id'] != NULL;
 	}
+
+	public function existById($id) {
+		$req = $this->_db->prepare('SELECT url FROM file WHERE id = :id');
+    	$req->bindParam(':id', $id, \PDO::PARAM_INT);
+    	$req->execute();
+
+    	$donnee = $req->fetch(\PDO::FETCH_ASSOC);
+    	$req->closeCursor();
+    	return $donnee['id'] != NULL;
+	}
 }

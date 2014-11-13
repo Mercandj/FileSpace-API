@@ -74,9 +74,9 @@ class FileController extends \lib\Controller {
 				'type' => $extension_upload
 			));
 
-			$userManager = $this->getManagerof('File');
+			$fileManager = $this->getManagerof('File');
 
-			if(!$userManager->exist($file->getUrl())) {
+			if(!$fileManager->exist($file->getUrl())) {
 				if ( in_array($extension_upload,$extensions_valides) ) {
 					if ( 0 < $_FILES['file']['size'] && $_FILES['file']['size'] < 800000000  ) {
 						if (move_uploaded_file($_FILES["file"]["tmp_name"], $target_dir)) {
@@ -84,10 +84,10 @@ class FileController extends \lib\Controller {
 							$file->setSize($_FILES['file']['size']);
 
 							// add BDD
-							$userManager->add($file);
+							$fileManager->add($file);
 
 							// get file : get id !
-							$file = $userManager->get($file->getUrl());
+							$file = $fileManager->get($file->getUrl());
 
 							$json['succeed'] = true;
 							$json['file'] = $file->toArray();							
@@ -146,8 +146,8 @@ class FileController extends \lib\Controller {
 			}
 		}
 
-		$userManager = $this->getManagerof('File');		
-		$array = $userManager->getAll();
+		$fileManager = $this->getManagerof('File');		
+		$array = $fileManager->getAll();
 		$files_bdd = array();
 		
 		foreach ($array as $value) {
@@ -178,9 +178,14 @@ class FileController extends \lib\Controller {
 		}
 
 		$root_upload = __DIR__.$this->_app->_config->get('root_upload');
+		$fileManager = $this->getManagerof('File');
 
-		$userManager = $this->getManagerof('File');
-		$file = $userManager->getById($id);
+		if(!$fileManager->existById()) {
+			HTTPResponse::send('{"succeed":false,"toast":"Bad id."}');
+			exit;
+		}
+
+		$file = $fileManager->getById($id);
 
 		if($file != null) {
 			$file_name = $root_upload . $file->getUrl();
