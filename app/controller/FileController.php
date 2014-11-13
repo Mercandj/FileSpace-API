@@ -180,7 +180,7 @@ class FileController extends \lib\Controller {
 		$root_upload = __DIR__.$this->_app->_config->get('root_upload');
 		$fileManager = $this->getManagerof('File');
 
-		if(!$fileManager->existById()) {
+		if(!$fileManager->existById($id)) {
 			HTTPResponse::send('{"succeed":false,"toast":"Bad id."}');
 			exit;
 		}
