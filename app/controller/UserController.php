@@ -41,17 +41,14 @@ class UserController extends \lib\Controller {
 
 		if(!HTTPRequest::postExist('username')) {
 			HTTPResponse::send('{"succeed":false,"toast":"Wrong User."}');
-			exit();
 		}
 
 		else if(!HTTPRequest::postExist('password')) {
 			HTTPResponse::send('{"succeed":false,"toast":"Wrong Password."}');
-			exit();
 		}
 
 		else if(!$this->_app->_config->get('registration_open')) {
 			HTTPResponse::send('{"succeed":false,"toast":"Registration close."}');
-			exit();
 		}
 
 		else{
@@ -87,11 +84,8 @@ class UserController extends \lib\Controller {
 	*/
 	public function isUser() {
 
-		if( !HTTPRequest::serverExist('PHP_AUTH_USER') && !HTTPRequest::serverExist('PHP_AUTH_PW')){
-			return false;
-
-		}else{
-
+		if(HTTPRequest::serverExist('PHP_AUTH_USER') && HTTPRequest::serverExist('PHP_AUTH_PW')){
+			
 			$user = new User(array(
 				'username' => HTTPRequest::serverData('PHP_AUTH_USER'),
 				'password' => sha1(HTTPRequest::serverData('PHP_AUTH_PW')),

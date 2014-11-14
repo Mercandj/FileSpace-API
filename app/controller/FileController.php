@@ -173,53 +173,57 @@ class FileController extends \lib\Controller {
 
 		if($id == null) {
 			HTTPResponse::send('{"succeed":false,"toast":"Bad id."}');
-			exit;
 		}
 
-		$root_upload = __DIR__.$this->_app->_config->get('root_upload');
-		$fileManager = $this->getManagerof('File');
-
-		if(!$fileManager->existById($id)) {
+		else if(!$fileManager->existById($id)) {
 			HTTPResponse::send('{"succeed":false,"toast":"Bad id."}');
-			exit;
 		}
 
-		$file = $fileManager->getById($id);
+		else{
+			$root_upload = __DIR__.$this->_app->_config->get('root_upload');
+			$fileManager = $this->getManagerof('File');
 
-		if($file != null) {
-			$file_name = $root_upload . $file->getUrl();
+			$file = $fileManager->getById($id);
 
-			if(is_file($file_name)) {
-				// required for IE
-				//if(ini_get('zlib.output_compression')) { ini_set('zlib.output_compression', 'Off');	}
+			if($file == null) {
+				exit();
+			}
 
-				// get the file mime type using the file extension
-				switch(strtolower(substr(strrchr($file_name, '.'), 1))) {
-					case 'pdf': $mime = 'application/pdf'; break;
-					case 'zip': $mime = 'application/zip'; break;
-					case 'jpeg':
-					case 'jpg': $mime = 'image/jpg'; break;
-					default: $mime = 'application/force-download';
+			else{
+				$file_name = $root_upload . $file->getUrl();
+
+				if(is_file($file_name)) {
+					// required for IE
+					//if(ini_get('zlib.output_compression')) { ini_set('zlib.output_compression', 'Off');	}
+
+					// get the file mime type using the file extension
+					switch(strtolower(substr(strrchr($file_name, '.'), 1))) {
+						case 'pdf': $mime = 'application/pdf'; break;
+						case 'zip': $mime = 'application/zip'; break;
+						case 'jpeg':
+						case 'jpg': $mime = 'image/jpg'; break;
+						default: $mime = 'application/force-download';
+					}
+					header('Pragma: public'); 	// required
+					header('Expires: 0');		// no cache
+					header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+					header('Last-Modified: '.gmdate ('D, d M Y H:i:s', filemtime ($file_name)).' GMT');
+					header('Cache-Control: private',false);
+					header('Content-Type: '.$mime);
+					header('Content-Disposition: attachment; filename="'.basename($file_name).'"');
+					header('Content-Transfer-Encoding: binary');
+					header('Content-Length: '.filesize($file_name));	// provide file size
+					header('Connection: close');
+					readfile($file_name);		// push it out
+					exit();
 				}
-				header('Pragma: public'); 	// required
-				header('Expires: 0');		// no cache
-				header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
-				header('Last-Modified: '.gmdate ('D, d M Y H:i:s', filemtime ($file_name)).' GMT');
-				header('Cache-Control: private',false);
-				header('Content-Type: '.$mime);
-				header('Content-Disposition: attachment; filename="'.basename($file_name).'"');
-				header('Content-Transfer-Encoding: binary');
-				header('Content-Length: '.filesize($file_name));	// provide file size
-				header('Connection: close');
-				readfile($file_name);		// push it out
-			}
-			else {
-				HTTPResponse::send('{"succeed":false,"result":"Physic : Bad File url."}');
-			}
+				else {
+					HTTPResponse::send('{"succeed":false,"result":"Physic : Bad File url."}');
+				}
 
+			}
 		}
-		else {
-			HTTPResponse::send('{"succeed":false,"result":"Bdd : Bad File url."}');
-		}
+
+		HTTPResponse::send('{"succeed":false,"result":"Bdd : Bad File url."}');
 	}
 }
