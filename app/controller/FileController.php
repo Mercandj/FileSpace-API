@@ -76,35 +76,35 @@ class FileController extends \lib\Controller {
 
 			$fileManager = $this->getManagerof('File');
 
-			if(!$fileManager->exist($file->getUrl())) {
-				if ( in_array($extension_upload,$extensions_valides) ) {
-					if ( 0 < $_FILES['file']['size'] && $_FILES['file']['size'] < 800000000  ) {
-						if (move_uploaded_file($_FILES["file"]["tmp_name"], $target_dir)) {
-
-							$file->setSize($_FILES['file']['size']);
-
-							// add BDD
-							$fileManager->add($file);
-
-							// get file : get id !
-							$file = $fileManager->get($file->getUrl());
-
-							$json['succeed'] = true;
-							$json['file'] = $file->toArray();							
-							$json['toast'] = 'The file '. basename( $_FILES["file"]["name"]) .' has been uploaded.';
-						}
-						else
-							$json['toast'] = 'Sorry, there was an error uploading your file.';
-					}
-					else
-						$json['toast'] = 'File size : '.$_FILES['file']['size'].'.';
-				}
-				else
-					$json['toast'] = 'Bad extension.';
-			}
-			else
+			if($fileManager->exist($file->getUrl())) {
 				$json['toast'] = 'File exists.';
-			
+			}
+
+			else if( !in_array($extension_upload,$extensions_valides) ){
+				$json['toast'] = 'Bad extension.';
+			}
+
+			else if( 0 > $_FILES['file']['size'] && $_FILES['file']['size'] > 800000000) {
+				$json['toast'] = 'File size : '.$_FILES['file']['size'].'.';
+			}
+
+			else if( move_uploaded_file($_FILES["file"]["tmp_name"], $target_dir) ){
+				$json['toast'] = 'Sorry, there was an error uploading your file.';
+			}
+
+			else{ // Everything is OK ... well it seems OK
+				$file->setSize($_FILES['file']['size']);
+
+				// add BDD
+				$fileManager->add($file);
+
+				// get file : get id !
+				$file = $fileManager->get($file->getUrl());
+
+				$json['succeed'] = true;
+				$json['file'] = $file->toArray();							
+				$json['toast'] = 'The file '. basename( $_FILES["file"]["name"]) .' has been uploaded.';
+			}			
 		}
 
 		HTTPResponse::send(json_encode($json));			

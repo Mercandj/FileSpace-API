@@ -33,17 +33,17 @@ class Router extends ApplicationComponent{
 
 
 	private function match($url,$method, $controller_action) {
-		if ($method === $_SERVER['REQUEST_METHOD']) {
+		if ($method === HTTPRequest::serverData('REQUEST_METHOD') ){
 			$url = $this->_app->_config->get('root').$url;
 
 			// Clean URL
 			$url = preg_replace('#:[a-z_]+#','[0-9]+',$url);
 
 			// Try to match clean URL with URL Client
-			if(preg_match('`^'.$url.'$`', $_SERVER['REQUEST_URI'])){
+			if(preg_match('`^'.$url.'$`', HTTPRequest::serverData('REQUEST_URI') )){
 
 				// Match variables with URL params
-				preg_match('#[0-9]+#',$_SERVER['REQUEST_URI'], $match);
+				preg_match('#[0-9]+#',HTTPRequest::serverData('REQUEST_URI'), $match);
 
 				$controller_action = explode('#',$controller_action);
 
@@ -53,8 +53,6 @@ class Router extends ApplicationComponent{
 				if(method_exists($controller, $controller_action[1])){
 					call_user_func_array(array($controller, $controller_action[1]), $match);
 					exit();
-				}else{
-					return $this;
 				}
 			}
 		}
