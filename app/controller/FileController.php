@@ -162,6 +162,7 @@ class FileController extends \lib\Controller {
 		$array_json = array();
 		$array_json['files_physic'] = $files_physic;
 		$array_json['files_bdd'] = $files_bdd;
+		$array_json['files_size_all'] = $fileManager->sizeAll();
 		HTTPResponse::send(json_encode($array_json));
 	}	
 

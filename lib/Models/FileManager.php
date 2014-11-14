@@ -89,6 +89,16 @@ class FileManager extends \lib\Manager {
 	    return $file;
 	}
 
+	/**
+	 * Security + information
+	 */
+	public function sizeAll() {
+		$req = $this->_db->query('SELECT SUM(size) FROM file');
+		$req->execute();
+		$donnee = $req->fetch(\PDO::FETCH_ASSOC);
+		return $donnee[0];
+	}
+
 	public function exist($url) {
 		$req = $this->_db->prepare('SELECT id FROM file WHERE url = :url');
     	$req->bindParam(':url', $url,\PDO::PARAM_STR);
