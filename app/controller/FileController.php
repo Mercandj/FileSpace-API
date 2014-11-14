@@ -82,7 +82,7 @@ class FileController extends \lib\Controller {
 				$json['toast'] = 'File exists.';
 			}
 
-			else if( !in_array($extension_upload,$extensions_valides) ){
+			else if( !in_array($extension_upload,$extensions_valides) ) {
 				$json['toast'] = 'Bad extension.';
 			}
 
@@ -94,11 +94,11 @@ class FileController extends \lib\Controller {
 				$json['toast'] = 'Server : no more place. File size : '.$_FILES['file']['size'].'.';
 			}
 
-			else if( move_uploaded_file($_FILES["file"]["tmp_name"], $target_dir) ){
+			else if( !move_uploaded_file($_FILES["file"]["tmp_name"], $target_dir) ) {
 				$json['toast'] = 'Sorry, there was an error uploading your file.';
 			}
 
-			else{ // Everything is OK ... well it seems OK
+			else { // Everything is OK ... well it seems OK
 				$file->setSize($_FILES['file']['size']);
 
 				// add BDD
@@ -196,7 +196,7 @@ class FileController extends \lib\Controller {
 				HTTPResponse::send('{"succeed":false,"toast":"Bad id."}');
 			}
 
-			else{
+			else {
 				$file_name = $root_upload . $file->getUrl();
 
 				if(is_file($file_name)) {
