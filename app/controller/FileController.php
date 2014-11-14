@@ -160,7 +160,6 @@ class FileController extends \lib\Controller {
 		$array_json = array();
 		$array_json['files_physic'] = $files_physic;
 		$array_json['files_bdd'] = $files_bdd;
-		$array_json['test'] = $_SERVER['PHP_AUTH_USER'].' '.$_SERVER['PHP_AUTH_PW'];
 		HTTPResponse::send(json_encode($array_json));
 	}	
 
