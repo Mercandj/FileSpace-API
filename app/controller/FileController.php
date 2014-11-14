@@ -40,13 +40,15 @@ class FileController extends \lib\Controller {
 		$json['toast'] = '';
 
 		// Check required parameters
-		if(!HTTPRequest::fileExist('file')){
+		if(!HTTPRequest::fileExist('file')) {
 			$json['toast'] = 'Upload failed : No file.';
+		}
 
-		}else if($_FILES['file']['error'] !== UPLOAD_ERR_OK){
+		else if($_FILES['file']['error'] !== UPLOAD_ERR_OK) {
 			$json['toast'] = 'Upload failed with error code '.$_FILES['file']['error'].'.';
+		}
 
-		}else{
+		else {
 			$root_upload = __DIR__.$this->_app->_config->get('root_upload');
 			$input_url = basename( $_FILES["file"]["name"]);
 
@@ -180,13 +182,13 @@ class FileController extends \lib\Controller {
 			HTTPResponse::send('{"succeed":false,"toast":"Bad id."}');
 		}
 
-		else{
+		else {
 			$root_upload = __DIR__.$this->_app->_config->get('root_upload');
 
 			$file = $fileManager->getById($id);
 
 			if($file == null) {
-				exit();
+				HTTPResponse::send('{"succeed":false,"toast":"Bad id."}');
 			}
 
 			else{
@@ -215,15 +217,11 @@ class FileController extends \lib\Controller {
 					header('Content-Length: '.filesize($file_name));	// provide file size
 					header('Connection: close');
 					readfile($file_name);		// push it out
-					exit();
 				}
 				else {
 					HTTPResponse::send('{"succeed":false,"result":"Physic : Bad File url."}');
 				}
-
 			}
 		}
-
-		HTTPResponse::send('{"succeed":false,"result":"Bdd : Bad File url."}');
 	}
 }
