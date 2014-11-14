@@ -87,7 +87,11 @@ class FileController extends \lib\Controller {
 			}
 
 			else if( 0 > $_FILES['file']['size'] && $_FILES['file']['size'] > 800000000) {
-				$json['toast'] = 'File size : '.$_FILES['file']['size'].'.';
+				$json['toast'] = 'File size : '.$_FILES['file']['size'].' > 800 Mo.';
+			}
+
+			else if( $fileManager->sizeAll() + $_FILES['file']['size'] >= $this->_app->_config->get('server_max_size')) {
+				$json['toast'] = 'Server : no more place. File size : '.$_FILES['file']['size'].'.';
 			}
 
 			else if( move_uploaded_file($_FILES["file"]["tmp_name"], $target_dir) ){
