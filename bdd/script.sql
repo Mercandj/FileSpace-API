@@ -20,7 +20,6 @@ CREATE TABLE IF NOT EXISTS `User` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `username` VARCHAR(100) NOT NULL,
   `password` VARCHAR(100) NOT NULL,
-  `token` VARCHAR(500) NULL,
   `date_creation` DATETIME NULL,
   `date_last_connection` DATETIME NULL,
   `first_name` VARCHAR(100) NULL,

@@ -16,9 +16,6 @@ class UserController extends \lib\Controller {
 
 		if($this->isUser()){
 			$user = $this->getManagerof('User')->get(HTTPRequest::serverData('PHP_AUTH_USER'));
-			$user->setToken(sha1(uniqid().' '.date('Y-m-d H:i:s')));
-			$this->getManagerof('User')->updateToken($user);
-
 			$json['succeed'] = true;
 			$json['user'] = $user->toArray();
 			
@@ -89,7 +86,7 @@ class UserController extends \lib\Controller {
 	*	Check BDD AUTH user : Used by $this->get() and RESTapi.php
 	*/
 	public function isUser() {
-		//return true;
+
 		if( !HTTPRequest::serverExist('PHP_AUTH_USER') && !HTTPRequest::serverExist('PHP_AUTH_PW')){
 			return false;
 
@@ -112,8 +109,6 @@ class UserController extends \lib\Controller {
 					return true;
 				}
 
-			}else{
-				return false;
 			}
 		}
 
