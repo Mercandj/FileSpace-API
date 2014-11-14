@@ -170,6 +170,7 @@ class FileController extends \lib\Controller {
 	 * @return 	FILE
 	 */
 	public function download($id) {
+		$fileManager = $this->getManagerof('File');
 
 		if($id == null) {
 			HTTPResponse::send('{"succeed":false,"toast":"Bad id."}');
@@ -181,7 +182,6 @@ class FileController extends \lib\Controller {
 
 		else{
 			$root_upload = __DIR__.$this->_app->_config->get('root_upload');
-			$fileManager = $this->getManagerof('File');
 
 			$file = $fileManager->getById($id);
 
