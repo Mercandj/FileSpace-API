@@ -93,10 +93,10 @@ class FileManager extends \lib\Manager {
 	 * Security + information
 	 */
 	public function sizeAll() {
-		$req = $this->_db->query('SELECT SUM(size) FROM file');
+		$req = $this->_db->query('SELECT SUM(size) AS sizeAll FROM file');
 		$req->execute();
 		$donnee = $req->fetch(\PDO::FETCH_ASSOC);
-		return $donnee[0];
+		return $donnee['sizeAll'];
 	}
 
 	public function exist($url) {
