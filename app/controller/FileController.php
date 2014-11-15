@@ -110,10 +110,10 @@ class FileController extends \lib\Controller {
 				$json['succeed'] = true;
 				$json['file'] = $file->toArray();							
 				$json['toast'] = 'The file '. basename( $_FILES["file"]["name"]) .' has been uploaded.';
-			}			
+			}
 		}
 
-		HTTPResponse::send(json_encode($json));			
+		HTTPResponse::send(json_encode($json));
 	}
 
 	/**
@@ -130,8 +130,43 @@ class FileController extends \lib\Controller {
 	 * @url   	/file/:id    
 	 * @method 	DELETE
 	 */
-	public function delete($id) {
-		// TODO
+	public function delete($id) {		
+		$json['succeed'] = false;
+		$json['toast'] = '';
+
+		if($id == null) {
+			$json['toast'] = 'Bad id.';
+		}
+
+		else if(!$fileManager->existById($id)) {
+			$json['toast'] = 'Bad id.';
+		}
+
+		else {
+			$file = $fileManager->getById($id);
+
+			if($file == null) {
+				$json['toast'] = 'Bad id.';
+			}
+
+			else {
+				$root_upload = __DIR__.$this->_app->_config->get('root_upload');
+				$file_name = $root_upload . $file->getUrl();
+
+				if(is_file($file_name)) {
+
+					$fileManager->delete($file->getId());
+					unlink($file_name);
+
+					$json['succeed'] = true;
+				}
+				else {
+					$json['toast'] = 'Physic : Bad File url.';
+				}
+			}
+		}
+
+		HTTPResponse::send(json_encode($json));
 	}
 
 	/**
