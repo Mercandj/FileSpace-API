@@ -133,6 +133,7 @@ class FileController extends \lib\Controller {
 	public function delete($id) {		
 		$json['succeed'] = false;
 		$json['toast'] = '';
+		$fileManager = $this->getManagerof('File');
 
 		if($id == null) {
 			$json['toast'] = 'Bad id.';
