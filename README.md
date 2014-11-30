@@ -37,7 +37,7 @@ For each file request : basic-authentication token:empty
 
 ## DEVELOPERS
 
-* Mercandalli Jonathan ([Front Android](https://github.com/Mercandj/Jarvis-Android) + Rest API)
+* Mercandalli Jonathan ([Front Android](https://github.com/Mercandj/Jarvis-Android) + [Front Web Beta](https://github.com/Mercandj/Jarvis-Angular) + Rest API)
 * 7h1b0 ([Front Web](https://github.com/7h1b0/JarvisJS) + Rest API)
 
 
