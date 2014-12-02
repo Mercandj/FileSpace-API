@@ -132,7 +132,7 @@ class FileController extends \lib\Controller {
 		if(isset($post_vars['url']))
 			$json['toast'] = 'url : '.$post_vars['url'];
 		else
-			$json['toast'] = 'url not found';
+			$json['toast'] = 'url not found '+json_encode($post_vars);
 
 		/*
 		if(HTTPRequest::defaultExist('url')) {
