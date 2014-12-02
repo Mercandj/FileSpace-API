@@ -7,7 +7,7 @@ use \lib\HTTPResponse;
 class FileController extends \lib\Controller {
 
 	// Good extenstions : secure
-	$extensions_valides = array( 'rar', 'zip', 'apk', 'png', 'jpg', 'jpeg', 'gif', 'png', 'txt', 'mp3', 'wav', 'avi', 'mp4', 'webm', 'mkv', 'pdf', 'doc', 'docx', 'pptx', 'xlsx', 'vcf' );
+	var $extensions_valides = array( 'rar', 'zip', 'apk', 'png', 'jpg', 'jpeg', 'gif', 'png', 'txt', 'mp3', 'wav', 'avi', 'mp4', 'webm', 'mkv', 'pdf', 'doc', 'docx', 'pptx', 'xlsx', 'vcf' );
 
 	/**
 	 * Return Get list of files
@@ -159,7 +159,7 @@ class FileController extends \lib\Controller {
 			else if( !in_array($new_extension,$extensions_valides) ) {
 				$json['toast'] = 'Bad extension.';
 			}
-			
+
 			else {
 				$json['toast'] = 'Good url!';
 			}
