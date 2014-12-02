@@ -39,13 +39,11 @@ class HTTPRequest {
 	}
 
 	public static function defaultData($key) {
-		$array = array();
 		parse_str(file_get_contents('php://input'), $array);
 		return isset($array[$key]) ? $array[$key] : null;
 	}
 
 	public static function defaultExist($key) {
-		$array = array();
 		parse_str(file_get_contents('php://input'), $array);
 		return isset($array[$key]);
 	}
