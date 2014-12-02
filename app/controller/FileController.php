@@ -128,9 +128,11 @@ class FileController extends \lib\Controller {
 		$json['toast'] = '';
 
 		
-		parse_str(file_get_contents("php://input"),$post_vars);
-		if(isset($post_vars['url']))
-			$json['toast'] = 'url : '.$post_vars['url'];
+		parse_str(file_get_contents("php://input"), $put_vars);
+		if(isset($put_vars['url'])) {
+			$new_url = $put_vars['url'];
+			$json['toast'] = 'url:'.$new_url."     contains(..):".(!strstr($new_url, '..'));
+		}
 		else
 			$json['toast'] = 'url not found '+json_encode($post_vars);
 		
