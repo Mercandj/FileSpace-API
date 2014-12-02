@@ -127,10 +127,12 @@ class FileController extends \lib\Controller {
 		$json['succeed'] = false;
 		$json['toast'] = '';
 
-		if(HTTPRequest::postExist('url')) {
-			$new_url = HTTPRequest::postExist('url');
+		if(HTTPRequest::defaultExist('url')) {
+			$new_url = HTTPRequest::defaultData('url');
 			$json['toast'] = 'url:'+$new_url + "     !strstr($numberString, '..'):"+!strstr($numberString, '..');
 		}
+		else
+			$json['toast'] = 'HTTPRequest::defaultExist(url) not found';
 
 		HTTPResponse::send(json_encode($json));
 	}
