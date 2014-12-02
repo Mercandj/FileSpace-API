@@ -129,7 +129,7 @@ class FileController extends \lib\Controller {
 
 
 		parse_str(file_get_contents("php://input"),$post_vars);
-		$json['toast'] = 'url : '.$post_vars['url'];
+		$json['toast'] = 'url : isset='.isset($post_vars['url']);
 
 		/*
 		if(HTTPRequest::defaultExist('url')) {
