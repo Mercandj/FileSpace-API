@@ -123,6 +123,14 @@ class FileController extends \lib\Controller {
 	 */
 	public function put($id) {
 		// TODO
+
+		$json['succeed'] = false;
+		$json['toast'] = '';
+
+		if(HTTPRequest::postExist('url'))
+			$json['toast'] = 'url:'+HTTPRequest::postExist('url');
+
+		HTTPResponse::send(json_encode($json));
 	}
 
 	/**

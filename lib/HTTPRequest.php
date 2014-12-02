@@ -37,20 +37,6 @@ class HTTPRequest {
 	public static function fileExist($key){
 		return isset($_FILES[$key]);
 	}
-
-
-	private static function defaultData($key) {
-		$array = array();
-		parse_str(file_get_contents('php://input'), $array);
-		return isset($array[$key]) ? $array[$key] : null;
-	}
-
-	private static function defaultExist($key) {
-		$array = array();
-		parse_str(file_get_contents('php://input'), $array);
-		return isset($array[$key]);
-	}
-
 	
 	public static function exist($key) {
 		switch($_SERVER['REQUEST_METHOD']) {		
@@ -67,9 +53,9 @@ class HTTPRequest {
 			break;
 
 			default:
-		        if(self::defaultExist($key)){
+				if(self::postExist($key)){
 					return true;
-		        }
+				}
 		    break;
 		}
 		return false;
@@ -90,8 +76,8 @@ class HTTPRequest {
 			break;
 
 			default:
-				if(self::defaultExist($key)){
-					return json_decode(self::defaultData($key), true);
+				if(self::postExist($key)){
+					return json_decode(self::postData($key), true);
 				}
 			break;
 		}
