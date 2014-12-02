@@ -82,7 +82,7 @@ class FileController extends \lib\Controller {
 				$json['toast'] = 'File exists.';
 			}
 
-			else if( !in_array($extension_upload,$extensions_valides) ) {
+			else if( !in_array($extension_upload, $this->extensions_valides) ) {
 				$json['toast'] = 'Bad extension.';
 			}
 
@@ -156,7 +156,7 @@ class FileController extends \lib\Controller {
 				$json['toast'] = 'Bad url : contains /../';
 			}
 
-			else if( !in_array($new_extension,$extensions_valides) ) {
+			else if( !in_array($new_extension, $this->extensions_valides) ) {
 				$json['toast'] = 'Bad extension.';
 			}
 
