@@ -6,6 +6,9 @@ use \lib\HTTPResponse;
 
 class FileController extends \lib\Controller {
 
+	// Good extenstions : secure
+	$extensions_valides = array( 'rar', 'zip', 'apk', 'png', 'jpg', 'jpeg', 'gif', 'png', 'txt', 'mp3', 'wav', 'avi', 'mp4', 'webm', 'mkv', 'pdf', 'doc', 'docx', 'pptx', 'xlsx', 'vcf' );
+
 	/**
 	 * Return Get list of files
 	 * @uri    	/file
@@ -62,10 +65,7 @@ class FileController extends \lib\Controller {
 
 
 			$target_dir = $root_upload . $input_url;
-
-			$extensions_valides = array( 'rar', 'zip', 'apk', 'png', 'jpg', 'jpeg', 'gif', 'png', 'txt', 'mp3', 'wav', 'avi', 'mp4', 'webm', 'mkv', 'pdf', 'doc', 'docx', 'pptx', 'xlsx', 'vcf' );
-			$extension_upload = strtolower(  substr(  strrchr($_FILES['file']['name'], '.')  ,1)  );
-			
+			$extension_upload = strtolower(  substr(  strrchr($_FILES['file']['name'], '.')  ,1)  );			
 
 			$file = new File(array(
 				'id'=> 0,
@@ -126,21 +126,44 @@ class FileController extends \lib\Controller {
 
 		$json['succeed'] = false;
 		$json['toast'] = '';
-		
+
+		$fileManager = $this->getManagerof('File');		
 		parse_str(file_get_contents("php://input"), $put_vars);
-		if(isset($put_vars['url'])) {
+
+		if($id == null) {
+			$json['toast'] = 'Bad id.';
+		}
+
+		else if(!$fileManager->existById($id)) {
+			$json['toast'] = 'Bad id.';
+		}
+
+		else if(!isset($put_vars['url'])) {
+			$json['toast'] = 'Url not found '+json_encode($post_vars);
+		}
+
+		else {
+			$file = $fileManager->getById($id);
 			$new_url = $put_vars['url'];
+			$new_extension = strtolower(  substr(  strrchr($new_url, '.')  ,1)  );
+
+			if($file == null) {
+				$json['toast'] = 'Bad id.';
+			}			
 
 			// contains '..'
-			if(!strstr($new_url, '..')) {
-				$json['toast'] = 'Good url!';
-			}
-			else {
+			else if(strstr($new_url, '..')) {
 				$json['toast'] = 'Bad url : contains /../';
 			}
+
+			else if( !in_array($new_extension,$extensions_valides) ) {
+				$json['toast'] = 'Bad extension.';
+			}
+			
+			else {
+				$json['toast'] = 'Good url!';
+			}
 		}
-		else
-			$json['toast'] = 'url not found '+json_encode($post_vars);
 		
 		HTTPResponse::send(json_encode($json));
 	}
