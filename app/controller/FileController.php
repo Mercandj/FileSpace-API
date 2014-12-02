@@ -137,7 +137,7 @@ class FileController extends \lib\Controller {
 		
 		if(HTTPRequest::exist('url')) {
 			$new_url = HTTPRequest::get('url');
-			$json['toast'] = 'url:'.$new_url."     !strstr($numberString, '..'):".(!strstr($numberString, '..'));
+			$json['toast'] = 'url:'.$new_url."     contains(..):".(!strstr($new_url, '..'));
 		}
 		else
 			$json['toast'] = 'HTTPRequest::defaultExist(url) not found';
