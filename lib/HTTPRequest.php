@@ -83,13 +83,13 @@ class HTTPRequest {
 
 			case 'POST': 
 				if(self::postExist($key)){
-					return json_decode(self::postData($key), true);
+					return self::postData($key);
 				}
 			break;
 
 			default:
 				if(self::defaultExist($key)){
-					return json_decode(self::defaultData($key), true);
+					return self::defaultData($key);
 				}
 			break;
 		}
