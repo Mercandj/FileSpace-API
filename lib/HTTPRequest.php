@@ -65,7 +65,7 @@ class HTTPRequest {
 			break;
 
 			default:
-				if(self::postExist($key)){
+				if(self::defaultExist($key)){
 					return true;
 				}
 		    break;
@@ -88,8 +88,8 @@ class HTTPRequest {
 			break;
 
 			default:
-				if(self::postExist($key)){
-					return json_decode(self::postData($key), true);
+				if(self::defaultExist($key)){
+					return json_decode(self::defaultData($key), true);
 				}
 			break;
 		}

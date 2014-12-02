@@ -127,21 +127,21 @@ class FileController extends \lib\Controller {
 		$json['succeed'] = false;
 		$json['toast'] = '';
 
-
+		/*
 		parse_str(file_get_contents("php://input"),$post_vars);
 		if(isset($post_vars['url']))
 			$json['toast'] = 'url : '.$post_vars['url'];
 		else
 			$json['toast'] = 'url not found '+json_encode($post_vars);
-
-		/*
-		if(HTTPRequest::defaultExist('url')) {
-			$new_url = HTTPRequest::defaultData('url');
-			$json['toast'] = 'url:'+$new_url + "     !strstr($numberString, '..'):"+!strstr($numberString, '..');
+		*/
+		
+		if(HTTPRequest::exist('url')) {
+			$new_url = HTTPRequest::get('url');
+			$json['toast'] = 'url:'.$new_url."     !strstr($numberString, '..'):".(!strstr($numberString, '..'));
 		}
 		else
 			$json['toast'] = 'HTTPRequest::defaultExist(url) not found';
-		*/
+		
 		HTTPResponse::send(json_encode($json));
 	}
 
