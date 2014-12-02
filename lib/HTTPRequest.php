@@ -38,19 +38,17 @@ class HTTPRequest {
 		return isset($_FILES[$key]);
 	}
 
-
-	private static function defaultData($key) {
+	public static function defaultData($key) {
 		$array = array();
 		parse_str(file_get_contents('php://input'), $array);
 		return isset($array[$key]) ? $array[$key] : null;
 	}
 
-	private static function defaultExist($key) {
+	public static function defaultExist($key) {
 		$array = array();
 		parse_str(file_get_contents('php://input'), $array);
 		return isset($array[$key]);
 	}
-
 	
 	public static function exist($key) {
 		switch($_SERVER['REQUEST_METHOD']) {		
