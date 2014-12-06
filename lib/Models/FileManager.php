@@ -74,10 +74,11 @@ class FileManager extends \lib\Manager {
 		$file = [];
 
 		if($id_user == 0) {
-			
+
 			//$req = $this->_db->query('SELECT id,url,size,visibility,date_creation,id_User,type FROM file WHERE url LIKE "%'.$search.'%" ORDER BY date_creation DESC');
-			$req = $this->_db->prepare('SELECT id,url,size,visibility,date_creation,id_User,type FROM file WHERE url LIKE "%:search%" ORDER BY date_creation DESC');
-			$req->bindParam(':search', $search, \PDO::PARAM_INT);
+			$search = '%'.$search.'%';
+			$req = $this->_db->prepare('SELECT id,url,size,visibility,date_creation,id_User,type FROM file WHERE url LIKE :search ORDER BY date_creation DESC');
+			$req->bindParam(':search', $search, \PDO::PARAM_STR);
 			$req->execute();
 
 		}
