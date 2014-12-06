@@ -70,7 +70,7 @@ class FileManager extends \lib\Manager {
 	/**
 	 * Warning : $id_user will be REQUIRED soon and not OPTIONAL
 	 */
-	public function getAll($id_user = 0, $search = "") {
+	public function getAll($id_user = 0, $search = "Ac") {
 		$file = [];
 
 		if($id_user == 0){
