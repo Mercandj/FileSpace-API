@@ -39,11 +39,13 @@ class Router extends ApplicationComponent{
 			// Clean URL
 			$url = preg_replace('#:[a-z_]+#','[0-9]+',$url);
 
+			$request_uri = strtok(HTTPRequest::serverData('REQUEST_URI'), '?');
+
 			// Try to match clean URL with URL Client
-			if(preg_match('`^'.$url.'$`', HTTPRequest::serverData('REQUEST_URI') )){
+			if(preg_match('`^'.$url.'$`', $request_uri )){
 
 				// Match variables with URL params
-				preg_match('#[0-9]+#',HTTPRequest::serverData('REQUEST_URI'), $match);
+				preg_match('#[0-9]+#', $request_uri, $match);
 
 				$controller_action = explode('#',$controller_action);
 
