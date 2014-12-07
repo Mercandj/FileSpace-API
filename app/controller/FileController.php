@@ -18,14 +18,10 @@ class FileController extends \lib\Controller {
 	public function get() {
 		$result = []; //In case where list_file is empty;
 
-		if(HTTPRequest::getExist('search')) {
-			$json['test'] = 'OK';
+		if(HTTPRequest::getExist('search'))
 			$list_file = $this->getManagerof('File')->getAll(0, HTTPRequest::getData('search'));
-		}
-		else {
-			$json['test'] = 'KO';
+		else
 			$list_file = $this->getManagerof('File')->getAll();
-		}
 		
 		foreach ($list_file as $file) {
 			$result[] = $file->toArray();
