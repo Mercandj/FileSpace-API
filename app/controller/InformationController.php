@@ -26,7 +26,7 @@ class InformationController extends \lib\Controller {
 
 			array(
 				"title" => "memory_get_usage",
-				"value" => "".memory_get_usage()
+				"value" => "".$this->size(memory_get_usage())
 			),
 
 			array(
