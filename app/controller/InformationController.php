@@ -30,8 +30,13 @@ class InformationController extends \lib\Controller {
 			),
 
 			array(
-				"title" => "Size all files",
+				"title" => "Files : Size all",
 				"value" => "".$this->size(intval($fileManager->sizeAll()))
+			),
+
+			array(
+				"title" => "Files : count all",
+				"value" => "".$fileManager->count()
 			),
 
 			array(

@@ -105,6 +105,13 @@ class FileManager extends \lib\Manager {
 		return $donnee['sizeAll'];
 	}
 
+	public function count() {
+		$req = $this->_db->query('SELECT COUNT(url) AS countAll FROM file');
+		$req->execute();
+		$donnee = $req->fetch(\PDO::FETCH_ASSOC);
+		return $donnee['scountAll'];
+	}
+
 	public function exist($url) {
 		$req = $this->_db->prepare('SELECT id FROM file WHERE url = :url');
     	$req->bindParam(':url', $url,\PDO::PARAM_STR);
