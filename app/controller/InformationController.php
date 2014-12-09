@@ -16,7 +16,9 @@ class InformationController extends \lib\Controller {
 
 		$json['succeed'] = true;
 		$json['php_uname'] = php_uname();
-		$json['sys_getloadavg'] = sys_getloadavg();
+		$json['memory_get_usage'] = memory_get_usage();
+		$fileManager = $this->getManagerof('File');
+		$json['sizeAll'] = $fileManager->sizeAll();
 
 		HTTPResponse::send(json_encode($json));
 	}
