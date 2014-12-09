@@ -15,7 +15,8 @@ class InformationController extends \lib\Controller {
 	public function get() {
 
 		$json['succeed'] = true;
-		$json['info'] = 'Coucou';
+		$json['php_uname'] = php_uname();
+		$json['sys_getloadavg'] = sys_getloadavg();
 
 		HTTPResponse::send(json_encode($json));
 	}
