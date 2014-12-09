@@ -31,7 +31,7 @@ class InformationController extends \lib\Controller {
 
 			array(
 				"title" => "Size all files",
-				"value" => "".size($fileManager->sizeAll())
+				"value" => "".size(intval($fileManager->sizeAll()))
 			),
 
 			array(
