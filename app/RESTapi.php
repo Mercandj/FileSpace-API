@@ -12,10 +12,11 @@ class RESTapi extends \lib\Application {
 			->authorize((new UserController($this))->isUser())
 			->get('/file','File#get')
 			->post('/file','File#post')
-			->get('/file/test','File#test')		
+			->get('/file/test','File#test')
 			->get('/file/:id','File#download')
 			->put('/file/:id','File#put')
 			->delete('/file/:id','File#delete')
+			->get('/information','Information#get')	
 			->otherwise(function(){
 				\lib\HTTPResponse::redirect404();
 			});
