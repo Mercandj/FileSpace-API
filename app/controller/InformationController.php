@@ -32,8 +32,17 @@ class InformationController extends \lib\Controller {
 			array(
 				"title" => "sizeAll",
 				"value" => "".$fileManager->sizeAll()
+			),
+
+			array(
+				"title" => "hour",
+				"value" => "".date("d-m-Y")
 			)
-			
+
+
+
+
+
 		);
 
 		HTTPResponse::send(json_encode($json));
