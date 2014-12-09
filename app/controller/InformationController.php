@@ -31,17 +31,35 @@ class InformationController extends \lib\Controller {
 
 			array(
 				"title" => "Size all files",
-				"value" => "".$fileManager->sizeAll()
+				"value" => "".size($fileManager->sizeAll())
 			),
 
 			array(
 				"title" => "Current time",
 				"value" => "".date("d-m-Y h:i:s")
 			)
-			
+
 		);
 
 		HTTPResponse::send(json_encode($json));
 	}
 
+
+
+	private function size($path) {
+	    $bytes = sprintf('%u', filesize($path));
+
+	    if ($bytes > 0)
+	    {
+	        $unit = intval(log($bytes, 1024));
+	        $units = array('B', 'KB', 'MB', 'GB');
+
+	        if (array_key_exists($unit, $units) === true)
+	        {
+	            return sprintf('%d %s', $bytes / pow(1024, $unit), $units[$unit]);
+	        }
+	    }
+
+	    return $bytes;
+	}
 }
