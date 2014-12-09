@@ -35,7 +35,7 @@ class InformationController extends \lib\Controller {
 			),
 
 			array(
-				"title" => "Files : count all",
+				"title" => "Files : Count all",
 				"value" => "".$fileManager->count()
 			),
 
