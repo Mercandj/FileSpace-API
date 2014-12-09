@@ -109,7 +109,7 @@ class FileManager extends \lib\Manager {
 		$req = $this->_db->query('SELECT COUNT(url) AS countAll FROM file');
 		$req->execute();
 		$donnee = $req->fetch(\PDO::FETCH_ASSOC);
-		return $donnee['scountAll'];
+		return $donnee['countAll'];
 	}
 
 	public function exist($url) {
