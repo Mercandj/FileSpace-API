@@ -18,10 +18,22 @@ class InformationController extends \lib\Controller {
 		$json['succeed'] = true;
 
 		$json['result'] = array(
-			'php_uname' => php_uname(),
-			'php_uname' => php_uname(),
-			'memory_get_usage' => memory_get_usage(),
-			'sizeAll' => $fileManager->sizeAll()
+
+			array(
+				"title" => "php_uname",
+				"value" => "".php_uname()
+			),
+
+			array(
+				"title" => "memory_get_usage",
+				"value" => "".memory_get_usage()
+			),
+
+			array(
+				"title" => "sizeAll",
+				"value" => "".$fileManager->sizeAll()
+			)
+			
 		);
 
 		HTTPResponse::send(json_encode($json));
