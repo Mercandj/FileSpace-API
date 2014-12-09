@@ -31,7 +31,7 @@ class InformationController extends \lib\Controller {
 
 			array(
 				"title" => "Size all files",
-				"value" => "".size(intval($fileManager->sizeAll()))
+				"value" => "".$this->size(intval($fileManager->sizeAll()))
 			),
 
 			array(
@@ -43,8 +43,6 @@ class InformationController extends \lib\Controller {
 
 		HTTPResponse::send(json_encode($json));
 	}
-
-
 
 	private function size($path) {
 	    $bytes = sprintf('%u', filesize($path));
