@@ -13,94 +13,98 @@ class File extends \lib\Entity{
 		$_visibility,
 		$_date_creation,
 		$_id_user,
-		$_type;
+		$_type,
+		$_folder;
 
-	public function getId(){
+	public function getId() {
 		return $this->_id;
 	}
 
-	public function getUrl(){
+	public function getUrl() {
 		return $this->_url;
 	}
 
-	public function getSize(){
+	public function getSize() {
 		return $this->_size;
 	}
 
-	public function getVisibility(){
+	public function getVisibility() {
 		return $this->_visibility;
 	}
 
-	public function getDate_creation(){
+	public function getDate_creation() {
 		return $this->_date_creation;
 	}
 
-	public function getId_User(){
+	public function getId_User() {
 		return $this->_id_user;
 	}
 
-	public function getType(){
+	public function getType() {
 		return $this->_type;
 	}
 
-	public function setId($id){
-		if(!empty($id)){
+	public function getFolder() {
+		return $this->_folder;
+	}
+
+	public function setId($id) {
+		if(!empty($id))
 			$this->_id = $id;
-		}
 	}
 
-	public function setUrl($url){
-		if(!empty($url)){
+	public function setUrl($url) {
+		if(!empty($url))
 			$this->_url = $url;
-		}else{
+		else
 			$this->_errors[] = self::INVALID_URL;
-		}
 	}
 
-	public function setSize($size){
-		if(!empty($size)){
+	public function setSize($size) {
+		if(!empty($size))
 			$this->_size = $size;
-		}else{
+		else
 			$this->_errors[] = self::INVALID_SIZE;
-		}
 	}
 
-	public function setVisibility($visibility){
-		if(!empty($visibility)){
+	public function setVisibility($visibility) {
+		if(!empty($visibility))
 			$this->_visibility = $visibility;
-		}else{
+		else
 			$this->_errors[] = self::INVALID_VISIBILITY;
-		}
 	}
 
-	public function setDate_creation($date){
-		if(!empty($date)){
+	public function setDate_creation($date) {
+		if(!empty($date))
 			$this->_date_creation = $date;
-		}
 	}
 
-	public function setId_User($id){
-		if(!empty($id)){
+	public function setId_User($id) {
+		if(!empty($id))
 			$this->_id_user = $id;
-		}
 	}
 
-	public function setType($type){
-		if(!empty($type)){
+	public function setType($type) {
+		if(!empty($type))
 			$this->_type = $type;
-		}
 	}
 
-	public function isValid(){
+	public function setFolder($folder) {
+		if(!empty($folder))
+			$this->_folder = $folder;
+	}
+
+	public function isValid() {
 		return !empty($this->_id) && !empty($this->_url);
 	}
 
-    public function toArray(){
+    public function toArray() {
 		$json['id'] = $this->getId();
 		$json['url'] = $this->getUrl();
 		$json['size'] = $this->getSize();
 		$json['date_creation'] = $this->getDate_creation();
 		$json['type'] = $this->getType();
+		$json['folder'] = $this->getFolder();
         return $json;
     }
 }

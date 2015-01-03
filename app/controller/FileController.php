@@ -45,6 +45,15 @@ class FileController extends \lib\Controller {
 		$json['succeed'] = false;
 		$json['toast'] = '';
 
+
+		if(HTTPRequest::postExist('isFolder') && HTTPRequest::postData('isFolder')) {
+
+
+			$json['toast'] = 'Folder create!';
+			$json['succeed'] = true;
+		}
+
+
 		// Check required parameters
 		if(!HTTPRequest::fileExist('file')) {
 			$json['toast'] = 'Upload failed : No file.';
