@@ -46,15 +46,55 @@ class FileController extends \lib\Controller {
 		$json['toast'] = '';
 
 
-		if(HTTPRequest::postExist('isFolder') && HTTPRequest::postData('isFolder')) {
+		// Create Folder
+		if(HTTPRequest::postExist('isFolder') && HTTPRequest::postData('isFolder') && HTTPRequest::postExist('url')) {
 
+			$root_upload = __DIR__.$this->_app->_config->get('root_upload');
 
-			$json['toast'] = 'Folder create!';
-			$json['succeed'] = true;
+			$target_dir = $root_upload . HTTPRequest::postData('url');
+			$extension_upload = strtolower(  substr(  strrchr($_FILES['file']['name'], '.')  ,1)  );
+
+			$file = new File(array(
+				'id'=> 0,
+				'url' => HTTPRequest::postData('url'),
+				'visibility' => $visibility,
+				'date_creation' => date('Y-m-d H:i:s'),
+				'id_user' => 1,
+				'type' => '',
+				'folder' => 1
+			));
+
+			$fileManager = $this->getManagerof('File');
+
+			if($fileManager->exist($file->getUrl())) {
+				$json['toast'] = 'File or Folder exists.';
+			}
+
+			else if( !in_array($extension_upload, $this->extensions_valides) ) {
+				$json['toast'] = 'Bad extension.';
+			}
+
+			else if( !mkdir($target_dir, 0777, true)) {
+				$json['toast'] = 'Sorry, there was an error making your folder.';
+			}
+
+			else { // Everything is OK ... well it seems OK
+				$file->setSize($_FILES['file']['size']);
+
+				// add BDD
+				$fileManager->add($file);
+
+				// get file : get id !
+				$file = $fileManager->get($file->getUrl());
+
+				$json['succeed'] = true;
+				$json['file'] = $file->toArray();							
+				$json['toast'] = 'The folder '. basename( HTTPRequest::postData('url') ) .' has been uploaded.';
+			}
 		}
 
 
-		// Check required parameters
+		// Create File : Check required parameters
 		if(!HTTPRequest::fileExist('file')) {
 			$json['toast'] = 'Upload failed : No file.';
 		}
