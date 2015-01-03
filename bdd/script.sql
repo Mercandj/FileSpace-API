@@ -56,7 +56,7 @@ CREATE TABLE IF NOT EXISTS `File` (
   `type` VARCHAR(60) NULL,
   `number_read` INT UNSIGNED NULL,
   `number_download` INT UNSIGNED NULL,
-  `folder` BOOLEAN NOT NULL,
+  `folder` TINYINT NULL,
   `id_User` INT NOT NULL,
   PRIMARY KEY (`id`))
 ENGINE = MyISAM;
