@@ -85,7 +85,8 @@ class FileController extends \lib\Controller {
 				'visibility' => $visibility,
 				'date_creation' => date('Y-m-d H:i:s'),
 				'id_user' => 1,
-				'type' => $extension_upload
+				'type' => $extension_upload,
+				'folder' => 0
 			));
 
 			$fileManager = $this->getManagerof('File');
