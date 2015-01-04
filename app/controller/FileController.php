@@ -46,8 +46,8 @@ class FileController extends \lib\Controller {
 		$json['toast'] = '';
 
 
-		// Create Folder
-		if(HTTPRequest::postExist('isFolder') && HTTPRequest::postData('isFolder') && HTTPRequest::postExist('url')) {
+		// Create Directory
+		if(HTTPRequest::postExist('isDirectory') && HTTPRequest::postData('isDirectory') && HTTPRequest::postExist('url')) {
 
 			$root_upload = __DIR__.$this->_app->_config->get('root_upload');
 
@@ -61,13 +61,13 @@ class FileController extends \lib\Controller {
 				'date_creation' => date('Y-m-d H:i:s'),
 				'id_user' => 1,
 				'type' => '',
-				'folder' => 1
+				'directory' => 1
 			));
 
 			$fileManager = $this->getManagerof('File');
 
 			if($fileManager->exist($file->getUrl())) {
-				$json['toast'] = 'File or Folder exists.';
+				$json['toast'] = 'File or Directory exists.';
 			}
 
 			else if( !in_array($extension_upload, $this->extensions_valides) ) {
@@ -75,7 +75,7 @@ class FileController extends \lib\Controller {
 			}
 
 			else if( !mkdir($target_dir, 0777, true)) {
-				$json['toast'] = 'Sorry, there was an error making your folder.';
+				$json['toast'] = 'Sorry, there was an error making your directory.';
 			}
 
 			else { // Everything is OK ... well it seems OK
@@ -89,7 +89,7 @@ class FileController extends \lib\Controller {
 
 				$json['succeed'] = true;
 				$json['file'] = $file->toArray();							
-				$json['toast'] = 'The folder '. basename( HTTPRequest::postData('url') ) .' has been uploaded.';
+				$json['toast'] = 'The directory '. basename( HTTPRequest::postData('url') ) .' has been uploaded.';
 			}
 		}
 
@@ -126,7 +126,7 @@ class FileController extends \lib\Controller {
 				'date_creation' => date('Y-m-d H:i:s'),
 				'id_user' => 1,
 				'type' => $extension_upload,
-				'folder' => 0
+				'directory' => 0
 			));
 
 			$fileManager = $this->getManagerof('File');

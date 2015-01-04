@@ -14,7 +14,7 @@ class File extends \lib\Entity{
 		$_date_creation,
 		$_id_user,
 		$_type,
-		$_folder;
+		$_directory;
 
 	public function getId() {
 		return $this->_id;
@@ -44,8 +44,8 @@ class File extends \lib\Entity{
 		return $this->_type;
 	}
 
-	public function getFolder() {
-		return $this->_folder;
+	public function getDirectory() {
+		return $this->_directory;
 	}
 
 	public function setId($id) {
@@ -89,9 +89,9 @@ class File extends \lib\Entity{
 			$this->_type = $type;
 	}
 
-	public function setFolder($folder) {
-		if(!empty($folder))
-			$this->_folder = $folder;
+	public function setDirectory($directory) {
+		if(!empty($directory))
+			$this->_directory = $directory;
 	}
 
 	public function isValid() {
@@ -104,7 +104,7 @@ class File extends \lib\Entity{
 		$json['size'] = $this->getSize();
 		$json['date_creation'] = $this->getDate_creation();
 		$json['type'] = $this->getType();
-		$json['folder'] = $this->getFolder();
+		$json['directory'] = $this->getDirectory();
         return $json;
     }
 }
