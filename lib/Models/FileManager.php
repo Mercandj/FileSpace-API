@@ -15,15 +15,17 @@ class FileManager extends \lib\Manager {
 		$directory = $file->getDirectory();
 
 		$req = $this->_db->prepare('INSERT INTO file(url,size,visibility,date_creation,id_User,type,directory) VALUES (:url, :size, :visibility, :date_creation, :id_User, :type, :directory)');
+		
 		$req->bindParam(':url',$url,\PDO::PARAM_STR);
-		if(empty($size))
-			$req->bindParam(':size',0,\PDO::PARAM_INT);
-		else
-			$req->bindParam(':size',$size,\PDO::PARAM_INT);
-		if(empty($visibility))
-			$req->bindParam(':visibility',1,\PDO::PARAM_INT);
-		else
-			$req->bindParam(':visibility',$visibility,\PDO::PARAM_INT);
+
+		if(empty($size)) 	$req->bindParam(':size',0,\PDO::PARAM_INT);
+		else 				$req->bindParam(':size',$size,\PDO::PARAM_INT);
+
+		if(empty($visibility)) 	$req->bindParam(':visibility',1,\PDO::PARAM_INT);
+		else 					$req->bindParam(':visibility',$visibility,\PDO::PARAM_INT);
+
+		echo 'size:'.$size.' visibility:'.$visibility.' directory:'.$directory;
+
 		$req->bindParam(':date_creation',$date_creation,\PDO::PARAM_STR);
 		$req->bindParam(':id_User',$id_User,\PDO::PARAM_INT);
 		$req->bindParam(':type',$type,\PDO::PARAM_INT);
