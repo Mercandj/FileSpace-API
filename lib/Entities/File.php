@@ -49,7 +49,7 @@ class File extends \lib\Entity{
 	}
 
 	public function isDirectory() {
-		return $this->_directory;
+		return $this->_directory=="1";
 	}
 
 	public function setId($id) {

@@ -63,7 +63,7 @@ class FileController extends \lib\Controller {
 				'visibility' => $visibility,
 				'date_creation' => date('Y-m-d H:i:s'),
 				'id_user' => 1,
-				'type' => '',
+				'type' => '.dir',
 				'directory' => 1
 			));
 
@@ -249,11 +249,22 @@ class FileController extends \lib\Controller {
 				$file_name = $root_upload . $file->getUrl();
 
 				if(is_file($file_name)) {
-
-					$fileManager->delete($file->getId());
-					unlink($file_name);
-
-					$json['succeed'] = true;
+					if(!$file-isDirectory()) {
+						$fileManager->delete($file->getId());
+						unlink($file_name);
+						$json['succeed'] = true;
+					}
+					else
+						$json['toast'] = 'Database : file is directory.';
+				}
+				else if(is_dir($file_name)) {
+					if($file-isDirectory()) {
+						$fileManager->delete($file->getId());
+						unlink($file_name);
+						$json['succeed'] = true;
+					}
+					else
+						$json['toast'] = 'Database : directory is file.';
 				}
 				else {
 					$json['toast'] = 'Physic : Bad File url.';
