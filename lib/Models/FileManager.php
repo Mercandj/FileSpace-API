@@ -20,7 +20,10 @@ class FileManager extends \lib\Manager {
 			$req->bindParam(':size',0,\PDO::PARAM_INT);
 		else
 			$req->bindParam(':size',$size,\PDO::PARAM_INT);
-		$req->bindParam(':visibility',$visibility,\PDO::PARAM_INT);
+		if(empty($visibility))
+			$req->bindParam(':visibility',1,\PDO::PARAM_INT);
+		else
+			$req->bindParam(':visibility',$visibility,\PDO::PARAM_INT);
 		$req->bindParam(':date_creation',$date_creation,\PDO::PARAM_STR);
 		$req->bindParam(':id_User',$id_User,\PDO::PARAM_INT);
 		$req->bindParam(':type',$type,\PDO::PARAM_INT);
