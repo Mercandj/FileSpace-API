@@ -17,7 +17,7 @@ class FileManager extends \lib\Manager {
 		$req = $this->_db->prepare('INSERT INTO file(url,size,visibility,date_creation,id_User,type,directory) VALUES (:url, :size, :visibility, :date_creation, :id_User, :type, :directory)');
 		$req->bindParam(':url',$url,\PDO::PARAM_STR);
 		$req->bindParam(':size',$size,\PDO::PARAM_INT);
-		$req->bindParam(':visibility',$visibility,\PDO::PARAM_STR);
+		$req->bindParam(':visibility',$visibility,\PDO::PARAM_INT);
 		$req->bindParam(':date_creation',$date_creation,\PDO::PARAM_STR);
 		$req->bindParam(':id_User',$id_User,\PDO::PARAM_INT);
 		$req->bindParam(':type',$type,\PDO::PARAM_INT);
@@ -43,8 +43,8 @@ class FileManager extends \lib\Manager {
 		$req = $this->_db->prepare('UPDATE file SET url = :url, size = :size, visibility = :visibility WHERE id = :id');
 		$req->bindParam(':id',$id,\PDO::PARAM_STR);
 		$req->bindParam(':url',$url,\PDO::PARAM_STR);
-		$req->bindParam(':size',$size,\PDO::PARAM_STR);
-		$req->bindParam(':visibility',$visibility,\PDO::PARAM_STR);
+		$req->bindParam(':size',$size,\PDO::PARAM_INT);
+		$req->bindParam(':visibility',$visibility,\PDO::PARAM_INT);
 		$req->execute();
 		$req->closeCursor();
 	}
