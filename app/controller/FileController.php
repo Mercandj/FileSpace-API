@@ -47,7 +47,7 @@ class FileController extends \lib\Controller {
 
 
 		// Create Directory
-		if(HTTPRequest::postExist('directory') && HTTPRequest::postData('directory') && HTTPRequest::postExist('url')) {
+		if(HTTPRequest::postExist('directory') && HTTPRequest::postData('directory')=="true" && HTTPRequest::postExist('url')) {
 
 			$root_upload = __DIR__.$this->_app->_config->get('root_upload');
 
