@@ -53,6 +53,10 @@ class FileController extends \lib\Controller {
 
 			$target_dir = $root_upload . HTTPRequest::postData('url');
 
+			$visibility = 1;
+			if(HTTPRequest::postExist('visibility'))
+				$visibility = HTTPRequest::postData('visibility');
+
 			$file = new File(array(
 				'id'=> 0,
 				'url' => HTTPRequest::postData('url'),
@@ -74,7 +78,6 @@ class FileController extends \lib\Controller {
 			}
 
 			else { // Everything is OK ... well it seems OK
-				$file->setSize($_FILES['file']['size']);
 
 				// add BDD
 				$fileManager->add($file);
@@ -106,7 +109,7 @@ class FileController extends \lib\Controller {
 			if(HTTPRequest::postExist('url'))
 				$input_url = HTTPRequest::postData('url');
 
-			$visibility = 0;
+			$visibility = 1;
 			if(HTTPRequest::postExist('visibility'))
 				$visibility = HTTPRequest::postData('visibility');
 
