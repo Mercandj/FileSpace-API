@@ -79,6 +79,9 @@ class FileController extends \lib\Controller {
 
 			else { // Everything is OK ... well it seems OK
 
+
+				$file->setSize(0);
+
 				// add BDD
 				$fileManager->add($file);
 
