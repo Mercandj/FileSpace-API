@@ -51,12 +51,12 @@ CREATE TABLE IF NOT EXISTS `File` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `url` VARCHAR(500) NOT NULL,
   `size` INT UNSIGNED NULL,
-  `visibility` TINYINT NULL,
+  `visibility` TINYINT NOT NULL DEFAULT 1,
   `date_creation` DATETIME NULL,
   `type` VARCHAR(60) NULL,
   `number_read` INT UNSIGNED NULL,
   `number_download` INT UNSIGNED NULL,
-  `directory` TINYINT NULL,
+  `directory` TINYINT NOT NULL DEFAULT 0,
   `id_User` INT NOT NULL,
   PRIMARY KEY (`id`))
 ENGINE = MyISAM;
