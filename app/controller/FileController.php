@@ -63,6 +63,7 @@ class FileController extends \lib\Controller {
 				'visibility' => $visibility,
 				'date_creation' => date('Y-m-d H:i:s'),
 				'id_user' => 1,
+				'size' => 1,
 				'type' => '.dir',
 				'directory' => 1
 			));
