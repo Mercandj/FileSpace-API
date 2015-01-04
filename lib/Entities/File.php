@@ -48,10 +48,6 @@ class File extends \lib\Entity{
 		return $this->_directory;
 	}
 
-	public function isDirectory() {
-		return $this->_directory=="1";
-	}
-
 	public function setId($id) {
 		if(!empty($id))
 			$this->_id = $id;

@@ -253,7 +253,7 @@ class FileController extends \lib\Controller {
 				$file_name = $root_upload . $file->getUrl();
 
 				if(is_file($file_name)) {
-					if(!$file->isDirectory()) {
+					if(!$file->getDirectory()) {
 						$fileManager->delete($file->getId());
 						unlink($file_name);
 						$json['succeed'] = true;
@@ -262,7 +262,7 @@ class FileController extends \lib\Controller {
 						$json['toast'] = 'Database : file is directory.';
 				}
 				else if(is_dir($file_name)) {
-					if($file->isDirectory()) {
+					if($file->getDirectory()) {
 						$fileManager->delete($file->getId());
 						rmdir($file_name);
 						$json['succeed'] = true;
