@@ -52,7 +52,6 @@ class FileController extends \lib\Controller {
 			$root_upload = __DIR__.$this->_app->_config->get('root_upload');
 
 			$target_dir = $root_upload . HTTPRequest::postData('url');
-			$extension_upload = strtolower(  substr(  strrchr($_FILES['file']['name'], '.')  ,1)  );
 
 			$file = new File(array(
 				'id'=> 0,
@@ -68,10 +67,6 @@ class FileController extends \lib\Controller {
 
 			if($fileManager->exist($file->getUrl())) {
 				$json['toast'] = 'File or Directory exists.';
-			}
-
-			else if( !in_array($extension_upload, $this->extensions_valides) ) {
-				$json['toast'] = 'Bad extension.';
 			}
 
 			else if( !mkdir($target_dir, 0777, true)) {
