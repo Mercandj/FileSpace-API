@@ -127,7 +127,8 @@ class FileController extends \lib\Controller {
 				'date_creation' => date('Y-m-d H:i:s'),
 				'id_user' => 1,
 				'size' => 0,
-				'type' => $extension_upload
+				'type' => $extension_upload,
+				'directory' => 1
 			));
 
 			$fileManager = $this->getManagerof('File');
