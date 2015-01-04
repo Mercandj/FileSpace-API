@@ -261,7 +261,7 @@ class FileController extends \lib\Controller {
 				else if(is_dir($file_name)) {
 					if($file->isDirectory()) {
 						$fileManager->delete($file->getId());
-						unlink($file_name);
+						rmdir($file_name);
 						$json['succeed'] = true;
 					}
 					else
