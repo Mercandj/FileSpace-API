@@ -123,6 +123,7 @@ class FileController extends \lib\Controller {
 				'visibility' => $visibility,
 				'date_creation' => date('Y-m-d H:i:s'),
 				'id_user' => 1,
+				'size' => 0,
 				'type' => $extension_upload,
 				'directory' => 0
 			));
