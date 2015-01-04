@@ -95,7 +95,7 @@ class FileController extends \lib\Controller {
 
 
 		// Create File : Check required parameters
-		if(!HTTPRequest::fileExist('file')) {
+		else if(!HTTPRequest::fileExist('file')) {
 			$json['toast'] = 'Upload failed : No file.';
 		}
 
