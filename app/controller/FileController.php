@@ -30,7 +30,7 @@ class FileController extends \lib\Controller {
 		$json['succeed'] = true;
 		$json['result'] = $result;
 
-		HTTPResponse::send(json_encode($json));
+		HTTPResponse::send(json_encode($json, JSON_NUMERIC_CHECK));
 	}
 
 	/**
