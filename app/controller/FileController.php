@@ -128,7 +128,7 @@ class FileController extends \lib\Controller {
 				'id_user' => 1,
 				'size' => 0,
 				'type' => $extension_upload,
-				'directory' => 1
+				'directory' => 0
 			));
 
 			$fileManager = $this->getManagerof('File');
