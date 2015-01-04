@@ -14,12 +14,8 @@ class FileManager extends \lib\Manager {
 		$type = $file->getType();
 		$directory = $file->getDirectory();
 
-		if(empty($size))
-			$size = 0;
-		if(empty($visibility))
-			$visibility = 1;
-
-		echo 'size:'.$size.' visibility:'.$visibility.' directory:'.$directory;
+		if(empty($size)) 		$size = 0;
+		if(empty($visibility)) 	$visibility = 1;
 
 		$req = $this->_db->prepare('INSERT INTO file(url,size,visibility,date_creation,id_User,type,directory) VALUES (:url, :size, :visibility, :date_creation, :id_User, :type, :directory)');
 		$req->bindParam(':url',$url,\PDO::PARAM_STR);
