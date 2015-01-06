@@ -18,8 +18,15 @@ class FileController extends \lib\Controller {
 	public function get() {
 		$result = []; //In case where list_file is empty;
 
-		if(HTTPRequest::getExist('search'))
-			$list_file = $this->getManagerof('File')->getAll(0, HTTPRequest::getData('search'));
+		if(HTTPRequest::getExist('search')) {
+
+			if(HTTPRequest::getExist('url')) {
+				$list_file = $this->getManagerof('File')->getWithUrl(HTTPRequest::getData('url'), HTTPRequest::getData('search'));
+			}
+			else {
+				$list_file = $this->getManagerof('File')->getAll(0, HTTPRequest::getData('search'));
+			}
+		}
 		else {
 			if(HTTPRequest::getExist('url')) {
 				$list_file = $this->getManagerof('File')->getWithUrl(HTTPRequest::getData('url'));
