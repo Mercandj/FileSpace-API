@@ -111,6 +111,22 @@ class FileManager extends \lib\Manager {
 	    return $file;
 	}
 
+	public function getWithUrl($url="") {
+		$file = [];
+
+		$search = $url.'%[!/]%';
+		$req = $this->_db->prepare('SELECT id,url,size,visibility,date_creation,id_User,type,directory FROM file WHERE url LIKE :search ORDER BY date_creation DESC');
+		$req->bindParam(':search', $search, \PDO::PARAM_STR);
+		$req->execute();
+
+
+    	while ($donnees = $req->fetch(\PDO::FETCH_ASSOC))
+	    	$file[] = new File($donnees);
+
+	    $req->closeCursor();
+	    return $file;
+	}
+
 	/**
 	 * Security + information
 	 */
