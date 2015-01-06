@@ -114,7 +114,7 @@ class FileManager extends \lib\Manager {
 	public function getWithUrl($purl="", $psearch = "") {
 		$file = [];
 
-		$url = '^'.$purl.'.[^/]';
+		$url = '^'.$purl.'.[^/]*$';
 		$search = '%'.$psearch.'%';
 		$req = $this->_db->prepare('SELECT id,url,size,visibility,date_creation,id_User,type,directory FROM file WHERE url REGEXP :url AND url LIKE :search ORDER BY date_creation DESC');
 		$req->bindParam(':url', $url, \PDO::PARAM_STR);
