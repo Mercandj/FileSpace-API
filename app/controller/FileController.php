@@ -219,7 +219,7 @@ class FileController extends \lib\Controller {
 				$root_upload = __DIR__.$this->_app->_config->get('root_upload');
 				rename($root_upload.$file->getUrl(), $root_upload . $new_url);
 
-				$file.setUrl($new_url);
+				$file->setUrl($new_url);
 				$fileManager->updateUrl($file);
 
 				$json['succeed'] = true;
