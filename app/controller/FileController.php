@@ -21,18 +21,18 @@ class FileController extends \lib\Controller {
 		if(HTTPRequest::getExist('search')) {
 			if(HTTPRequest::getExist('url')) {
 				$list_file = $this->getManagerof('File')->getWithUrl(HTTPRequest::getData('url'), HTTPRequest::getData('search'));
-			}
+			}/*
 			else {
 				$list_file = $this->getManagerof('File')->getAll(0, HTTPRequest::getData('search'));
-			}
+			}*/
 		}
 		else {
 			if(HTTPRequest::getExist('url')) {
 				$list_file = $this->getManagerof('File')->getWithUrl(HTTPRequest::getData('url'));
-			}
+			}/*
 			else {
 				$list_file = $this->getManagerof('File')->getAll();
-			}
+			}*/
 		}
 		
 		foreach ($list_file as $file) {
