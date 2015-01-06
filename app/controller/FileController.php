@@ -95,7 +95,7 @@ class FileController extends \lib\Controller {
 		}
 
 
-		// Create File : Check required parameters
+		// Upload File : Check required parameters
 		else if(!HTTPRequest::fileExist('file')) {
 			$json['toast'] = 'Upload failed : No file.';
 		}
@@ -216,6 +216,13 @@ class FileController extends \lib\Controller {
 			}
 
 			else {
+				$root_upload = __DIR__.$this->_app->_config->get('root_upload');
+				rename($root_upload.$file->getUrl(), $root_upload . $new_url);
+
+				$file.setUrl($new_url);
+				$fileManager->updateUrl($file);
+
+				$json['succeed'] = true;
 				$json['toast'] = 'Good url!';
 			}
 		}
