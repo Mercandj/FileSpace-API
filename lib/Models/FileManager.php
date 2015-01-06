@@ -116,7 +116,7 @@ class FileManager extends \lib\Manager {
 
 		$url = '^'.$purl.'.[^/]';
 		$search = '%'.$psearch.'%';
-		$req = $this->_db->prepare('SELECT id,url,size,visibility,date_creation,id_User,type,directory FROM file WHERE url REGEXP :search AND url LIKE :search ORDER BY date_creation DESC');
+		$req = $this->_db->prepare('SELECT id,url,size,visibility,date_creation,id_User,type,directory FROM file WHERE url REGEXP :url AND url LIKE :search ORDER BY date_creation DESC');
 		$req->bindParam(':url', $url, \PDO::PARAM_STR);
 		$req->bindParam(':search', $search, \PDO::PARAM_STR);
 		$req->execute();
