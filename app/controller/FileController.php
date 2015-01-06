@@ -19,7 +19,6 @@ class FileController extends \lib\Controller {
 		$result = []; //In case where list_file is empty;
 
 		if(HTTPRequest::getExist('search')) {
-
 			if(HTTPRequest::getExist('url')) {
 				$list_file = $this->getManagerof('File')->getWithUrl(HTTPRequest::getData('url'), HTTPRequest::getData('search'));
 			}
