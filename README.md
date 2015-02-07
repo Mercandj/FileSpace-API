@@ -7,7 +7,7 @@ J.A.R.V.I.S - API
 ## PROJECT DESCRIPTION
 
 * Name : Jarvis (Just A Remote Very Intelligent System)
-* Front : [Android](https://github.com/Mercandj/Jarvis-Android) & [Web](https://github.com/7h1b0/JarvisJS)
+* Front : [Android](https://github.com/Mercandj/Jarvis-Android) & [Web](https://github.com/Mercandj/Jarvis-Angular)
 * Back : Rest API PHP
 * Location : Paris
 * Starting Date : October 2014
