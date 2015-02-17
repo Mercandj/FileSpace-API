@@ -9,6 +9,7 @@ class File extends \lib\Entity{
 
 	protected $_id,
 		$_url,
+		$_name,
 		$_size,
 		$_visibility,
 		$_date_creation,
@@ -22,6 +23,10 @@ class File extends \lib\Entity{
 
 	public function getUrl() {
 		return $this->_url;
+	}
+
+	public function getName() {
+		return $this->_name;
 	}
 
 	public function getSize() {
@@ -56,6 +61,13 @@ class File extends \lib\Entity{
 	public function setUrl($url) {
 		if(!empty($url))
 			$this->_url = $url;
+		else
+			$this->_errors[] = self::INVALID_URL;
+	}
+
+	public function setName($name) {
+		if(!empty($name))
+			$this->_name = $name;
 		else
 			$this->_errors[] = self::INVALID_URL;
 	}
@@ -100,6 +112,7 @@ class File extends \lib\Entity{
 
     public function toArray() {
 		$json['id'] = $this->getId();
+		$json['name'] = $this->getName();
 		$json['url'] = $this->getUrl();
 		$json['size'] = $this->getSize();
 		$json['date_creation'] = $this->getDate_creation();

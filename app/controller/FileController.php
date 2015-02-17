@@ -63,7 +63,9 @@ class FileController extends \lib\Controller {
 
 			$root_upload = __DIR__.$this->_app->_config->get('root_upload');
 
-			$target_dir = $root_upload . HTTPRequest::postData('url');
+			$input_name = HTTPRequest::postData('url');
+			$input_url = $input_name;
+			$target_dir = $root_upload . $input_url;
 
 			$visibility = 1;
 			if(HTTPRequest::postExist('visibility'))
@@ -71,7 +73,8 @@ class FileController extends \lib\Controller {
 
 			$file = new File(array(
 				'id'=> 0,
-				'url' => HTTPRequest::postData('url'),
+				'url' => $input_url,
+				'name' => $input_name,
 				'visibility' => $visibility,
 				'date_creation' => date('Y-m-d H:i:s'),
 				'id_user' => 1,
@@ -90,7 +93,6 @@ class FileController extends \lib\Controller {
 			}
 
 			else { // Everything is OK ... well it seems OK
-
 
 				$file->setSize(0);
 
@@ -127,14 +129,16 @@ class FileController extends \lib\Controller {
 			$visibility = 1;
 			if(HTTPRequest::postExist('visibility'))
 				$visibility = HTTPRequest::postData('visibility');
-
-
-			$target_dir = $root_upload . $input_url;
+			
 			$extension_upload = strtolower(  substr(  strrchr($_FILES['file']['name'], '.')  ,1)  );			
+			$input_name = basename($input_url, "." . $extension_upload);
+			$input_url = date('Y-m-d_H-i-s') . '_' . $input_url . '_' . hash("md5", $input_url . date('Y-m-d H:i:s')) . '.' . $extension_upload;
+			$target_dir = $root_upload . $input_url;
 
 			$file = new File(array(
 				'id'=> 0,
 				'url' => $input_url,
+				'name' => $input_name,
 				'visibility' => $visibility,
 				'date_creation' => date('Y-m-d H:i:s'),
 				'id_user' => 1,
