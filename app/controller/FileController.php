@@ -389,7 +389,7 @@ class FileController extends \lib\Controller {
 					header('Last-Modified: '.gmdate ('D, d M Y H:i:s', filemtime ($file_name)).' GMT');
 					header('Cache-Control: private',false);
 					header('Content-Type: '.$mime);
-					header('Content-Disposition: attachment; filename="'.basename($root_upload . $file->getName().".".$file->getType()).'"');
+					header('Content-Disposition: attachment; filename="'.basename($file_name).'"');
 					header('Content-Transfer-Encoding: binary');
 					header('Content-Length: '.filesize($file_name));	// provide file size
 					header('Connection: close');
