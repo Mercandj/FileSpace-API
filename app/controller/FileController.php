@@ -373,11 +373,15 @@ class FileController extends \lib\Controller {
 
 					// get the file mime type using the file extension
 					switch(strtolower(substr(strrchr($file_name, '.'), 1))) {
-						case 'pdf': $mime = 'application/pdf'; break;
-						case 'zip': $mime = 'application/zip'; break;
-						case 'jpeg':
-						case 'jpg': $mime = 'image/jpg'; break;
-						default: $mime = 'application/force-download';
+						case 'pdf': 	$mime = 'application/pdf'; 		break;
+						case 'zip': 	$mime = 'application/zip'; 		break;
+						case 'jpeg':	$mime = 'image/jpg'; 			break;
+						case 'jpg': 	$mime = 'image/jpg'; 			break;
+						case 'png': 	$mime = 'image/png'; 			break;
+						case 'gif': 	$mime = 'image/gif'; 			break;
+						case 'html': 	$mime = 'image/html'; 			break;
+						case 'doc': 	$mime = 'image/msword'; 		break;
+						default: 		$mime = 'application/force-download';
 					}
 					header('Pragma: public'); 	// required
 					header('Expires: 0');		// no cache
@@ -385,7 +389,7 @@ class FileController extends \lib\Controller {
 					header('Last-Modified: '.gmdate ('D, d M Y H:i:s', filemtime ($file_name)).' GMT');
 					header('Cache-Control: private',false);
 					header('Content-Type: '.$mime);
-					header('Content-Disposition: attachment; filename="'.basename($file_name).'"');
+					header('Content-Disposition: attachment; filename="'.basename($root_upload . $file->getName().".".$file->getType()).'"');
 					header('Content-Transfer-Encoding: binary');
 					header('Content-Length: '.filesize($file_name));	// provide file size
 					header('Connection: close');
