@@ -7,5 +7,6 @@
 	"root_upload":"\\..\\..\\upload\\",
 	"registration_open":true,
 	"server_max_size":5000000000,
-	"server_max_size_file":800000000
+	"server_max_size_file":800000000,
+	"server_home_automation":"http://mercandalli.com/"
 }
