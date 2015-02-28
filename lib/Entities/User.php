@@ -16,7 +16,8 @@ class User extends \lib\Entity{
 		$_date_last_connection,
 		$_first_name,
 		$_last_name,
-		$_email;
+		$_email,
+		$_android_id;
 
 	public function getId(){
 		return $this->_id;
@@ -48,6 +49,10 @@ class User extends \lib\Entity{
 
 	public function getDate_last_connection(){
 		return $this->_date_last_connection;
+	}
+
+	public function getAndroid_id(){
+		return $this->_android_id;
 	}
 
 	public function isAdmin(){
@@ -117,6 +122,12 @@ class User extends \lib\Entity{
 	public function setDate_last_connection($date){
 		if(!empty($date)){
 			$this->_date_last_connection = $date;
+		}
+	}
+
+	public function setAndroid_id($android_id){
+		if(!empty($android_id)){
+			$this->_android_id = $android_id;
 		}
 	}
 

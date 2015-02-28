@@ -99,7 +99,14 @@ class UserController extends \lib\Controller {
 				$userbdd = $userManager->get($user->getUsername());
 
 				if($user->getPassword() === $userbdd->getPassword()){
-					$userManager->updateConnection($user);
+
+					if(HTTPRequest::exist('android_id')) {
+						$user->setAndroid_id(HTTPRequest::get('android_id'));
+						$userManager->updateAndroidId($user);
+					}					
+					else
+						$userManager->updateConnection($user);
+					
 					return true;
 				}
 

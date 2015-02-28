@@ -13,8 +13,9 @@ class UserManager extends \lib\Manager {
 		$last_name = $user->getLast_name();
 		$first_name = $user->getFirst_name();
 		$email = $user->getEmail();
+		$android_id = $user->getAndroid_id();
 
-		$req = $this->_db->prepare('INSERT INTO user(username,password,date_creation,date_last_connection, last_name, first_name, email) VALUES (:username, :password, :date_creation, :date_last_connection, :last_name, :first_name, :email)');
+		$req = $this->_db->prepare('INSERT INTO user(username,password,date_creation,date_last_connection, last_name, first_name, email, android_id) VALUES (:username, :password, :date_creation, :date_last_connection, :last_name, :first_name, :email, :android_id');
 		$req->bindParam(':username',$username,\PDO::PARAM_STR);
 		$req->bindParam(':password',$password,\PDO::PARAM_STR);
 		$req->bindParam(':date_creation',$date_creation,\PDO::PARAM_STR);
@@ -22,6 +23,7 @@ class UserManager extends \lib\Manager {
 		$req->bindParam(':last_name',$last_name,\PDO::PARAM_STR);
 		$req->bindParam(':first_name',$first_name,\PDO::PARAM_STR);
 		$req->bindParam(':email',$email,\PDO::PARAM_STR);
+		$req->bindParam(':android_id',$android_id,\PDO::PARAM_STR);
 		$req->execute();
 		$req->closeCursor();
 	}
@@ -33,16 +35,30 @@ class UserManager extends \lib\Manager {
 		$req->closeCursor();
 	}
 
-	public function update(User $user) {
-		
+	public function update(User $user) {		
 		$id = $user->getId();
 		$username = $user->getUsername();
 		$password = $user->getPassword();
+		$android_id = $user->getAndroid_id();
 
-		$req = $this->_db->prepare('UPDATE user SET username = :username, password = :password WHERE id = :id');
+		$req = $this->_db->prepare('UPDATE user SET username = :username, password = :password, android_id = :android_id WHERE id = :id');
 		$req->bindParam(':id',$id,\PDO::PARAM_INT);
 		$req->bindParam(':username',$username,\PDO::PARAM_STR);
 		$req->bindParam(':password',$password,\PDO::PARAM_STR);
+		$req->bindParam(':android_id',$android_id,\PDO::PARAM_STR);
+		$req->execute();
+		$req->closeCursor();
+	}
+
+	public function updateAndroidId(User $user){
+		$username = $user->getUsername();
+		$date_last_connection = $user->getDate_last_connection();
+		$android_id = $user->getAndroid_id();
+
+		$req = $this->_db->prepare('UPDATE user SET date_last_connection = :date_last_connection, android_id = :android_id WHERE username = :username');
+		$req->bindParam(':username',$username,\PDO::PARAM_STR);
+		$req->bindParam(':date_last_connection',$date_last_connection,\PDO::PARAM_STR);
+		$req->bindParam(':android_id',$android_id,\PDO::PARAM_STR);
 		$req->execute();
 		$req->closeCursor();
 	}
