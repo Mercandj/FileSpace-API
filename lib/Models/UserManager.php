@@ -10,7 +10,7 @@ class UserManager extends \lib\Manager {
 		$password = $user->getPassword();
 		$date_creation = $user->getDate_creation();
 		$date_last_connection = $user->getDate_last_connection();
-		$admin = $user->getAdmin();
+		$admin = $user->isAdmin();
 
 		$req = $this->_db->prepare('INSERT INTO user(username,password,date_creation,date_last_connection,admin) VALUES (:username, :password, :date_creation, :date_last_connection, :admin');
 		$req->bindParam(':username',$username,\PDO::PARAM_STR);
