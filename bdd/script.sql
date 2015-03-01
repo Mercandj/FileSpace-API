@@ -53,6 +53,7 @@ CREATE TABLE IF NOT EXISTS `File` (
   `name` VARCHAR(500) NOT NULL,
   `size` INT UNSIGNED NOT NULL DEFAULT 0,
   `visibility` TINYINT NOT NULL DEFAULT 1,
+  `public` TINYINT NOT NULL DEFAULT 0,
   `date_creation` DATETIME NULL,
   `type` VARCHAR(60) NULL,
   `number_read` INT UNSIGNED NULL,
