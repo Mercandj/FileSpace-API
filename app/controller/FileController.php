@@ -24,8 +24,10 @@ class FileController extends \lib\Controller {
 				'username' => HTTPRequest::serverData('PHP_AUTH_USER')
 			));
 			$userManager = $this->getManagerof('User');
-			if($userManager->exist($user->getUsername()))
-				$id_user = ($userManager->get($user->getUsername()))->getId();
+			if($userManager->exist($user->getUsername())) {
+				$bdd_user = ($userManager->get($user->getUsername());
+				$id_user = $bdd_user->getId();
+			}
 		}
 
 		if(HTTPRequest::getExist('search')) {
@@ -73,8 +75,10 @@ class FileController extends \lib\Controller {
 				'username' => HTTPRequest::serverData('PHP_AUTH_USER')
 			));
 			$userManager = $this->getManagerof('User');
-			if($userManager->exist($user->getUsername()))
-				$id_user = $userManager->get($user->getUsername())->getId();
+			if($userManager->exist($user->getUsername())) {
+				$bdd_user = ($userManager->get($user->getUsername());
+				$id_user = $bdd_user->getId();
+			}
 		}
 
 		// Create Directory
