@@ -4,6 +4,7 @@ namespace lib\Models;
 class ConfigManager{
 	protected static $instance;
 	private $_parsed_json;
+	private $_id_user;
 
 	public static function getInstance(){
 		if (!isset(static::$instance)){
@@ -23,5 +24,13 @@ class ConfigManager{
 
 	public function get($key){
 		return $this->_parsed_json->{$key};
+	}
+
+	public function getId_user() {
+		return $this->_id_user;
+	}
+
+	public function setId_user($id_user) {
+		$this->_id_user = $id_user;
 	}
 }

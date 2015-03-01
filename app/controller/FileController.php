@@ -18,18 +18,7 @@ class FileController extends \lib\Controller {
 	public function get() {
 		$result = []; //In case where list_file is empty;
 
-		$id_user = 0;
-		/*
-		if(HTTPRequest::serverExist('PHP_AUTH_USER')) {			
-			$user = new User(array(
-				'username' => HTTPRequest::serverData('PHP_AUTH_USER')
-			));
-			$userManager = $this->getManagerof('User');
-			if($userManager->exist($user->getUsername())) {
-				$bdd_user = $userManager->get($user->getUsername());
-				$id_user = $bdd_user->getId();
-			}
-		}*/
+		$id_user = $this->_app->_config->getId_user();
 
 		if(HTTPRequest::getExist('search')) {
 			if(HTTPRequest::getExist('url')) {
@@ -70,17 +59,7 @@ class FileController extends \lib\Controller {
 		$json['succeed'] = false;
 		$json['toast'] = '';
 
-		$id_user = 0;
-		if(HTTPRequest::serverExist('PHP_AUTH_USER')) {			
-			$user = new User(array(
-				'username' => HTTPRequest::serverData('PHP_AUTH_USER')
-			));
-			$userManager = $this->getManagerof('User');
-			if($userManager->exist($user->getUsername())) {
-				$bdd_user = $userManager->get($user->getUsername());
-				$id_user = $bdd_user->getId();
-			}
-		}
+		$id_user = $this->_app->_config->getId_user();
 
 		// Create Directory
 		if(HTTPRequest::postExist('directory') && HTTPRequest::postData('directory')=="true" && HTTPRequest::postExist('url')) {

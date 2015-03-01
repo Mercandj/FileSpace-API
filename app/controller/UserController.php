@@ -103,6 +103,8 @@ class UserController extends \lib\Controller {
 					}					
 					else
 						$userManager->updateConnection($user);
+
+					$this->_app->_config->setId_user($userbdd->getId());
 					
 					return true;
 				}
