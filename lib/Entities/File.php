@@ -91,7 +91,7 @@ class File extends \lib\Entity{
 			$this->_date_creation = $date;
 	}
 
-	public function setId_User($id) {
+	public function setId_user($id) {
 		if(!empty($id))
 			$this->_id_user = $id;
 	}

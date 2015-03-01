@@ -59,7 +59,7 @@ CREATE TABLE IF NOT EXISTS `File` (
   `number_read` INT UNSIGNED NULL,
   `number_download` INT UNSIGNED NULL,
   `directory` TINYINT NOT NULL DEFAULT 0,
-  `id_User` INT NOT NULL,
+  `id_user` INT NOT NULL,
   PRIMARY KEY (`id`))
 ENGINE = MyISAM;
 

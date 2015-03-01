@@ -11,7 +11,7 @@ class FileManager extends \lib\Manager {
 		$size = $file->getSize();
 		$visibility = $file->getVisibility();
 		$date_creation = $file->getDate_creation();
-		$id_User = $file->getId_User();
+		$id_user = $file->getId_user();
 		$type = $file->getType();
 		$directory = $file->getDirectory();
 
@@ -19,13 +19,13 @@ class FileManager extends \lib\Manager {
 		if(empty($visibility)) 	$visibility = 1;
 		if(empty($directory)) 	$directory = 0;
 
-		$req = $this->_db->prepare('INSERT INTO file(url,name,size,visibility,date_creation,id_User,type,directory) VALUES (:url, :name, :size, :visibility, :date_creation, :id_User, :type, :directory)');
+		$req = $this->_db->prepare('INSERT INTO file(url,name,size,visibility,date_creation,id_user,type,directory) VALUES (:url, :name, :size, :visibility, :date_creation, :id_user, :type, :directory)');
 		$req->bindParam(':url',$url,\PDO::PARAM_STR);
 		$req->bindParam(':name',$name,\PDO::PARAM_STR);
 		$req->bindParam(':size',$size,\PDO::PARAM_INT);
 		$req->bindParam(':visibility',$visibility,\PDO::PARAM_INT);
 		$req->bindParam(':date_creation',$date_creation,\PDO::PARAM_STR);
-		$req->bindParam(':id_User',$id_User,\PDO::PARAM_INT);
+		$req->bindParam(':id_user',$id_user,\PDO::PARAM_INT);
 		$req->bindParam(':type',$type,\PDO::PARAM_INT);
 		$req->bindParam(':directory',$directory,\PDO::PARAM_INT);
 		$req->execute();
@@ -67,7 +67,7 @@ class FileManager extends \lib\Manager {
 	}
 
 	public function get($url) {
-		$req = $this->_db->prepare('SELECT id,url,name,size,visibility,date_creation,id_User,type,directory FROM file WHERE url = :url');
+		$req = $this->_db->prepare('SELECT id,url,name,size,visibility,date_creation,id_user,type,directory FROM file WHERE url = :url');
     	$req->bindParam(':url', $url, \PDO::PARAM_STR);
     	$req->execute();
 
@@ -77,7 +77,7 @@ class FileManager extends \lib\Manager {
 	}
 
 	public function getById($id) {
-		$req = $this->_db->prepare('SELECT id,url,name,size,visibility,date_creation,id_User,type,directory FROM file WHERE id = :id');
+		$req = $this->_db->prepare('SELECT id,url,name,size,visibility,date_creation,id_user,type,directory FROM file WHERE id = :id');
     	$req->bindParam(':id', $id, \PDO::PARAM_INT);
     	$req->execute();
 
@@ -94,16 +94,16 @@ class FileManager extends \lib\Manager {
 
 		if($id_user == 0) {
 
-			//$req = $this->_db->query('SELECT id,url,size,visibility,date_creation,id_User,type FROM file WHERE url LIKE "%'.$search.'%" ORDER BY date_creation DESC');
+			//$req = $this->_db->query('SELECT id,url,size,visibility,date_creation,id_user,type FROM file WHERE url LIKE "%'.$search.'%" ORDER BY date_creation DESC');
 			$search = '%'.$search.'%';
-			$req = $this->_db->prepare('SELECT id,url,name,size,visibility,date_creation,id_User,type,directory FROM file WHERE name LIKE :search ORDER BY date_creation DESC');
+			$req = $this->_db->prepare('SELECT id,url,name,size,visibility,date_creation,id_user,type,directory FROM file WHERE name LIKE :search ORDER BY date_creation DESC');
 			$req->bindParam(':search', $search, \PDO::PARAM_STR);
 			$req->execute();
 
 		}
 		else {
-			$req = $this->_db->prepare('SELECT id,url,name,size,visibility,date_creation,id_User,type,directory FROM file WHERE id_User = :id_User AND name LIKE "%'.$search.'%" ORDER BY date_creation DESC');
-			$req->bindParam(':id_User', $id_user, \PDO::PARAM_INT);
+			$req = $this->_db->prepare('SELECT id,url,name,size,visibility,date_creation,id_user,type,directory FROM file WHERE id_user = :id_user AND name LIKE "%'.$search.'%" ORDER BY date_creation DESC');
+			$req->bindParam(':id_user', $id_user, \PDO::PARAM_INT);
 			$req->execute();
 		}
 
@@ -114,21 +114,41 @@ class FileManager extends \lib\Manager {
 	    return $file;
 	}
 
-	public function getWithUrl($purl="", $psearch = "") {
+	public function getWithUrl($id_user = 0, $purl="", $psearch = "") {
 		$file = [];
 
-		$url = '^'.$purl.'.[^/]*$';
-		$search = '%'.$psearch.'%';
-		$req = $this->_db->prepare('SELECT id,url,name,size,visibility,date_creation,id_User,type,directory FROM file WHERE url REGEXP :url AND name LIKE :search ORDER BY date_creation DESC');
-		$req->bindParam(':url', $url, \PDO::PARAM_STR);
-		$req->bindParam(':search', $search, \PDO::PARAM_STR);
-		$req->execute();
+		if($id_user == 0) {
+			$url = '^'.$purl.'.[^/]*$';
+			$search = '%'.$psearch.'%';
+			$req = $this->_db->prepare('SELECT id,url,name,size,visibility,date_creation,id_user,type,directory FROM file WHERE url REGEXP :url AND name LIKE :search ORDER BY date_creation DESC');
+			$req->bindParam(':url', $url, \PDO::PARAM_STR);
+			$req->bindParam(':search', $search, \PDO::PARAM_STR);
+			$req->execute();
 
-    	while ($donnees = $req->fetch(\PDO::FETCH_ASSOC))
-	    	$file[] = new File($donnees);
+	    	while ($donnees = $req->fetch(\PDO::FETCH_ASSOC))
+		    	$file[] = new File($donnees);
 
-	    $req->closeCursor();
-	    return $file;
+		    $req->closeCursor();
+		    return $file;
+		}
+		else {
+
+			$url = '^'.$purl.'.[^/]*$';
+			$search = '%'.$psearch.'%';
+			$req = $this->_db->prepare('SELECT id,url,name,size,visibility,date_creation,id_user,type,directory FROM file WHERE url REGEXP :url AND (id_user = :id_user OR public = 1) AND name LIKE :search ORDER BY date_creation DESC');
+			$req->bindParam(':url', $url, \PDO::PARAM_STR);
+			$req->bindParam(':search', $search, \PDO::PARAM_STR);
+			$req->bindParam(':id_user', $id_user, \PDO::PARAM_INT);
+			$req->execute();
+
+	    	while ($donnees = $req->fetch(\PDO::FETCH_ASSOC))
+		    	$file[] = new File($donnees);
+
+		    $req->closeCursor();
+		    return $file;
+
+
+		}
 	}
 
 	/**

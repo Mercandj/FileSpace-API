@@ -18,20 +18,30 @@ class FileController extends \lib\Controller {
 	public function get() {
 		$result = []; //In case where list_file is empty;
 
+		$id_user = 0;
+		if(HTTPRequest::serverExist('PHP_AUTH_USER')) {			
+			$user = new User(array(
+				'username' => HTTPRequest::serverData('PHP_AUTH_USER')
+			));
+			$userManager = $this->getManagerof('User');
+			if($userManager->exist($user->getUsername())
+				$id_user = $userManager->get($user->getUsername())->getId();
+		}
+
 		if(HTTPRequest::getExist('search')) {
 			if(HTTPRequest::getExist('url')) {
-				$list_file = $this->getManagerof('File')->getWithUrl(HTTPRequest::getData('url'), HTTPRequest::getData('search'));
+				$list_file = $this->getManagerof('File')->getWithUrl($id_user, HTTPRequest::getData('url'), HTTPRequest::getData('search'));
 			}
 			else {
-				$list_file = $this->getManagerof('File')->getWithUrl("", HTTPRequest::getData('search'));
+				$list_file = $this->getManagerof('File')->getWithUrl($id_user, "", HTTPRequest::getData('search'));
 			}
 		}
 		else {
 			if(HTTPRequest::getExist('url')) {
-				$list_file = $this->getManagerof('File')->getWithUrl(HTTPRequest::getData('url'));
+				$list_file = $this->getManagerof('File')->getWithUrl($id_user, HTTPRequest::getData('url'));
 			}
 			else {
-				$list_file = $this->getManagerof('File')->getWithUrl();
+				$list_file = $this->getManagerof('File')->getWithUrl($id_user);
 			}
 		}
 		
@@ -57,6 +67,15 @@ class FileController extends \lib\Controller {
 		$json['succeed'] = false;
 		$json['toast'] = '';
 
+		$id_user = 0;
+		if(HTTPRequest::serverExist('PHP_AUTH_USER')) {			
+			$user = new User(array(
+				'username' => HTTPRequest::serverData('PHP_AUTH_USER')
+			));
+			$userManager = $this->getManagerof('User');
+			if($userManager->exist($user->getUsername())
+				$id_user = $userManager->get($user->getUsername())->getId();
+		}
 
 		// Create Directory
 		if(HTTPRequest::postExist('directory') && HTTPRequest::postData('directory')=="true" && HTTPRequest::postExist('url')) {
@@ -77,7 +96,7 @@ class FileController extends \lib\Controller {
 				'name' => $input_name,
 				'visibility' => $visibility,
 				'date_creation' => date('Y-m-d H:i:s'),
-				'id_user' => 1,
+				'id_user' => $id_user,
 				'type' => '.dir',
 				'directory' => 1
 			));
@@ -141,7 +160,7 @@ class FileController extends \lib\Controller {
 				'name' => $input_name,
 				'visibility' => $visibility,
 				'date_creation' => date('Y-m-d H:i:s'),
-				'id_user' => 1,
+				'id_user' => $id_user,
 				'size' => 0,
 				'type' => $extension_upload,
 				'directory' => 0
