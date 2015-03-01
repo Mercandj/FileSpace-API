@@ -19,6 +19,7 @@ class FileController extends \lib\Controller {
 		$result = []; //In case where list_file is empty;
 
 		$id_user = 0;
+		/*
 		if(HTTPRequest::serverExist('PHP_AUTH_USER')) {			
 			$user = new User(array(
 				'username' => HTTPRequest::serverData('PHP_AUTH_USER')
@@ -28,7 +29,7 @@ class FileController extends \lib\Controller {
 				$bdd_user = $userManager->get($user->getUsername());
 				$id_user = $bdd_user->getId();
 			}
-		}
+		}*/
 
 		if(HTTPRequest::getExist('search')) {
 			if(HTTPRequest::getExist('url')) {
