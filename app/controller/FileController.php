@@ -25,7 +25,7 @@ class FileController extends \lib\Controller {
 			));
 			$userManager = $this->getManagerof('User');
 			if($userManager->exist($user->getUsername())) {
-				$bdd_user = ($userManager->get($user->getUsername());
+				$bdd_user = $userManager->get($user->getUsername());
 				$id_user = $bdd_user->getId();
 			}
 		}
@@ -76,7 +76,7 @@ class FileController extends \lib\Controller {
 			));
 			$userManager = $this->getManagerof('User');
 			if($userManager->exist($user->getUsername())) {
-				$bdd_user = ($userManager->get($user->getUsername());
+				$bdd_user = $userManager->get($user->getUsername());
 				$id_user = $bdd_user->getId();
 			}
 		}
