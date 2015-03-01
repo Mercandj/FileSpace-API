@@ -25,7 +25,7 @@ class FileController extends \lib\Controller {
 			));
 			$userManager = $this->getManagerof('User');
 			if($userManager->exist($user->getUsername())
-				$id_user = $userManager->get($user->getUsername())->getId();
+				$id_user = ($userManager->get($user->getUsername()))->getId();
 		}
 
 		if(HTTPRequest::getExist('search')) {
@@ -74,7 +74,7 @@ class FileController extends \lib\Controller {
 			));
 			$userManager = $this->getManagerof('User');
 			if($userManager->exist($user->getUsername())
-				$id_user = $userManager->get($user->getUsername())->getId();
+				$id_user = ($userManager->get($user->getUsername()))->getId();
 		}
 
 		// Create Directory
