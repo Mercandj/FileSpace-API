@@ -27,7 +27,7 @@ CREATE TABLE IF NOT EXISTS `User` (
   `email` VARCHAR(100) NULL,
   `age` TINYINT NULL,
   `sexe` TINYINT(1) NULL,
-  `admin` TINYINT(1) NULL,
+  `admin` TINYINT(1) NOT NULL DEFAULT '0',
   `url_image_profil` VARCHAR(100) NULL,
   `description` VARCHAR(999) NULL,  
   `language` VARCHAR(50) NULL,
