@@ -57,7 +57,8 @@ class UserController extends \lib\Controller {
 				'username' => HTTPRequest::postData('username'),
 				'password' => sha1(HTTPRequest::postData('password')),
 				'date_creation' => date('Y-m-d H:i:s'),
-				'date_last_connection' => date('Y-m-d H:i:s')
+				'date_last_connection' => date('Y-m-d H:i:s'),
+				'admin' => 0
 			));
 
 			$userManager = $this->getManagerof('User');
