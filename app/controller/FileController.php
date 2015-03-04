@@ -384,6 +384,8 @@ class FileController extends \lib\Controller {
 						case 'gif': 	$mime = 'image/gif'; 			break;
 						case 'html': 	$mime = 'image/html'; 			break;
 						case 'doc': 	$mime = 'image/msword'; 		break;
+						case 'mp3': 	$mime = 'audio/mpeg';	 		break;
+						case 'apk': 	$mime = 'application/vnd.android.package-archive'; break;
 						default: 		$mime = 'application/force-download';
 					}
 					header('Pragma: public'); 	// required
