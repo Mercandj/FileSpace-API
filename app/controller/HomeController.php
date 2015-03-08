@@ -6,6 +6,8 @@ use \lib\HTTPResponse;
 
 class HomeController extends \lib\Controller {
 
+	// https://github.com/projectweekend/Pi-GPIO-Server
+
 	/**
 	 * Get the home informations : home automation
 	 * @uri    /home
@@ -14,7 +16,7 @@ class HomeController extends \lib\Controller {
 	 */
 	public function get() {
 
-		$response = file_get_contents($this->_app->_config->get('server_home_automation'));
+		$response = file_get_contents($this->_app->_config->get('server_home_automation') . "/api/v1/pin/23");
 
 		$json['succeed'] = true;
 		$json['result'] = array(
@@ -37,15 +39,20 @@ class HomeController extends \lib\Controller {
 	 */
 	public function post() {
 
-		$url = $this->_app->_config->get('server_home_automation');
-		$data = array('key1' => 'value1', 'key2' => 'value2');
+		$value = '0';
+
+		if(HTTPRequest::postExist('value'))
+			$value = HTTPRequest::postData('value');
+
+		$url = $this->_app->_config->get('server_home_automation') . "/api/v1/pin/18";
+		$data = array('value' => $value);
 
 		$options = array(
 		    'http' => array(
 		        'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
-		        'method'  => 'POST',
+		        'method'  => 'PATCH',
 		        'content' => http_build_query($data),
-		    ),
+		    )
 		);
 		$context  = stream_context_create($options);
 		$response = file_get_contents($url, false, $context);
