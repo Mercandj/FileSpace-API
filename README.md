@@ -7,6 +7,7 @@ J.A.R.V.I.S - API
 ## PROJECT DESCRIPTION
 
 * Name : Jarvis (Just A Remote Very Intelligent System)
+* Description : Remote file manager + Home automation with Raspberry Pi
 * Front : [Android](https://github.com/Mercandj/Jarvis-Android) & [Web](https://github.com/Mercandj/Jarvis-Angular)
 * Back : Rest API PHP
 * Location : Paris
