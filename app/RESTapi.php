@@ -16,8 +16,8 @@ class RESTapi extends \lib\Application {
 			->get('/file/:id','File#download')
 			->put('/file/:id','File#put')
 			->delete('/file/:id','File#delete')
-			->get('/home','Home#get')
-			->post('/home','Home#post')
+			->get('/home/:id','Home#get')
+			->post('/home/:id','Home#post')
 			->get('/information','Information#get')	
 			->otherwise(function(){
 				\lib\HTTPResponse::redirect404();
