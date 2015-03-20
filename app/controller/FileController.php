@@ -158,7 +158,7 @@ class FileController extends \lib\Controller {
 
 			$json['succeed'] = true;
 			$json['file'] = $file->toArray();							
-			$json['toast'] = 'The file '. basename( $_FILES["file"]["name"]) .' has been uploaded.';			
+			$json['toast'] = 'The file '. $input_name .' has been created.';			
 		}
 
 		// Upload File : Check required parameters
