@@ -114,17 +114,15 @@ class FileController extends \lib\Controller {
 		else if(HTTPRequest::postExist('content') {
 			$root_upload = __DIR__.$this->_app->_config->get('root_upload');
 
-
 			// Configuring Optional parameters
-			if(HTTPRequest::postExist('url'))
-				$input_url = HTTPRequest::postData('url');
+			if(HTTPRequest::postExist('name'))
+				$input_name = HTTPRequest::postData('name');
 
 			$visibility = 1;
 			if(HTTPRequest::postExist('visibility'))
 				$visibility = HTTPRequest::postData('visibility');
 			
-			$extension_upload = 'jarvis';			
-			$input_name = basename($input_url, "." . $extension_upload);
+			$extension_upload = 'jarvis';
 			$input_url = date('Y-m-d_H-i-s') . '_' . $input_url . '_' . hash("md5", $input_url . date('Y-m-d H:i:s')) . '.' . $extension_upload;
 			$target_dir = $root_upload . $input_url;
 
