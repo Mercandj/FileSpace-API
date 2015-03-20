@@ -111,7 +111,7 @@ class FileController extends \lib\Controller {
 			}
 		}
 
-		else if(HTTPRequest::postExist('content') {
+		else if(HTTPRequest::postExist('content')) {
 			$root_upload = __DIR__.$this->_app->_config->get('root_upload');
 
 			// Configuring Optional parameters
