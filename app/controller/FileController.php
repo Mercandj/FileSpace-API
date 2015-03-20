@@ -111,6 +111,55 @@ class FileController extends \lib\Controller {
 			}
 		}
 
+		else if(HTTPRequest::postExist('content') {
+			$root_upload = __DIR__.$this->_app->_config->get('root_upload');
+
+
+			// Configuring Optional parameters
+			if(HTTPRequest::postExist('url'))
+				$input_url = HTTPRequest::postData('url');
+
+			$visibility = 1;
+			if(HTTPRequest::postExist('visibility'))
+				$visibility = HTTPRequest::postData('visibility');
+			
+			$extension_upload = 'jarvis';			
+			$input_name = basename($input_url, "." . $extension_upload);
+			$input_url = date('Y-m-d_H-i-s') . '_' . $input_url . '_' . hash("md5", $input_url . date('Y-m-d H:i:s')) . '.' . $extension_upload;
+			$target_dir = $root_upload . $input_url;
+
+			$file = new File(array(
+				'id'=> 0,
+				'url' => $input_url,
+				'name' => $input_name,
+				'visibility' => $visibility,
+				'date_creation' => date('Y-m-d H:i:s'),
+				'id_user' => $id_user,
+				'size' => 0,
+				'type' => $extension_upload,
+				'directory' => 0
+			));
+
+			$fileManager = $this->getManagerof('File');
+
+			// Create file on disk, and fill it
+			$myfile = fopen($target_dir, "w");
+			fwrite($myfile, HTTPRequest::postData('content'));
+			fclose($myfile);
+
+			// Everything is OK ... well it seems OK
+			$file->setSize(filesize($target_dir));
+
+			// add BDD
+			$fileManager->add($file);
+
+			// get file : get id !
+			$file = $fileManager->get($file->getUrl());
+
+			$json['succeed'] = true;
+			$json['file'] = $file->toArray();							
+			$json['toast'] = 'The file '. basename( $_FILES["file"]["name"]) .' has been uploaded.';			
+		}
 
 		// Upload File : Check required parameters
 		else if(!HTTPRequest::fileExist('file')) {
