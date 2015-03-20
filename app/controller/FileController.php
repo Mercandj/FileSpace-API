@@ -115,6 +115,7 @@ class FileController extends \lib\Controller {
 			$root_upload = __DIR__.$this->_app->_config->get('root_upload');
 
 			// Configuring Optional parameters
+			$input_name = "noname";
 			if(HTTPRequest::postExist('name'))
 				$input_name = HTTPRequest::postData('name');
 
@@ -123,6 +124,7 @@ class FileController extends \lib\Controller {
 				$visibility = HTTPRequest::postData('visibility');
 			
 			$extension_upload = 'jarvis';
+			$input_url = $input_name . '.' . $extension_upload;
 			$input_url = date('Y-m-d_H-i-s') . '_' . $input_url . '_' . hash("md5", $input_url . date('Y-m-d H:i:s')) . '.' . $extension_upload;
 			$target_dir = $root_upload . $input_url;
 
