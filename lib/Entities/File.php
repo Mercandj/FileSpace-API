@@ -15,7 +15,8 @@ class File extends \lib\Entity{
 		$_date_creation,
 		$_id_user,
 		$_type,
-		$_directory;
+		$_directory,
+		$_content;
 
 	public function getId() {
 		return $this->_id;
@@ -51,6 +52,10 @@ class File extends \lib\Entity{
 
 	public function getDirectory() {
 		return $this->_directory;
+	}
+
+	public function getContent() {
+		return $this->_content;
 	}
 
 	public function setId($id) {
@@ -106,6 +111,11 @@ class File extends \lib\Entity{
 			$this->_directory = $directory;
 	}
 
+	public function setContent($content) {
+		if(!empty($content))
+			$this->_content = $content;
+	}
+
 	public function isValid() {
 		return !empty($this->_id) && !empty($this->_url);
 	}
@@ -117,6 +127,7 @@ class File extends \lib\Entity{
 		$json['size'] = $this->getSize();
 		$json['date_creation'] = $this->getDate_creation();
 		$json['type'] = $this->getType();
+		$json['content'] = $this->getContent();
 		$json['directory'] = $this->getDirectory();
         return $json;
     }

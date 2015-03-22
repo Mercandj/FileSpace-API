@@ -56,6 +56,7 @@ CREATE TABLE IF NOT EXISTS `File` (
   `public` TINYINT NOT NULL DEFAULT 0,
   `date_creation` DATETIME NULL,
   `type` VARCHAR(60) NULL,
+  `content` VARCHAR(9999) NULL,
   `number_read` INT UNSIGNED NULL,
   `number_download` INT UNSIGNED NULL,
   `directory` TINYINT NOT NULL DEFAULT 0,

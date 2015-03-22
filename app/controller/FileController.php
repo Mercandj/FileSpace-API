@@ -135,6 +135,7 @@ class FileController extends \lib\Controller {
 				'visibility' => $visibility,
 				'date_creation' => date('Y-m-d H:i:s'),
 				'id_user' => $id_user,
+				'content' => HTTPRequest::postData('content'),
 				'size' => 0,
 				'type' => $extension_upload,
 				'directory' => 0
