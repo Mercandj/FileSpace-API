@@ -127,7 +127,8 @@ class File extends \lib\Entity{
 		$json['size'] = $this->getSize();
 		$json['date_creation'] = $this->getDate_creation();
 		$json['type'] = $this->getType();
-		$json['content'] = $this->getContent();
+		if($this->getContent()!=null)
+			$json['content'] = $this->getContent();
 		$json['directory'] = $this->getDirectory();
         return $json;
     }
