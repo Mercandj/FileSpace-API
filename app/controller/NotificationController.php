@@ -33,7 +33,7 @@ class NotificationController extends \lib\Controller {
 			$json['toast'] = "No message.";
 		}
 
-		else if(!$userManager->exist($user->getUsername())) {
+		else if(!$userManager->existById($id)) {
 			$json['toast'] = "Wrong user.";
 		}
 

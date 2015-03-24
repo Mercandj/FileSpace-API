@@ -117,4 +117,15 @@ class UserManager extends \lib\Manager {
     	$req->closeCursor();
     	return ($donnee['id'] != NULL) ? true : false;
 	}
+
+	public function existById($id) {
+
+		$req = $this->_db->prepare('SELECT id FROM user WHERE id = :id');
+    	$req->bindParam(':id', $id,\PDO::PARAM_INT);
+    	$req->execute();
+
+    	$donnee = $req->fetch(\PDO::FETCH_ASSOC);
+    	$req->closeCursor();
+    	return ($donnee['id'] != NULL) ? true : false;
+	}
 }
