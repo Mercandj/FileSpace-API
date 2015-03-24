@@ -14,11 +14,12 @@ class NotificationController extends \lib\Controller {
 	 * @param  all        OPTIONAL
 	 * @param  allAdmin   OPTIONAL
 	 */
-	public function post() {
+	public function post($id) {
 
 		$json['succeed'] = false;
 		$userManager = $this->getManagerof('User');
 		$id_user = $this->_app->_config->getId_user();
+		$admin_user = $userManager->getById($id_user)->isAdmin();
 
 		$all = false;
 		if(HTTPRequest::postExist('all'))
@@ -36,7 +37,7 @@ class NotificationController extends \lib\Controller {
 			$json['toast'] = "Wrong user.";
 		}
 
-		else if($all) {
+		else if($all && $admin_user) {
 			$users = $userManager->getAll();
 
 			foreach ($users as $user) {
@@ -52,7 +53,7 @@ class NotificationController extends \lib\Controller {
 			$json['succeed'] = true;
 		}
 
-		else if($allAdmin) {
+		else if($allAdmin && $admin_user) {
 			$users = $userManager->getAllAdmin();
 
 			foreach ($users as $user) {
@@ -69,7 +70,7 @@ class NotificationController extends \lib\Controller {
 		}
 
 		else {
-			$gcmRegIds = array($userManager->getById($id_user)->getAndroid_id());
+			$gcmRegIds = array($userManager->getById($id)->getAndroid_id());
 			$message = array("m" => HTTPRequest::postData('message'));
 			$pushStatus = sendPushNotificationToGCM($gcmRegIds, $message);
 			$json['status'] = $pushStatus;
@@ -78,6 +79,10 @@ class NotificationController extends \lib\Controller {
 
 		HTTPResponse::send(json_encode($json));
 	}
+
+
+
+
 
 	//generic php function to send GCM push notification
 	function sendPushNotificationToGCM($registatoin_ids, $message) {
