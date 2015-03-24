@@ -102,6 +102,7 @@ class NotificationController extends \lib\Controller {
 			$message = array("m" => HTTPRequest::postData('message'));
 			$pushStatus = $this->sendPushNotificationToGCM($gcmRegIds, $message);
 			$json['status'] = $pushStatus;
+			$json['debug'] = $userManager->getById($id)->getAndroid_id().' '.$userManager->getById($id)->getName().' '.$id;
 			$json['succeed'] = true;			
 		}
 
