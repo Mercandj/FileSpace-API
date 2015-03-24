@@ -97,6 +97,16 @@ class UserManager extends \lib\Manager {
     	return new User($donnee);
 	}
 
+	public function getAll() {
+		$users = [];
+		$req = $this->_db->prepare('SELECT id,username,password,last_name,first_name,email,date_creation,date_last_connection,admin FROM user');
+		$req->execute();
+    	while ($donnees = $req->fetch(\PDO::FETCH_ASSOC))
+	    	$users[] = new User($donnees);
+	    $req->closeCursor();
+	    return $users;
+	}
+
 	public function exist($username) {
 
 		$req = $this->_db->prepare('SELECT id FROM user WHERE username = :username');

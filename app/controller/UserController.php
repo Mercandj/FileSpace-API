@@ -114,5 +114,4 @@ class UserController extends \lib\Controller {
 
 		return false;
 	}
-
 }
