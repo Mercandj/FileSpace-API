@@ -7,7 +7,7 @@ use \lib\HTTPResponse;
 class NotificationController extends \lib\Controller {
 
 	//generic php function to send GCM push notification
-	function sendPushNotificationToGCM($registatoin_ids, $message) {
+	private function sendPushNotificationToGCM($registatoin_ids, $message) {
 		//Google cloud messaging GCM-API url
 		$url = 'https://android.googleapis.com/gcm/send';
 		$fields = array(
@@ -74,7 +74,7 @@ class NotificationController extends \lib\Controller {
 				if (isset($gcmRegID)) {   
 					$gcmRegIds = array($gcmRegID);
 					$message = array("m" => HTTPRequest::postData('message'));
-					$pushStatus = sendPushNotificationToGCM($gcmRegIds, $message);
+					$pushStatus = $this->sendPushNotificationToGCM($gcmRegIds, $message);
 					$json['status'] = $pushStatus;
 				} 
 			}
@@ -90,7 +90,7 @@ class NotificationController extends \lib\Controller {
 				if (isset($gcmRegID)) {   
 					$gcmRegIds = array($gcmRegID);
 					$message = array("m" => HTTPRequest::postData('message'));
-					$pushStatus = sendPushNotificationToGCM($gcmRegIds, $message);
+					$pushStatus = $this->sendPushNotificationToGCM($gcmRegIds, $message);
 					$json['status'] = $pushStatus;
 				} 
 			}
@@ -100,7 +100,7 @@ class NotificationController extends \lib\Controller {
 		else {
 			$gcmRegIds = array($userManager->getById($id)->getAndroid_id());
 			$message = array("m" => HTTPRequest::postData('message'));
-			$pushStatus = sendPushNotificationToGCM($gcmRegIds, $message);
+			$pushStatus = $this->sendPushNotificationToGCM($gcmRegIds, $message);
 			$json['status'] = $pushStatus;
 			$json['succeed'] = true;			
 		}
