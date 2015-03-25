@@ -141,6 +141,8 @@ class File extends \lib\Entity{
 			$json['content'] = $this->getContent();
 		if($this->getDirectory()!=null)
 			$json['directory'] = $this->getDirectory();
+		if($this->getPublic()!=null)
+			$json['public'] = $this->getPublic();
         return $json;
     }
 }
