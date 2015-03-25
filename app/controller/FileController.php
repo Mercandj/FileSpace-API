@@ -289,6 +289,7 @@ class FileController extends \lib\Controller {
 		else {
 			$file = $fileManager->getById($id);
 			$new_url = HTTPRequest::postData('url');
+			$json['debug-url'] = $new_url;
 			$new_extension = strtolower(  substr(  strrchr($new_url, '.')  ,1)  );
 
 			if($file == null) {
@@ -306,9 +307,10 @@ class FileController extends \lib\Controller {
 
 			else {
 				$root_upload = __DIR__.$this->_app->_config->get('root_upload');
-				rename($root_upload.$file->getUrl(), $root_upload . $new_url);				
+							
 
 				$url = date('Y-m-d_H-i-s') . '_' . $new_url . '_' . hash("md5", $new_url . date('Y-m-d H:i:s')) . '.' . $new_extension;
+				rename($root_upload.$file->getUrl(), $root_upload . $url);	
 				$file->setUrl($url);
 				$file->setName(basename($new_url));
 
