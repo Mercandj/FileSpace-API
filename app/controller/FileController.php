@@ -262,7 +262,7 @@ class FileController extends \lib\Controller {
 	 */
 	public function put($id) {
 		// TODO
-		$_SERVER['REQUEST_METHOD']==="PUT" ? parse_str(file_get_contents('php://input', false , null, -1 , $_SERVER['CONTENT_LENGTH'] ), $_PUT): $_PUT=array();
+		parse_str(file_get_contents('php://input', false , null, -1 , $_SERVER['CONTENT_LENGTH'] ), $_PUT);
 
 		$json['succeed'] = false;
 		$json['toast'] = '';
@@ -288,7 +288,7 @@ class FileController extends \lib\Controller {
 
 		else if(!isset($_PUT['url'])) {
 			$json['toast'] = 'Url not found.';
-			$json['debug'] = $_SERVER['REQUEST_METHOD']==="PUT" . ' ' . fopen("php://input", "r") . ' ' . json_encode($_PUT);
+			$json['debug'] = $_SERVER['REQUEST_METHOD'] . ' ' . fopen("php://input", "r") . ' ' . json_encode($_PUT);
 		}
 
 		else {
