@@ -288,7 +288,7 @@ class FileController extends \lib\Controller {
 
 		else if(!isset($_PUT['url'])) {
 			$json['toast'] = 'Url not found.';
-			$json['debug'] = json_encode($_PUT);
+			$json['debug'] = $_SERVER['REQUEST_METHOD']==="PUT" . ' ' . fopen("php://input", "r") . ' ' . json_encode($_PUT);
 		}
 
 		else {
