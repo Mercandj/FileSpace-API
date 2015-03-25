@@ -262,15 +262,13 @@ class FileController extends \lib\Controller {
 	 */
 	public function put($id) {
 		// TODO
+		$_SERVER['REQUEST_METHOD']==="PUT" ? parse_str(file_get_contents('php://input', false , null, -1 , $_SERVER['CONTENT_LENGTH'] ), $_PUT): $_PUT=array();
 
 		$json['succeed'] = false;
 		$json['toast'] = '';
 
 		$fileManager = $this->getManagerof('File');		
-		
 		//parse_str(file_get_contents("php://input"), $put_vars);
-		$putdata = fopen("php://input", "r");
-		$put_vars = parse_str($putdata);
 
 		if($id == null) {
 			$json['toast'] = 'Bad id.';
@@ -280,22 +278,22 @@ class FileController extends \lib\Controller {
 			$json['toast'] = 'Bad id.';
 		}
 
-		else if(isset($put_vars['public'])) {
+		else if(isset($_PUT['public'])) {
 			$file = $fileManager->getById($id);
-			$public = $put_vars['public'];
+			$public = $_PUT['public'];
 			$file->setPublic($public == "true" || $public == 1 || $public == "1");
 			$json['succeed'] = true;
 			$json['toast'] = 'Your file is '+(($public == "true" || $public == 1 || $public == "1") ? 'public.' : 'private.');
 		}
 
-		else if(!isset($put_vars['url'])) {
+		else if(!isset($_PUT['url'])) {
 			$json['toast'] = 'Url not found.';
-			$json['debug'] = json_encode($put_vars);
+			$json['debug'] = json_encode($_PUT);
 		}
 
 		else {
 			$file = $fileManager->getById($id);
-			$new_url = $put_vars['url'];
+			$new_url = $_PUT['url'];
 			$new_extension = strtolower(  substr(  strrchr($new_url, '.')  ,1)  );
 
 			if($file == null) {
