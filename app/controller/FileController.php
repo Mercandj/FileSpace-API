@@ -277,7 +277,7 @@ class FileController extends \lib\Controller {
 		else if(HTTPRequest::postExist('public')) {
 			$file = $fileManager->getById($id);
 			$public = HTTPRequest::postData('public');
-			$file->setPublic($public == "true" || $public == 1 || $public == "1");
+			$file->setPublic( ($public == "true" || $public == 1 || $public == "1") ? 1 : 0);
 			$fileManager->updatePublic($file);
 			$json['succeed'] = true;
 			$json['toast'] = 'Your file is ' . (($public == "true" || $public == 1 || $public == "1") ? 'public.' : 'private.');
