@@ -286,7 +286,8 @@ class FileController extends \lib\Controller {
 		}
 
 		else if(!isset($put_vars['url'])) {
-			$json['toast'] = 'Url not found '+json_encode($post_vars);
+			$json['toast'] = 'Url not found.';
+			$json['debug'] = json_encode($put_vars);
 		}
 
 		else {
