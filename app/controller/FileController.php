@@ -310,7 +310,7 @@ class FileController extends \lib\Controller {
 
 				$url = date('Y-m-d_H-i-s') . '_' . $new_url . '_' . hash("md5", $new_url . date('Y-m-d H:i:s')) . '.' . $new_extension;
 				$file->setUrl($url);
-				$file->setName(basename($new_url, "." . $extension_upload));
+				$file->setName(basename($new_url));
 
 				$fileManager->updateName($file);
 
