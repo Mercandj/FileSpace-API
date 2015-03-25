@@ -267,7 +267,10 @@ class FileController extends \lib\Controller {
 		$json['toast'] = '';
 
 		$fileManager = $this->getManagerof('File');		
-		parse_str(file_get_contents("php://input"), $put_vars);
+		
+		//parse_str(file_get_contents("php://input"), $put_vars);
+		$putdata = fopen("php://input", "r");
+		$put_vars = parse_str($putdata);
 
 		if($id == null) {
 			$json['toast'] = 'Bad id.';
