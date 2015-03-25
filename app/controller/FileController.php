@@ -277,6 +277,14 @@ class FileController extends \lib\Controller {
 			$json['toast'] = 'Bad id.';
 		}
 
+		else if(isset($put_vars['public'])) {
+			$file = $fileManager->getById($id);
+			$public = $put_vars['public'];
+			$file->setPublic($public == "true" || $public == 1 || $public == "1");
+			$json['succeed'] = true;
+			$json['toast'] = 'Your file is '+(($public == "true" || $public == 1 || $public == "1") ? 'public.' : 'private.');
+		}
+
 		else if(!isset($put_vars['url'])) {
 			$json['toast'] = 'Url not found '+json_encode($post_vars);
 		}
