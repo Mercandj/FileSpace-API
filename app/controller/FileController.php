@@ -42,7 +42,7 @@ class FileController extends \lib\Controller {
 			if(HTTPRequest::getExist('search'))
 				$list_file = $this->getManagerof('File')->getPublic($id_user, $url, HTTPRequest::getData('search'));
 			else
-				$list_file = $this->getManagerof('File')->getPublic($id_user, $url;
+				$list_file = $this->getManagerof('File')->getPublic($id_user, $url);
 		}
 
 		else {
