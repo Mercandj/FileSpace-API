@@ -74,7 +74,7 @@ class FileManager extends \lib\Manager {
 		$id = $file->getId();
 		$public = $file->getPublic();
 
-		$req = $this->_db->prepare('UPDATE file SET url = :url, public = :public WHERE id = :id');
+		$req = $this->_db->prepare('UPDATE file SET public = :public WHERE id = :id');
 		$req->bindParam(':id',$id,\PDO::PARAM_STR);
 		$req->bindParam(':public',$public,\PDO::PARAM_INT);
 		$req->execute();
