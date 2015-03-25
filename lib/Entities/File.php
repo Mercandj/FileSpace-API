@@ -16,7 +16,8 @@ class File extends \lib\Entity{
 		$_id_user,
 		$_type,
 		$_directory,
-		$_content;
+		$_content,
+		$_public;
 
 	public function getId() {
 		return $this->_id;
@@ -56,6 +57,10 @@ class File extends \lib\Entity{
 
 	public function getContent() {
 		return $this->_content;
+	}
+
+	public function getPublic() {
+		return $this->_public;
 	}
 
 	public function setId($id) {
@@ -109,6 +114,11 @@ class File extends \lib\Entity{
 	public function setDirectory($directory) {
 		if(!empty($directory))
 			$this->_directory = $directory;
+	}
+
+	public function setPublic($public) {
+		if(!empty($public))
+			$this->_public = $public;
 	}
 
 	public function setContent($content) {
