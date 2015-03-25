@@ -19,9 +19,9 @@ class FileController extends \lib\Controller {
 		$result = []; //In case where list_file is empty;
 		$id_user = $this->_app->_config->getId_user();
 
-		$mine = false;
-		if(HTTPRequest::getExist('mine'))
-			$mine = HTTPRequest::getData('mine');
+		$all = false;
+		if(HTTPRequest::getExist('all'))
+			$all = HTTPRequest::getData('all');
 
 		$all_public = false;
 		if(HTTPRequest::getExist('all-public'))
@@ -31,18 +31,18 @@ class FileController extends \lib\Controller {
 		if(HTTPRequest::getExist('url'))
 			$url = HTTPRequest::getData('mine');
 
-		if($all_public) {
+		if($all) {
+			if(HTTPRequest::getExist('search'))
+				$list_file = $this->getManagerof('File')->getAll($id_user, $url, HTTPRequest::getData('search'));
+			else
+				$list_file = $this->getManagerof('File')->getAll($id_user, $url);
+		}
+
+		else if($all_public) {
 			if(HTTPRequest::getExist('search'))
 				$list_file = $this->getManagerof('File')->getPublic(0, $url, HTTPRequest::getData('search'));
 			else
 				$list_file = $this->getManagerof('File')->getPublic(0, $url);
-		}
-
-		else if($mine) {
-			if(HTTPRequest::getExist('search'))
-				$list_file = $this->getManagerof('File')->getPublic($id_user, $url, HTTPRequest::getData('search'));
-			else
-				$list_file = $this->getManagerof('File')->getPublic($id_user, $url);
 		}
 
 		else {
