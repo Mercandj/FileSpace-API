@@ -14,7 +14,7 @@ class RESTapi extends \lib\Application {
 			->post('/file','File#post')
 			->get('/file/test','File#test')
 			->get('/file/:id','File#download')
-			->put('/file/:id','File#put')
+			->post('/file/:id','File#update')
 			->delete('/file/:id','File#delete')
 			->get('/home/:id','Home#get')
 			->post('/home/:id','Home#post')
