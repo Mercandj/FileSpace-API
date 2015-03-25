@@ -57,13 +57,15 @@ class FileManager extends \lib\Manager {
 		$req->closeCursor();
 	}
 
-	public function updateUrl(File $file) {		
+	public function updateName(File $file) {		
 		$id = $file->getId();
 		$url = $file->getUrl();
+		$name = $file->getName();
 
-		$req = $this->_db->prepare('UPDATE file SET url = :url WHERE id = :id');
+		$req = $this->_db->prepare('UPDATE file SET url = :url, name = :name WHERE id = :id');
 		$req->bindParam(':id',$id,\PDO::PARAM_STR);
 		$req->bindParam(':url',$url,\PDO::PARAM_STR);
+		$req->bindParam(':name',$name,\PDO::PARAM_STR);
 		$req->execute();
 		$req->closeCursor();
 	}

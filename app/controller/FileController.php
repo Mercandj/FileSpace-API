@@ -306,10 +306,13 @@ class FileController extends \lib\Controller {
 
 			else {
 				$root_upload = __DIR__.$this->_app->_config->get('root_upload');
-				rename($root_upload.$file->getUrl(), $root_upload . $new_url);
+				rename($root_upload.$file->getUrl(), $root_upload . $new_url);				
 
-				$file->setUrl($new_url);
-				$fileManager->updateUrl($file);
+				$url = date('Y-m-d_H-i-s') . '_' . $new_url . '_' . hash("md5", $new_url . date('Y-m-d H:i:s')) . '.' . $new_extension;
+				$file->setUrl($url);
+				$file->setName(basename($new_url, "." . $extension_upload));
+
+				$fileManager->updateName($file);
 
 				$json['succeed'] = true;
 				$json['toast'] = 'Good url!';
