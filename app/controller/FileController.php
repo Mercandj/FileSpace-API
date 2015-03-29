@@ -101,7 +101,7 @@ class FileController extends \lib\Controller {
 
 			$fileManager = $this->getManagerof('File');
 
-			if(HTTPRequest::postExist('url')) {
+			if(!HTTPRequest::postExist('url')) {
 				$json['toast'] = 'Directory has no url.';
 			}
 
