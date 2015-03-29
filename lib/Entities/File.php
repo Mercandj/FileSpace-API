@@ -88,7 +88,7 @@ class File extends \lib\Entity{
 	}
 
 	public function setSize($size) {
-		if(!empty($size) && $size !== NULL)
+		if(!empty($size))
 			$this->_size = $size;
 		else
 			$this->_errors[] = self::INVALID_SIZE;

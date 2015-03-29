@@ -15,12 +15,14 @@ class FileManager extends \lib\Manager {
 		$type = $file->getType();
 		$directory = $file->getDirectory();
 		$content = $file->getContent();
+		$id_file_parent = $file->getId_file_parent();
 
 		if(empty($size)) 		$size = 0;
 		if(empty($visibility)) 	$visibility = 1;
 		if(empty($directory)) 	$directory = 0;
+		if(empty($id_file_parent)) 	$id_file_parent = -1;
 
-		$req = $this->_db->prepare('INSERT INTO file(url,name,size,visibility,date_creation,id_user,type,directory,content,id_file_parent) VALUES (:url, :name, :size, :visibility, :date_creation, :id_user, :type, :directory, :content)');
+		$req = $this->_db->prepare('INSERT INTO file(url,name,size,visibility,date_creation,id_user,type,directory,content,id_file_parent) VALUES (:url, :name, :size, :visibility, :date_creation, :id_user, :type, :directory, :content, :id_file_parent)');
 		$req->bindParam(':url',$url,\PDO::PARAM_STR);
 		$req->bindParam(':name',$name,\PDO::PARAM_STR);
 		$req->bindParam(':size',$size,\PDO::PARAM_INT);
@@ -30,6 +32,7 @@ class FileManager extends \lib\Manager {
 		$req->bindParam(':type',$type,\PDO::PARAM_INT);
 		$req->bindParam(':directory',$directory,\PDO::PARAM_INT);
 		$req->bindParam(':content',$content,\PDO::PARAM_STR);
+		$req->bindParam(':id_file_parent',$id_file_parent,\PDO::PARAM_INT);
 		$req->execute();
 		$req->closeCursor();
 	}
