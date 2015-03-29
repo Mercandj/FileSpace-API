@@ -29,27 +29,31 @@ class FileController extends \lib\Controller {
 
 		$url = "";
 		if(HTTPRequest::getExist('url'))
-			$url = HTTPRequest::getData('mine');
+			$url = HTTPRequest::getData('url');
+
+		$id_file_parent = -1;
+		if(HTTPRequest::getExist('id_file_parent'))
+			$id_file_parent = HTTPRequest::getData('id_file_parent');
 
 		if($all) {
 			if(HTTPRequest::getExist('search'))
-				$list_file = $this->getManagerof('File')->getAll($id_user, $url, HTTPRequest::getData('search'));
+				$list_file = $this->getManagerof('File')->getAll($id_user, $id_file_parent, HTTPRequest::getData('search'));
 			else
-				$list_file = $this->getManagerof('File')->getAll($id_user, $url);
+				$list_file = $this->getManagerof('File')->getAll($id_user, $id_file_parent);
 		}
 
 		else if($all_public) {
 			if(HTTPRequest::getExist('search'))
-				$list_file = $this->getManagerof('File')->getPublic(0, $url, HTTPRequest::getData('search'));
+				$list_file = $this->getManagerof('File')->getPublic(0, $id_file_parent, HTTPRequest::getData('search'));
 			else
-				$list_file = $this->getManagerof('File')->getPublic(0, $url);
+				$list_file = $this->getManagerof('File')->getPublic(0, $id_file_parent);
 		}
 
 		else {
 			if(HTTPRequest::getExist('search'))
-				$list_file = $this->getManagerof('File')->getWithUrl($id_user, $url, HTTPRequest::getData('search'));
+				$list_file = $this->getManagerof('File')->getByParentId($id_user, $id_file_parent, HTTPRequest::getData('search'));
 			else
-				$list_file = $this->getManagerof('File')->getWithUrl($id_user, $url);
+				$list_file = $this->getManagerof('File')->getByParentId($id_user, $id_file_parent);
 		}
 		
 		foreach ($list_file as $file) {
@@ -282,6 +286,14 @@ class FileController extends \lib\Controller {
 			$json['toast'] = 'Your file is ' . (($public == "true" || $public == 1 || $public == "1") ? 'public.' : 'private.');
 		}
 
+		else if(HTTPRequest::postExist('id_file_parent')) {
+			$file = $fileManager->getById($id);
+			$file->setId_file_parent( HTTPRequest::postData('id_file_parent') );
+			$fileManager->updateId_file_parent($file);
+			$json['succeed'] = true;
+			$json['toast'] = 'Your file has been moved.';
+		}
+
 		else if(!HTTPRequest::postExist('url')) {
 			$json['toast'] = 'Url not found.';
 		}
@@ -297,7 +309,7 @@ class FileController extends \lib\Controller {
 			}			
 
 			// contains '..'
-			else if(strstr($new_url, '..')) {
+			else if(strstr($new_url, '..') || strstr($new_url, '/')) {
 				$json['toast'] = 'Bad url : contains /../';
 			}
 

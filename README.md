@@ -13,7 +13,7 @@ J.A.R.V.I.S - API
 * Location : Paris
 * Starting Date : October 2014
 * Configuration : /config/config.json
-* Install data base : /bdd/script.sql
+* Install data base : /database/script.sql
 * Tested on Apache
 * Optional for home automation : Raspberry Pi with this [project](https://github.com/projectweekend/Pi-GPIO-Server)
 
