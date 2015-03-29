@@ -414,7 +414,7 @@ class FileController extends \lib\Controller {
 						$json['toast'] = 'Database : file is directory.';
 				}
 				else if($file->getDirectory()) {					
-					$json['succeed'] = deleteWithChildren($file->getId());;
+					$json['succeed'] = $this->deleteWithChildren($file->getId());;
 				}
 				else {
 					$json['toast'] = 'Physic : Bad File url.';
