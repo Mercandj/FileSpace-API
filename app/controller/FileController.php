@@ -91,6 +91,10 @@ class FileController extends \lib\Controller {
 			if(HTTPRequest::postExist('visibility'))
 				$visibility = HTTPRequest::postData('visibility');
 
+			$id_file_parent = -1;
+			if(HTTPRequest::postExist('id_file_parent'))
+				$id_file_parent = HTTPRequest::postData('id_file_parent');
+
 			$file = new File(array(
 				'id'=> 0,
 				'url' => $input_name,
@@ -100,7 +104,8 @@ class FileController extends \lib\Controller {
 				'id_user' => $id_user,
 				'type' => 'dir',
 				'directory' => 1,
-				'size' => 0
+				'size' => 0,
+				'id_file_parent' => $id_file_parent
 			));
 
 			$fileManager = $this->getManagerof('File');
@@ -136,6 +141,10 @@ class FileController extends \lib\Controller {
 			$visibility = 1;
 			if(HTTPRequest::postExist('visibility'))
 				$visibility = HTTPRequest::postData('visibility');
+
+			$id_file_parent = -1;
+			if(HTTPRequest::postExist('id_file_parent'))
+				$id_file_parent = HTTPRequest::postData('id_file_parent');
 			
 			$extension_upload = 'jarvis';
 			$input_url = $input_name . '.' . $extension_upload;
@@ -152,7 +161,8 @@ class FileController extends \lib\Controller {
 				'content' => HTTPRequest::postData('content'),
 				'size' => 0,
 				'type' => $extension_upload,
-				'directory' => 0
+				'directory' => 0,
+				'id_file_parent' => $id_file_parent
 			));
 
 			$fileManager = $this->getManagerof('File');
@@ -200,6 +210,10 @@ class FileController extends \lib\Controller {
 			$size = 0;
 			if(HTTPRequest::postExist('size'))
 				$size = HTTPRequest::postData('size');
+
+			$id_file_parent = -1;
+			if(HTTPRequest::postExist('id_file_parent'))
+				$id_file_parent = HTTPRequest::postData('id_file_parent');
 			
 			$extension_upload = strtolower(  substr(  strrchr($_FILES['file']['name'], '.')  ,1)  );			
 			$input_name = basename($input_url, "." . $extension_upload);
@@ -215,7 +229,8 @@ class FileController extends \lib\Controller {
 				'id_user' => $id_user,
 				'size' => $size,
 				'type' => $extension_upload,
-				'directory' => 0
+				'directory' => 0,
+				'id_file_parent' => $id_file_parent
 			));
 
 			$fileManager = $this->getManagerof('File');
