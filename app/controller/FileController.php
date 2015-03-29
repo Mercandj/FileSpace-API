@@ -82,8 +82,6 @@ class FileController extends \lib\Controller {
 			$root_upload = __DIR__.$this->_app->_config->get('root_upload');
 
 			$input_name = HTTPRequest::postData('url');
-			$input_url = $input_name;
-			$target_dir = $root_upload . $input_url;
 
 			$visibility = 1;
 			if(HTTPRequest::postExist('visibility'))
@@ -91,23 +89,20 @@ class FileController extends \lib\Controller {
 
 			$file = new File(array(
 				'id'=> 0,
-				'url' => $input_url,
+				'url' => $input_name,
 				'name' => $input_name,
 				'visibility' => $visibility,
 				'date_creation' => date('Y-m-d H:i:s'),
 				'id_user' => $id_user,
-				'type' => '.dir',
-				'directory' => 1
+				'type' => 'dir',
+				'directory' => 1,
+				'size' => 0
 			));
 
 			$fileManager = $this->getManagerof('File');
 
-			if($fileManager->exist($file->getUrl())) {
-				$json['toast'] = 'File or Directory exists.';
-			}
-
-			else if( !mkdir($target_dir, 0777, true)) {
-				$json['toast'] = 'Sorry, there was an error making your directory.';
+			if(HTTPRequest::postExist('url')) {
+				$json['toast'] = 'Directory has no url.';
 			}
 
 			else { // Everything is OK ... well it seems OK
