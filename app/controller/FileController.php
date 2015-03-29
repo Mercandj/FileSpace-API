@@ -362,14 +362,9 @@ class FileController extends \lib\Controller {
 					else
 						$json['toast'] = 'Database : file is directory.';
 				}
-				else if(is_dir($file_name)) {
-					if($file->getDirectory()) {
-						$fileManager->delete($file->getId());
-						rmdir($file_name);
-						$json['succeed'] = true;
-					}
-					else
-						$json['toast'] = 'Database : directory is file.';
+				else if($file->getDirectory()) {
+					$fileManager->delete($file->getId());
+					$json['succeed'] = true;
 				}
 				else {
 					$json['toast'] = 'Physic : Bad File url.';
