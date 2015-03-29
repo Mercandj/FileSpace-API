@@ -244,7 +244,7 @@ class FileController extends \lib\Controller {
 				$fileManager->add($file);
 
 				// get file : get id !
-				$file = $fileManager->get($file->getUrl());
+				//$file = $fileManager->get($file->getUrl());
 
 				$json['succeed'] = true;
 				$json['file'] = $file->toArray();							
