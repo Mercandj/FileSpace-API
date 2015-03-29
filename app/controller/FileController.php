@@ -287,11 +287,20 @@ class FileController extends \lib\Controller {
 		}
 
 		else if(HTTPRequest::postExist('id_file_parent')) {
-			$file = $fileManager->getById($id);
-			$file->setId_file_parent( HTTPRequest::postData('id_file_parent') );
-			$fileManager->updateId_file_parent($file);
-			$json['succeed'] = true;
-			$json['toast'] = 'Your file has been moved.';
+
+			$id_file_parent = HTTPRequest::postData('id_file_parent');			
+			$file_parent = $fileManager->getById($id_file_parent);
+
+			if(!$file_parent->getDirectory()) {
+				$json['toast'] = 'Parent file is not a directory.';
+			}
+			else {
+				$file = $fileManager->getById($id);
+				$file->setId_file_parent($id_file_parent);
+				$fileManager->updateId_file_parent($file);
+				$json['succeed'] = true;
+				$json['toast'] = 'Your file has been moved.';
+			}
 		}
 
 		else if(!HTTPRequest::postExist('url')) {
