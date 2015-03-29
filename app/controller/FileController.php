@@ -436,7 +436,7 @@ class FileController extends \lib\Controller {
 		$file_children = $fileManager->getChildren($id);
 
 		foreach($file_children as $child) {
-			if(!deleteWithChildren($child['id']))
+			if(!$this->deleteWithChildren($child['id']))
 				$return = false;
 		}
 
