@@ -413,9 +413,8 @@ class FileController extends \lib\Controller {
 					else
 						$json['toast'] = 'Database : file is directory.';
 				}
-				else if($file->getDirectory()) {
-					$fileManager->deleteWithChildren($file->getId());
-					$json['succeed'] = true;
+				else if($file->getDirectory()) {					
+					$json['succeed'] = deleteWithChildren($file->getId());;
 				}
 				else {
 					$json['toast'] = 'Physic : Bad File url.';
@@ -424,6 +423,39 @@ class FileController extends \lib\Controller {
 		}
 
 		HTTPResponse::send(json_encode($json));
+	}
+
+	private function deleteWithChildren($id) {
+		$fileManager = $this->getManagerof('File');
+		if(!$fileManager->existById($id))
+			return false;
+
+		$return = true;
+
+		$file = $fileManager->getById($id);
+		$file_children = $fileManager->getChildren($id);
+
+		for($file_children as $child) {
+			if(!deleteWithChildren($child['id']))
+				$return = false;
+		}
+
+		$root_upload = __DIR__.$this->_app->_config->get('root_upload');
+		$file_name = $root_upload . $file->getUrl();
+
+		if($file->getDirectory()) {
+			$fileManager->delete($file->getId());
+		}
+		else if(is_file($file_name)) {
+			if(!$file->getDirectory()) {
+				$fileManager->delete($file->getId());
+				unlink($file_name);
+			}
+			else
+				$return = false;
+		}		
+
+		return $return;		
 	}
 
 	/**
@@ -460,7 +492,7 @@ class FileController extends \lib\Controller {
 		$array_json['files_bdd'] = $files_bdd;
 		$array_json['files_size_all'] = $fileManager->sizeAll();
 		HTTPResponse::send(json_encode($array_json));
-	}	
+	}
 
 	/**
 	 * Get file ( Download )
