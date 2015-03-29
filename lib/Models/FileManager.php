@@ -44,6 +44,22 @@ class FileManager extends \lib\Manager {
 		$req->closeCursor();
 	}
 
+	public function deleteWithChildren($id) {
+		$req = $this->_db->prepare('SELECT id FROM file WHERE id_file_parent = :id_file_parent');
+    	$req->bindParam(':id', $url, \PDO::PARAM_STR);
+    	$req->execute();
+
+    	while ($donnees = $req->fetch(\PDO::FETCH_ASSOC))
+	    	deleteWithChildren($donnees['id']);
+
+	    $req->closeCursor();
+
+		$req = $this->_db->prepare('DELETE FROM file WHERE id = :id');
+    	$req->bindParam(':id', $id, \PDO::PARAM_INT);
+    	$req->execute();
+		$req->closeCursor();
+	}
+
 	public function update(File $file) {		
 		$id = $file->getId();
 		$url = $file->getUrl();
