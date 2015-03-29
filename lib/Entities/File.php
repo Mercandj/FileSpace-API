@@ -17,7 +17,8 @@ class File extends \lib\Entity{
 		$_type,
 		$_directory,
 		$_content,
-		$_public;
+		$_public,
+		$_id_file_parent;
 
 	public function getId() {
 		return $this->_id;
@@ -61,6 +62,10 @@ class File extends \lib\Entity{
 
 	public function getPublic() {
 		return $this->_public;
+	}
+
+	public function getId_file_parent() {
+		return $this->_id_file_parent;
 	}
 
 	public function setId($id) {
@@ -126,6 +131,11 @@ class File extends \lib\Entity{
 			$this->_content = $content;
 	}
 
+	public function setId_file_parent($id_file_parent) {
+		if(!empty($id_file_parent))
+			$this->_id_file_parent = $id_file_parent;
+	}
+
 	public function isValid() {
 		return !empty($this->_id) && !empty($this->_url);
 	}
@@ -145,6 +155,8 @@ class File extends \lib\Entity{
 			$json['public'] = $this->getPublic();
 		if($this->getId_User()!=null)
 			$json['id_user'] = $this->getId_User();
+		if($this->getId_file_parent()!=null)
+			$json['id_file_parent'] = $this->getId_file_parent();
         return $json;
     }
 }
