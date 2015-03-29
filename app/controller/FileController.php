@@ -322,6 +322,14 @@ class FileController extends \lib\Controller {
 				$json['toast'] = 'Bad url : contains /../';
 			}
 
+			else if ($file->getDirectory()) {
+				$file->setUrl($new_url);
+				$file->setName($new_url);
+				$fileManager->updateName($file);
+				$json['succeed'] = true;
+				$json['toast'] = 'Folder renamed!';
+			}
+
 			else if( !in_array($new_extension, $this->extensions_valides) ) {
 				$json['toast'] = 'Bad extension.';
 			}
