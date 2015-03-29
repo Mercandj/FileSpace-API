@@ -197,6 +197,10 @@ class FileController extends \lib\Controller {
 			$visibility = 1;
 			if(HTTPRequest::postExist('visibility'))
 				$visibility = HTTPRequest::postData('visibility');
+
+			$size = 0;
+			if(HTTPRequest::postExist('size'))
+				$size = HTTPRequest::postData('size');
 			
 			$extension_upload = strtolower(  substr(  strrchr($_FILES['file']['name'], '.')  ,1)  );			
 			$input_name = basename($input_url, "." . $extension_upload);
@@ -210,7 +214,7 @@ class FileController extends \lib\Controller {
 				'visibility' => $visibility,
 				'date_creation' => date('Y-m-d H:i:s'),
 				'id_user' => $id_user,
-				'size' => 0,
+				'size' => $size,
 				'type' => $extension_upload,
 				'directory' => 0
 			));
@@ -244,7 +248,7 @@ class FileController extends \lib\Controller {
 				$fileManager->add($file);
 
 				// get file : get id !
-				//$file = $fileManager->get($file->getUrl());
+				$file = $fileManager->get($file->getUrl());
 
 				$json['succeed'] = true;
 				$json['file'] = $file->toArray();							
