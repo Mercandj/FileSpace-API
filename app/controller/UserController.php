@@ -113,9 +113,7 @@ class UserController extends \lib\Controller {
 						$user->setAndroid_id(HTTPRequest::get('android_id'));
 						$userManager->updateAndroidId($user);
 					}					
-					else
-						$userManager->updateConnection($user);
-
+					$userManager->updateConnection($user);
 					$this->_app->_config->setId_user($userbdd->getId());
 					
 					return true;
