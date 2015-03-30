@@ -18,7 +18,8 @@ class User extends \lib\Entity{
 		$_last_name,
 		$_email,
 		$_android_id,
-		$_num_file;
+		$_num_files,
+		$_size_files;
 
 	public function getId(){
 		return $this->_id;
@@ -56,10 +57,13 @@ class User extends \lib\Entity{
 		return $this->_android_id;
 	}
 
-	public function getNum_file(){
-		return $this->_num_file;
+	public function getNum_files(){
+		return $this->_num_files;
 	}
-	
+
+	public function getSize_files(){
+		return $this->_size_files;
+	}	
 
 	public function isAdmin(){
 		return ($this->_admin == self::KEY_ADMIN ) ? true : false;
@@ -137,12 +141,17 @@ class User extends \lib\Entity{
 		}
 	}
 
-	public function setNum_file($num_file){
-		if(!empty($num_file)){
-			$this->_num_file = $num_file;
+	public function setNum_files($num_files){
+		if(!empty($num_files)){
+			$this->_num_files = $num_files;
 		}
 	}
 
+	public function setSize_files($size_files){
+		if(!empty($size_files)){
+			$this->_size_files = $size_files;
+		}
+	}
 
 	public function isValid(){
 		return !empty($this->_username) && !empty($this->_password);
@@ -163,8 +172,10 @@ class User extends \lib\Entity{
 			$json['date_last_connection'] = $this->getDate_last_connection();
 		if($this->isAdmin()!=null)
 			$json['admin'] = $this->isAdmin();
-		if($this->getNum_file()!=null)
-			$json['num_file'] = $this->getNum_file();
+		if($this->getNum_files()!=null)
+			$json['num_files'] = $this->getNum_files();
+		if($this->getSize_files()!=null)
+			$json['size_files'] = $this->getSize_files();
         return $json;
     }
 }
