@@ -18,7 +18,7 @@ class UserController extends \lib\Controller {
 		$userManager = $this->getManagerof('User');
 
 		if($this->isUser()) {
-			if(HTTPRequest::getExist('login'))) {
+			if(HTTPRequest::getExist('login')) {
 				$user = $userManager->get(HTTPRequest::serverData('PHP_AUTH_USER'));
 				$json['succeed'] = true;
 				$json['user'] = $user->toArray();
