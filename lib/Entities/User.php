@@ -17,7 +17,8 @@ class User extends \lib\Entity{
 		$_first_name,
 		$_last_name,
 		$_email,
-		$_android_id;
+		$_android_id,
+		$_num_file;
 
 	public function getId(){
 		return $this->_id;
@@ -54,6 +55,11 @@ class User extends \lib\Entity{
 	public function getAndroid_id(){
 		return $this->_android_id;
 	}
+
+	public function getNum_file(){
+		return $this->_num_file;
+	}
+	
 
 	public function isAdmin(){
 		return ($this->_admin == self::KEY_ADMIN ) ? true : false;
@@ -131,6 +137,13 @@ class User extends \lib\Entity{
 		}
 	}
 
+	public function setNum_file($num_file){
+		if(!empty($num_file)){
+			$this->_num_file = $num_file;
+		}
+	}
+
+
 	public function isValid(){
 		return !empty($this->_username) && !empty($this->_password);
 	}
@@ -150,6 +163,8 @@ class User extends \lib\Entity{
 			$json['date_last_connection'] = $this->getDate_last_connection();
 		if($this->isAdmin()!=null)
 			$json['admin'] = $this->isAdmin();
+		if($this->getNum_file()!=null)
+			$json['num_file'] = $this->getNum_file();
         return $json;
     }
 }
