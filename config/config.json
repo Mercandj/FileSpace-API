@@ -6,8 +6,8 @@
 	"root":"/Jarvis-API",
 	"root_upload":"\\..\\..\\upload\\",
 	"registration_open":false,
-	"server_max_size":5000000000,
-	"server_max_size_file":800000000,
+	"server_max_size":8000000000,
+	"server_max_size_file":1000000000,
 	"server_home_automation":"http://192.168.1.13:5000/",
 	"google_api_key":"AIzaSyALmR120lJH_ZN4NZO4_JyU7K_08OJwG2Q"
 }
