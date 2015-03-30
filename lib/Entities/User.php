@@ -138,11 +138,18 @@ class User extends \lib\Entity{
 	public function toArray() {
 		$json['id'] = $this->getId();
 		$json['username'] = $this->getUsername();
-		$json['last_name'] = $this->getLast_name();
-		$json['first_name'] = $this->getFirst_name();
-		$json['email'] = $this->getEmail();
-		$json['date_creation'] = $this->getDate_creation();
-		$json['date_last_connection'] = $this->getDate_last_connection();
+		if($this->getLast_name()!=null)
+			$json['last_name'] = $this->getLast_name();
+		if($this->getFirst_name()!=null)
+			$json['first_name'] = $this->getFirst_name();
+		if($this->getEmail()!=null)
+			$json['email'] = $this->getEmail();
+		if($this->getDate_creation()!=null)
+			$json['date_creation'] = $this->getDate_creation();
+		if($this->getDate_last_connection()!=null)
+			$json['date_last_connection'] = $this->getDate_last_connection();
+		if($this->isAdmin()!=null)
+			$json['admin'] = $this->isAdmin();
         return $json;
     }
 }

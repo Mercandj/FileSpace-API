@@ -13,18 +13,30 @@ class UserController extends \lib\Controller {
 	 * @return JSON with info about user like ID
 	 */
 	public function get() {
+		$result = []; //In case where list_file is empty;
+		$json['succeed'] = false;
+		$userManager = $this->getManagerof('User');
 
-		if($this->isUser()){
-			$user = $this->getManagerof('User')->get(HTTPRequest::serverData('PHP_AUTH_USER'));
-			$json['succeed'] = true;
-			$json['user'] = $user->toArray();
-			
-		}else{
-			$json['succeed'] = false;
+		if($this->isUser()) {
+			if(HTTPRequest::getExist('login'))) {
+				$user = $userManager->get(HTTPRequest::serverData('PHP_AUTH_USER'));
+				$json['succeed'] = true;
+				$json['user'] = $user->toArray();
+			}
+			else {
+				$list_user = $userManager->getAll();
+				foreach ($list_user as $user) {
+					$result[] = $user->toArray();
+				}
+				$json['succeed'] = true;
+				$json['result'] = $result;
+			}			
+		}
+		else {
 			$json['toast'] = 'Wrong User.';
 		}
 
-		HTTPResponse::send(json_encode($json));
+		HTTPResponse::send(json_encode($json, JSON_NUMERIC_CHECK));
 	}
 
 	/**
