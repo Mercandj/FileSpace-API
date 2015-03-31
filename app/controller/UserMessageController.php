@@ -104,7 +104,7 @@ class UserMessageController extends \lib\Controller {
 		else {
 			$userMessage = new UserMessage(array(
 				'id'=> 0,
-				'id_user' => $id_user,
+				'id_user' => intval($id_user),
 				'id_user_recipient' => intval($id),
 				'content' => HTTPRequest::postData('message'),
 				'date_creation' => date('Y-m-d H:i:s')
@@ -117,6 +117,7 @@ class UserMessageController extends \lib\Controller {
 			$json['status'] = $pushStatus;
 			$json['debug-username'] = $userManager->getById($id)->getUsername();
 			$json['debug-message'] = $userMessage->toArray();
+			$json['toast'] = 'Message sent.';
 			$json['succeed'] = true;			
 		}
 
