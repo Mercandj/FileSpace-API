@@ -1,10 +1,11 @@
 <?php
 namespace app\controller;
 use \lib\Entities\User;
+use \lib\Entities\UserMessage;
 use \lib\HTTPRequest;
 use \lib\HTTPResponse;
 
-class NotificationController extends \lib\Controller {
+class UserMessageController extends \lib\Controller {
 
 	//generic php function to send GCM push notification
 	private function sendPushNotificationToGCM($registatoin_ids, $message) {
@@ -46,6 +47,7 @@ class NotificationController extends \lib\Controller {
 
 		$json['succeed'] = false;
 		$userManager = $this->getManagerof('User');
+		$userMessageManager = $this->getManagerof('UserMessage');
 		$id_user = $this->_app->_config->getId_user();
 		$admin_user = $userManager->getById($id_user)->isAdmin();
 
