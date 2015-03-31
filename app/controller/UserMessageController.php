@@ -116,6 +116,7 @@ class UserMessageController extends \lib\Controller {
 			$pushStatus = $this->sendPushNotificationToGCM($gcmRegIds, $message);
 			$json['status'] = $pushStatus;
 			$json['debug-username'] = $userManager->getById($id)->getUsername();
+			$json['debug-message'] = $userMessage->toArray();
 			$json['succeed'] = true;			
 		}
 

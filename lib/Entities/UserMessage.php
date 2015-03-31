@@ -87,6 +87,10 @@ class UserMessage extends \lib\Entity{
 			$json['content'] = $this->getContent();
 		if($this->getDate_creation()!=null)
 			$json['date_creation'] = $this->getDate_creation();
+		if($this->getVisibility()!=null)
+			$json['visibility'] = $this->getVisibility();
+		if($this->getPublic()!=null)
+			$json['public'] = $this->getPublic();
         return $json;
     }
 }
