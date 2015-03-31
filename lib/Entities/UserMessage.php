@@ -7,7 +7,9 @@ class UserMessage extends \lib\Entity{
 		$_id_user,
 		$_id_user_recipient,
 		$_content,
-		$_date_creation;
+		$_date_creation,
+		$_visibility,
+		$_public;
 
 	public function getId(){
 		return $this->_id;
@@ -27,6 +29,14 @@ class UserMessage extends \lib\Entity{
 
 	public function getDate_creation(){
 		return $this->_date_creation;
+	}
+
+	public function getVisibility() {
+		return $this->_visibility;
+	}
+
+	public function getPublic() {
+		return $this->_public;
 	}
 
 	public function setId($id){
@@ -51,6 +61,16 @@ class UserMessage extends \lib\Entity{
 		if(!empty($date)){
 			$this->_date_creation = $date;
 		}
+	}
+
+	public function setVisibility($visibility) {
+		if(!empty($visibility))
+			$this->_visibility = $visibility;
+	}
+
+	public function setPublic($public) {
+		if(!empty($public))
+			$this->_public = $public;
 	}
 
 	public function isValid() {
