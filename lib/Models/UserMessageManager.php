@@ -5,7 +5,7 @@ use \lib\Entities\UserMessage;
 class UserMessageManager extends \lib\Manager {
 	protected static $instance;
 
-	public function addToUser(Message $message) {
+	public function addToUser(UserMessage $message) {
 		$id_user = $message->getId_user();
 		$id_user_recipient = $message->getId_user_recipient();
 		$content = $message->getContent();
@@ -27,7 +27,7 @@ class UserMessageManager extends \lib\Manager {
 		$req->closeCursor();
 	}
 
-	public function update(Message $message) {		
+	public function update(UserMessage $message) {		
 		$id = $message->getId();
 		$content = $message->getContent();
 
@@ -45,7 +45,7 @@ class UserMessageManager extends \lib\Manager {
 
     	$donnee = $req->fetch(\PDO::FETCH_ASSOC);
     	$req->closeCursor();
-    	return new Message($donnee);
+    	return new UserMessage($donnee);
 	}
 
 	public function getAll() {
@@ -53,7 +53,7 @@ class UserMessageManager extends \lib\Manager {
 		$req = $this->_db->prepare('SELECT * FROM User_Message');
 		$req->execute();
     	while ($donnees = $req->fetch(\PDO::FETCH_ASSOC))
-	    	$users[] = new Message($donnees);
+	    	$users[] = new UserMessage($donnees);
 	    $req->closeCursor();
 	    return $users;
 	}
