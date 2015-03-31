@@ -69,15 +69,16 @@ class UserMessageController extends \lib\Controller {
 
 		else if($all && $admin_user) {
 			$users = $userManager->getAll();
+			$message = HTTPRequest::postData('message');
 
 			foreach ($users as $user) {
 				$gcmRegID  = $user->getAndroid_id();
 
 				if (isset($gcmRegID)) {   
 					$gcmRegIds = array($gcmRegID);
-					$message = array("m" => HTTPRequest::postData('message'));
-					$pushStatus = $this->sendPushNotificationToGCM($gcmRegIds, $message);
-					$json['status'] = $pushStatus;
+					$messageArray = array("m" => $message);
+					$pushStatus = $this->sendPushNotificationToGCM($gcmRegIds, $messageArray);
+					$json['status'][] = $pushStatus;
 				} 
 			}
 			$json['succeed'] = true;
@@ -85,21 +86,31 @@ class UserMessageController extends \lib\Controller {
 
 		else if($allAdmin && $admin_user) {
 			$users = $userManager->getAllAdmin();
+			$message = HTTPRequest::postData('message');
 
 			foreach ($users as $user) {
 				$gcmRegID  = $user->getAndroid_id();
 
 				if (isset($gcmRegID)) {   
 					$gcmRegIds = array($gcmRegID);
-					$message = array("m" => HTTPRequest::postData('message'));
-					$pushStatus = $this->sendPushNotificationToGCM($gcmRegIds, $message);
-					$json['status'] = $pushStatus;
+					$messageArray = array("m" => $message);
+					$pushStatus = $this->sendPushNotificationToGCM($gcmRegIds, $messageArray);
+					$json['status'][] = $pushStatus;
 				} 
 			}
 			$json['succeed'] = true;
 		}
 
 		else {
+			$userMessage = new UserMessage(array(
+				'id'=> 0,
+				'id_user' => $id_user,
+				'id_user_recipient' => $userManager->getById($id),
+				'content' => HTTPRequest::postData('message'),
+				'date_creation' => date('Y-m-d H:i:s')
+			));
+			$userMessageManager->addToUser($userMessage);
+
 			$gcmRegIds = array($userManager->getById($id)->getAndroid_id());
 			$message = array("m" => HTTPRequest::postData('message'));
 			$pushStatus = $this->sendPushNotificationToGCM($gcmRegIds, $message);

@@ -5,13 +5,15 @@ use \lib\Entities\UserMessage;
 class UserMessageManager extends \lib\Manager {
 	protected static $instance;
 
-	public function add(Message $message) {
+	public function addToUser(Message $message) {
 		$id_user = $message->getId_user();
+		$id_user_recipient = $message->getId_user_recipient();
 		$content = $message->getContent();
 		$date_creation = $message->getDate_creation();
 		
-		$req = $this->_db->prepare('INSERT INTO User_Message(id_user,content,date_creation) VALUES (:id_user, :content, :date_creation)');
+		$req = $this->_db->prepare('INSERT INTO User_Message(id_user,id_user_recipient,content,date_creation) VALUES (:id_user, :id_user_recipient, :content, :date_creation)');
 		$req->bindParam(':id_user',$id_user,\PDO::PARAM_INT);
+		$req->bindParam(':id_user_recipient',$id_user_recipient,\PDO::PARAM_INT);
 		$req->bindParam(':content',$content,\PDO::PARAM_STR);
 		$req->bindParam(':date_creation',$date_creation,\PDO::PARAM_STR);
 		$req->execute();
