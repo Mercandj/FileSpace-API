@@ -53,6 +53,10 @@ class UserMessage extends \lib\Entity{
 		}
 	}
 
+	public function isValid() {
+		return !empty($this->_id) && !empty($this->_id_user);
+	}
+
 	public function toArray() {
 		$json['id'] = $this->getId();
 		if($this->getId_user()!=null)
