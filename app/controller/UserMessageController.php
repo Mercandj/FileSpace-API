@@ -105,7 +105,7 @@ class UserMessageController extends \lib\Controller {
 			$userMessage = new UserMessage(array(
 				'id'=> 0,
 				'id_user' => $id_user,
-				'id_user_recipient' => $userManager->getById($id)->getId(),
+				'id_user_recipient' => $id,
 				'content' => HTTPRequest::postData('message'),
 				'date_creation' => date('Y-m-d H:i:s')
 			));

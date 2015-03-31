@@ -16,7 +16,7 @@ class UserMessageManager extends \lib\Manager {
 		if(empty($visibility)) 	$visibility = 1;
 		if(empty($public)) 		$public = 0;
 		
-		$req = $this->_db->prepare('INSERT INTO user_message(id_user,id_user_recipient,content,date_creation,visibility,public) VALUES (:id_user, :id_user_recipient, :content, :date_creation, :visibility, :public)');
+		$req = $this->_db->prepare('INSERT INTO `user_message`(id_user,id_user_recipient,content,date_creation,visibility,public) VALUES (:id_user, :id_user_recipient, :content, :date_creation, :visibility, :public)');
 		$req->bindParam(':id_user',$id_user,\PDO::PARAM_INT);
 		$req->bindParam(':id_user_recipient',$id_user_recipient,\PDO::PARAM_INT);
 		$req->bindParam(':content',$content,\PDO::PARAM_STR);
