@@ -11,7 +11,7 @@ class UserMessageManager extends \lib\Manager {
 		$content = $message->getContent();
 		$date_creation = $message->getDate_creation();
 		
-		$req = $this->_db->prepare('INSERT INTO User_Message(id_user,id_user_recipient,content,date_creation) VALUES (:id_user, :id_user_recipient, :content, :date_creation)');
+		$req = $this->_db->prepare('INSERT INTO user_message(id_user,id_user_recipient,content,date_creation) VALUES (:id_user, :id_user_recipient, :content, :date_creation)');
 		$req->bindParam(':id_user',$id_user,\PDO::PARAM_INT);
 		$req->bindParam(':id_user_recipient',$id_user_recipient,\PDO::PARAM_INT);
 		$req->bindParam(':content',$content,\PDO::PARAM_STR);
@@ -21,7 +21,7 @@ class UserMessageManager extends \lib\Manager {
 	}
 
 	public function delete($id) {
-		$req = $this->_db->prepare('DELETE FROM User_Message WHERE id = :id');
+		$req = $this->_db->prepare('DELETE FROM user_message WHERE id = :id');
     	$req->bindParam(':id', $id, \PDO::PARAM_INT);
     	$req->execute();
 		$req->closeCursor();
@@ -31,7 +31,7 @@ class UserMessageManager extends \lib\Manager {
 		$id = $message->getId();
 		$content = $message->getContent();
 
-		$req = $this->_db->prepare('UPDATE User_Message SET content = :content WHERE id = :id');
+		$req = $this->_db->prepare('UPDATE user_message SET content = :content WHERE id = :id');
 		$req->bindParam(':id',$id,\PDO::PARAM_INT);
 		$req->bindParam(':content',$content,\PDO::PARAM_STR);
 		$req->execute();
@@ -39,7 +39,7 @@ class UserMessageManager extends \lib\Manager {
 	}
 
 	public function getById($id) {
-		$req = $this->_db->prepare('SELECT * FROM User_Message WHERE id = :id');
+		$req = $this->_db->prepare('SELECT * FROM user_message WHERE id = :id');
     	$req->bindParam(':id', $id, \PDO::PARAM_INT);
     	$req->execute();
 
@@ -50,7 +50,7 @@ class UserMessageManager extends \lib\Manager {
 
 	public function getAll() {
 		$users = [];
-		$req = $this->_db->prepare('SELECT * FROM User_Message');
+		$req = $this->_db->prepare('SELECT * FROM user_message');
 		$req->execute();
     	while ($donnees = $req->fetch(\PDO::FETCH_ASSOC))
 	    	$users[] = new UserMessage($donnees);
@@ -59,7 +59,7 @@ class UserMessageManager extends \lib\Manager {
 	}
 
 	public function existById($id) {
-		$req = $this->_db->prepare('SELECT id FROM User_Message WHERE id = :id');
+		$req = $this->_db->prepare('SELECT id FROM user_message WHERE id = :id');
     	$req->bindParam(':id', $id,\PDO::PARAM_INT);
     	$req->execute();
 
