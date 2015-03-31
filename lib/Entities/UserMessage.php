@@ -45,6 +45,12 @@ class UserMessage extends \lib\Entity{
 		}
 	}
 
+	public function setId_user($id_user){
+		if(!empty($id_user)){
+			$this->_id_user = $id_user;
+		}
+	}
+
 	public function setId_user_recipient($id_user_recipient){
 		if(!empty($id_user_recipient)){
 			$this->_id_user_recipient = $id_user_recipient;
