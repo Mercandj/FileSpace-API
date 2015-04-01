@@ -1,15 +1,16 @@
 <?php
 namespace lib\Entities;
 
-class UserGroup extends \lib\Entity{
+class FileDownload extends \lib\Entity {
 
 	protected $_id,
 		$_id_user,
-		$_id_user_recipient,
+		$_id_file,
 		$_type,
 		$_content,
 		$_description,
 		$_date_creation,
+		$_size,
 		$_visibility,
 		$_public,
 		$_longitude,
@@ -22,8 +23,8 @@ class UserGroup extends \lib\Entity{
 	public function getId_user() {
 		return $this->_id_user;
 	}
-	public function getId_user_recipient() {
-		return $this->_id_user_recipient;
+	public function getId_file() {
+		return $this->_id_file;
 	}
 	public function getType() {
 		return $this->_type;
@@ -36,6 +37,9 @@ class UserGroup extends \lib\Entity{
 	}
 	public function getDate_creation() {
 		return $this->_date_creation;
+	}
+	public function getSize() {
+		return $this->_size;
 	}
 	public function getVisibility() {
 		return $this->_visibility;
@@ -59,9 +63,9 @@ class UserGroup extends \lib\Entity{
 		if(!empty($id_user))
 			$this->_id_user = $id_user;
 	}
-	public function setId_user_recipient($id_user_recipient) {
-		if(!empty($id_user_recipient))
-			$this->_id_user_recipient = $id_user_recipient;
+	public function setId_file($id_file) {
+		if(!empty($id_file))
+			$this->_id_file = $id_file;
 	}
 	public function setType($type) {
 		if(!empty($type))
@@ -78,6 +82,10 @@ class UserGroup extends \lib\Entity{
 	public function setDate_creation($date) {
 		if(!empty($date))
 			$this->_date_creation = $date;
+	}
+	public function getSize($size) {
+		if(!empty($size))
+			$this->_size = $size;
 	}
 	public function setVisibility($visibility) {
 		if(!empty($visibility))
@@ -104,8 +112,8 @@ class UserGroup extends \lib\Entity{
 		$json['id'] = $this->getId();
 		if($this->getId_user()!=null)
 			$json['id_user'] = $this->getId_user();
-		if($this->getId_user_recipient()!=null)
-			$json['id_user_recipient'] = $this->getId_user_recipient();
+		if($this->getId_file()!=null)
+			$json['id_file'] = $this->getId_file();
 		if($this->getType()!=null)
 			$json['type'] = $this->getType();
 		if($this->getContent()!=null)
@@ -114,6 +122,8 @@ class UserGroup extends \lib\Entity{
 			$json['description'] = $this->getDescription();
 		if($this->getDate_creation()!=null)
 			$json['date_creation'] = $this->getDate_creation();
+		if($this->getSize()!=null)
+			$json['size'] = $this->getSize();
 		if($this->getVisibility()!=null)
 			$json['visibility'] = $this->getVisibility();
 		if($this->getPublic()!=null)
