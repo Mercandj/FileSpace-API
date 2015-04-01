@@ -526,7 +526,7 @@ class FileController extends \lib\Controller {
 				if(is_file($file_name)) {
 
 					$fileDownloadManager = $this->getManagerof('FileDownload');
-					$fileDownload = new File(array(
+					$fileDownload = new FileDownload(array(
 						'id'=> 0,
 						'title' => $file->getName(),
 						'public' => 0,
