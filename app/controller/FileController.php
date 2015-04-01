@@ -538,7 +538,7 @@ class FileController extends \lib\Controller {
 						'content' => $file->getContent(),
 						'type' => $file->getType()
 					));
-					$fileDownloadManager->add($fileDownload);
+					//$fileDownloadManager->add($fileDownload);
 
 					// required for IE
 					//if(ini_get('zlib.output_compression')) { ini_set('zlib.output_compression', 'Off');	}
