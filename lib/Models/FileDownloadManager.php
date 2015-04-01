@@ -13,11 +13,13 @@ class FileDownloadManager extends \lib\Manager {
 		$date_creation = $fileDownload->getDate_creation();
 		$visibility = $fileDownload->getVisibility();
 		$public = $fileDownload->getPublic();
+		$size = $fileDownload->getSize();
 
 		if(empty($visibility)) 			$visibility = 1;
 		if(empty($public)) 				$public = 0;
+		if(empty($size)) 				$size = 0;
 		
-		$req = $this->_db->prepare('INSERT INTO `file_download`(id_user,id_file,content,type,date_creation,visibility,public) VALUES (:id_user, :id_file, :content, :type, :date_creation, :visibility, :public)');
+		$req = $this->_db->prepare('INSERT INTO `file_download`(id_user,id_file,content,type,date_creation,visibility,public,size) VALUES (:id_user, :id_file, :content, :type, :date_creation, :visibility, :public, :size)');
 		$req->bindParam(':id_user',$id_user,\PDO::PARAM_INT);
 		$req->bindParam(':id_file',$id_file,\PDO::PARAM_INT);
 		$req->bindParam(':content',$content,\PDO::PARAM_STR);
@@ -25,6 +27,7 @@ class FileDownloadManager extends \lib\Manager {
 		$req->bindParam(':date_creation',$date_creation,\PDO::PARAM_STR);
 		$req->bindParam(':visibility',$visibility,\PDO::PARAM_INT);
 		$req->bindParam(':public',$public,\PDO::PARAM_INT);
+		$req->bindParam(':size',$size,\PDO::PARAM_INT);
 		$req->execute();
 		$req->closeCursor();
 	}
