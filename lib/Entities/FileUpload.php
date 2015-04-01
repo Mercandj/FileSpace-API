@@ -1,7 +1,7 @@
 <?php
 namespace lib\Entities;
 
-class FileDownload extends \lib\Entity {
+class FileUpload extends \lib\Entity {
 
 	protected $_id,
 		$_id_user,
