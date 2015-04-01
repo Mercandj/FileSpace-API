@@ -99,7 +99,7 @@ class FileDownload extends \lib\Entity {
 		if(!empty($longitude))
 			$this->_longitude = $longitude;
 	}
-	public function setPublic($latitude) {
+	public function setLatitude($latitude) {
 		if(!empty($latitude))
 			$this->_latitude = $latitude;
 	}

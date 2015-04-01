@@ -527,7 +527,7 @@ class FileController extends \lib\Controller {
 				if(is_file($file_name)) {
 
 					$fileDownloadManager = $this->getManagerof('FileDownload');
-					/*
+					
 					$fileDownload = new FileDownload(array(
 						'id'=> 0,
 						'title' => $file->getName(),
@@ -538,7 +538,7 @@ class FileController extends \lib\Controller {
 						'size' => $file->getSize(),
 						'content' => $file->getContent(),
 						'type' => $file->getType()
-					));*/
+					));
 					//$fileDownloadManager->add($fileDownload);
 
 					// required for IE
