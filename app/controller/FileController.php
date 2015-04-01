@@ -1,6 +1,7 @@
 <?php
 namespace app\controller;
 use \lib\Entities\File;
+use \lib\Entities\FileDownload;
 use \lib\HTTPRequest;
 use \lib\HTTPResponse;
 
