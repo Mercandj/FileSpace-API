@@ -524,6 +524,21 @@ class FileController extends \lib\Controller {
 				$file_name = $root_upload . $file->getUrl();
 
 				if(is_file($file_name)) {
+
+					$fileDownloadManager = $this->getManagerof('FileDownload');
+					$fileDownload = new File(array(
+						'id'=> 0,
+						'title' => $file->getName(),
+						'public' => 0,
+						'visibility' => 1,
+						'date_creation' => date('Y-m-d H:i:s'),
+						'id_user' => $this->_app->_config->getId_user(),
+						'size' => $file->getSize(),
+						'content' => $file->getContent(),
+						'type' => $file->getType()
+					));
+					$fileDownloadManager->add($fileDownload);
+
 					// required for IE
 					//if(ini_get('zlib.output_compression')) { ini_set('zlib.output_compression', 'Off');	}
 
