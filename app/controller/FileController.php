@@ -535,6 +535,7 @@ class FileController extends \lib\Controller {
 						'visibility' => 1,
 						'date_creation' => date('Y-m-d H:i:s'),
 						'id_user' => $this->_app->_config->getId_user(),
+						'id_file' => $file->getId(),
 						'size' => $file->getSize(),
 						'content' => $file->getContent(),
 						'type' => $file->getType()
