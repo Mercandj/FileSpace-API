@@ -155,7 +155,7 @@ class ConversationMessageController extends \lib\Controller {
 			}
 			else {
 
-				for($i = 0; $i < count($user_array); $i++) {
+				for($i = 0; $i < count($id_user_array); $i++) {
 					$conversations_array[] = $conversationUserManager->getAllByUserId($id_user_array[$i]);
 				}
 
