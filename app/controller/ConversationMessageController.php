@@ -161,13 +161,20 @@ class ConversationMessageController extends \lib\Controller {
 
 				for($i1 = 0; $i1 < count($conversations_array); $i1++) {
 					$conversations1 = $conversations_array[$i1];
+
+					$json['debug-0'] = '' . count($conversations_array);
+
 					for($j1 = 0; $j1 < count($conversations1); $j1++) {
 						$conversation1 = $conversations1[$j1];
+
+						$json['debug-1'] = '' . count($conversations1);
 
 						for($i2 = 0; $i2 < count($conversations_array); $i2++) {
 
 							// if user !=
 							if($i1 != $i2) {
+
+								$json['debug-2'] = '' . count($conversations_array);
 
 								$conversations2 = $conversations_array[$i2];
 								for($j2 = 0; $j2 < count($conversations2); $j2++) {
@@ -178,13 +185,15 @@ class ConversationMessageController extends \lib\Controller {
 										$conversation_pot = $conversationManager->getByUId($conversation1->getId());
 
 										if(intval($conversation_pot->getTo_all()) != 1 && intval($conversation_pot->getTo_yourself()) != 1)
-											$conversations_pot[] = $conversations1[$j1];
+											$conversations_pot[] = $conversation_pot;
 									}									
 								}
 							}
 						}
 					}
 				}
+
+				$json['debug-conversations-pot'] = count($conversations_pot);
 
 				foreach ($conversations_pot as $conversation_) {
 					if(!$conversationUserManager->containsOtherUsers($conversation_->getId(), $id_user_array)) {
@@ -196,9 +205,9 @@ class ConversationMessageController extends \lib\Controller {
 				if($conversation == null) {
 
 					$conversation = new Conversation(array(
-					'id'=> 0,
-					'id_user' => intval($id_user),
-					'date_creation' => $date
+						'id'=> 0,
+						'id_user' => intval($id_user),
+						'date_creation' => $date
 					));
 					$conversationManager->add($conversation);
 					$conversation = $conversationManager->getByDate($conversation);
