@@ -162,33 +162,21 @@ class ConversationMessageController extends \lib\Controller {
 				for($i1 = 0; $i1 < count($conversations_array); $i1++) {
 					$conversations1 = $conversations_array[$i1];
 
-					$json['debug-0'] = '' . count($conversations_array);
-
 					for($j1 = 0; $j1 < count($conversations1); $j1++) {
 						$conversation1 = $conversations1[$j1];
-
-						$json['debug-1'] = '' . count($conversations1);
 
 						for($i2 = 0; $i2 < count($conversations_array); $i2++) {
 
 							// if user !=
 							if($i1 != $i2) {
 
-								$json['debug-2'] = '' . count($conversations_array);
-
 								$conversations2 = $conversations_array[$i2];
 								for($j2 = 0; $j2 < count($conversations2); $j2++) {
 									$conversation2 = $conversations2[$j2];
 
-									$json['debug-3'] = '' . count($conversations_array);
-
 									if($conversation1->getId_conversation() == $conversation2->getId_conversation()) {
 
-										$json['debug-4'] = '' . count($conversations_array);
-
 										$conversation_pot = $conversationManager->getById($conversation1->getId_conversation());
-
-										$json['debug-5'] = intval($conversation_pot->getTo_all()) . ' ' . intval($conversation_pot->getTo_yourself());
 
 										if(intval($conversation_pot->getTo_all()) != 1 && intval($conversation_pot->getTo_yourself()) != 1)
 											$conversations_pot[] = $conversation_pot;
