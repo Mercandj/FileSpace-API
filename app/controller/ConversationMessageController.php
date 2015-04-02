@@ -122,6 +122,8 @@ class ConversationMessageController extends \lib\Controller {
 					$conversations_array[] = $conversationUserManager->getAllByUserId($id_user_array[$i]);
 				}
 
+				$json['coucou'] = 'false '.count($conversations_array).' '.$id_user_array[count($conversations_array)-1];
+
 				foreach ($conversations_array as $conversation_) {
 					if (! ($conversation_ instanceof ConversationUser))
 						break;
