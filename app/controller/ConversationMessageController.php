@@ -180,9 +180,15 @@ class ConversationMessageController extends \lib\Controller {
 								for($j2 = 0; $j2 < count($conversations2); $j2++) {
 									$conversation2 = $conversations2[$j2];
 
+									$json['debug-3'] = '' . count($conversations_array);
+
 									if($conversation1->getId() == $conversation2->getId()) {
 
+										$json['debug-4'] = '' . count($conversations_array);
+
 										$conversation_pot = $conversationManager->getByUId($conversation1->getId());
+
+										$json['debug-5'] = intval($conversation_pot->getTo_all()) . ' ' . intval($conversation_pot->getTo_yourself());
 
 										if(intval($conversation_pot->getTo_all()) != 1 && intval($conversation_pot->getTo_yourself()) != 1)
 											$conversations_pot[] = $conversation_pot;
