@@ -44,7 +44,7 @@ class ConversationManager extends \lib\Manager {
 	}
 
 	public function getByDate(Conversation $conversation) {
-		$id_user = $user->getId_user();
+		$id_user = $conversation->getId_user();
 		$date_creation = $conversation->getDate_creation();
 
 		$req = $this->_db->prepare('SELECT * FROM conversation WHERE id_user = :id_user AND date_creation = :date_creation');
