@@ -182,7 +182,7 @@ class ConversationMessageController extends \lib\Controller {
 
 									$json['debug-3'] = '' . count($conversations_array);
 
-									if($conversation1->getId() == $conversation2->getId()) {
+									if($conversation1->getId_conversation() == $conversation2->getId_conversation()) {
 
 										$json['debug-4'] = '' . count($conversations_array);
 
