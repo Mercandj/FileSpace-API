@@ -1,14 +1,13 @@
 <?php
 namespace lib\Models;
-use \lib\Entities\UserMessage;
+use \lib\Entities\ConversationMessage;
 
-class UserMessageManager extends \lib\Manager {
+class ConversationMessageManager extends \lib\Manager {
 	protected static $instance;
 
-	public function addToUser(UserMessage $message) {
+	public function add(ConversationMessage $message) {
 		$id_user = $message->getId_user();
-		$id_user_recipient = $message->getId_user_recipient();
-		$id_user_group_type_recipient = $message->getId_user_group_type_recipient();
+		$id_conversation = $message->getId_conversation();
 		$content = $message->getContent();
 		$date_creation = $message->getDate_creation();
 		$visibility = $message->getVisibility();
@@ -16,13 +15,10 @@ class UserMessageManager extends \lib\Manager {
 
 		if(empty($visibility)) 	$visibility = 1;
 		if(empty($public)) 		$public = 0;
-		if(empty($id_user_recipient)) 				$id_user_recipient = -1;
-		if(empty($id_user_group_type_recipient)) 	$id_user_group_type_recipient = -1;
 		
-		$req = $this->_db->prepare('INSERT INTO `user_message`(id_user,id_user_recipient,id_user_group_type_recipient,content,date_creation,visibility,public) VALUES (:id_user, :id_user_recipient, :id_user_group_type_recipient, :content, :date_creation, :visibility, :public)');
+		$req = $this->_db->prepare('INSERT INTO `conversation_message`(id_user,id_conversation,content,date_creation,visibility,public) VALUES (:id_user, :id_conversation, :content, :date_creation, :visibility, :public)');
 		$req->bindParam(':id_user',$id_user,\PDO::PARAM_INT);
-		$req->bindParam(':id_user_recipient',$id_user_recipient,\PDO::PARAM_INT);
-		$req->bindParam(':id_user_group_type_recipient',$id_user_group_type_recipient,\PDO::PARAM_INT);
+		$req->bindParam(':id_conversation',$id_conversation,\PDO::PARAM_INT);
 		$req->bindParam(':content',$content,\PDO::PARAM_STR);
 		$req->bindParam(':date_creation',$date_creation,\PDO::PARAM_STR);
 		$req->bindParam(':visibility',$visibility,\PDO::PARAM_INT);
@@ -32,17 +28,17 @@ class UserMessageManager extends \lib\Manager {
 	}
 
 	public function delete($id) {
-		$req = $this->_db->prepare('DELETE FROM user_message WHERE id = :id');
+		$req = $this->_db->prepare('DELETE FROM conversation_message WHERE id = :id');
     	$req->bindParam(':id', $id, \PDO::PARAM_INT);
     	$req->execute();
 		$req->closeCursor();
 	}
 
-	public function update(UserMessage $message) {		
+	public function update(ConversationMessage $message) {		
 		$id = $message->getId();
 		$content = $message->getContent();
 
-		$req = $this->_db->prepare('UPDATE user_message SET content = :content WHERE id = :id');
+		$req = $this->_db->prepare('UPDATE conversation_message SET content = :content WHERE id = :id');
 		$req->bindParam(':id',$id,\PDO::PARAM_INT);
 		$req->bindParam(':content',$content,\PDO::PARAM_STR);
 		$req->execute();
@@ -50,27 +46,27 @@ class UserMessageManager extends \lib\Manager {
 	}
 
 	public function getById($id) {
-		$req = $this->_db->prepare('SELECT * FROM user_message WHERE id = :id');
+		$req = $this->_db->prepare('SELECT * FROM conversation_message WHERE id = :id');
     	$req->bindParam(':id', $id, \PDO::PARAM_INT);
     	$req->execute();
 
     	$donnee = $req->fetch(\PDO::FETCH_ASSOC);
     	$req->closeCursor();
-    	return new UserMessage($donnee);
+    	return new ConversationMessage($donnee);
 	}
 
 	public function getAll() {
 		$users = [];
-		$req = $this->_db->prepare('SELECT * FROM user_message');
+		$req = $this->_db->prepare('SELECT * FROM conversation_message');
 		$req->execute();
     	while ($donnees = $req->fetch(\PDO::FETCH_ASSOC))
-	    	$users[] = new UserMessage($donnees);
+	    	$users[] = new ConversationMessage($donnees);
 	    $req->closeCursor();
 	    return $users;
 	}
 
 	public function existById($id) {
-		$req = $this->_db->prepare('SELECT id FROM user_message WHERE id = :id');
+		$req = $this->_db->prepare('SELECT id FROM conversation_message WHERE id = :id');
     	$req->bindParam(':id', $id,\PDO::PARAM_INT);
     	$req->execute();
 

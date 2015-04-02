@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS `User` (
   `age` TINYINT NULL,
   `sexe` TINYINT(1) NULL,
   `admin` TINYINT(1) NOT NULL DEFAULT '0',
-  `url_image_profil` VARCHAR(100) NULL,
+  `id_file_picture` INT NULL,
   `description` VARCHAR(999) NULL,  
   `language` VARCHAR(50) NULL,
   `longitude` VARCHAR(80) NULL,
@@ -87,12 +87,61 @@ ENGINE = MyISAM;
 SHOW WARNINGS;
 
 -- -----------------------------------------------------
--- Table `User_Message`
+-- Table `Conversation`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `User_Message` ;
+DROP TABLE IF EXISTS `Conversation` ;
 
 SHOW WARNINGS;
-CREATE TABLE IF NOT EXISTS `User_Message` (
+CREATE TABLE IF NOT EXISTS `Conversation` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `id_user` INT NOT NULL,
+  `title` VARCHAR(500) NULL,
+  `visibility` TINYINT NOT NULL DEFAULT 1,
+  `public` TINYINT NOT NULL DEFAULT 0,
+  `date_creation` DATETIME NULL,
+  `type` VARCHAR(60) NULL,
+  `content` VARCHAR(9999) NULL,
+  `id_file_picture` INT NULL,
+  `description` VARCHAR(999) NULL,
+  `longitude` VARCHAR(80) NULL,
+  `latitude` VARCHAR(80) NULL,
+  PRIMARY KEY (`id`))
+ENGINE = MyISAM;
+
+SHOW WARNINGS;
+
+-- -----------------------------------------------------
+-- Table `Conversation_User`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `Conversation_User` ;
+
+SHOW WARNINGS;
+CREATE TABLE IF NOT EXISTS `Conversation_User` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `id_conversation` INT NOT NULL,
+  `id_user` INT NOT NULL,
+  `title` VARCHAR(500) NULL,
+  `visibility` TINYINT NOT NULL DEFAULT 1,
+  `public` TINYINT NOT NULL DEFAULT 0,
+  `date_creation` DATETIME NULL,
+  `type` VARCHAR(60) NULL,
+  `content` VARCHAR(9999) NULL,
+  `id_file_picture` INT NULL,
+  `description` VARCHAR(999) NULL,
+  `longitude` VARCHAR(80) NULL,
+  `latitude` VARCHAR(80) NULL,
+  PRIMARY KEY (`id`))
+ENGINE = MyISAM;
+
+SHOW WARNINGS;
+
+-- -----------------------------------------------------
+-- Table `Conversation_Message`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `Conversation_Message` ;
+
+SHOW WARNINGS;
+CREATE TABLE IF NOT EXISTS `Conversation_Message` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `title` VARCHAR(500) NULL,
   `visibility` TINYINT NOT NULL DEFAULT 1,
@@ -101,8 +150,7 @@ CREATE TABLE IF NOT EXISTS `User_Message` (
   `type` VARCHAR(60) NULL,
   `content` VARCHAR(9999) NULL,
   `id_user` INT NOT NULL,
-  `id_user_recipient` INT NULL,
-  `id_user_group_type_recipient` VARCHAR(60) NULL,
+  `id_conversation` INT NOT NULL,
   `id_file` INT NULL,
   `description` VARCHAR(999) NULL,
   `longitude` VARCHAR(80) NULL,
