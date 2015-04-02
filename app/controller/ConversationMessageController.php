@@ -122,7 +122,7 @@ class ConversationMessageController extends \lib\Controller {
 					$conversations_array[] = $conversationUserManager->getAllByUserId($id_user_array[$i]);
 				}
 
-				if(!empty($conversations_array)
+				if(!empty($conversations_array))
 					foreach ($conversations_array as $conversation_) {
 						$conversation_tmp = $conversationManager->getById($conversation_->getId());
 						if( $conversation_tmp->getTo_yourself() ) {
