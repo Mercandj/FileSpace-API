@@ -123,6 +123,8 @@ class ConversationMessageController extends \lib\Controller {
 				}
 
 				foreach ($conversations_array as $conversation_) {
+					if (! ($conversation_ instanceof ConversationUser)
+						break;
 					$conversation_tmp = $conversationManager->getById($conversation_->getId_conversation());
 					if( $conversation_tmp->getTo_yourself() ) {
 						$conversation = $conversation_tmp;
