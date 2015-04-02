@@ -120,7 +120,9 @@ class ConversationMessageController extends \lib\Controller {
 			if(intval($id_user) == intval($id)) {
 				for($i = 0; $i < count($id_user_array); $i++) {
 					$conversations_array[] = $conversationUserManager->getAllByUserId($id_user_array[$i]);
+				}
 
+				if(!empty($conversations_array)
 					foreach ($conversations_array as $conversation_) {
 						$conversation_tmp = $conversationManager->getById($conversation_->getId());
 						if( $conversation_tmp->getTo_yourself() ) {
@@ -128,7 +130,6 @@ class ConversationMessageController extends \lib\Controller {
 							break;
 						}
 					}
-				}
 
 				if($conversation == null) {
 
