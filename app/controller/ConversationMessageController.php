@@ -118,7 +118,7 @@ class ConversationMessageController extends \lib\Controller {
 			$id_user_array[] = intval($id);
 
 			if(intval($id_user) == intval($id)) {
-				for($i = 0; $i < count($user_array); $i++) {
+				for($i = 0; $i < count($id_user_array); $i++) {
 					$conversations_array[] = $conversationUserManager->getAllByUserId($id_user_array[$i]);
 
 					foreach ($conversations_array as $conversation_) {
