@@ -55,7 +55,6 @@ class ConversationUserManager extends \lib\Manager {
     	return new ConversationUser($donnee);
 	}
 
-
 	public function containsOtherUsers($id_conversation, $id_user_array) {
 		$reqWhere = '';
 		foreach ($id_user_array as $id_user) {
