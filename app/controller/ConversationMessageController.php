@@ -218,10 +218,6 @@ class ConversationMessageController extends \lib\Controller {
 				}
 			}
 
-			
-
-			
-
 			$conversationMessage = new ConversationMessage(array(
 				'id'=> 0,
 				'id_user' => intval($id_user),
