@@ -6,7 +6,7 @@ class ConversationManager extends \lib\Manager {
 	protected static $instance;
 
 	public function add(Conversation $conversation) {
-		$id_user = $user->getId_user();
+		$id_user = $conversation->getId_user();
 		$content = $conversation->getContent();
 		$date_creation = $conversation->getDate_creation();
 		$visibility = $conversation->getVisibility();
