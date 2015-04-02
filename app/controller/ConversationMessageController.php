@@ -118,16 +118,11 @@ class ConversationMessageController extends \lib\Controller {
 			$id_user_array[] = intval($id);
 
 			if(intval($id_user) == intval($id)) {
-				for($i = 0; $i < count($id_user_array); $i++) {
-					$conversations_array[] = $conversationUserManager->getAllByUserId($id_user_array[$i]);
-				}
+				$conversations = $conversationUserManager->getAllByUserId($id_user);
 
-				$json['coucou'] = 'false '.count($conversations_array).' '.$id_user_array[count($conversations_array)-1];
-
-				foreach ($conversations_array as $conversation_) {
+				foreach ($conversations as $conversation_) {
 					if (! ($conversation_ instanceof ConversationUser))
 						break;
-					$json['coucou'] = 'true';
 					$conversation_tmp = $conversationManager->getById($conversation_->getId_conversation());
 					if( $conversation_tmp->getTo_yourself() ) {
 						$conversation = $conversation_tmp;
