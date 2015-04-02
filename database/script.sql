@@ -98,6 +98,8 @@ CREATE TABLE IF NOT EXISTS `Conversation` (
   `title` VARCHAR(500) NULL,
   `visibility` TINYINT NOT NULL DEFAULT 1,
   `public` TINYINT NOT NULL DEFAULT 0,
+  `to_yourself` TINYINT NOT NULL DEFAULT 0,
+  `to_all` TINYINT NOT NULL DEFAULT 0,
   `date_creation` DATETIME NULL,
   `type` VARCHAR(60) NULL,
   `content` VARCHAR(9999) NULL,

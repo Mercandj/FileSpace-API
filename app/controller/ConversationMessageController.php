@@ -109,71 +109,116 @@ class ConversationMessageController extends \lib\Controller {
 
 		else {
 
+			$date = date('Y-m-d H:i:s');
 			$conversation = null;
-
 			$id_user_array = [];
 			$conversations_array = [];
 			$conversations_pot = [];
-
 			$id_user_array[] = intval($id_user);
 			$id_user_array[] = intval($id);
 
-			for($i = 0; $i < count($user_array); $i++) {
-				$conversations_array[] = $conversationUserManager->getAllByUserId($id_user_array[$i]);
-			}
+			if(intval($id_user) == intval($id)) {
+				for($i = 0; $i < count($user_array); $i++) {
+					$conversations_array[] = $conversationUserManager->getAllByUserId($id_user_array[$i]);
 
-			for($i1 = 0; $i1 < count($conversations_array); $i1++) {
-				$conversations1 = $conversations_array[$i1];
-				for($j1 = 0; $j1 < count($conversations1); $j1++) {
-					$conversation1 = $conversations1[$j1];
-
-					for($i2 = 0; $i2 < count($conversations_array); $i2++) {
-
-						// if user !=
-						if($i1 != $i2) {
-
-							$conversations2 = $conversations_array[$i2];
-							for($j2 = 0; $j2 < count($conversations2); $j2++) {
-								$conversation2 = $conversations2[$j2];
-
-								if($conversation1->getId() == $conversation2->getId())
-									$conversations_pot[] = $conversations1[$j1];
-							}
+					foreach ($conversations_array as $conversation_) {
+						$conversation_tmp = $conversationManager->getById($conversation_->getId());
+						if( $conversation_tmp->getTo_yourself() ) {
+							$conversation = $conversation_tmp;
+							break;
 						}
 					}
 				}
-			}
 
-			foreach ($conversations_pot as $conversation_) {
-				if(!$conversationUserManager->containsOtherUsers($conversation_->getId(), $id_user_array)) {
-					$conversation = $conversation_;
-					break;
-				}
-			}
+				if($conversation == null) {
 
-			$date = date('Y-m-d H:i:s');
+					$conversation = new Conversation(array(
+						'id'=> 0,
+						'id_user' => intval($id_user),
+						'date_creation' => $date,
+						'to_yourself' => 1
+					));
+					$conversationManager->add($conversation);
+					$conversation = $conversationManager->getByDate($conversation);
+					$id_conversation = intval($conversation->getId());
 
-			if($conversation == null) {
-
-				$conversation = new Conversation(array(
-				'id'=> 0,
-				'id_user' => intval($id_user),
-				'date_creation' => $date
-				));
-				$conversationManager->add($conversation);
-				$conversation = $conversationManager->getByDate($conversation);
-				$id_conversation = intval($conversation->getId());
-
-				foreach ($id_user_array as $id_user_) {
 					$conversationUser = new ConversationUser(array(
 						'id'=> 0,
-						'id_user' => intval($id_user_),
+						'id_user' => intval($id_user),
 						'id_conversation' => $id_conversation,
 						'date_creation' => $date
 					));
 					$conversationUserManager->add($conversationUser);
+					
+				}
+
+			}
+			else {
+
+				for($i = 0; $i < count($user_array); $i++) {
+					$conversations_array[] = $conversationUserManager->getAllByUserId($id_user_array[$i]);
+				}
+
+				for($i1 = 0; $i1 < count($conversations_array); $i1++) {
+					$conversations1 = $conversations_array[$i1];
+					for($j1 = 0; $j1 < count($conversations1); $j1++) {
+						$conversation1 = $conversations1[$j1];
+
+						for($i2 = 0; $i2 < count($conversations_array); $i2++) {
+
+							// if user !=
+							if($i1 != $i2) {
+
+								$conversations2 = $conversations_array[$i2];
+								for($j2 = 0; $j2 < count($conversations2); $j2++) {
+									$conversation2 = $conversations2[$j2];
+
+									if($conversation1->getId() == $conversation2->getId()) {
+
+										$conversation_pot = $conversationManager->getByUId($conversation1->getId());
+
+										if(intval($conversation_pot->getTo_all()) != 1 && intval($conversation_pot->getTo_yourself()) != 1)
+											$conversations_pot[] = $conversations1[$j1];
+									}									
+								}
+							}
+						}
+					}
+				}
+
+				foreach ($conversations_pot as $conversation_) {
+					if(!$conversationUserManager->containsOtherUsers($conversation_->getId(), $id_user_array)) {
+						$conversation = $conversation_;
+						break;
+					}
+				}
+
+				if($conversation == null) {
+
+					$conversation = new Conversation(array(
+					'id'=> 0,
+					'id_user' => intval($id_user),
+					'date_creation' => $date
+					));
+					$conversationManager->add($conversation);
+					$conversation = $conversationManager->getByDate($conversation);
+					$id_conversation = intval($conversation->getId());
+
+					foreach ($id_user_array as $id_user_) {
+						$conversationUser = new ConversationUser(array(
+							'id'=> 0,
+							'id_user' => intval($id_user_),
+							'id_conversation' => $id_conversation,
+							'date_creation' => $date
+						));
+						$conversationUserManager->add($conversationUser);
+					}
 				}
 			}
+
+			
+
+			
 
 			$conversationMessage = new ConversationMessage(array(
 				'id'=> 0,
@@ -191,7 +236,7 @@ class ConversationMessageController extends \lib\Controller {
 			$json['debug-username'] = $userManager->getById($id)->getUsername();
 			$json['debug-message'] = $conversationMessage->toArray();
 			$json['toast'] = 'Message sent.';
-			$json['succeed'] = true;			
+			$json['succeed'] = true;
 		}
 
 		HTTPResponse::send(json_encode($json));

@@ -8,7 +8,9 @@ class Conversation extends \lib\Entity{
 		$_content,
 		$_date_creation,
 		$_visibility,
-		$_public;
+		$_public,
+		$_to_all,
+		$_to_yourself;
 
 
 	public function getId() {
@@ -28,6 +30,12 @@ class Conversation extends \lib\Entity{
 	}
 	public function getPublic() {
 		return $this->_public;
+	}
+	public function getTo_all() {
+		return $this->_to_all;
+	}
+	public function getTo_yourself() {
+		return $this->_to_yourself;
 	}
 
 
@@ -55,6 +63,14 @@ class Conversation extends \lib\Entity{
 		if(!empty($public))
 			$this->_public = $public;
 	}
+	public function setTo_all($to_all) {
+		if(!empty($to_all))
+			$this->_to_all = $to_all;
+	}
+	public function setTo_yourself($to_yourself) {
+		if(!empty($to_yourself))
+			$this->_to_yourself = $to_yourself;
+	}
 
 
 	public function isValid() {
@@ -72,6 +88,10 @@ class Conversation extends \lib\Entity{
 			$json['visibility'] = $this->getVisibility();
 		if($this->getPublic()!=null)
 			$json['public'] = $this->getPublic();
+		if($this->getTo_all()!=null)
+			$json['to_all'] = $this->getTo_all();
+		if($this->getTo_yourself()!=null)
+			$json['to_yourself'] = $this->getTo_yourself();
         return $json;
     }
 }
