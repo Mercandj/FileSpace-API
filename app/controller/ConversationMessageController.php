@@ -186,7 +186,7 @@ class ConversationMessageController extends \lib\Controller {
 
 										$json['debug-4'] = '' . count($conversations_array);
 
-										$conversation_pot = $conversationManager->getByUId($conversation1->getId());
+										$conversation_pot = $conversationManager->getById($conversation1->getId_conversation());
 
 										$json['debug-5'] = intval($conversation_pot->getTo_all()) . ' ' . intval($conversation_pot->getTo_yourself());
 
