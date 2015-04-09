@@ -32,29 +32,25 @@ class FileController extends \lib\Controller {
 		if(HTTPRequest::getExist('url'))
 			$url = HTTPRequest::getData('url');
 
-		$id_file_parent = -1;
-		if(HTTPRequest::getExist('id_file_parent'))
-			$id_file_parent = HTTPRequest::getData('id_file_parent');
-
 		if($all) {
 			if(HTTPRequest::getExist('search'))
-				$list_file = $this->getManagerof('File')->getAll($id_user, $id_file_parent, HTTPRequest::getData('search'));
+				$list_file = $this->getManagerof('File')->getAll($id_user, HTTPRequest::getData('search'));
 			else
-				$list_file = $this->getManagerof('File')->getAll($id_user, $id_file_parent);
+				$list_file = $this->getManagerof('File')->getAll($id_user);
 		}
 
 		else if($all_public) {
 			if(HTTPRequest::getExist('search'))
-				$list_file = $this->getManagerof('File')->getPublic(0, $id_file_parent, HTTPRequest::getData('search'));
+				$list_file = $this->getManagerof('File')->getPublic(0, HTTPRequest::getData('search'));
 			else
-				$list_file = $this->getManagerof('File')->getPublic(0, $id_file_parent);
+				$list_file = $this->getManagerof('File')->getPublic(0);
 		}
 
 		else {
 			if(HTTPRequest::getExist('search'))
-				$list_file = $this->getManagerof('File')->getByParentId($id_user, $id_file_parent, HTTPRequest::getData('search'));
+				$list_file = $this->getManagerof('File')->getByParentId($id_user, HTTPRequest::getData('search'));
 			else
-				$list_file = $this->getManagerof('File')->getByParentId($id_user, $id_file_parent);
+				$list_file = $this->getManagerof('File')->getByParentId($id_user);
 		}
 		
 		foreach ($list_file as $file) {
