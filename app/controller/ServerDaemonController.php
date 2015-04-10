@@ -90,11 +90,14 @@ class ServerDaemonController extends \lib\Controller {
 					$server_daemon->setRunning(0);
 					$serverDaemonManager->updateRunning($server_daemon);
 
-					$server_daemon->setContent('http://'.$_SERVER['HTTP_HOST'].'/launchdaemon/'.($server_daemon->getId()));
-					$serverDaemonManager->updateContent($server_daemon);
+					
 
 					// TODO curl request to launchDaemon($id)
-					$url = 'http://'.$_SERVER['HTTP_HOST'].'/launchdaemon/'.($server_daemon->getId());
+					$url = 'http://'.$_SERVER['HTTP_HOST'].$this->_app->_config->get('root').'/launchdaemon/'.($server_daemon->getId());
+				    
+					$server_daemon->setContent($url);
+					$serverDaemonManager->updateContent($server_daemon);
+
 				    $fields = array(
 				        'test' => 'test1'
 				    ); 
