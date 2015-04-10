@@ -35,7 +35,6 @@ class ServerDaemonController extends \lib\Controller {
 		$serverDaemonPingManager = $this->getManagerof('ServerDaemonPing');
 
 		$id_user = $this->_app->_config->getId_user();
-
 		$server_daeomn_array = $serverDaemonManager->getAllByServerId(1);
 		if(is_array($server_daeomn_array))
 			if(sizeof($server_daeomn_array) > 0) {
@@ -67,6 +66,7 @@ class ServerDaemonController extends \lib\Controller {
 		$serverDaemonManager = $this->getManagerof('ServerDaemon');
 		$serverDaemonPingManager = $this->getManagerof('ServerDaemonPing');
 
+		$id_user = $this->_app->_config->getId_user();
 		$server_daeomn_array = $serverDaemonManager->getAllByServerId(1);
 		$serverDaemon = new ServerDaemon(array(
 			'id'=> 0,
