@@ -50,7 +50,7 @@ class ServerDaemonController extends \lib\Controller {
 			'visibility' => 1,
 			'date_creation' => date('Y-m-d H:i:s'),
 			'id_user' => $id_user,
-			'id_server_daemon' => 0
+			'id_server_daemon' => 1
 		));
 
 		$serverDaemonManager->add($serverDaemon);
