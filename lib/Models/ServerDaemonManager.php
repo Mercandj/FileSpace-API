@@ -7,6 +7,7 @@ class ServerDaemonManager extends \lib\Manager {
 
 	public function add(ServerDaemon $serverDaemon) {
 		$id_user = $serverDaemon->getId_user();
+		$id_server_daemon = $serverDaemon->getId_server_daemon();
 		$date_creation = $serverDaemon->getDate_creation();
 		$visibility = $serverDaemon->getVisibility();
 		$public = $serverDaemon->getPublic();
