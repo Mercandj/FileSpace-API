@@ -134,8 +134,7 @@ class ServerDaemon extends \lib\Entity {
 	}
 	public function toArray() {
 		$json['id'] = $this->getId();
-		if($this->getId_server_daemon()!=null)
-			$json['id_server_daemon'] = $this->getId_server_daemon();
+		$json['id_server_daemon'] = $this->getId_server_daemon();
 		if($this->getId_user()!=null)
 			$json['id_user'] = $this->getId_user();
 		if($this->getId_file()!=null)
