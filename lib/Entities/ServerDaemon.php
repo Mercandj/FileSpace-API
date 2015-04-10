@@ -115,12 +115,10 @@ class ServerDaemon extends \lib\Entity {
 			$this->_public = $public;
 	}
 	public function setRunning($running) {
-		if(!empty($running))
-			$this->_running = $running;
+		$this->_running = $running;
 	}
 	public function setActivate($activate) {
-		if(!empty($activate))
-			$this->_activate = $activate;
+		$this->_activate = $activate;
 	}
 	public function setLongitude($longitude) {
 		if(!empty($longitude))
@@ -160,10 +158,8 @@ class ServerDaemon extends \lib\Entity {
 			$json['visibility'] = $this->getVisibility();
 		if($this->getPublic()!=null)
 			$json['public'] = $this->getPublic();
-		if($this->getRunning()!=null)
-			$json['running'] = $this->getRunning();
-		if($this->getActivate()!=null)
-			$json['activate'] = $this->getActivate();
+		$json['running'] = $this->getRunning();
+		$json['activate'] = $this->getActivate();
 		if($this->getLongitude()!=null)
 			$json['longitude'] = $this->getLongitude();
 		if($this->getLatitude()!=null)
