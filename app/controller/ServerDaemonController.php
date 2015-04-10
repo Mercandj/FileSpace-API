@@ -54,7 +54,7 @@ class ServerDaemonController extends \lib\Controller {
 		));
 
 		$serverDaemonManager->add($serverDaemon);
-		$json['succeed'] = false;
+		$json['succeed'] = true;
 		$json['toast'] = 'Daemon has been added.';
 
 		HTTPResponse::send(json_encode($json, JSON_NUMERIC_CHECK));
@@ -69,7 +69,7 @@ class ServerDaemonController extends \lib\Controller {
 
 		$server_daemon_array = $serverDaemonManager->getAll();
 		foreach ($server_daemon_array as $server_daemon) {
-			if($server_daemon->getActivity()==1 && $server_daemon->getRunning()==1) {
+			if($server_daemon->getActivite()==1 && $server_daemon->getRunning()==1) {
 				$serverDaemonPingManager->getByServerDaemonId($server_daemon->getId());
 				// TODO
 			}

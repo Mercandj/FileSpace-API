@@ -252,7 +252,7 @@ CREATE TABLE IF NOT EXISTS `Server_Daemon` (
   `public` TINYINT NOT NULL DEFAULT 0,
   `running` TINYINT NOT NULL DEFAULT 0,
   `activate` TINYINT NOT NULL DEFAULT 0,
-  `id_daemon` INT NOT NULL DEFAULT -1,
+  `id_server_daemon` INT NOT NULL DEFAULT -1,
   `sleep_second` BIGINT NOT NULL DEFAULT 3600,
   `date_creation` DATETIME NULL,
   `type` VARCHAR(60) NULL,
