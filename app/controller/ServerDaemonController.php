@@ -69,7 +69,7 @@ class ServerDaemonController extends \lib\Controller {
 
 		$server_daemon_array = $serverDaemonManager->getAll();
 		foreach ($server_daemon_array as $server_daemon) {
-			if($server_daemon->getActivite()==1 && $server_daemon->getRunning()==1) {
+			if($server_daemon->getActivate()==1 && $server_daemon->getRunning()==1) {
 				$serverDaemonPingManager->getByServerDaemonId($server_daemon->getId());
 				// TODO
 			}
