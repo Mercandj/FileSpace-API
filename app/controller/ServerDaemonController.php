@@ -103,9 +103,9 @@ class ServerDaemonController extends \lib\Controller {
 	}
 
 	function isArrayEmpty($array) {
-		if(!is_array($server_daeomn_array))
+		if(!is_array($array))
 			return false;
-		return sizeof($server_daeomn_array) > 0;
+		return count($array) > 0;
 	}
 
 
