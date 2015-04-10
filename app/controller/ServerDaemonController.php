@@ -41,8 +41,6 @@ class ServerDaemonController extends \lib\Controller {
 	*	Check daemon activity
 	*/
 	public function checkDaemon() {
-		$result = [];
-		$json['succeed'] = false;
 		$serverDaemonManager = $this->getManagerof('ServerDaemon');
 		$serverDaemonPingManager = $this->getManagerof('ServerDaemonPing');
 
@@ -52,9 +50,5 @@ class ServerDaemonController extends \lib\Controller {
 				$serverDaemonPingManager->getByServerDaemonId($server_daemon->getId());
 			}
 		}
-
-		$json['succeed'] = true;
-
-		HTTPResponse::send(json_encode($json, JSON_NUMERIC_CHECK));
 	}
 }
