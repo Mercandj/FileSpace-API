@@ -24,6 +24,7 @@ class RESTapi extends \lib\Application {
 			->post('/home/:id','Home#post')
 			->post('/user_message/:id','ConversationMessage#post')
 			->get('/information','Information#get')
+			->authorize((new UserController($this))->isAdmin())
 			->get('/daemon','ServerDaemon#get')	
 			->post('/daemon','ServerDaemon#post')
 			->otherwise(function(){

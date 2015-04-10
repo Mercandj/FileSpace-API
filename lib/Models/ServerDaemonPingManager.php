@@ -2,7 +2,7 @@
 namespace lib\Models;
 use \lib\Entities\ServerDaemonPing;
 
-class ServerDaemonPing extends \lib\Manager {
+class ServerDaemonPingManager extends \lib\Manager {
 	protected static $instance;
 
 	public function add(ServerDaemonPing $serverDaemonPing) {

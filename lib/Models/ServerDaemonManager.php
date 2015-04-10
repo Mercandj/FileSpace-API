@@ -2,7 +2,7 @@
 namespace lib\Models;
 use \lib\Entities\ServerDaemon;
 
-class ServerDaemon extends \lib\Manager {
+class ServerDaemonManager extends \lib\Manager {
 	protected static $instance;
 
 	public function add(ServerDaemon $serverDaemon) {
