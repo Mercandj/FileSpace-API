@@ -44,7 +44,6 @@ class ServerDaemonController extends \lib\Controller {
 				HTTPResponse::send(json_encode($json, JSON_NUMERIC_CHECK));
 				return;
 			}
-
 		$serverDaemon = new ServerDaemon(array(
 			'id'=> 0,
 			'visibility' => 1,
@@ -52,8 +51,9 @@ class ServerDaemonController extends \lib\Controller {
 			'id_user' => $id_user,
 			'id_server_daemon' => 1
 		));
-
 		$serverDaemonManager->add($serverDaemon);
+
+
 		$json['succeed'] = true;
 		$json['toast'] = 'Daemon has been added.';
 
@@ -67,11 +67,67 @@ class ServerDaemonController extends \lib\Controller {
 		$serverDaemonManager = $this->getManagerof('ServerDaemon');
 		$serverDaemonPingManager = $this->getManagerof('ServerDaemonPing');
 
+		$server_daeomn_array = $serverDaemonManager->getAllByServerId(1);
+		$serverDaemon = new ServerDaemon(array(
+			'id'=> 0,
+			'visibility' => 1,
+			'date_creation' => date('Y-m-d H:i:s'),
+			'id_user' => $id_user,
+			'id_server_daemon' => 1,
+			'activate' => 0,
+			'running' => 0
+		));
+		if($this->isArrayEmpty($server_daeomn_array))
+			$serverDaemonManager->add($serverDaemon);
+
 		$server_daemon_array = $serverDaemonManager->getAll();
 		foreach ($server_daemon_array as $server_daemon) {
-			if($server_daemon->getActivate()==1 && $server_daemon->getRunning()==1) {
-				$serverDaemonPingManager->getByServerDaemonId($server_daemon->getId());
-				// TODO
+			if($server_daemon->getActivate()==1) {
+				$server_daeomn_ping_array = $serverDaemonPingManager->getByServerDaemonId($server_daemon->getId());				
+				if($this->isArrayEmpty($server_daeomn_ping_array))
+				{
+					// Set running to false because launchDaemon() check if the daemin is running or not.
+					$server_daemon->setRunning(0);
+					$serverDaemonManager->updateRunning($server_daemon);
+
+					// TODO curl request to launchDaemon($id)
+
+				}
+				else
+				{
+					// TODO compare the last ping date with (the daemon sleep_second  -  current date)
+				}
+			}
+		}
+		return true;
+	}
+
+	function isArrayEmpty($array) {
+		if(!is_array($server_daeomn_array))
+			return false;
+		return sizeof($server_daeomn_array) > 0;
+	}
+
+
+	function launchDaemon($id) {
+		$serverDaemonManager = $this->getManagerof('ServerDaemon');
+		$serverDaemonPingManager = $this->getManagerof('ServerDaemonPing');
+
+		if($server_daemon = $serverDaemonManager->existById($id)) {
+			$server_daemon = $serverDaemonManager->getById($id);
+
+			if($server_daemon->getRunning()==0) {
+				set_time_limit(0);
+				ignore_user_abort(1);
+
+				// TODO make daemon action
+
+				// TODO compute the sleep time
+
+				// TODO sleep
+
+				$server_daemon->setRunning(1);
+				$serverDaemonManager->updateRunning($server_daemon);
 			}
 		}
 	}

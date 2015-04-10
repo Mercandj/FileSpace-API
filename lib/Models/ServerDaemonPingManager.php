@@ -61,6 +61,17 @@ class ServerDaemonPingManager extends \lib\Manager {
 	    return $server_daemon_pings;
 	}
 
+	public function getByServerDaemonId($id_server_daemon) {
+		$server_daemon_pings = [];
+		$req = $this->_db->prepare('SELECT * FROM server_daemon_ping WHERE id_server_daemon = :id_server_daemon');
+    	$req->bindParam(':id_server_daemon', $id_server_daemon, \PDO::PARAM_INT);
+    	$req->execute();
+		while ($donnees = $req->fetch(\PDO::FETCH_ASSOC))
+	    	$server_daemon_pings[] = new ServerDaemonPing($donnees);
+	    $req->closeCursor();
+	    return $server_daemon_pings;
+	}
+
 	public function existById($id) {
 		$req = $this->_db->prepare('SELECT id FROM server_daemon_ping WHERE id = :id');
     	$req->bindParam(':id', $id,\PDO::PARAM_INT);

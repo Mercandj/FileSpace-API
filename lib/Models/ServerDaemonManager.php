@@ -39,6 +39,17 @@ class ServerDaemonManager extends \lib\Manager {
 		$req->closeCursor();
 	}
 
+	public function updateRunning(ServerDaemon $server_daemon) {		
+		$id = $server_daemon->getId();
+		$running = $server_daemon->getRunning();
+
+		$req = $this->_db->prepare('UPDATE server_daemon SET running = :running WHERE id = :id');
+		$req->bindParam(':id',$id,\PDO::PARAM_INT);
+		$req->bindParam(':running',$running,\PDO::PARAM_INT);
+		$req->execute();
+		$req->closeCursor();
+	}
+
 	public function updateContent(ServerDaemon $server_daemon) {		
 		$id = $server_daemon->getId();
 		$content = $server_daemon->getContent();
