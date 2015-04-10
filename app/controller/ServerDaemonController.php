@@ -47,7 +47,7 @@ class ServerDaemonController extends \lib\Controller {
 
 		$serverDaemon = new ServerDaemon(array(
 			'id'=> 0,
-			'visibility' => $visibility,
+			'visibility' => 1,
 			'date_creation' => date('Y-m-d H:i:s'),
 			'id_user' => $id_user,
 			'id_server_daemon' => 0
