@@ -141,6 +141,9 @@ class ServerDaemonController extends \lib\Controller {
 				set_time_limit(0);
 				ignore_user_abort(1);
 
+				$server_daemon->setRunning(1);
+				$serverDaemonManager->updateRunning($server_daemon);
+
 				// TODO make daemon action
 				if($server_daemon->getId_server_daemon() == 1) {
 					$this->sendNotif('Message from daemon ^^');
@@ -150,9 +153,6 @@ class ServerDaemonController extends \lib\Controller {
 
 				// TODO sleep
 				sleep($server_daemon->getSleep_second());
-
-				$server_daemon->setRunning(1);
-				$serverDaemonManager->updateRunning($server_daemon);
 			}
 		}
 	}
