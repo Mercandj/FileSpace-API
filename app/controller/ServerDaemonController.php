@@ -87,8 +87,11 @@ class ServerDaemonController extends \lib\Controller {
 				if($this->isArrayEmpty($server_daeomn_ping_array))
 				{
 					// Set running to false because launchDaemon() check if the daemin is running or not.
-					$server_daemon->setRunning(1);
+					$server_daemon->setRunning(0);
 					$serverDaemonManager->updateRunning($server_daemon);
+
+					$server_daemon->setContent('http://'.$_SERVER['HTTP_HOST'].'/launchdaemon/'.($server_daemon->getId()));
+					$serverDaemonManager->updateContent($server_daemon);
 
 					// TODO curl request to launchDaemon($id)
 					$url = 'http://'.$_SERVER['HTTP_HOST'].'/launchdaemon/'.($server_daemon->getId());
