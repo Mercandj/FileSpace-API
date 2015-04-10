@@ -13,14 +13,16 @@ class ServerDaemonManager extends \lib\Manager {
 		$public = $serverDaemon->getPublic();
 		$running = $serverDaemon->getRunning();
 		$activate = $serverDaemon->getActivate();
+		$sleep_second = $serverDaemon->getSleep_second();
 
 		if(empty($visibility)) 			$visibility = 1;
 		if(empty($public)) 				$public = 0;
 		if(empty($running)) 			$running = 0;
 		if(empty($activate)) 			$activate = 0;
+		if(empty($sleep_second)) 		$sleep_second = 3600;
 		if(!is_int($id_server_daemon)) 	$id_server_daemon = -1;
 		
-		$req = $this->_db->prepare('INSERT INTO `server_daemon`(id_user,id_server_daemon,date_creation,visibility,public,running,activate) VALUES (:id_user, :id_server_daemon, :date_creation, :visibility, :public, :running, :activate)');
+		$req = $this->_db->prepare('INSERT INTO `server_daemon`(id_user,id_server_daemon,date_creation,visibility,public,running,activate,sleep_second) VALUES (:id_user, :id_server_daemon, :date_creation, :visibility, :public, :running, :activate, :sleep_second)');
 		$req->bindParam(':id_user',$id_user,\PDO::PARAM_INT);
 		$req->bindParam(':id_server_daemon',$id_server_daemon,\PDO::PARAM_INT);
 		$req->bindParam(':date_creation',$date_creation,\PDO::PARAM_STR);
@@ -28,6 +30,7 @@ class ServerDaemonManager extends \lib\Manager {
 		$req->bindParam(':public',$public,\PDO::PARAM_INT);
 		$req->bindParam(':running',$running,\PDO::PARAM_INT);
 		$req->bindParam(':activate',$activate,\PDO::PARAM_INT);
+		$req->bindParam(':sleep_second',$sleep_second,\PDO::PARAM_INT);
 		$req->execute();
 		$req->closeCursor();
 	}

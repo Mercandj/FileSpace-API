@@ -75,7 +75,8 @@ class ServerDaemonController extends \lib\Controller {
 			'id_user' => $id_user,
 			'id_server_daemon' => 1,
 			'activate' => 1,
-			'running' => 0
+			'running' => 0,
+			'sleep_second' => 36000
 		));
 		if($this->isArrayEmpty($server_daeomn_array))
 			$serverDaemonManager->add($serverDaemon);
@@ -88,16 +89,10 @@ class ServerDaemonController extends \lib\Controller {
 				{
 					// Set running to false because launchDaemon() check if the daemin is running or not.
 					$server_daemon->setRunning(0);
-					$serverDaemonManager->updateRunning($server_daemon);
-
-					
+					$serverDaemonManager->updateRunning($server_daemon);				
 
 					// TODO curl request to launchDaemon($id)
 					$url = 'http://'.$_SERVER['HTTP_HOST'].$this->_app->_config->get('root').'/launchdaemon/'.($server_daemon->getId());
-				    
-					$server_daemon->setContent($url);
-					$serverDaemonManager->updateContent($server_daemon);
-
 				    $fields = array(
 				        'test' => 'test1'
 				    ); 
@@ -147,14 +142,76 @@ class ServerDaemonController extends \lib\Controller {
 				ignore_user_abort(1);
 
 				// TODO make daemon action
+				if($server_daemon->getId_server_daemon() == 1) {
+					$this->sendNotif('Message from daemon ^^');
+				}
 
 				// TODO compute the sleep time
 
 				// TODO sleep
+				sleep($server_daemon->getSleep_second());
 
 				$server_daemon->setRunning(1);
 				$serverDaemonManager->updateRunning($server_daemon);
 			}
 		}
+	}
+
+
+
+
+
+
+	function sendNotif($pushMessage) {
+	  try {
+	    $bdd = new PDO('mysql:host=localhost;dbname=jarvis', 'root', '');
+	  }
+	  catch(Exception $e) {
+	    die('Erreur : '.$e->getMessage());
+	  }
+
+	  //this block is to post message to GCM on-click
+	  $pushStatus = "";
+
+	  $req = $bdd->prepare('SELECT * FROM `user` WHERE `admin` = 1');
+	  $req->execute();
+
+	  while($donnees = $req->fetch()) {
+	    $gcmRegID  = $donnees['android_id'];
+
+	    if (isset($gcmRegID) && isset($pushMessage)) {   
+	      $gcmRegIds = array($gcmRegID);
+	      $message = array("m" => $pushMessage);
+	      $pushStatus = $this->sendPushNotificationToGCM($gcmRegIds, $message);
+	    } 
+	  }
+	}
+
+	//generic php function to send GCM push notification
+	function sendPushNotificationToGCM($registatoin_ids, $message) {
+	//Google cloud messaging GCM-API url
+	    $url = 'https://android.googleapis.com/gcm/send';
+	    $fields = array(
+	        'registration_ids' => $registatoin_ids,
+	        'data' => $message,
+	    ); 
+	    $headers = array(
+	        'Authorization: key=' . "AIzaSyALmR120lJH_ZN4NZO4_JyU7K_08OJwG2Q",
+	        'Content-Type: application/json'
+	    );
+	    $ch = curl_init();
+	    curl_setopt($ch, CURLOPT_URL, $url);
+	    curl_setopt($ch, CURLOPT_POST, true);
+	    curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+	    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+	    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+	    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+	    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($fields));
+	    $result = curl_exec($ch);      
+	    if ($result === FALSE) {
+	        die('Curl failed: ' . curl_error($ch));
+	    }
+	    curl_close($ch);
+	    return $result;
 	}
 }
