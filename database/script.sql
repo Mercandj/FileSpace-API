@@ -239,6 +239,59 @@ ENGINE = MyISAM;
 
 SHOW WARNINGS;
 
+-- -----------------------------------------------------
+-- Table `Server_Daemon`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `Server_Daemon` ;
+
+SHOW WARNINGS;
+CREATE TABLE IF NOT EXISTS `Server_Daemon` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `title` VARCHAR(500) NULL,
+  `visibility` TINYINT NOT NULL DEFAULT 1,
+  `public` TINYINT NOT NULL DEFAULT 0,
+  `running` TINYINT NOT NULL DEFAULT 0,
+  `activate` TINYINT NOT NULL DEFAULT 0,
+  `id_daemon` INT NOT NULL DEFAULT -1,
+  `sleep_second` BIGINT NOT NULL DEFAULT 3600,
+  `date_creation` DATETIME NULL,
+  `type` VARCHAR(60) NULL,
+  `content` VARCHAR(9999) NULL,
+  `id_user` INT NULL,
+  `id_file` INT NULL,
+  `description` VARCHAR(999) NULL,  
+  `size` INT UNSIGNED NOT NULL DEFAULT 0,
+  `longitude` VARCHAR(80) NULL,
+  `latitude` VARCHAR(80) NULL,
+  PRIMARY KEY (`id`))
+ENGINE = MyISAM;
+
+SHOW WARNINGS;
+
+-- -----------------------------------------------------
+-- Table `Server_Daemon_Ping`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `Server_Daemon_Ping` ;
+
+SHOW WARNINGS;
+CREATE TABLE IF NOT EXISTS `Server_Daemon_Ping` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `id_server_daemon` INT NOT NULL,
+  `title` VARCHAR(500) NULL,
+  `visibility` TINYINT NOT NULL DEFAULT 1,
+  `public` TINYINT NOT NULL DEFAULT 0,
+  `date_creation` DATETIME NULL,
+  `type` VARCHAR(60) NULL,
+  `content` VARCHAR(9999) NULL,
+  `description` VARCHAR(999) NULL,  
+  `size` INT UNSIGNED NOT NULL DEFAULT 0,
+  `longitude` VARCHAR(80) NULL,
+  `latitude` VARCHAR(80) NULL,
+  PRIMARY KEY (`id`))
+ENGINE = MyISAM;
+
+SHOW WARNINGS;
+
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;

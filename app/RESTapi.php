@@ -1,10 +1,14 @@
 <?php
 namespace app;
 use \app\controller\UserController;
+use \app\controller\ServerDaemonController;
 
 class RESTapi extends \lib\Application {
 
 	public function run() {
+
+		// check daemon
+		(new ServerDaemonController($this))->checkDaemon();
 
 		$this->_router
 			->get('/user','User#get')
@@ -19,7 +23,9 @@ class RESTapi extends \lib\Application {
 			->get('/home/:id','Home#get')
 			->post('/home/:id','Home#post')
 			->post('/user_message/:id','ConversationMessage#post')
-			->get('/information','Information#get')	
+			->get('/information','Information#get')
+			->get('/daemon','ServerDaemon#get')	
+			->post('/daemon','ServerDaemon#post')
 			->otherwise(function(){
 				\lib\HTTPResponse::redirect404();
 			});
