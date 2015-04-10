@@ -52,13 +52,13 @@ class ServerDaemonPingManager extends \lib\Manager {
 	}
 
 	public function getAll() {
-		$users = [];
+		$server_daemon_pings = [];
 		$req = $this->_db->prepare('SELECT * FROM server_daemon_ping');
 		$req->execute();
     	while ($donnees = $req->fetch(\PDO::FETCH_ASSOC))
-	    	$users[] = new ServerDaemonPing($donnees);
+	    	$server_daemon_pings[] = new ServerDaemonPing($donnees);
 	    $req->closeCursor();
-	    return $users;
+	    return $server_daemon_pings;
 	}
 
 	public function existById($id) {

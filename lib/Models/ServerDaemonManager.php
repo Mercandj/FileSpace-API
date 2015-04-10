@@ -60,6 +60,7 @@ class ServerDaemonManager extends \lib\Manager {
 	}
 
 	public function getAllByServerId($id_server_daemon) {
+		$server_daemons = [];
 		$req = $this->_db->prepare('SELECT * FROM server_daemon WHERE id_server_daemon = :id_server_daemon');
     	$req->bindParam(':id_server_daemon', $id_server_daemon, \PDO::PARAM_INT);
     	$req->execute();
@@ -70,7 +71,7 @@ class ServerDaemonManager extends \lib\Manager {
 	}
 
 	public function getAll() {
-		$users = [];
+		$server_daemons = [];
 		$req = $this->_db->prepare('SELECT * FROM server_daemon');
 		$req->execute();
     	while ($donnees = $req->fetch(\PDO::FETCH_ASSOC))
