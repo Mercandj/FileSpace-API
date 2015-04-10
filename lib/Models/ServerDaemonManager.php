@@ -18,7 +18,7 @@ class ServerDaemonManager extends \lib\Manager {
 		if(empty($public)) 				$public = 0;
 		if(empty($running)) 			$running = 0;
 		if(empty($activate)) 			$activate = 0;
-		if(empty($id_server_daemon)) 	$id_server_daemon = -1;
+		if(!is_int($id_server_daemon)) 	$id_server_daemon = -1;
 		
 		$req = $this->_db->prepare('INSERT INTO `server_daemon`(id_user,id_server_daemon,date_creation,visibility,public,running,activate) VALUES (:id_user, :id_server_daemon, :date_creation, :visibility, :public, :running, :activate)');
 		$req->bindParam(':id_user',$id_user,\PDO::PARAM_INT);
