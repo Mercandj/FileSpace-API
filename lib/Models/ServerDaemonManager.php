@@ -92,6 +92,16 @@ class ServerDaemonManager extends \lib\Manager {
 	    return $server_daemons;
 	}
 
+	public function getAllActivate() {
+		$server_daemons = [];
+		$req = $this->_db->prepare('SELECT * FROM server_daemon WHERE activate == 1');
+		$req->execute();
+    	while ($donnees = $req->fetch(\PDO::FETCH_ASSOC))
+	    	$server_daemons[] = new ServerDaemon($donnees);
+	    $req->closeCursor();
+	    return $server_daemons;
+	}
+
 	public function existById($id) {
 		$req = $this->_db->prepare('SELECT id FROM server_daemon WHERE id = :id');
     	$req->bindParam(':id', $id,\PDO::PARAM_INT);
