@@ -94,7 +94,7 @@ class ServerDaemonManager extends \lib\Manager {
 
 	public function getAllActivate() {
 		$server_daemons = [];
-		$req = $this->_db->prepare('SELECT * FROM server_daemon WHERE activate == 1');
+		$req = $this->_db->prepare('SELECT * FROM server_daemon WHERE activate = 1');
 		$req->execute();
     	while ($donnees = $req->fetch(\PDO::FETCH_ASSOC))
 	    	$server_daemons[] = new ServerDaemon($donnees);
