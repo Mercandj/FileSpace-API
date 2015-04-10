@@ -36,7 +36,7 @@ class ServerDaemonController extends \lib\Controller {
 
 		$id_user = $this->_app->_config->getId_user();
 
-		$server_daeomn_array = $serverDaemonManager->getAllByServerId(0);
+		$server_daeomn_array = $serverDaemonManager->getAllByServerId(1);
 		if(is_array($server_daeomn_array))
 			if(sizeof($server_daeomn_array) > 0) {
 				$json['succeed'] = true;
