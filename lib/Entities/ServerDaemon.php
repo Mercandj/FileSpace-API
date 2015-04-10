@@ -72,8 +72,7 @@ class ServerDaemon extends \lib\Entity {
 			$this->_id = $id;
 	}
 	public function setId_server_daemon($id_server_daemon){
-		if(is_int($id_server_daemon))
-			$this->_id_server_daemon = $id_server_daemon;
+		$this->_id_server_daemon = $id_server_daemon;
 	}
 	public function setId_user($id_user) {
 		if(!empty($id_user))
