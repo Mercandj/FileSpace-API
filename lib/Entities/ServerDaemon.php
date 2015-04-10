@@ -17,7 +17,8 @@ class ServerDaemon extends \lib\Entity {
 		$_running,
 		$_activate,
 		$_longitude,
-		$_latitude;
+		$_latitude,
+		$_sleep_second;
 
 
 	public function getId() {
@@ -64,6 +65,9 @@ class ServerDaemon extends \lib\Entity {
 	}
 	public function getLatitude() {
 		return $this->_latitude;
+	}
+	public function getSleep_second() {
+		return $this->_sleep_second;
 	}
 
 
@@ -126,6 +130,10 @@ class ServerDaemon extends \lib\Entity {
 		if(!empty($latitude))
 			$this->_latitude = $latitude;
 	}
+	public function setSleep_second($sleep_second) {
+		if(!empty($sleep_second))
+			$this->_sleep_second = $sleep_second;
+	}
 
 
 	public function isValid() {
@@ -159,7 +167,9 @@ class ServerDaemon extends \lib\Entity {
 		if($this->getLongitude()!=null)
 			$json['longitude'] = $this->getLongitude();
 		if($this->getLatitude()!=null)
-			$json['public'] = $this->getLatitude();
+			$json['latitude'] = $this->getLatitude();
+		if($this->getSleep_second()!=null)
+			$json['sleep_second'] = $this->getSleep_second();
         return $json;
     }
 }

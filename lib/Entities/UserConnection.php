@@ -121,7 +121,7 @@ class UserConnection extends \lib\Entity {
 		if($this->getLongitude()!=null)
 			$json['longitude'] = $this->getLongitude();
 		if($this->getLatitude()!=null)
-			$json['public'] = $this->getLatitude();
+			$json['latitude'] = $this->getLatitude();
         return $json;
     }
 }
