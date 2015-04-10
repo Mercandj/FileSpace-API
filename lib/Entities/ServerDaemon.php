@@ -4,7 +4,7 @@ namespace lib\Entities;
 class ServerDaemon extends \lib\Entity {
 
 	protected $_id,
-		$_id_daemon,
+		$_id_server_daemon,
 		$_id_user,
 		$_id_file,
 		$_type,
@@ -23,8 +23,8 @@ class ServerDaemon extends \lib\Entity {
 	public function getId() {
 		return $this->_id;
 	}
-	public function getId_daemon() {
-		return $this->_id_daemon;
+	public function getId_server_daemon() {
+		return $this->_id_server_daemon;
 	}
 	public function getId_user() {
 		return $this->_id_user;
@@ -71,9 +71,9 @@ class ServerDaemon extends \lib\Entity {
 		if(!empty($id))
 			$this->_id = $id;
 	}
-	public function setId_daemon($id_daemon){
-		if(!empty($id_daemon))
-			$this->_id_daemon = $id_daemon;
+	public function getId_server_daemon($id_server_daemon){
+		if(!empty($id_server_daemon))
+			$this->_id_server_daemon = $id_server_daemon;
 	}
 	public function setId_user($id_user) {
 		if(!empty($id_user))
@@ -134,8 +134,8 @@ class ServerDaemon extends \lib\Entity {
 	}
 	public function toArray() {
 		$json['id'] = $this->getId();
-		if($this->getId_daemon()!=null)
-			$json['id_daemon'] = $this->getId_daemon();
+		if($this->getId_server_daemon()!=null)
+			$json['id_server_daemon'] = $this->getId_server_daemon();
 		if($this->getId_user()!=null)
 			$json['id_user'] = $this->getId_user();
 		if($this->getId_file()!=null)

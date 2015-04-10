@@ -17,9 +17,11 @@ class ServerDaemonManager extends \lib\Manager {
 		if(empty($public)) 				$public = 0;
 		if(empty($running)) 			$running = 0;
 		if(empty($activate)) 			$activate = 0;
+		if(empty($id_server_daemon)) 	$id_server_daemon = -1;
 		
-		$req = $this->_db->prepare('INSERT INTO `server_daemon`(id_user,date_creation,visibility,public,running,activate) VALUES (:id_user, :date_creation, :visibility, :public, :running, :activate)');
+		$req = $this->_db->prepare('INSERT INTO `server_daemon`(id_user,id_server_daemon,date_creation,visibility,public,running,activate) VALUES (:id_user, :id_server_daemon, :date_creation, :visibility, :public, :running, :activate)');
 		$req->bindParam(':id_user',$id_user,\PDO::PARAM_INT);
+		$req->bindParam(':id_server_daemon',$id_server_daemon,\PDO::PARAM_INT);
 		$req->bindParam(':date_creation',$date_creation,\PDO::PARAM_STR);
 		$req->bindParam(':visibility',$visibility,\PDO::PARAM_INT);
 		$req->bindParam(':public',$public,\PDO::PARAM_INT);
@@ -57,14 +59,24 @@ class ServerDaemonManager extends \lib\Manager {
     	return new ServerDaemon($donnee);
 	}
 
+	public function getAllByServerId($id_server_daemon) {
+		$req = $this->_db->prepare('SELECT * FROM server_daemon WHERE id_server_daemon = :id_server_daemon');
+    	$req->bindParam(':id_server_daemon', $id_server_daemon, \PDO::PARAM_INT);
+    	$req->execute();
+		while ($donnees = $req->fetch(\PDO::FETCH_ASSOC))
+	    	$server_daemons[] = new ServerDaemon($donnees);
+	    $req->closeCursor();
+	    return $server_daemons;
+	}
+
 	public function getAll() {
 		$users = [];
 		$req = $this->_db->prepare('SELECT * FROM server_daemon');
 		$req->execute();
     	while ($donnees = $req->fetch(\PDO::FETCH_ASSOC))
-	    	$users[] = new ServerDaemon($donnees);
+	    	$server_daemons[] = new ServerDaemon($donnees);
 	    $req->closeCursor();
-	    return $users;
+	    return $server_daemons;
 	}
 
 	public function existById($id) {
