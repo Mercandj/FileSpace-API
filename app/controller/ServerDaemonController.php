@@ -243,7 +243,7 @@ class ServerDaemonController extends \lib\Controller {
 				    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
 				    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 				    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($fields));
-				    curl_setopt($ch, CURLOPT_TIMEOUT_MS, 1);
+				    curl_setopt($ch, CURLOPT_TIMEOUT_MS, 10);
  					curl_setopt($ch, CURLOPT_NOSIGNAL, 1);
 				    curl_exec($ch);
 				    curl_close($ch);
@@ -288,7 +288,7 @@ class ServerDaemonController extends \lib\Controller {
 					    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
 					    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 					    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($fields));
-					    curl_setopt($ch, CURLOPT_TIMEOUT_MS, 1);
+					    curl_setopt($ch, CURLOPT_TIMEOUT_MS, 10);
 	 					curl_setopt($ch, CURLOPT_NOSIGNAL, 1);
 					    curl_exec($ch);
 					    curl_close($ch);
@@ -319,7 +319,7 @@ class ServerDaemonController extends \lib\Controller {
 
 				$server_daemon->setRunning(1);
 				$serverDaemonManager->updateRunning($server_daemon);
-				
+
 				set_time_limit(0);
 				ignore_user_abort(1);
 
