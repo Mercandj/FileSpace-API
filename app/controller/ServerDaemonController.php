@@ -165,7 +165,7 @@ class ServerDaemonController extends \lib\Controller {
 					// TODO compute the sleep time
 
 					// TODO sleep
-					sleep($server_daemon->getSleep_second());
+					sleep(intval($server_daemon->getSleep_second()));
 
 					$isRunning = false;
 				}
