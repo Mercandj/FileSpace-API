@@ -341,7 +341,7 @@ class ServerDaemonController extends \lib\Controller {
 
 						if (isset($gcmRegID)) {   
 							$gcmRegIds = array($gcmRegID);
-							$message = array("m" => 'Message from daemon ^^');
+							$message = array("m" => '#'.$id_loop.'  Message from daemon ^^  '.date('Y-m-d H:i:s'));
 							$pushStatus = $this->sendPushNotificationToGCM($gcmRegIds, $message);
 						}
 					}
