@@ -90,7 +90,7 @@ class ServerDaemonController extends \lib\Controller {
 					// Set running to false because launchDaemon() check if the daemin is running or not.
 					$server_daemon->setRunning(0);
 					$serverDaemonManager->updateRunning($server_daemon);				
-					/*
+					
 					// TODO curl request to launchDaemon($id)
 					$url = 'http://'.$_SERVER['HTTP_HOST'].$this->_app->_config->get('root').'/launchdaemon/'.($server_daemon->getId());
 				    $fields = array(
@@ -107,12 +107,14 @@ class ServerDaemonController extends \lib\Controller {
 				    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
 				    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 				    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($fields));
+				    curl_setopt($ch, CURLOPT_CONNECTTIMEOUT_MS,400);
+				    curl_setopt($ch, CURLOPT_TIMEOUT_MS, 400);
 				    $result = curl_exec($ch);      
 				    if ($result === FALSE) {
 				        die('Curl failed: ' . curl_error($ch));
 				    }
 				    curl_close($ch);
-					*/
+					
 				}
 				else
 				{
