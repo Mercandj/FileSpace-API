@@ -312,7 +312,7 @@ class ServerDaemonController extends \lib\Controller {
 		ignore_user_abort(1);
 		$id = intval($id);
 		$serverDaemonManager = $this->getManagerof('ServerDaemon');
-		$serverDaemonPingManager = $this->getManagerof('ServerDaemonPing');
+		$serverDaemonPingManager = $this->getManagerof('ServerDaemonPing');		
 
 		if($server_daemon = $serverDaemonManager->existById($id)) {
 			$server_daemon = $serverDaemonManager->getById($id);
@@ -332,18 +332,7 @@ class ServerDaemonController extends \lib\Controller {
 
 					// TODO make daemon action
 					if(intval($server_daemon->getId_server_daemon()) == 1) {
-						$userManager = $this->getManagerof('User');
-						$jon = $userManager->getById(1);
-
-						//this block is to post message to GCM on-click
-						$pushStatus = "";
-						$gcmRegID  = $jon->getAndroid_id();
-
-						if (isset($gcmRegID)) {   
-							$gcmRegIds = array($gcmRegID);
-							$message = array("m" => '#'.$id_loop.'  Message from daemon ^^  '.date('Y-m-d H:i:s'));
-							$pushStatus = $this->sendPushNotificationToGCM($gcmRegIds, $message);
-						}
+						$this->timerDaemonAction();
 					}
 					
 					$serverDaemonPing = new ServerDaemonPing(array(
@@ -382,6 +371,31 @@ class ServerDaemonController extends \lib\Controller {
 			}
 		}
 		die("launchDaemon ended.");
+	}
+
+
+	function timerDaemonAction() {
+		$fileManager = $this->getManagerof('File');
+		$jarvis_file = $fileManager->getAllByType('jarvis');
+
+		$tmp = '';
+		foreach ($jarvis_file as $file) {
+			$content_array = json_decode($file->getContent(), true);
+			$tmp = $content_array['time_date'];
+		}
+
+		$userManager = $this->getManagerof('User');
+		$jon = $userManager->getById(1);
+
+		//this block is to post message to GCM on-click
+		$pushStatus = "";
+		$gcmRegID  = $jon->getAndroid_id();
+
+		if (isset($gcmRegID)) {   
+			$gcmRegIds = array($gcmRegID);
+			$message = array("m" => '#'.$id_loop.'  Message from daemon ^^  send='.date('Y-m-d H:i:s').' timer='.$tmp);
+			$pushStatus = $this->sendPushNotificationToGCM($gcmRegIds, $message);
+		}
 	}
 	
 }
