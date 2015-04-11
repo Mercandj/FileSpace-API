@@ -255,11 +255,20 @@ class ServerDaemonController extends \lib\Controller {
 		$fileManager = $this->getManagerof('File');
 		$jarvis_file = $fileManager->getAllByType('jarvis');
 
-		$tmp = '';
+		$timer_date = '2100-01-01 20:00:00';
+		$current_date = date('Y-m-d H:i:s');
 		foreach ($jarvis_file as $file) {
 			$content_array = json_decode($file->getContent(), true);
-			$tmp = $file->getContent();//$content_array['time_date'];
+			if($timer_date > $content_array['timer_date'] && $content_array['timer_date'] > $current_date)
+				$timer_date = $content_array['timer_date'];
 		}
+
+		if($timer_date == '2100-01-01 20:00:00')
+			return;
+
+		$offset_current_date = date('Y-m-d H').':'.(intval(date('i')) + 2).':'.date('s');
+		if($offset_current_date < $timer_date)
+			return;
 
 		$userManager = $this->getManagerof('User');
 		$jon = $userManager->getById(1);
