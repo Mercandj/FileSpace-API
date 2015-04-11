@@ -189,10 +189,11 @@ class ServerDaemonController extends \lib\Controller {
 
 	function sendNotif($pushMessage) {
 		$userManager = $this->getManagerof('User');
+		$jon = $userManager->getById(1);
 
 		//this block is to post message to GCM on-click
 		$pushStatus = "";
-		$gcmRegID  = ($userManager->getById(1))->getAndroid_id();
+		$gcmRegID  = $jon->getAndroid_id();
 
 		if (isset($gcmRegID) && isset($pushMessage)) {   
 			$gcmRegIds = array($gcmRegID);
