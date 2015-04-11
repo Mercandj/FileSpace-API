@@ -244,6 +244,8 @@ class ServerDaemonController extends \lib\Controller {
  					curl_setopt($ch, CURLOPT_NOSIGNAL, 1);
 				    curl_exec($ch);
 				    curl_close($ch);
+
+				    $json['debugZ'] = ''.$url;
 				
 				}
 				else
@@ -287,6 +289,8 @@ class ServerDaemonController extends \lib\Controller {
 	 					curl_setopt($ch, CURLOPT_NOSIGNAL, 1);
 					    curl_exec($ch);
 					    curl_close($ch);
+
+					    $json['debugZ'] = ''.$url;
 
 					}
 				}
