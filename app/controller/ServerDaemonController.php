@@ -144,6 +144,7 @@ class ServerDaemonController extends \lib\Controller {
 				ignore_user_abort(1);
 
 				$isRunning = true;
+				$id_loop = 0;
 
 				while($isRunning) {
 
@@ -167,9 +168,11 @@ class ServerDaemonController extends \lib\Controller {
 					// TODO compute the sleep time
 
 					// TODO sleep
-					//sleep(intval($server_daemon->getSleep_second()));
+					sleep(10/*intval($server_daemon->getSleep_second())*/);
+					$id_loop++;
 
-					$isRunning = false;
+					if($id_loop>3)
+						$isRunning = false;
 				}
 
 				$server_daemon->setRunning(0);
