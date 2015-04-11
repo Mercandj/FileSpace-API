@@ -141,7 +141,9 @@ class ServerDaemonController extends \lib\Controller {
 				set_time_limit(0);
 				ignore_user_abort(1);
 
-				while(false) {
+				$isRunning = true;
+
+				while($isRunning) {
 
 					$server_daemon->setRunning(1);
 					$serverDaemonManager->updateRunning($server_daemon);
@@ -164,6 +166,8 @@ class ServerDaemonController extends \lib\Controller {
 
 					// TODO sleep
 					sleep($server_daemon->getSleep_second());
+
+					$isRunning = false;
 				}
 
 				$server_daemon->setRunning(0);
