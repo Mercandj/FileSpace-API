@@ -305,6 +305,7 @@ class ServerDaemonController extends \lib\Controller {
 
 
 	function launchDaemon($id) {
+		$id = intval($id);
 		$serverDaemonManager = $this->getManagerof('ServerDaemon');
 		$serverDaemonPingManager = $this->getManagerof('ServerDaemonPing');
 
@@ -343,7 +344,7 @@ class ServerDaemonController extends \lib\Controller {
 						'id'=> 0,
 						'visibility' => 1,
 						'date_creation' => date('Y-m-d H:i:s'),
-						'id_server_daemon' => intval($id),
+						'id_server_daemon' => $id,
 						'content' => 'customcontent : $id_loop='.$id_loop.'  $server_daemon->getId_server_daemon()='.($server_daemon->getId_server_daemon())
 					));
 					$serverDaemonPingManager->add($serverDaemonPing);
