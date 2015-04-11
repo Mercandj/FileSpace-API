@@ -240,6 +240,14 @@ class ServerDaemonController extends \lib\Controller {
 					// TODO sleep
 					sleep(intval($server_daemon->getSleep_second()));
 					$id_loop++;
+
+					if($server_daemon = $serverDaemonManager->existById($id)) {
+						$server_daemon = $serverDaemonManager->getById($id);
+						if($server_daemon->getActivate()!=1)
+							$isRunning = false;
+					}
+					else
+						$isRunning = false;
 				}
 
 				$server_daemon->setRunning(0);
