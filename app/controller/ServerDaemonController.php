@@ -152,7 +152,7 @@ class ServerDaemonController extends \lib\Controller {
 					/*if($server_daemon->getId_server_daemon() == 1) {
 						$this->sendNotif('Message from daemon ^^');
 					}*/
-
+					/*
 					$serverDaemonPing = new ServerDaemonPing(array(
 						'id'=> 0,
 						'visibility' => 1,
@@ -161,7 +161,7 @@ class ServerDaemonController extends \lib\Controller {
 						'content' => 'customcontent : $server_daemon->getId_server_daemon()='.$server_daemon->getId_server_daemon()
 					));
 					$serverDaemonPingManager->add($serverDaemonPing);
-
+					*/
 					// TODO compute the sleep time
 
 					// TODO sleep
