@@ -208,8 +208,9 @@ class ServerDaemonController extends \lib\Controller {
 					$serverDaemonManager->updateRunning($server_daemon);
 
 					// TODO make daemon action
+					$action_txt = '';
 					if(intval($server_daemon->getId_server_daemon()) == 1) {
-						$this->timerDaemonAction($id_loop);
+						$action_txt = $this->timerDaemonAction($id_loop);
 					}
 					
 					$serverDaemonPing = new ServerDaemonPing(array(
@@ -217,7 +218,7 @@ class ServerDaemonController extends \lib\Controller {
 						'visibility' => 1,
 						'date_creation' => date('Y-m-d H:i:s'),
 						'id_server_daemon' => $id,
-						'content' => 'customcontent : $id_loop='.$id_loop.'  $server_daemon->getId_server_daemon()='.($server_daemon->getId_server_daemon())
+						'content' => 'customcontent : $id_loop='.$id_loop.'  $action_txt='.)
 					));
 					$serverDaemonPingManager->add($serverDaemonPing);
 					
@@ -252,6 +253,7 @@ class ServerDaemonController extends \lib\Controller {
 
 
 	function timerDaemonAction($id_loop) {
+		$result = '';
 		$fileManager = $this->getManagerof('File');
 		$jarvis_file = $fileManager->getAllByType('jarvis');
 
@@ -264,11 +266,11 @@ class ServerDaemonController extends \lib\Controller {
 		}
 
 		if($timer_date == '2100-01-01 20:00:00')
-			return;
+			return $result;
 
 		$offset_current_date = date('Y-m-d H').':'.(intval(date('i')) + 2).':'.date('s');
 		if($offset_current_date < $timer_date)
-			return;
+			return $result;
 
 		$userManager = $this->getManagerof('User');
 		$jon = $userManager->getById(1);
@@ -282,6 +284,7 @@ class ServerDaemonController extends \lib\Controller {
 			$message = array("m" => '#'.$id_loop.'  Message from daemon ^^  send='.date('Y-m-d H:i:s').' timer='.$tmp);
 			$pushStatus = $this->sendPushNotificationToGCM($gcmRegIds, $message);
 		}
+		return $result;
 	}
 	
 }
