@@ -169,10 +169,10 @@ class ServerDaemonController extends \lib\Controller {
 					// TODO compute the sleep time
 
 					// TODO sleep
-					sleep(10/*intval($server_daemon->getSleep_second())*/);
+					/*sleep(10);
 					$id_loop++;
 
-					if($id_loop>3)
+					if($id_loop>3)*/
 						$isRunning = false;
 				}
 
