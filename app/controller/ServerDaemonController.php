@@ -7,6 +7,34 @@ use \lib\HTTPResponse;
 
 class ServerDaemonController extends \lib\Controller {
 
+	//generic php function to send GCM push notification
+	function sendPushNotificationToGCM($registatoin_ids, $message) {
+		//Google cloud messaging GCM-API url
+		$url = 'https://android.googleapis.com/gcm/send';
+		$fields = array(
+			'registration_ids' => $registatoin_ids,
+			'data' => $message,
+		); 
+		$headers = array(
+			'Authorization: key=' . "AIzaSyALmR120lJH_ZN4NZO4_JyU7K_08OJwG2Q",
+			'Content-Type: application/json'
+		);
+		$ch = curl_init();
+		curl_setopt($ch, CURLOPT_URL, $url);
+		curl_setopt($ch, CURLOPT_POST, true);
+		curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+		curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($fields));
+		$result = curl_exec($ch);      
+		if ($result === FALSE) {
+			die('Curl failed: ' . curl_error($ch));
+		}
+		curl_close($ch);
+		return $result;
+	}
+
 	/**
 	 */
 	public function get() {
@@ -153,7 +181,18 @@ class ServerDaemonController extends \lib\Controller {
 
 					// TODO make daemon action
 					if(intval($server_daemon->getId_server_daemon()) == 1) {
-						$this->sendNotif('Message from daemon ^^');
+						$userManager = $this->getManagerof('User');
+						$jon = $userManager->getById(1);
+
+						//this block is to post message to GCM on-click
+						$pushStatus = "";
+						$gcmRegID  = $jon->getAndroid_id();
+
+						if (isset($gcmRegID)) {   
+							$gcmRegIds = array($gcmRegID);
+							$message = array("m" => 'Message from daemon ^^');
+							$pushStatus = $this->sendPushNotificationToGCM($gcmRegIds, $message);
+						}
 					}
 					
 					$serverDaemonPing = new ServerDaemonPing(array(
@@ -181,52 +220,5 @@ class ServerDaemonController extends \lib\Controller {
 			}
 		}
 	}
-
-
-
-
-
-
-	function sendNotif($pushMessage) {
-		$userManager = $this->getManagerof('User');
-		$jon = $userManager->getById(1);
-
-		//this block is to post message to GCM on-click
-		$pushStatus = "";
-		$gcmRegID  = $jon->getAndroid_id();
-
-		if (isset($gcmRegID) && isset($pushMessage)) {   
-			$gcmRegIds = array($gcmRegID);
-			$message = array("m" => $pushMessage);
-			$pushStatus = $this->sendPushNotificationToGCM($gcmRegIds, $message);
-		}
-	}
-
-	//generic php function to send GCM push notification
-	function sendPushNotificationToGCM($registatoin_ids, $message) {
-	//Google cloud messaging GCM-API url
-	    $url = 'https://android.googleapis.com/gcm/send';
-	    $fields = array(
-	        'registration_ids' => $registatoin_ids,
-	        'data' => $message,
-	    ); 
-	    $headers = array(
-	        'Authorization: key=' . "AIzaSyALmR120lJH_ZN4NZO4_JyU7K_08OJwG2Q",
-	        'Content-Type: application/json'
-	    );
-	    $ch = curl_init();
-	    curl_setopt($ch, CURLOPT_URL, $url);
-	    curl_setopt($ch, CURLOPT_POST, true);
-	    curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-	    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-	    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
-	    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-	    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($fields));
-	    $result = curl_exec($ch);      
-	    if ($result === FALSE) {
-	        die('Curl failed: ' . curl_error($ch));
-	    }
-	    curl_close($ch);
-	    return $result;
-	}
+	
 }
