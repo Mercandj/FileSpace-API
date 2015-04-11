@@ -270,7 +270,7 @@ class ServerDaemonController extends \lib\Controller {
 
 		$offset_current_date = date("Y-m-d H:i:s",strtotime(date("Y-m-d H:i:s")." + 5 minutes"));
 		if($offset_current_date < $timer_date)
-			return '$offset_current_date < $timer_date   $offset_current_date='.$offset_current_date.'   $timer_date='.$timer_date;
+			return '[offset_current_date < timer_date : '.$offset_current_date.' < '.$timer_date.']';
 
 		$userManager = $this->getManagerof('User');
 		$jon = $userManager->getById(1);
@@ -280,7 +280,7 @@ class ServerDaemonController extends \lib\Controller {
 		$gcmRegID  = $jon->getAndroid_id();
 
 		if (isset($gcmRegID)) {
-			$message_txt = '#'.$id_loop.'  Message from daemon ^^  send='.date('Y-m-d H:i:s').' timer_date='.$timer_date;
+			$message_txt = '#'.$id_loop.'  Message from daemon ^^  send='.date('Y-m-d H:i:s').' timer='.$timer_date;
 			$result .= $message_txt;
 			$gcmRegIds = array($gcmRegID);
 			$message = array("m" => $message_txt);
