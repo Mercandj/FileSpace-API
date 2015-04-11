@@ -260,12 +260,7 @@ class ServerDaemonController extends \lib\Controller {
 							$date_ping = $date_ping_;
 					}
 					$json['debug2'] = ''.$date_ping;
-
-					$sc_to_add = $server_daemon->getSleep_second();
-					$time = new DateTime($date_ping);
-					$time->add(new DateInterval('PT' . $sc_to_add . 'S'));
-					$date_next_ping = $time->format('Y-m-d H:i:s');
-
+					$date_next_ping = date ( date('Y-m-d H:i', strtotime($date_ping)) . ':' . (intval(date('s', strtotime($date_ping))) + intval($server_daemon->getSleep_second())) );
 					$json['debug3'] = ''.$date_next_ping;
 					$json['debug4'] = ''.($date_next_ping < date('Y-m-d H:i:s'));
 
