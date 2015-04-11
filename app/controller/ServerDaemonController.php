@@ -1,5 +1,6 @@
 <?php
 namespace app\controller;
+use \lib\Entities\File;
 use \lib\Entities\ServerDaemon;
 use \lib\Entities\ServerDaemonPing;
 use \lib\HTTPRequest;
@@ -27,10 +28,7 @@ class ServerDaemonController extends \lib\Controller {
 		curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
 		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 		curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($fields));
-		$result = curl_exec($ch);      
-		if ($result === FALSE) {
-			die('Curl failed: ' . curl_error($ch));
-		}
+		curl_exec($ch);
 		curl_close($ch);
 		return $result;
 	}
@@ -113,14 +111,12 @@ class ServerDaemonController extends \lib\Controller {
 		foreach ($server_daemon_array as $server_daemon) {
 			if($server_daemon->getActivate()==1) {
 				$server_daeomn_ping_array = $serverDaemonPingManager->getByServerDaemonId($server_daemon->getId());	
-				/*			
+						
 				if($this->isArrayEmpty($server_daeomn_ping_array))
-				{
-				*/
+				{				
 					// Set running to false because launchDaemon() check if the daemin is running or not.
 					$server_daemon->setRunning(0);
-					$serverDaemonManager->updateRunning($server_daemon);				
-					
+					$serverDaemonManager->updateRunning($server_daemon);
 					// TODO curl request to launchDaemon($id)
 					$url = 'http://'.$_SERVER['HTTP_HOST'].$this->_app->_config->get('root').'/launchdaemon/'.($server_daemon->getId());
 				    $fields = array(
@@ -141,13 +137,48 @@ class ServerDaemonController extends \lib\Controller {
  					curl_setopt($ch, CURLOPT_NOSIGNAL, 1);
 				    curl_exec($ch);
 				    curl_close($ch);
-				/*	
+				
 				}
 				else
 				{
 					// TODO compare the last ping date with (the daemon sleep_second  -  current date)
+					$date_ping = '2010-01-21 00:00:00';					
+					foreach($server_daeomn_ping_array as $server_daemon_ping_) {
+						$date_ping_ = $server_daemon_ping_->getDate_creation();
+						if($date_ping < $date_ping_)
+							$date_ping = $date_ping_;
+					}
+					$date_next_ping += $server_daemon->getSleep_second();
+
+					if($date_next_ping < date('Y-m-d H:i:s')) {
+
+						// Set running to false because launchDaemon() check if the daemin is running or not.
+						$server_daemon->setRunning(0);
+						$serverDaemonManager->updateRunning($server_daemon);
+						// TODO curl request to launchDaemon($id)
+						$url = 'http://'.$_SERVER['HTTP_HOST'].$this->_app->_config->get('root').'/launchdaemon/'.($server_daemon->getId());
+					    $fields = array(
+					        'test' => 'test1'
+					    ); 
+					    $headers = array(
+					        'Content-Type: application/json'
+					    );
+					    $ch = curl_init();
+					    curl_setopt($ch, CURLOPT_URL, $url);
+					    curl_setopt($ch, CURLOPT_POST, true);
+					    curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+					    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+					    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+					    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+					    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($fields));
+					    curl_setopt($ch, CURLOPT_TIMEOUT_MS, 1);
+	 					curl_setopt($ch, CURLOPT_NOSIGNAL, 1);
+					    curl_exec($ch);
+					    curl_close($ch);
+
+					}
 				}
-				*/
+				
 			}
 		}
 		return true;
@@ -200,18 +231,15 @@ class ServerDaemonController extends \lib\Controller {
 						'visibility' => 1,
 						'date_creation' => date('Y-m-d H:i:s'),
 						'id_server_daemon' => intval($id),
-						'content' => 'customcontent : $server_daemon->getId_server_daemon()='.($server_daemon->getId_server_daemon())
+						'content' => 'customcontent : $id_loop='.$id_loop.'  $server_daemon->getId_server_daemon()='.($server_daemon->getId_server_daemon())
 					));
 					$serverDaemonPingManager->add($serverDaemonPing);
 					
 					// TODO compute the sleep time
 
 					// TODO sleep
-					sleep(10);
+					sleep(intval($server_daemon->getSleep_second()));
 					$id_loop++;
-
-					if($id_loop>3)
-						$isRunning = false;
 				}
 
 				$server_daemon->setRunning(0);
