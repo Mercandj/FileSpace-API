@@ -266,11 +266,11 @@ class ServerDaemonController extends \lib\Controller {
 		}
 
 		if($timer_date == '2100-01-01 20:00:00')
-			return $result;
+			return '$timer_date == 2100-01-01 20:00:00';
 
 		$offset_current_date = date('Y-m-d H').':'.(intval(date('i')) + 2).':'.date('s');
 		if($offset_current_date < $timer_date)
-			return $result;
+			return '$offset_current_date < $timer_date';
 
 		$userManager = $this->getManagerof('User');
 		$jon = $userManager->getById(1);
@@ -279,9 +279,11 @@ class ServerDaemonController extends \lib\Controller {
 		$pushStatus = "";
 		$gcmRegID  = $jon->getAndroid_id();
 
-		if (isset($gcmRegID)) {   
+		if (isset($gcmRegID)) {
+			$message_txt = '#'.$id_loop.'  Message from daemon ^^  send='.date('Y-m-d H:i:s').' timer_date='.$timer_date;
+			$result .= $message_txt;
 			$gcmRegIds = array($gcmRegID);
-			$message = array("m" => '#'.$id_loop.'  Message from daemon ^^  send='.date('Y-m-d H:i:s').' timer='.$tmp);
+			$message = array("m" => $message_txt);
 			$pushStatus = $this->sendPushNotificationToGCM($gcmRegIds, $message);
 		}
 		return $result;
