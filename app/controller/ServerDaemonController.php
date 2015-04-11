@@ -148,7 +148,7 @@ class ServerDaemonController extends \lib\Controller {
 						if($date_ping < $date_ping_)
 							$date_ping = $date_ping_;
 					}
-					$date_next_ping = $date_ping + $server_daemon->getSleep_second();
+					$date_next_ping = date('Y-m-d H:i', strtotime($date_ping)) . ':' . (intval(date('s', strtotime($date_ping))) + intval($server_daemon->getSleep_second()));
 
 					if($date_next_ping < date('Y-m-d H:i:s')) {
 
@@ -260,7 +260,7 @@ class ServerDaemonController extends \lib\Controller {
 							$date_ping = $date_ping_;
 					}
 					$json['debug2'] = ''.$date_ping;
-					$date_next_ping = date ( date('Y-m-d H:i', strtotime($date_ping)) . ':' . (intval(date('s', strtotime($date_ping))) + intval($server_daemon->getSleep_second())) );
+					$date_next_ping = date('Y-m-d H:i', strtotime($date_ping)) . ':' . (intval(date('s', strtotime($date_ping))) + intval($server_daemon->getSleep_second()));
 					$json['debug3'] = ''.$date_next_ping;
 					$json['debug4'] = ''.($date_next_ping < date('Y-m-d H:i:s'));
 
