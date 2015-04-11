@@ -218,7 +218,7 @@ class ServerDaemonController extends \lib\Controller {
 						'visibility' => 1,
 						'date_creation' => date('Y-m-d H:i:s'),
 						'id_server_daemon' => $id,
-						'content' => 'customcontent : $id_loop='.$id_loop.'  $action_txt='.$action_txt
+						'content' => 'loop='.$id_loop.'  action='.$action_txt
 					));
 					$serverDaemonPingManager->add($serverDaemonPing);
 					
@@ -268,9 +268,9 @@ class ServerDaemonController extends \lib\Controller {
 		if($timer_date == '2100-01-01 20:00:00')
 			return '$timer_date == 2100-01-01 20:00:00';
 
-		$offset_current_date = date('Y-m-d H').':'.(intval(date('i')) + 2).':'.date('s');
+		$offset_current_date = date('Y-m-d H').':'.(intval(date('i')) + 5).':'.date('s');
 		if($offset_current_date < $timer_date)
-			return '$offset_current_date < $timer_date';
+			return '$offset_current_date < $timer_date   $offset_current_date='.$offset_current_date.'   $timer_date='.$timer_date;
 
 		$userManager = $this->getManagerof('User');
 		$jon = $userManager->getById(1);
