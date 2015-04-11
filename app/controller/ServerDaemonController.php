@@ -190,7 +190,7 @@ class ServerDaemonController extends \lib\Controller {
 		return count($array) == 0;
 	}
 
-	public test() {
+	function test() {
 		$result = [];
 		$json['succeed'] = false;
 		$serverDaemonManager = $this->getManagerof('ServerDaemon');
