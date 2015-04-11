@@ -157,6 +157,20 @@ class FileManager extends \lib\Manager {
 	    return $file;
 	}
 
+	public function getAllByType($type) {
+		$file = [];
+
+		$req = $this->_db->prepare('SELECT id,url,name,size,visibility,date_creation,id_user,type,directory,content,public,id_file_parent FROM file WHERE type = :type ORDER BY date_creation DESC');
+		$req->bindParam(':type', $type, \PDO::PARAM_STR);
+		$req->execute();
+
+    	while ($donnees = $req->fetch(\PDO::FETCH_ASSOC))
+	    	$file[] = new File($donnees);
+
+	    $req->closeCursor();
+	    return $file;
+	}
+
 	public function getWithUrl($id_user = 0, $purl="", $psearch = "") {
 		$file = [];
 		$url = '^'.$purl.'.[^/]*$';
