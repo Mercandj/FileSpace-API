@@ -329,7 +329,7 @@ class ServerDaemonController extends \lib\Controller {
 
 					$server_daemon->setRunning(1);
 					$serverDaemonManager->updateRunning($server_daemon);
-/*
+
 					// TODO make daemon action
 					if(intval($server_daemon->getId_server_daemon()) == 1) {
 						$userManager = $this->getManagerof('User');
@@ -363,15 +363,21 @@ class ServerDaemonController extends \lib\Controller {
 
 					if($server_daemon = $serverDaemonManager->existById($id)) {
 						$server_daemon = $serverDaemonManager->getById($id);
-						if($server_daemon->getActivate()!=1)
+						if($server_daemon->getActivate()!=1) {
 							$isRunning = false;
+							$server_daemon->setRunning(0);
+							$serverDaemonManager->updateRunning($server_daemon);
+						}
 					}
-					else*/
+					else {
 						$isRunning = false;
+						$server_daemon->setRunning(0);
+						$serverDaemonManager->updateRunning($server_daemon);
+					}
 				}
-/*
+
 				$server_daemon->setRunning(0);
-				$serverDaemonManager->updateRunning($server_daemon);*/
+				$serverDaemonManager->updateRunning($server_daemon);
 				die("Daemon becomes zombie.");
 			}
 		}
