@@ -316,7 +316,7 @@ class ServerDaemonController extends \lib\Controller {
 				set_time_limit(0);
 				ignore_user_abort(1);
 
-				$isRunning = false;
+				$isRunning = true;
 				$id_loop = 0;
 
 				while($isRunning) {
@@ -360,8 +360,8 @@ class ServerDaemonController extends \lib\Controller {
 						if($server_daemon->getActivate()!=1)
 							$isRunning = false;
 					}
-					else
-						$isRunning = false;*/
+					else*/
+						$isRunning = false;
 				}
 /*
 				$server_daemon->setRunning(0);
