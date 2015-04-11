@@ -10,15 +10,17 @@ class ServerDaemonPingManager extends \lib\Manager {
 		$date_creation = $serverDaemonPing->getDate_creation();
 		$visibility = $serverDaemonPing->getVisibility();
 		$public = $serverDaemonPing->getPublic();
+		$content = $serverDaemonPing->getContent();
 
 		if(empty($visibility)) 			$visibility = 1;
 		if(empty($public)) 				$public = 0;
 		
-		$req = $this->_db->prepare('INSERT INTO `server_daemon_ping`(id_server_daemon,date_creation,visibility,public) VALUES (:id_server_daemon, :date_creation, :visibility, :public)');
+		$req = $this->_db->prepare('INSERT INTO `server_daemon_ping`(id_server_daemon,date_creation,visibility,public,content) VALUES (:id_server_daemon, :date_creation, :visibility, :public, :content)');
 		$req->bindParam(':id_server_daemon',$id_server_daemon,\PDO::PARAM_INT);
 		$req->bindParam(':date_creation',$date_creation,\PDO::PARAM_STR);
 		$req->bindParam(':visibility',$visibility,\PDO::PARAM_INT);
 		$req->bindParam(':public',$public,\PDO::PARAM_INT);
+		$req->bindParam(':content',$content,\PDO::PARAM_STR);
 		$req->execute();
 		$req->closeCursor();
 	}
