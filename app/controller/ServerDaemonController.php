@@ -268,7 +268,7 @@ class ServerDaemonController extends \lib\Controller {
 		if($timer_date == '2100-01-01 20:00:00')
 			return '$timer_date == 2100-01-01 20:00:00';
 
-		$offset_current_date = date('Y-m-d H').':'.(intval(date('i')) + 5).':'.date('s');
+		$offset_current_date = date("Y-m-d H:i:s",strtotime(date("Y-m-d H:i:s")." + 5 minutes"));
 		if($offset_current_date < $timer_date)
 			return '$offset_current_date < $timer_date   $offset_current_date='.$offset_current_date.'   $timer_date='.$timer_date;
 
