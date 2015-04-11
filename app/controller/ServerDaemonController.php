@@ -190,13 +190,16 @@ class ServerDaemonController extends \lib\Controller {
 		return count($array) == 0;
 	}
 
-	function test() {
+	function test($id) {
 		$result = [];
 		$json['succeed'] = false;
 		$serverDaemonManager = $this->getManagerof('ServerDaemon');
 		$serverDaemonPingManager = $this->getManagerof('ServerDaemonPing');
 
 		$id_user = $this->_app->_config->getId_user();
+
+
+		/*
 		$server_daeomn_array = $serverDaemonManager->getAllByServerId(1);
 		$serverDaemon = new ServerDaemon(array(
 			'id'=> 0,
@@ -297,8 +300,24 @@ class ServerDaemonController extends \lib\Controller {
 				
 			}
 		}
+		*/
+
+		$id = intval($id);
+		$serverDaemonManager = $this->getManagerof('ServerDaemon');
+		$serverDaemonPingManager = $this->getManagerof('ServerDaemonPing');
+
+		if($server_daemon = $serverDaemonManager->existById($id)) {
+			$server_daemon = $serverDaemonManager->getById($id);
+			if($server_daemon->getActivate()==1 && $server_daemon->getRunning()==0)
+				$json['debug2'] = 'cc';
+			$json['debug3'] = 'cc';
+
+		}
+		else
+			$json['debug1'] = 'err';
+
+
 		$json['succeed'] = true;
-		$json['toast'] = 'Daemon has been added.';
 
 		HTTPResponse::send(json_encode($json, JSON_NUMERIC_CHECK));
 	}
