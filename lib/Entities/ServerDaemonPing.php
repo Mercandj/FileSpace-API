@@ -55,9 +55,9 @@ class ServerDaemonPing extends \lib\Entity {
 		if(!empty($id))
 			$this->_id = $id;
 	}
-	public function getId_server_daemon($id_server_daemonn){
-		if(!empty($id_server_daemonn))
-			$this->_id_server_daemonn = $id_server_daemonn;
+	public function getId_server_daemon($id_server_daemon){
+		if(!empty($id_server_daemon))
+			$this->_id_server_daemon = $id_server_daemon;
 	}
 	public function setType($type) {
 		if(!empty($type))
@@ -103,7 +103,7 @@ class ServerDaemonPing extends \lib\Entity {
 	public function toArray() {
 		$json['id'] = $this->getId();
 		if($this->getId_server_daemon()!=null)
-			$json['id_server_daemonn'] = $this->getId_server_daemon();
+			$json['id_server_daemon'] = $this->getId_server_daemon();
 		if($this->getType()!=null)
 			$json['type'] = $this->getType();
 		if($this->getContent()!=null)
