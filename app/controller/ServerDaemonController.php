@@ -84,9 +84,11 @@ class ServerDaemonController extends \lib\Controller {
 		$server_daemon_array = $serverDaemonManager->getAllActivate();
 		foreach ($server_daemon_array as $server_daemon) {
 			if($server_daemon->getActivate()==1) {
-				$server_daeomn_ping_array = $serverDaemonPingManager->getByServerDaemonId($server_daemon->getId());				
+				$server_daeomn_ping_array = $serverDaemonPingManager->getByServerDaemonId($server_daemon->getId());	
+				/*			
 				if($this->isArrayEmpty($server_daeomn_ping_array))
 				{
+				*/
 					// Set running to false because launchDaemon() check if the daemin is running or not.
 					$server_daemon->setRunning(0);
 					$serverDaemonManager->updateRunning($server_daemon);				
@@ -114,12 +116,13 @@ class ServerDaemonController extends \lib\Controller {
 				        die('Curl failed: ' . curl_error($ch));
 				    }
 				    curl_close($ch);
-					
+				/*	
 				}
 				else
 				{
 					// TODO compare the last ping date with (the daemon sleep_second  -  current date)
 				}
+				*/
 			}
 		}
 		return true;
@@ -169,10 +172,10 @@ class ServerDaemonController extends \lib\Controller {
 					// TODO compute the sleep time
 
 					// TODO sleep
-					/*sleep(10);
+					sleep(10);
 					$id_loop++;
 
-					if($id_loop>3)*/
+					if($id_loop>3)
 						$isRunning = false;
 				}
 
