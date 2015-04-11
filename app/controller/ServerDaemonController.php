@@ -160,7 +160,7 @@ class ServerDaemonController extends \lib\Controller {
 						'visibility' => 1,
 						'date_creation' => date('Y-m-d H:i:s'),
 						'id_server_daemon' => $id,
-						'content' => 'customcontent : $server_daemon->getId_server_daemon()='.$server_daemon->getId_server_daemon()
+						'content' => 'customcontent : $server_daemon->getId_server_daemon()='.($server_daemon->getId_server_daemon())
 					));
 					$serverDaemonPingManager->add($serverDaemonPing);
 					
