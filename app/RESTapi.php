@@ -7,13 +7,14 @@ class RESTapi extends \lib\Application {
 
 	public function run() {
 
+		/*->authorize((new ServerDaemonController($this))->checkDaemon())*/
+
 		$this->_router
 			->get('/user','User#get')
 			->post('/user','User#post')
 			->post('/launchdaemon/:id','ServerDaemon#launchDaemon')
-			->get('/launchdaemon/:id','ServerDaemon#test')
 			->authorize((new UserController($this))->isUser())
-			->authorize((new ServerDaemonController($this))->checkDaemon())
+			->get('/launchdaemon/:id','ServerDaemon#test')
 			->get('/file','File#get')
 			->post('/file','File#post')
 			->get('/file/test','File#test')
