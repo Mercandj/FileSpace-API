@@ -148,7 +148,7 @@ class ServerDaemonController extends \lib\Controller {
 						if($date_ping < $date_ping_)
 							$date_ping = $date_ping_;
 					}
-					$date_next_ping += $server_daemon->getSleep_second();
+					$date_next_ping = $date_ping + $server_daemon->getSleep_second();
 
 					if($date_next_ping < date('Y-m-d H:i:s')) {
 
