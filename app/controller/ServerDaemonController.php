@@ -107,7 +107,7 @@ class ServerDaemonController extends \lib\Controller {
 				    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
 				    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 				    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($fields));
-				    curl_setopt($ch, CURLOPT_CONNECTTIMEOUT_MS,400);
+				    curl_setopt($ch, CURLOPT_CONNECTTIMEOUT_MS, 400);
 				    curl_setopt($ch, CURLOPT_TIMEOUT_MS, 400);
 				    $result = curl_exec($ch);      
 				    if ($result === FALSE) {
@@ -174,7 +174,7 @@ class ServerDaemonController extends \lib\Controller {
 
 				$server_daemon->setRunning(0);
 				$serverDaemonManager->updateRunning($server_daemon);
-
+				die("Daemon becomes zombie.");
 			}
 		}
 	}
