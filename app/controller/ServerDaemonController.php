@@ -152,11 +152,10 @@ class ServerDaemonController extends \lib\Controller {
 					$serverDaemonManager->updateRunning($server_daemon);
 
 					// TODO make daemon action
-					/*
 					if(intval($server_daemon->getId_server_daemon()) == 1) {
 						$this->sendNotif('Message from daemon ^^');
 					}
-					*/
+					
 					$serverDaemonPing = new ServerDaemonPing(array(
 						'id'=> 0,
 						'visibility' => 1,
@@ -189,28 +188,17 @@ class ServerDaemonController extends \lib\Controller {
 
 
 	function sendNotif($pushMessage) {
-	  try {
-	    $bdd = new PDO('mysql:host=localhost;dbname=jarvis', 'root', '');
-	  }
-	  catch(Exception $e) {
-	    die('Erreur : '.$e->getMessage());
-	  }
+		$userManager = $this->getManagerof('User');
 
-	  //this block is to post message to GCM on-click
-	  $pushStatus = "";
+		//this block is to post message to GCM on-click
+		$pushStatus = "";
+		$gcmRegID  = ($userManager->getById(1))->getAndroid_id();
 
-	  $req = $bdd->prepare('SELECT * FROM `user` WHERE `admin` = 1');
-	  $req->execute();
-
-	  while($donnees = $req->fetch()) {
-	    $gcmRegID  = $donnees['android_id'];
-
-	    if (isset($gcmRegID) && isset($pushMessage)) {   
-	      $gcmRegIds = array($gcmRegID);
-	      $message = array("m" => $pushMessage);
-	      $pushStatus = $this->sendPushNotificationToGCM($gcmRegIds, $message);
-	    } 
-	  }
+		if (isset($gcmRegID) && isset($pushMessage)) {   
+			$gcmRegIds = array($gcmRegID);
+			$message = array("m" => $pushMessage);
+			$pushStatus = $this->sendPushNotificationToGCM($gcmRegIds, $message);
+		}
 	}
 
 	//generic php function to send GCM push notification
