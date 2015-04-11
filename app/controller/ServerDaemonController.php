@@ -109,8 +109,8 @@ class ServerDaemonController extends \lib\Controller {
 				    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
 				    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 				    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($fields));
-				    curl_setopt($curl, CURLOPT_TIMEOUT_MS, 1);
- 					curl_setopt($curl, CURLOPT_NOSIGNAL, 1);
+				    curl_setopt($ch, CURLOPT_TIMEOUT_MS, 1);
+ 					curl_setopt($ch, CURLOPT_NOSIGNAL, 1);
 				    $result = curl_exec($ch);      
 				    if ($result === FALSE) {
 				        die('Curl failed: ' . curl_error($ch));
