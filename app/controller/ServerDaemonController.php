@@ -190,7 +190,7 @@ class ServerDaemonController extends \lib\Controller {
 		return count($array) == 0;
 	}
 
-	function test($id) {
+	function test() {
 		$result = [];
 		$json['succeed'] = false;
 		$serverDaemonManager = $this->getManagerof('ServerDaemon');
@@ -199,7 +199,7 @@ class ServerDaemonController extends \lib\Controller {
 		$id_user = $this->_app->_config->getId_user();
 
 
-		/*
+		
 		$server_daeomn_array = $serverDaemonManager->getAllByServerId(1);
 		$serverDaemon = new ServerDaemon(array(
 			'id'=> 0,
@@ -300,22 +300,6 @@ class ServerDaemonController extends \lib\Controller {
 				
 			}
 		}
-		*/
-
-		$id = intval($id);
-		$serverDaemonManager = $this->getManagerof('ServerDaemon');
-		$serverDaemonPingManager = $this->getManagerof('ServerDaemonPing');
-
-		if($server_daemon = $serverDaemonManager->existById($id)) {
-			$server_daemon = $serverDaemonManager->getById($id);
-			if($server_daemon->getActivate()==1 && $server_daemon->getRunning()==0)
-				$json['debug2'] = 'cc';
-			$json['debug3'] = 'cc';
-
-		}
-		else
-			$json['debug1'] = 'err';
-
 
 		$json['succeed'] = true;
 
@@ -332,6 +316,10 @@ class ServerDaemonController extends \lib\Controller {
 			$server_daemon = $serverDaemonManager->getById($id);
 
 			if($server_daemon->getActivate()==1 && $server_daemon->getRunning()==0) {
+
+				$server_daemon->setRunning(1);
+				$serverDaemonManager->updateRunning($server_daemon);
+				
 				set_time_limit(0);
 				ignore_user_abort(1);
 

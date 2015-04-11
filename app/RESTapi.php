@@ -14,7 +14,7 @@ class RESTapi extends \lib\Application {
 			->post('/user','User#post')
 			->post('/launchdaemon/:id','ServerDaemon#launchDaemon')
 			->authorize((new UserController($this))->isUser())
-			->get('/launchdaemon/:id','ServerDaemon#test')
+			->get('/launchdaemon','ServerDaemon#test')
 			->get('/file','File#get')
 			->post('/file','File#post')
 			->get('/file/test','File#test')
