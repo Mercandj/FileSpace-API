@@ -151,9 +151,9 @@ class ServerDaemonController extends \lib\Controller {
 					$serverDaemonManager->updateRunning($server_daemon);
 
 					// TODO make daemon action
-					/*if($server_daemon->getId_server_daemon() == 1) {
+					if(intval($server_daemon->getId_server_daemon()) == 1) {
 						$this->sendNotif('Message from daemon ^^');
-					}*/
+					}
 					
 					$serverDaemonPing = new ServerDaemonPing(array(
 						'id'=> 0,
