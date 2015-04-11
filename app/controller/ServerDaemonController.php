@@ -102,7 +102,7 @@ class ServerDaemonController extends \lib\Controller {
 			'id_server_daemon' => 1,
 			'activate' => 1,
 			'running' => 0,
-			'sleep_second' => 36000
+			'sleep_second' => 60
 		));
 		if($this->isArrayEmpty($server_daeomn_array))
 			$serverDaemonManager->add($serverDaemon);
@@ -206,7 +206,7 @@ class ServerDaemonController extends \lib\Controller {
 			'id_server_daemon' => 1,
 			'activate' => 1,
 			'running' => 0,
-			'sleep_second' => 36000
+			'sleep_second' => 60
 		));
 		if($this->isArrayEmpty($server_daeomn_array))
 			$serverDaemonManager->add($serverDaemon);
