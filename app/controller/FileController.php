@@ -584,7 +584,7 @@ class FileController extends \lib\Controller {
 				        flush();
 				        // sleep one second
 				        //sleep(1);
-				    }
+				    //}
 				    fclose($file);
 				}
 				else {
