@@ -571,8 +571,8 @@ class FileController extends \lib\Controller {
 					header('Connection: close');
 
 					//readfile($file_name);		// push it out
-					// set the download rate limit (=> 2000 kb/s)
-					$download_rate = 2000;
+					// set the download rate limit (=> 10000 kb/s)
+					$download_rate = 10000;
 					flush();
 				    $file = fopen($file_name, "r");
 				    while(!feof($file))
