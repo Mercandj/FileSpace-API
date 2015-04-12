@@ -569,7 +569,22 @@ class FileController extends \lib\Controller {
 					header('Content-Transfer-Encoding: binary');
 					header('Content-Length: '.filesize($file_name));	// provide file size
 					header('Connection: close');
-					readfile($file_name);		// push it out
+
+					//readfile($file_name);		// push it out
+					// set the download rate limit (=> 900 kb/s)
+					$download_rate = 900;
+					flush();
+				    $file = fopen($file_name, "r");
+				    while(!feof($file))
+				    {
+				        // send the current file part to the browser
+				        print fread($file, round($download_rate * 1024));
+				        // flush the content to the browser
+				        flush();
+				        // sleep one second
+				        sleep(1);
+				    }
+				    fclose($file);}
 				}
 				else {
 					HTTPResponse::send('{"succeed":false,"result":"Physic : Bad File url."}');
