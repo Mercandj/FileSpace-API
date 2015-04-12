@@ -584,7 +584,7 @@ class FileController extends \lib\Controller {
 				        // sleep one second
 				        sleep(1);
 				    }
-				    fclose($file);}
+				    fclose($file);
 				}
 				else {
 					HTTPResponse::send('{"succeed":false,"result":"Physic : Bad File url."}');
