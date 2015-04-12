@@ -571,8 +571,8 @@ class FileController extends \lib\Controller {
 					header('Connection: close');
 
 					//readfile($file_name);		// push it out
-					// set the download rate limit (=> 900 kb/s)
-					$download_rate = 900;
+					// set the download rate limit (=> 2000 kb/s)
+					$download_rate = 2000;
 					flush();
 				    $file = fopen($file_name, "r");
 				    while(!feof($file))
@@ -582,7 +582,7 @@ class FileController extends \lib\Controller {
 				        // flush the content to the browser
 				        flush();
 				        // sleep one second
-				        sleep(1);
+				        //sleep(1);
 				    }
 				    fclose($file);
 				}
