@@ -9,11 +9,14 @@ class RoboticsController extends \lib\Controller {
 	// https://github.com/projectweekend/Pi-GPIO-Server
 
 	/**
+	 * Robotics : read pin value
 	 * @uri    /robotics
 	 * @method GET
+	 * @return JSON with info about robotics
 	 */
 	public function get($pin_id) {
 
+		$response = file_get_contents($this->_app->_config->get('server_robotics') . "/api/v1/pin/".$pin_id);
 
 		$json['succeed'] = true;
 		$json['result'] = array(
@@ -30,6 +33,7 @@ class RoboticsController extends \lib\Controller {
 
 
 	/**
+	 * Do robotics actions
 	 * @uri    	/robotics
 	 * @method 	POST
 	 */
@@ -40,6 +44,7 @@ class RoboticsController extends \lib\Controller {
 		if(HTTPRequest::postExist('value'))
 			$value = HTTPRequest::postData('value');
 
+		$url = $this->_app->_config->get('server_robotics') . "/api/v1/pin/".$pin_id;
 		$data = array('value' => $value);
 
 		$options = array(
