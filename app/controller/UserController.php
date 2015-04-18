@@ -116,9 +116,9 @@ class UserController extends \lib\Controller {
 
 				// DataBase keeps sha1(sha1(real_pass)) to be sure that the pass saved on DB are never on internet
 
-				// So the pass comparaison allows 60 minutes after the pass generation
+				// So the pass comparaison allows 60*4 minutes after the pass generation
 
-				for($i=0 ; $i <= 60 ; $i++) {
+				for($i=0 ; $i <= 60*4 ; $i++) {
 
 					date_default_timezone_set("UTC");
 
