@@ -33,7 +33,7 @@ class UserController extends \lib\Controller {
 			}			
 		}
 		else {
-			$json['toast'] = 'Wrong User.';
+			$json['toast'] = 'Wrong User or Password.';
 		}
 
 		HTTPResponse::send(json_encode($json, JSON_NUMERIC_CHECK));
