@@ -120,7 +120,7 @@ class UserController extends \lib\Controller {
 
 				for($i=0 ; $i <= 60 ; $i++) {
 
-					if($user->getPassword() === sha1($userbdd->getPassword() + date("Y-m-d H:i",strtotime(date("Y-m-d H:i")." + ".$i." minutes")) {
+					if($user->getPassword() === sha1($userbdd->getPassword() + date("Y-m-d H:i",strtotime(date("Y-m-d H:i")." + ".$i." minutes")))) {
 
 						if(HTTPRequest::exist('android_id')) {
 							$user->setAndroid_id(HTTPRequest::get('android_id'));
