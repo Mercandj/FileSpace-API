@@ -106,6 +106,8 @@ class UserController extends \lib\Controller {
 			if($userManager->exist($user->getUsername())) {	
 
 				$userbdd = $userManager->get($user->getUsername());
+				date_default_timezone_set("UTC");
+				$pass_expiry_time = 240; // minutes
 
 				// Front send HTTPRequest::serverData('PHP_AUTH_PW') = sha1( sha1(sha1(real_pass)) . date('Y-m-d H:i') )
 				// sha1(sha1(real_pass)) : because, for example on android, the device save sha1(real_pass) on the device
@@ -116,13 +118,11 @@ class UserController extends \lib\Controller {
 
 				// DataBase keeps sha1(sha1(real_pass)) to be sure that the pass saved on DB are never on internet
 
-				// So the pass comparaison allows 60*4 minutes after the pass generation
+				// So the pass comparaison allows $pass_expiry_time minutes after the pass generation
 
-				for($i=0 ; $i <= 60*4 ; $i++) {
+				for($i=0 ; $i <= $pass_expiry_time ; $i++) {
 
-					date_default_timezone_set("UTC");
-
-					if( $user->getPassword() === sha1($userbdd->getPassword() . date("Y-m-d H:i",strtotime(date("Y-m-d H:i", time())." + ".$i." minutes"))) ) {
+					if( ''.$user->getPassword() === ''.sha1($userbdd->getPassword() . date("Y-m-d H:i",strtotime(date("Y-m-d H:i", time())." + ".$i." minutes"))) ) {
 
 						if(HTTPRequest::exist('android_id')) {
 							$user->setAndroid_id(HTTPRequest::get('android_id'));
