@@ -75,7 +75,7 @@ class UserController extends \lib\Controller {
 			$userManager = $this->getManagerof('User');
 
 			// Check if User exist and is valid
-			if($user->isValid() && !$userManager->exist(HTTPRequest::postData('username'))  ) {
+			if($user->isValid() && !$userManager->exist(HTTPRequest::postData('username'))) {
 				$userManager->add($user);
 				$json = '{"succeed":true}';
 			}
@@ -97,7 +97,7 @@ class UserController extends \lib\Controller {
 			
 			$user = new User(array(
 				'username' => HTTPRequest::serverData('PHP_AUTH_USER'),
-				'password' => sha1(HTTPRequest::serverData('PHP_AUTH_PW')),
+				'password' => HTTPRequest::serverData('PHP_AUTH_PW'),
 				'date_last_connection' => date('Y-m-d H:i:s')
 			));
 
@@ -107,17 +107,32 @@ class UserController extends \lib\Controller {
 
 				$userbdd = $userManager->get($user->getUsername());
 
-				if($user->getPassword() === $userbdd->getPassword()){
+				// Front send HTTPRequest::serverData('PHP_AUTH_PW') = sha1( sha1(sha1(real_pass)) . date('Y-m-d H:i') )
+				// sha1(sha1(real_pass)) : because, for example on android, the device save sha1(real_pass) on the device
+				// and send sha1(sha1(real_pass)) in order to be sure that the data sent throw internet are 
+				// different than the save data on device.
+				// sha1( sha1(sha1(real_pass)) . date('Y-m-d H:i') ) : in order to have an expiry date on the pass
+				// sent throw internet.
 
-					if(HTTPRequest::exist('android_id')) {
-						$user->setAndroid_id(HTTPRequest::get('android_id'));
-						$userManager->updateAndroidId($user);
-					}					
-					$userManager->updateConnection($user);
-					$this->_app->_config->setId_user($userbdd->getId());
-					
-					return true;
-				}
+				// DataBase keeps sha1(sha1(real_pass)) to be sure that the pass saved on DB are never on internet
+
+				// So the pass comparaison allows 60 minutes after the pass generation
+
+				for($i=0 ; $i <= 60 ; $i++) {
+
+					if($user->getPassword() === sha1($userbdd->getPassword() + date("Y-m-d H:i",strtotime(date("Y-m-d H:i")." + ".$i." minutes")) {
+
+						if(HTTPRequest::exist('android_id')) {
+							$user->setAndroid_id(HTTPRequest::get('android_id'));
+							$userManager->updateAndroidId($user);
+						}					
+						$userManager->updateConnection($user);
+						$this->_app->_config->setId_user($userbdd->getId());
+						
+						return true;
+					}
+
+				}				
 
 			}
 		}
