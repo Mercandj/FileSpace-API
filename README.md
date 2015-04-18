@@ -15,7 +15,7 @@ J.A.R.V.I.S - API
 * Configuration : /config/config.json
 * Install data base : /database/script.sql
 * Tested on Apache
-* Optional for home automation : Raspberry Pi with this [project](https://github.com/projectweekend/Pi-GPIO-Server)
+* Optional robotics : Raspberry Pi with this [project](https://github.com/projectweekend/Pi-GPIO-Server)
 
 
 ## REST API ROUTES
@@ -39,12 +39,12 @@ For each file request : basic-authentication token:empty
 | /user     	  | GET      |               | basic-authentication login:pass 	| json
 | /user			  | POST 	 |               | 'username','password'            | json token
 
-* Home Controller
+* Robotics Controller
 
 |Root             | Method   | Description                   | Input            	| Output
 |-----------------|----------|-------------------------------|----------------------|-----------
-| /home/:id	  	  | GET      | Get the raspberry pin status  | pin id (url)       	| json
-| /home/:id	      | PUT      | Set the raspberry pin status  | pin id (url)       	| json
+| /robotics/:id	  	  | GET      | Get the raspberry pin status  | pin id (url)       	| json
+| /robotics/:id	      | PUT      | Set the raspberry pin status  | pin id (url)       	| json
 
 * Information Controller
 

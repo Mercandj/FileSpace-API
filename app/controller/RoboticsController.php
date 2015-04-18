@@ -4,19 +4,16 @@ use \lib\Entities\User;
 use \lib\HTTPRequest;
 use \lib\HTTPResponse;
 
-class HomeController extends \lib\Controller {
+class RoboticsController extends \lib\Controller {
 
 	// https://github.com/projectweekend/Pi-GPIO-Server
 
 	/**
-	 * Get the home informations : home automation
-	 * @uri    /home
+	 * @uri    /robotics
 	 * @method GET
-	 * @return JSON with info about home automation
 	 */
 	public function get($pin_id) {
 
-		$response = file_get_contents($this->_app->_config->get('server_home_automation') . "/api/v1/pin/".$pin_id);
 
 		$json['succeed'] = true;
 		$json['result'] = array(
@@ -33,8 +30,7 @@ class HomeController extends \lib\Controller {
 
 
 	/**
-	 * Do home actons
-	 * @uri    	/home
+	 * @uri    	/robotics
 	 * @method 	POST
 	 */
 	public function post($pin_id) {
@@ -44,7 +40,6 @@ class HomeController extends \lib\Controller {
 		if(HTTPRequest::postExist('value'))
 			$value = HTTPRequest::postData('value');
 
-		$url = $this->_app->_config->get('server_home_automation') . "/api/v1/pin/".$pin_id;
 		$data = array('value' => $value);
 
 		$options = array(
