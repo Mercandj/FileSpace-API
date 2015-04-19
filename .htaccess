@@ -2,5 +2,6 @@ RewriteEngine On
 
 RewriteRule ^(.*)$ index.php [QSA,L]
 
-php_value post_max_size 1000M
-php_value upload_max_filesize 800M
+php_value post_max_size 1800M
+php_value upload_max_filesize 1500M
+php_value max_execution_time 3600
