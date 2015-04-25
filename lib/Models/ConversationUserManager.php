@@ -81,6 +81,17 @@ class ConversationUserManager extends \lib\Manager {
 	    return $conversationUser;
 	}
 
+	public function getAllByConversationId($id_conversation) {
+		$conversationUser = [];
+		$req = $this->_db->prepare('SELECT * FROM conversation_user WHERE id_conversation = :id_conversation');
+		$req->bindParam(':id_conversation', $id_conversation, \PDO::PARAM_INT);
+		$req->execute();
+    	while ($donnees = $req->fetch(\PDO::FETCH_ASSOC))
+	    	$conversationUser[] = new ConversationUser($donnees);
+	    $req->closeCursor();
+	    return $conversationUser;
+	}
+
 	public function getAll() {
 		$conversationUser = [];
 		$conversationUser = $this->_db->prepare('SELECT * FROM conversation_user');

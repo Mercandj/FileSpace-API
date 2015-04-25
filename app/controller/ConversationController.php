@@ -24,7 +24,24 @@ class ConversationController extends \lib\Controller {
 
 		$list_my_conversation = $conversationUserManager->getAllByUserId($id_user);
 		foreach ($list_my_conversation as $my_conversation) {
-			$result[] = $my_conversation->toArray();
+			$tmp_array = $my_conversation->toArray();
+
+			$conversation_id_user = [];
+			$list_tmp_conversation = $conversationUserManager->getAllByConversationId($my_conversation->getId_conversation());
+			foreach ($list_tmp_conversation as $tmp_conversation) {
+				$tmp_id_user = $tmp_conversation->getId_user();
+				if($tmp_id_user != $id_user) {
+					$bool = true;
+					foreach ($conversation_id_user as $tmp_i)
+						if($tmp_id_user == $tmp_i)
+							$bool = false;
+					if($bool)
+						$conversation_id_user[] = $tmp_id_user;
+				}
+			}
+			$tmp_array['id_users'] = $conversation_id_user;
+
+			$result[] = $tmp_array;
 		}
 
 		$json['succeed'] = true;
