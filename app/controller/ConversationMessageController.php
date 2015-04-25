@@ -253,7 +253,7 @@ class ConversationMessageController extends \lib\Controller {
 
 		$conversationMessageManager = $this->getManagerof('ConversationMessage');
 
-		$list_conversationMessage = $conversationMessageManager->getAllByConversationId();
+		$list_conversationMessage = $conversationMessageManager->getAllByConversationId($id);
 		foreach ($list_conversationMessage as $conversationMessage) {
 			$result[] = $conversationMessage->toArray();
 		}
