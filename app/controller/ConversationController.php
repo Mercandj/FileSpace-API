@@ -10,7 +10,7 @@ use \lib\HTTPResponse;
 class ConversationController extends \lib\Controller {
 
 	public function get() {
-
+		$result = [];
 		$json['succeed'] = false;
 
 		$userManager = $this->getManagerof('User');
@@ -26,7 +26,7 @@ class ConversationController extends \lib\Controller {
 		foreach ($list_my_conversation as $my_conversation) {
 			$result[] = $my_conversation->toArray();
 		}
-		
+
 		$json['succeed'] = true;
 		$json['result'] = $result;
 
