@@ -251,7 +251,7 @@ class FileController extends \lib\Controller {
 			}
 
 			else if( !($user->isAdmin()) && $user->getSize_files() + $_FILES['file']['size'] >= $this->_app->_config->get('server_max_size_end_user')) {
-				$json['toast'] = 'Sorry, no more place for you '. (($user->getSize_files() + $_FILES['file']['size'] >= $this->_app->_config->get('server_max_size_end_user'))/1000000)  . ' / '.($this->_app->_config->get('server_max_size_end_user')/1000000).' Mo).';
+				$json['toast'] = 'Sorry, no more place for you '. (($user->getSize_files() + $_FILES['file']['size'])/1000000)  . ' / '.($this->_app->_config->get('server_max_size_end_user')/1000000).' Mo).';
 			}
 
 			else if( $fileManager->sizeAll() + $_FILES['file']['size'] >= $this->_app->_config->get('server_max_size')) {
