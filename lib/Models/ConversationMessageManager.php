@@ -65,6 +65,17 @@ class ConversationMessageManager extends \lib\Manager {
 	    return $users;
 	}
 
+	public function getAllByConversationId($id_conversation) {
+		$conversationMessages = [];
+		$req = $this->_db->prepare('SELECT * FROM conversation_message WHERE id_conversation = :id_conversation');
+		$req->bindParam(':id_conversation', $id_conversation,\PDO::PARAM_INT);
+		$req->execute();
+    	while ($donnees = $req->fetch(\PDO::FETCH_ASSOC))
+	    	$conversationMessages[] = new ConversationMessage($donnees);
+	    $req->closeCursor();
+	    return $conversationMessages;
+	}
+
 	public function existById($id) {
 		$req = $this->_db->prepare('SELECT id FROM conversation_message WHERE id = :id');
     	$req->bindParam(':id', $id,\PDO::PARAM_INT);

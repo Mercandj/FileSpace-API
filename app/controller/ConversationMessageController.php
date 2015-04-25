@@ -38,8 +38,8 @@ class ConversationMessageController extends \lib\Controller {
 	}
 
 	/**
-	 * Post a notification : id = id_user recipient
-	 * @uri    /notification
+	 * id = id_user recipient
+	 * @uri    /user_message
 	 * @method POST
 	 * @param  message    REQUIRED
 	 * @param  all        OPTIONAL
@@ -239,5 +239,30 @@ class ConversationMessageController extends \lib\Controller {
 		}
 
 		HTTPResponse::send(json_encode($json));
+	}
+
+	/**
+	 * id = id_conversation
+	 * @uri    /user_message
+	 * @method GET
+	 */
+	public function get($id) {
+
+		$json['succeed'] = false;
+		$result = [];
+
+		$conversationMessageManager = $this->getManagerof('ConversationMessage');
+
+		$list_conversationMessage = $conversationMessageManager->getAllByConversationId();
+		foreach ($list_conversationMessage as $conversationMessage) {
+			$result[] = $conversationMessage->toArray();
+		}
+
+		$json['succeed'] = true;
+		$json['result'] = $result;
+
+
+		HTTPResponse::send(json_encode($json));
+
 	}
 }
