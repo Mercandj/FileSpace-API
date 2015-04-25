@@ -26,8 +26,9 @@ class ConversationController extends \lib\Controller {
 		foreach ($list_my_conversation as $my_conversation) {
 			$result[] = $my_conversation->toArray();
 		}
+		
 		$json['succeed'] = true;
-
+		$json['result'] = $result;
 
 		HTTPResponse::send(json_encode($json));
 	}
