@@ -39,6 +39,13 @@ class ConversationController extends \lib\Controller {
 						$users[] = $userManager->getById($tmp_id_user)->toArray();
 				}
 			}
+			if(empty($users)) {
+				$conv = $conversationManager->getById($my_conversation->getId_conversation());
+				if($conv->getTo_all())
+					$tmp_array['to_all'] = true;
+				else if($conv->getTo_yourself())
+					$tmp_array['to_yourself'] = true;
+			}
 			$tmp_array['users'] = $users;
 
 			$result[] = $tmp_array;
