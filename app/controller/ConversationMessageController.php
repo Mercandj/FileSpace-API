@@ -38,7 +38,7 @@ class ConversationMessageController extends \lib\Controller {
 	}
 
 	/**
-	 * Post a notification
+	 * Post a notification : id = id_user recipient
 	 * @uri    /notification
 	 * @method POST
 	 * @param  message    REQUIRED

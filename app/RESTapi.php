@@ -22,6 +22,7 @@ class RESTapi extends \lib\Application {
 			->get('/robotics/:id','Robotics#get')
 			->post('/robotics/:id','Robotics#post')
 			->post('/user_message/:id','ConversationMessage#post')
+			->get('/user_conversation','Conversation#get')
 			->get('/information','Information#get')
 			->authorize((new UserController($this))->isAdmin())
 			->get('/daemon','ServerDaemon#get')	
