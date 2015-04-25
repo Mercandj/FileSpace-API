@@ -36,7 +36,7 @@ class ConversationController extends \lib\Controller {
 						if($tmp_id_user == $user->getId())
 							$bool = false;
 					if($bool)
-						$users[] = $userManager->getById($tmp_id_user);
+						$users[] = $userManager->getById($tmp_id_user)->toArray();
 				}
 			}
 			$tmp_array['users'] = $users;
