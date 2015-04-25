@@ -80,6 +80,8 @@ class FileController extends \lib\Controller {
 		$json['toast'] = '';
 
 		$id_user = $this->_app->_config->getId_user();
+		$userManager = $this->getManagerof('User');
+		$user = $userManager->getById($id_user);
 
 		// Create Directory
 		if(HTTPRequest::postExist('directory') && HTTPRequest::postData('directory')=="true" && HTTPRequest::postExist('url')) {
@@ -248,8 +250,12 @@ class FileController extends \lib\Controller {
 				$json['toast'] = 'File too big (> '.($this->_app->_config->get('server_max_size_file')/1000000).' Mo).';
 			}
 
+			else if( !($user->isAdmin()) && $user->getSize_files() + $_FILES['file']['size'] >= $this->_app->_config->get('server_max_size_end_user')) {
+				$json['toast'] = 'Sorry, no more place for you '. (($user->getSize_files() + $_FILES['file']['size'] >= $this->_app->_config->get('server_max_size_end_user'))/1000000)  . ' / '.($this->_app->_config->get('server_max_size_end_user')/1000000).' Mo).';
+			}
+
 			else if( $fileManager->sizeAll() + $_FILES['file']['size'] >= $this->_app->_config->get('server_max_size')) {
-				$json['toast'] = 'Server : no more place.';
+				$json['toast'] = 'Server : no more place on the server.';
 			}
 
 			else if( !move_uploaded_file($_FILES["file"]["tmp_name"], $target_dir) ) {

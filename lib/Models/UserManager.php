@@ -88,7 +88,7 @@ class UserManager extends \lib\Manager {
 	}
 
 	public function getById($id) {
-		$req = $this->_db->prepare('SELECT id,username,last_name,first_name,email,date_creation,date_last_connection,android_id FROM user WHERE id = :id');
+		$req = $this->_db->prepare('SELECT id,username,last_name,first_name,email,date_creation,date_last_connection,admin,android_id,(SELECT COUNT(*) FROM file WHERE file.id_user = user.id) AS num_files,(SELECT SUM(size) FROM file WHERE file.id_user = user.id) AS size_files FROM user WHERE id = :id');
     	$req->bindParam(':id', $id, \PDO::PARAM_INT);
     	$req->execute();
 
@@ -99,7 +99,7 @@ class UserManager extends \lib\Manager {
 
 	public function getAll() {
 		$users = [];
-		$req = $this->_db->prepare('SELECT id,username,password,last_name,first_name,email,date_creation,date_last_connection,android_id,(SELECT COUNT(*) FROM file WHERE file.id_user = user.id) AS num_files,(SELECT SUM(size) FROM file WHERE file.id_user = user.id) AS size_files FROM user');
+		$req = $this->_db->prepare('SELECT id,username,password,last_name,first_name,email,date_creation,date_last_connection,admin,android_id,(SELECT COUNT(*) FROM file WHERE file.id_user = user.id) AS num_files,(SELECT SUM(size) FROM file WHERE file.id_user = user.id) AS size_files FROM user');
 		$req->execute();
     	while ($donnees = $req->fetch(\PDO::FETCH_ASSOC))
 	    	$users[] = new User($donnees);
