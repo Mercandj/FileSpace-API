@@ -279,6 +279,7 @@ class ConversationController extends \lib\Controller {
 					$tmp_array['to_yourself'] = true;
 			}
 			$tmp_array['users'] = $users;
+			$tmp_array['num_messages'] = count($conversationMessageManager->getAllByConversationId($my_conversation->getId_conversation()));
 
 			$result[] = $tmp_array;
 		}
