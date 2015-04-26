@@ -74,6 +74,8 @@ class ConversationMessageController extends \lib\Controller {
 		}
 
 		else {
+			$to_all = false;
+			$to_yourself = false;
 
 			$date = date('Y-m-d H:i:s');
 			$message = HTTPRequest::postData('message');
@@ -101,17 +103,21 @@ class ConversationMessageController extends \lib\Controller {
 			}
 			if(empty($users)) {
 				$conv = $conversationManager->getById($id_conversation);
-				if($conv->getTo_all())
+				if($conv->getTo_all()) {
 					$json['to_all'] = true;
-				else if($conv->getTo_yourself())
+					$to_all = true;
+				}
+				else if($conv->getTo_yourself()) {
 					$json['to_yourself'] = true;
+					$to_yourself = true;
+				}
 			}
 			$json['users'] = $users;
 
-			if($json['to_all'] && $admin_user) {
+			if($to_all && $admin_user) {
 				// TODO
 			}
-			else if($json['to_yourself']) {
+			else if($to_yourself) {
 				$gcmRegIds = array($userManager->getById($id_user)->getAndroid_id());
 				$message = array("m" => $message);
 				$pushStatus = $this->sendPushNotificationToGCM($gcmRegIds, $message);
