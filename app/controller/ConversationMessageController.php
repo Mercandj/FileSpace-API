@@ -149,6 +149,7 @@ class ConversationMessageController extends \lib\Controller {
 		$json['succeed'] = false;
 		$result = [];
 
+		$userManager = $this->getManagerof('User');
 		$conversationMessageManager = $this->getManagerof('ConversationMessage');
 
 		$list_conversationMessage = $conversationMessageManager->getAllByConversationId($id);
