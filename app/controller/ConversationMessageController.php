@@ -89,6 +89,7 @@ class ConversationMessageController extends \lib\Controller {
 			$conversationMessageManager->add($conversationMessage);
 
 			$users = [];
+			$users_array = [];
 			$list_tmp_conversation = $conversationUserManager->getAllByConversationId($id_conversation);
 			foreach ($list_tmp_conversation as $tmp_conversation) {
 				$tmp_id_user = $tmp_conversation->getId_user();
@@ -97,8 +98,10 @@ class ConversationMessageController extends \lib\Controller {
 					foreach ($users as $user)
 						if($tmp_id_user == $user->getId())
 							$bool = false;
-					if($bool)
-						$users[] = $userManager->getById($tmp_id_user)->toArray();
+					if($bool) {
+						$users[] = $userManager->getById($tmp_id_user);
+						$users_array[] = $userManager->getById($tmp_id_user)->toArray();
+					}
 				}
 			}
 			if(empty($users)) {
@@ -112,7 +115,7 @@ class ConversationMessageController extends \lib\Controller {
 					$to_yourself = true;
 				}
 			}
-			$json['users'] = $users;
+			$json['users'] = $users_array;
 
 			if($to_all && $admin_user) {
 				// TODO
