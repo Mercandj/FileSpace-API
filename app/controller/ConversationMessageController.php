@@ -38,14 +38,13 @@ class ConversationMessageController extends \lib\Controller {
 	}
 
 	/**
-	 * id = id_user recipient
 	 * @uri    /user_message
 	 * @method POST
 	 * @param  message    REQUIRED
 	 * @param  all        OPTIONAL
 	 * @param  allAdmin   OPTIONAL
 	 */
-	public function post($id) {
+	public function post($id_conversation) {
 
 		$json['succeed'] = false;
 
@@ -65,181 +64,74 @@ class ConversationMessageController extends \lib\Controller {
 		if(HTTPRequest::postExist('allAdmin'))
 			$allAdmin = HTTPRequest::postData('allAdmin');
 
+
 		if(!HTTPRequest::postExist('message')) {
 			$json['toast'] = "No message.";
 		}
 
-		else if(!$userManager->existById($id)) {
-			$json['toast'] = "Wrong user.";
-		}
-
-		else if($all && $admin_user) {
-			$users = $userManager->getAll();
-			$message = HTTPRequest::postData('message');
-
-			foreach ($users as $user) {
-				$gcmRegID  = $user->getAndroid_id();
-
-				if (isset($gcmRegID)) {   
-					$gcmRegIds = array($gcmRegID);
-					$messageArray = array("m" => $message);
-					$pushStatus = $this->sendPushNotificationToGCM($gcmRegIds, $messageArray);
-					$json['status'][] = $pushStatus;
-				} 
-			}
-			$json['succeed'] = true;
-		}
-
-		else if($allAdmin && $admin_user) {
-			$users = $userManager->getAllAdmin();
-			$message = HTTPRequest::postData('message');
-
-			foreach ($users as $user) {
-				$gcmRegID  = $user->getAndroid_id();
-
-				if (isset($gcmRegID)) {   
-					$gcmRegIds = array($gcmRegID);
-					$messageArray = array("m" => $message);
-					$pushStatus = $this->sendPushNotificationToGCM($gcmRegIds, $messageArray);
-					$json['status'][] = $pushStatus;
-				} 
-			}
-			$json['succeed'] = true;
+		else if(!$conversationManager->existById($id_conversation)) {
+			$json['toast'] = "Wrong id conversation.";
 		}
 
 		else {
 
 			$date = date('Y-m-d H:i:s');
-			$conversation = null;
-			$id_user_array = [];
-			$conversations_array = [];
-			$conversations_pot = [];
-			$id_user_array[] = intval($id_user);
-			$id_user_array[] = intval($id);
-
-			if(intval($id_user) == intval($id)) {
-				$conversations = $conversationUserManager->getAllByUserId($id_user);
-
-				foreach ($conversations as $conversation_) {
-					if (! ($conversation_ instanceof ConversationUser))
-						break;
-					$conversation_tmp = $conversationManager->getById($conversation_->getId_conversation());
-					if( $conversation_tmp->getTo_yourself() ) {
-						$conversation = $conversation_tmp;
-						break;
-					}
-				}
-
-				if($conversation == null) {
-
-					$conversation = new Conversation(array(
-						'id'=> 0,
-						'id_user' => intval($id_user),
-						'date_creation' => $date,
-						'to_yourself' => 1
-					));
-					$conversationManager->add($conversation);
-					$conversation = $conversationManager->getByDate($conversation);
-					$id_conversation = intval($conversation->getId());
-
-					$conversationUser = new ConversationUser(array(
-						'id'=> 0,
-						'id_user' => intval($id_user),
-						'id_conversation' => $id_conversation,
-						'date_creation' => $date
-					));
-					$conversationUserManager->add($conversationUser);
-					
-				}
-
-			}
-			else {
-
-				for($i = 0; $i < count($id_user_array); $i++) {
-					$conversations_array[] = $conversationUserManager->getAllByUserId($id_user_array[$i]);
-				}
-
-				for($i1 = 0; $i1 < count($conversations_array); $i1++) {
-					$conversations1 = $conversations_array[$i1];
-
-					for($j1 = 0; $j1 < count($conversations1); $j1++) {
-						$conversation1 = $conversations1[$j1];
-
-						for($i2 = 0; $i2 < count($conversations_array); $i2++) {
-
-							// if user !=
-							if($i1 != $i2) {
-
-								$conversations2 = $conversations_array[$i2];
-								for($j2 = 0; $j2 < count($conversations2); $j2++) {
-									$conversation2 = $conversations2[$j2];
-
-									if($conversation1->getId_conversation() == $conversation2->getId_conversation()) {
-
-										$conversation_pot = $conversationManager->getById($conversation1->getId_conversation());
-
-										if(intval($conversation_pot->getTo_all()) != 1 && intval($conversation_pot->getTo_yourself()) != 1)
-											$conversations_pot[] = $conversation_pot;
-									}									
-								}
-							}
-						}
-					}
-				}
-
-				$json['debug-conversations-pot'] = count($conversations_pot);
-
-				foreach ($conversations_pot as $conversation_) {
-					if(!$conversationUserManager->containsOtherUsers($conversation_->getId(), $id_user_array)) {
-						$conversation = $conversation_;
-						break;
-					}
-				}
-
-				if($conversation == null) {
-
-					$conversation = new Conversation(array(
-						'id'=> 0,
-						'id_user' => intval($id_user),
-						'date_creation' => $date
-					));
-					$conversationManager->add($conversation);
-					$conversation = $conversationManager->getByDate($conversation);
-					$id_conversation = intval($conversation->getId());
-
-					foreach ($id_user_array as $id_user_) {
-						$conversationUser = new ConversationUser(array(
-							'id'=> 0,
-							'id_user' => intval($id_user_),
-							'id_conversation' => $id_conversation,
-							'date_creation' => $date
-						));
-						$conversationUserManager->add($conversationUser);
-					}
-				}
-			}
-
+			$message = HTTPRequest::postData('message');
 			$conversationMessage = new ConversationMessage(array(
 				'id'=> 0,
 				'id_user' => intval($id_user),
-				'id_conversation' => intval($conversation->getId()),
-				'content' => HTTPRequest::postData('message'),
+				'id_conversation' => intval($id_conversation),
+				'content' => $message,
 				'date_creation' => $date
 			));
 			$conversationMessageManager->add($conversationMessage);
 
-			$gcmRegIds = array($userManager->getById($id)->getAndroid_id());
-			$message = array("m" => HTTPRequest::postData('message'));
-			$pushStatus = $this->sendPushNotificationToGCM($gcmRegIds, $message);
-			$json['status'] = $pushStatus;
-			$json['debug-username'] = $userManager->getById($id)->getUsername();
-			$json['debug-message'] = $conversationMessage->toArray();
+			$users = [];
+			$list_tmp_conversation = $conversationUserManager->getAllByConversationId($id_conversation);
+			foreach ($list_tmp_conversation as $tmp_conversation) {
+				$tmp_id_user = $tmp_conversation->getId_user();
+				if($tmp_id_user != $id_user) {
+					$bool = true;
+					foreach ($users as $user)
+						if($tmp_id_user == $user->getId())
+							$bool = false;
+					if($bool)
+						$users[] = $userManager->getById($tmp_id_user)->toArray();
+				}
+			}
+			if(empty($users)) {
+				$conv = $conversationManager->getById($id_conversation);
+				if($conv->getTo_all())
+					$json['to_all'] = true;
+				else if($conv->getTo_yourself())
+					$json['to_yourself'] = true;
+			}
+			$json['users'] = $users;
+
+			if($json['to_all'] && $admin_user) {
+				// TODO
+			}
+			else if($json['to_yourself']) {
+				$gcmRegIds = array($userManager->getById($id_user)->getAndroid_id());
+				$message = array("m" => $message);
+				$pushStatus = $this->sendPushNotificationToGCM($gcmRegIds, $message);
+			}
+			else {
+				foreach ($users as $user) {
+					$gcmRegIds = array($user->getAndroid_id());
+					$message = array("m" => $message);
+					$pushStatus = $this->sendPushNotificationToGCM($gcmRegIds, $message);
+				}
+			}
+
 			$json['toast'] = 'Message sent.';
 			$json['succeed'] = true;
 		}
 
+
 		HTTPResponse::send(json_encode($json));
 	}
+	
 
 	/**
 	 * id = id_conversation
