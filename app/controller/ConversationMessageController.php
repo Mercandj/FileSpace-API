@@ -153,7 +153,9 @@ class ConversationMessageController extends \lib\Controller {
 
 		$list_conversationMessage = $conversationMessageManager->getAllByConversationId($id);
 		foreach ($list_conversationMessage as $conversationMessage) {
-			$result[] = $conversationMessage->toArray();
+			$tmp_array = $conversationMessage->toArray();
+			$tmp_array['user'] = $userManager->getById($conversationMessage->getId_user())->toArray();
+			$result[] = $tmp_array;
 		}
 
 		$json['succeed'] = true;
