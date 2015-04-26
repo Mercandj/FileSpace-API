@@ -119,13 +119,13 @@ class ConversationMessageController extends \lib\Controller {
 			}
 			else if($to_yourself) {
 				$gcmRegIds = array($userManager->getById($id_user)->getAndroid_id());
-				$message = array("m" => $message);
+				$message = array("m" => $message, "id_conversation" => $id_conversation);
 				$pushStatus = $this->sendPushNotificationToGCM($gcmRegIds, $message);
 			}
 			else {
 				foreach ($users as $user) {
 					$gcmRegIds = array($user->getAndroid_id());
-					$message = array("m" => $message);
+					$message = array("m" => $message, "id_conversation" => $id_conversation);
 					$pushStatus = $this->sendPushNotificationToGCM($gcmRegIds, $message);
 				}
 			}

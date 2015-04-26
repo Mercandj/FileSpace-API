@@ -229,7 +229,7 @@ class ConversationController extends \lib\Controller {
 			$conversationMessageManager->add($conversationMessage);
 
 			$gcmRegIds = array($userManager->getById($id_user_recipient)->getAndroid_id());
-			$message = array("m" => HTTPRequest::postData('message'));
+			$message = array("m" => HTTPRequest::postData('message'), "id_conversation" => intval($conversation->getId()));
 			$pushStatus = $this->sendPushNotificationToGCM($gcmRegIds, $message);
 			$json['status'] = $pushStatus;
 			$json['debug-username'] = $userManager->getById($id_user_recipient)->getUsername();
