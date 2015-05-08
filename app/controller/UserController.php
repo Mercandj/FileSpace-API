@@ -194,4 +194,34 @@ class UserController extends \lib\Controller {
 
 		return false;
 	}
+
+	/**
+	 * Modify a User
+	 * @uri    /user_put
+	 * @method POST
+	 * @return JSON with info about user
+	 */
+	public function put() {
+		$result = []; //In case where list_file is empty;
+		$json['succeed'] = false;
+
+		if(HTTPRequest::postExist('id_file_profile_picture')) {
+			$id_file_profile_picture = intval(HTTPRequest::postData('id_file_profile_picture'));
+			
+			$id_user = $this->_app->_config->getId_user();
+			$userManager = $this->getManagerof('User');
+			$user = $userManager->getById($id_user);
+
+			$user->setId_file_profile_picture($id_file_profile_picture);
+			$userManager->updateId_file_profile_picture($user);
+
+			$json['succeed'] = true;
+			$json['toast'] = "Your picture has been updated.";
+		}
+		else {
+			$json['toast'] = "No parameter.";
+		}
+
+		HTTPResponse::send(json_encode($json, JSON_NUMERIC_CHECK));
+	}
 }

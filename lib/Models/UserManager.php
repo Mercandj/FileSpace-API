@@ -42,6 +42,17 @@ class UserManager extends \lib\Manager {
 		$req->closeCursor();
 	}
 
+	public function updateId_file_profile_picture(User $user) {		
+		$id = $user->getId();
+		$id_file_profile_picture = $user->getId_file_profile_picture();
+
+		$req = $this->_db->prepare('UPDATE user SET id_file_profile_picture = :id_file_profile_picture WHERE id = :id');
+		$req->bindParam(':id',$id,\PDO::PARAM_INT);
+		$req->bindParam(':id_file_profile_picture',$id_file_profile_picture,\PDO::PARAM_INT);
+		$req->execute();
+		$req->closeCursor();
+	}
+
 	public function updateAndroidId(User $user){
 		$username = $user->getUsername();
 		$date_last_connection = $user->getDate_last_connection();

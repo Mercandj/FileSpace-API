@@ -19,7 +19,8 @@ class User extends \lib\Entity{
 		$_email,
 		$_android_id,
 		$_num_files,
-		$_size_files;
+		$_size_files,
+		$_id_file_profile_picture;
 
 	public function getId(){
 		return $this->_id;
@@ -63,6 +64,10 @@ class User extends \lib\Entity{
 
 	public function getSize_files(){
 		return $this->_size_files;
+	}
+
+	public function getId_file_profile_picture(){
+		return $this->_id_file_profile_picture;
 	}	
 
 	public function isAdmin(){
@@ -153,6 +158,12 @@ class User extends \lib\Entity{
 		}
 	}
 
+	public function setId_file_profile_picture($id_file_profile_picture){
+		if(!empty($id_file_profile_picture)){
+			$this->_id_file_profile_picture = $id_file_profile_picture;
+		}
+	}
+
 	public function isValid(){
 		return !empty($this->_username) && !empty($this->_password);
 	}
@@ -176,6 +187,8 @@ class User extends \lib\Entity{
 			$json['num_files'] = $this->getNum_files();
 		if($this->getSize_files()!=null)
 			$json['size_files'] = $this->getSize_files();
+		if($this->getId_file_profile_pictures()!=null)
+			$json['id_file_profile_picture'] = $this->getId_file_profile_pictures();
         return $json;
     }
 }

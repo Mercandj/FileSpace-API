@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS `User` (
   `age` TINYINT NULL,
   `sexe` TINYINT(1) NULL,
   `admin` TINYINT(1) NOT NULL DEFAULT '0',
-  `id_file_picture` INT NULL,
+  `id_file_profile_picture` INT NULL,
   `description` VARCHAR(999) NULL,  
   `language` VARCHAR(50) NULL,
   `longitude` VARCHAR(80) NULL,
