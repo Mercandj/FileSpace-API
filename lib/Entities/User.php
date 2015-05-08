@@ -188,7 +188,7 @@ class User extends \lib\Entity{
 		if($this->getSize_files()!=null)
 			$json['size_files'] = $this->getSize_files();
 		if($this->getId_file_profile_picture()!=null)
-			$json['id_file_profile_picture'] = $this->getId_file_profile_pictures();
+			$json['id_file_profile_picture'] = $this->getId_file_profile_picture();
         return $json;
     }
 }
