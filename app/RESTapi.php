@@ -20,6 +20,8 @@ class RESTapi extends \lib\Application {
 			->get('/file/:id','File#download')
 			->post('/file/:id','File#update')
 			->delete('/file/:id','File#delete')
+			->get('/robotics','Robotics#get_test')
+			->post('/robotics','Robotics#post_test')
 			->get('/robotics/:id','Robotics#get')
 			->post('/robotics/:id','Robotics#post')			
 			->get('/user_message/:id','ConversationMessage#get')

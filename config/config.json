@@ -9,6 +9,7 @@
 	"server_max_size":10000000000,
 	"server_max_size_file":2000000000,
 	"server_max_size_end_user":50000000,
-	"server_robotics":"http://192.168.1.13:5000/",
+	"server_robotics_1":"http://192.168.1.13:5000/",
+	"server_robotics_2":"http://192.168.1.13:5000/",
 	"google_api_key":"AIzaSyALmR120lJH_ZN4NZO4_JyU7K_08OJwG2Q"
 }
