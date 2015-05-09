@@ -110,7 +110,7 @@ class RoboticsController extends \lib\Controller {
 		$user = $userManager->getById($id_user);
 
 		if($user->isAdmin()) {
-			$response = file_get_contents($this->_app->_config->get('server_robotics_2'));
+			$response = file_get_contents($this->_app->_config->get('server_robotics_2')."");
 			$json['succeed'] = true;
 			$json['result'] = array(
 				array(
