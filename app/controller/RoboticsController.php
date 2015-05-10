@@ -110,7 +110,7 @@ class RoboticsController extends \lib\Controller {
 		$user = $userManager->getById($id_user);
 
 		if($user->isAdmin()) {
-			$response = file_get_contents($this->_app->_config->get('server_robotics_2')."");
+			$response = file_get_contents($this->_app->_config->get('server_robotics_2')."index.p");
 			$json['succeed'] = true;
 			$json['result'] = array(
 				array(
@@ -148,7 +148,7 @@ class RoboticsController extends \lib\Controller {
 			if(HTTPRequest::postExist('servo'))
 				$servo = HTTPRequest::postData('servo');
 	
-			$url = $this->_app->_config->get('server_robotics_2');
+			$url = $this->_app->_config->get('server_robotics_2')."index.py";
 			$data = array('value' => $value);
 	
 			$options = array(
