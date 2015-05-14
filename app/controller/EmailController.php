@@ -34,15 +34,9 @@ class EmailController extends \lib\Controller {
   		
   		$from = 'toto@gmail.com';
   		if(HTTPRequest::postExist('from'))
-  			$from = HTTPRequest::postData('from');
-  			
-			$replyto = '';
-  		if(HTTPRequest::postExist('replyto'))
-  			$replyto = HTTPRequest::postData('replyto');
+  			$from = HTTPRequest::postData('from');  			
   		
-      $headers = 'From: ' . $from . "\r\n" .
-          'Reply-To: ' . $replyto . "\r\n" .
-          'X-Mailer: PHP/' . phpversion();
+      $headers = 'From: ' . $from . "\r\n";
       
       mail($to, $subject, $message, $headers);
       
