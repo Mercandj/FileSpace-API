@@ -47,10 +47,10 @@ class EmailController extends \lib\Controller {
       mail($to, $subject, $message, $headers);
       
       $json['succeed'] = true;
-      json['toast'] = 'Email sent.';
+      $json['toast'] = 'Email sent.';
     }
     else {
-      json['toast'] = 'Denied access.';
+      $json['toast'] = 'Denied access.';
     }
 	  
     // Return data
