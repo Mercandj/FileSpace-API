@@ -39,6 +39,7 @@ class EmailController extends \lib\Controller {
       $headers = "MIME-Version: 1.0" . "\r\n" . "Content-type: text/html; charset=iso-8859-1" . "\r\n" . "From: " . $from . "\r\n";
       
       ini_set("SMTP","aspmx.l.google.com");
+      ini_set("sendmail_from", $from);
       mail($to, $subject, $message, $headers);
       
       $json['succeed'] = true;
