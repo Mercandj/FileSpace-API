@@ -2,7 +2,6 @@
 namespace app\controller;
 use \lib\Entities\File;
 use \lib\Entities\FileDownload;
-use \lib\Entities\UserConnection;
 use \lib\HTTPRequest;
 use \lib\HTTPResponse;
 
@@ -20,15 +19,6 @@ class FileController extends \lib\Controller {
 	public function get() {
 		$result = []; //In case where list_file is empty;
 		$id_user = $this->_app->_config->getId_user();
-
-		$userConnectionManager = $this->getManagerof('UserConnection');
-		$userConnection = new UserConnection(array(
-			'id_user' => $id_user,
-			'succeed' => 0,
-			'date_creation' => date('Y-m-d H:i:s')
-		));
-		$userConnectionManager->add($userConnection);
-
 
 		$all = false;
 		if(HTTPRequest::getExist('all'))

@@ -6,11 +6,11 @@ class UserConnectionManager extends \lib\Manager {
 	protected static $instance;
 
 	public function add(UserConnection $userConnection) {
-		$id_user = $userConnection->getId_user();
+		$id_user = intval($userConnection->getId_user());
 		$date_creation = $userConnection->getDate_creation();
-		$visibility = $userConnection->getVisibility();
-		$public = $userConnection->getPublic();
-		$succeed = $userConnection->getSucceed();
+		$visibility = intval($userConnection->getVisibility());
+		$public = intval($userConnection->getPublic());
+		$succeed = intval($userConnection->getSucceed());
 
 		if(empty($id_user)) 		$id_user = -1;
 		if(empty($visibility)) 		$visibility = 1;
