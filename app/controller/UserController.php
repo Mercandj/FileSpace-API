@@ -138,7 +138,7 @@ class UserController extends \lib\Controller {
 						// TODO
 						$userConnection = new UserConnection(array(
 							'id_user' => $userbdd->getId(),
-							'succeed' => true,
+							'succeed' => 1,
 							'date_creation' => date('Y-m-d H:i:s')
 						));
 						$userConnectionManager->add($userConnection);
@@ -150,7 +150,7 @@ class UserController extends \lib\Controller {
 				// TODO
 				$userConnection = new UserConnection(array(
 					'id_user' => $userbdd->getId(),
-					'succeed' => false,
+					'succeed' => 0,
 					'date_creation' => date('Y-m-d H:i:s')
 				));
 				$userConnectionManager->add($userConnection);
