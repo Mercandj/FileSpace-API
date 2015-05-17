@@ -12,6 +12,7 @@ class UserConnectionManager extends \lib\Manager {
 		$public = $userConnection->getPublic();
 		$succeed = $userConnection->getSucceed();
 
+		if(empty($id_user)) 		$id_user = -1;
 		if(empty($visibility)) 		$visibility = 1;
 		if(empty($public)) 			$public = 0;
 		if(empty($succeed)) 		$succeed = 0;
