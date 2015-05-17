@@ -13,6 +13,7 @@ class UserConnection extends \lib\Entity {
 		$_visibility,
 		$_public,
 		$_succeed,
+		$_request_uri,
 		$_longitude,
 		$_latitude;
 
@@ -46,6 +47,9 @@ class UserConnection extends \lib\Entity {
 	}
 	public function getSucceed() {
 		return $this->_succeed;
+	}
+	public function getRequest_uri() {
+		return $this->_request_uri;
 	}
 	public function getLongitude() {
 		return $this->_longitude;
@@ -103,7 +107,10 @@ class UserConnection extends \lib\Entity {
 		if(!empty($succeed))
 			$this->_succeed = $succeed;
 	}
-
+	public function setRequest_uri($request_uri) {
+		if(!empty($request_uri))
+			$this->_request_uri = $request_uri;
+	}
 
 	public function isValid() {
 		return !empty($this->_id) && !empty($this->_id_user);
@@ -132,6 +139,8 @@ class UserConnection extends \lib\Entity {
 			$json['latitude'] = $this->getLatitude();
 		if($this->getSucceed()!=null)
 			$json['succeed'] = $this->getSucceed();
+		if($this->getRequest_uri()!=null)
+			$json['request_uri'] = $this->getRequest_uri();		
         return $json;
     }
 }

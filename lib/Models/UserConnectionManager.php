@@ -11,18 +11,20 @@ class UserConnectionManager extends \lib\Manager {
 		$visibility = intval($userConnection->getVisibility());
 		$public = intval($userConnection->getPublic());
 		$succeed = intval($userConnection->getSucceed());
+		$request_uri = $userConnection->getRequest_uri();
 
 		if(empty($id_user)) 		$id_user = -1;
 		if(empty($visibility)) 		$visibility = 1;
 		if(empty($public)) 			$public = 0;
 		if(empty($succeed)) 		$succeed = 0;
 		
-		$req = $this->_db->prepare('INSERT INTO user_connection(id_user,date_creation,visibility,public,succeed) VALUES (:id_user, :date_creation, :visibility, :public, :succeed)');
+		$req = $this->_db->prepare('INSERT INTO user_connection(id_user,date_creation,visibility,public,succeed,request_uri) VALUES (:id_user, :date_creation, :visibility, :public, :succeed, :request_uri)');
 		$req->bindParam(':id_user',$id_user,\PDO::PARAM_INT);
 		$req->bindParam(':date_creation',$date_creation,\PDO::PARAM_STR);
 		$req->bindParam(':visibility',$visibility,\PDO::PARAM_INT);
 		$req->bindParam(':public',$public,\PDO::PARAM_INT);
 		$req->bindParam(':succeed',$succeed,\PDO::PARAM_INT);
+		$req->bindParam(':request_uri',$request_uri,\PDO::PARAM_STR);
 		$req->execute();
 		$req->closeCursor();
 	}

@@ -139,7 +139,8 @@ class UserController extends \lib\Controller {
 						$userConnection = new UserConnection(array(
 							'id_user' => intval($userbdd->getId()),
 							'succeed' => 1,
-							'date_creation' => date('Y-m-d H:i:s')
+							'date_creation' => date('Y-m-d H:i:s'),
+							'request_uri' => HTTPRequest::serverData('REQUEST_URI')
 						));
 						$userConnectionManager->add($userConnection);
 						
@@ -151,7 +152,8 @@ class UserController extends \lib\Controller {
 				$userConnection = new UserConnection(array(
 					'id_user' => intval($userbdd->getId()),
 					'succeed' => 0,
-					'date_creation' => date('Y-m-d H:i:s')
+					'date_creation' => date('Y-m-d H:i:s'),
+					'request_uri' => HTTPRequest::serverData('REQUEST_URI')
 				));
 				$userConnectionManager->add($userConnection);
 			}
