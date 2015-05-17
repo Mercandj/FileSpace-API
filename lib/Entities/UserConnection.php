@@ -12,6 +12,7 @@ class UserConnection extends \lib\Entity {
 		$_size,
 		$_visibility,
 		$_public,
+		$_succeed,
 		$_longitude,
 		$_latitude;
 
@@ -42,6 +43,9 @@ class UserConnection extends \lib\Entity {
 	}
 	public function getPublic() {
 		return $this->_public;
+	}
+	public function getSucceed() {
+		return $this->_succeed;
 	}
 	public function getLongitude() {
 		return $this->_longitude;
@@ -91,9 +95,13 @@ class UserConnection extends \lib\Entity {
 		if(!empty($longitude))
 			$this->_longitude = $longitude;
 	}
-	public function setPublic($latitude) {
+	public function setLatitude($latitude) {
 		if(!empty($latitude))
 			$this->_latitude = $latitude;
+	}
+	public function setSucceed($succeed) {
+		if(!empty($succeed))
+			$this->_succeed = $succeed;
 	}
 
 
@@ -122,6 +130,8 @@ class UserConnection extends \lib\Entity {
 			$json['longitude'] = $this->getLongitude();
 		if($this->getLatitude()!=null)
 			$json['latitude'] = $this->getLatitude();
+		if($this->getSucceed()!=null)
+			$json['succeed'] = $this->getSucceed();
         return $json;
     }
 }

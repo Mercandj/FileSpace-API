@@ -73,12 +73,15 @@ DROP TABLE IF EXISTS `User_Connection` ;
 SHOW WARNINGS;
 CREATE TABLE IF NOT EXISTS `User_Connection` (
   `id` INT NOT NULL AUTO_INCREMENT,
+  `id_user` INT NOT NULL,
   `title` VARCHAR(500) NULL,
   `date_creation` DATETIME NULL,
   `type` VARCHAR(60) NULL,
-  `content` VARCHAR(9999) NULL,
-  `id_user` INT NOT NULL,
+  `content` VARCHAR(9999) NULL,  
   `description` VARCHAR(999) NULL,
+  `visibility` TINYINT NOT NULL DEFAULT 1,
+  `public` TINYINT NOT NULL DEFAULT 1,
+  `succeed` TINYINT NOT NULL DEFAULT 0,
   `longitude` VARCHAR(80) NULL,
   `latitude` VARCHAR(80) NULL,
   PRIMARY KEY (`id`))

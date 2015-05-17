@@ -1,7 +1,7 @@
 <?php
 namespace app\controller;
 use \lib\Entities\User;
-// TODO use \lib\Entities\UserConnection
+use \lib\Entities\UserConnection
 use \lib\HTTPRequest;
 use \lib\HTTPResponse;
 
@@ -109,9 +109,7 @@ class UserController extends \lib\Controller {
 				$userbdd = $userManager->get($user->getUsername());
 				
 				// TODO log all connections : (goal : secure connections with time delay if repeted wrong connection)
-				/*
 				$userConnectionManager = $this->getManagerof('UserConnection');
-				*/
 				
 				date_default_timezone_set("UTC");
 				$pass_expiry_time = 240; // minutes
@@ -138,28 +136,24 @@ class UserController extends \lib\Controller {
 						$this->_app->_config->setId_user($userbdd->getId());
 						
 						// TODO
-						/*
 						$userConnection = new UserConnection(array(
 							'id_user' => $userbdd->getId(),
 							'succeed' => true,
 							'date_creation' => date('Y-m-d H:i:s')
 						));
 						$userConnectionManager->add($userConnection);
-						*/
 						
 						return true;
 					}
 				}
 				
 				// TODO
-				/*
 				$userConnection = new UserConnection(array(
 					'id_user' => $userbdd->getId(),
 					'succeed' => false,
 					'date_creation' => date('Y-m-d H:i:s')
 				));
 				$userConnectionManager->add($userConnection);
-				*/
 			}
 		}
 
