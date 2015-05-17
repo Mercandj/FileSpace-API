@@ -135,6 +135,8 @@ class UserController extends \lib\Controller {
 						$userManager->updateConnection($user);
 						$this->_app->_config->setId_user($userbdd->getId());
 						
+echo "coco";
+
 						// TODO
 						$userConnection = new UserConnection(array(
 							'id_user' => intval($userbdd->getId()),
