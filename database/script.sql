@@ -80,7 +80,7 @@ CREATE TABLE IF NOT EXISTS `User_Connection` (
   `content` VARCHAR(9999) NULL,  
   `description` VARCHAR(999) NULL,
   `visibility` TINYINT NOT NULL DEFAULT 1,
-  `public` TINYINT NOT NULL DEFAULT 1,
+  `public` TINYINT NOT NULL DEFAULT 0,
   `succeed` TINYINT NOT NULL DEFAULT 0,
   `longitude` VARCHAR(80) NULL,
   `latitude` VARCHAR(80) NULL,

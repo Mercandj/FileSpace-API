@@ -7,8 +7,6 @@ class UserConnectionManager extends \lib\Manager {
 
 	public function add(UserConnection $userConnection) {
 		$id_user = $userConnection->getId_user();
-		$type = $userConnection->getType();
-		$content = $userConnection->getContent();
 		$date_creation = $userConnection->getDate_creation();
 		$visibility = $userConnection->getVisibility();
 		$public = $userConnection->getPublic();
@@ -18,10 +16,8 @@ class UserConnectionManager extends \lib\Manager {
 		if(empty($public)) 			$public = 0;
 		if(empty($succeed)) 		$succeed = 0;
 		
-		$req = $this->_db->prepare('INSERT INTO `user_connection`(id_user,content,type,date_creation,visibility,public,succeed) VALUES (:id_user, :content, :type, :date_creation, :visibility, :public; :succeed)');
+		$req = $this->_db->prepare('INSERT INTO user_connection(id_user,date_creation,visibility,public,succeed) VALUES (:id_user, :date_creation, :visibility, :public; :succeed)');
 		$req->bindParam(':id_user',$id_user,\PDO::PARAM_INT);
-		$req->bindParam(':content',$content,\PDO::PARAM_STR);
-		$req->bindParam(':type',$type,\PDO::PARAM_STR);
 		$req->bindParam(':date_creation',$date_creation,\PDO::PARAM_STR);
 		$req->bindParam(':visibility',$visibility,\PDO::PARAM_INT);
 		$req->bindParam(':public',$public,\PDO::PARAM_INT);
