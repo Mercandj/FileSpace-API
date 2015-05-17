@@ -12,10 +12,10 @@ class UserConnectionManager extends \lib\Manager {
 		$public = $userConnection->getPublic();
 		$succeed = $userConnection->getSucceed();
 
-		if(empty($id_user)) 		$id_user = -1;
-		if(empty($visibility)) 		$visibility = 1;
-		if(empty($public)) 			$public = 0;
-		if(empty($succeed)) 		$succeed = 0;
+		$id_user = -1;
+		$visibility = 1;
+		$public = 0;
+		$succeed = 0;
 		
 		$req = $this->_db->prepare('INSERT INTO user_connection(id_user,date_creation,visibility,public,succeed) VALUES (:id_user, :date_creation, :visibility, :public; :succeed)');
 		$req->bindParam(':id_user',$id_user,\PDO::PARAM_INT);
