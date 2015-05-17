@@ -134,8 +134,6 @@ class UserController extends \lib\Controller {
 						}					
 						$userManager->updateConnection($user);
 						$this->_app->_config->setId_user($userbdd->getId());
-						
-echo "coco";
 
 						// TODO
 						$userConnection = new UserConnection(array(
@@ -144,6 +142,8 @@ echo "coco";
 							'date_creation' => date('Y-m-d H:i:s')
 						));
 						$userConnectionManager->add($userConnection);
+
+						echo "test687568";
 						
 						return true;
 					}
