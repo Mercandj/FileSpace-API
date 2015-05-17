@@ -1,7 +1,7 @@
 <?php
 namespace app\controller;
 use \lib\Entities\User;
-use \lib\Entities\UserConnection
+use \lib\Entities\UserConnection;
 use \lib\HTTPRequest;
 use \lib\HTTPResponse;
 
