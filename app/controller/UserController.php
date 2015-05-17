@@ -142,8 +142,6 @@ class UserController extends \lib\Controller {
 							'date_creation' => date('Y-m-d H:i:s')
 						));
 						$userConnectionManager->add($userConnection);
-
-						echo "test687568";
 						
 						return true;
 					}

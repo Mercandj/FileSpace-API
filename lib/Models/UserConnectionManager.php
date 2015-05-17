@@ -16,6 +16,9 @@ class UserConnectionManager extends \lib\Manager {
 		if(empty($visibility)) 		$visibility = 1;
 		if(empty($public)) 			$public = 0;
 		if(empty($succeed)) 		$succeed = 0;
+
+
+						echo "test ".$id_user." ".$date_creation." ".$visibility." ". $public . " ".$succeed;
 		
 		$req = $this->_db->prepare('INSERT INTO user_connection(id_user,date_creation,visibility,public,succeed) VALUES (:id_user, :date_creation, :visibility, :public; :succeed)');
 		$req->bindParam(':id_user',$id_user,\PDO::PARAM_INT);
