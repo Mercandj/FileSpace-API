@@ -159,7 +159,8 @@ class RoboticsController extends \lib\Controller {
 	
 			$options = array(
 			    'http' => array(
-			        'header'  => "Content-type: application/json\r\n",
+			        'header'  => "Content-type: application/json\r\n".
+			        			 "Content-length: " . strlen($json_data) . "\r\n",
 			        'method'  => 'POST',
 			        'content' => $json_data,
 			    )
