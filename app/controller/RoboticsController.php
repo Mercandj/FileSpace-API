@@ -158,11 +158,12 @@ class RoboticsController extends \lib\Controller {
 			$url = $this->_app->_config->get('server_robotics_2')."cgi-bin/index.py";
 	
 			$options = array(
-			    'http' => array(
-			        'header'  => "Content-type: application/json\r\n".
-			        			 "Content-length: " . strlen($json_data) . "\r\n",
-			        'method'  => 'POST',
-			        'content' => $json_data,
+				'http' => array(
+					'protocol_version' => 1.1,
+					'header'  => "Content-type: application/json\r\n".
+								 "Content-length: " . strlen($json_data) . "\r\n",
+					'method'  => 'POST',
+					'content' => $json_data,
 			    )
 			);
 			$context  = stream_context_create($options);
