@@ -170,7 +170,7 @@ class RoboticsController extends \lib\Controller {
 			$response_content = file_get_contents($url, false, $context);
 	
 			$json['succeed'] = true;
-			$json['content'] = $response_content;
+			$json['raspberry_content'] = $response_content;
 		}
 		else {
 			$json['toast'] = 'Unauthorized access.';
