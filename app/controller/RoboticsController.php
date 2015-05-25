@@ -150,35 +150,25 @@ class RoboticsController extends \lib\Controller {
 		$user = $userManager->getById($id_user);
 
 		if($user->isAdmin()) {
-			$send_json = '0';
+			$json_data = '{"debug":"preimer message"}';
 	
 			if(HTTPRequest::postExist('json'))
-				$send_json = HTTPRequest::postData('json');
-				
-			$servo = false;
-			if(HTTPRequest::postExist('servo'))
-				$servo = HTTPRequest::postData('servo');
+				$json_data = HTTPRequest::postData('json');
 	
 			$url = $this->_app->_config->get('server_robotics_2')."cgi-bin/index.py";
-			$data = array('json' => $json);
 	
 			$options = array(
 			    'http' => array(
-			        'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
+			        'header'  => "Content-type: application/json\r\n",
 			        'method'  => 'POST',
-			        'content' => http_build_query($data),
+			        'content' => $json_data,
 			    )
 			);
 			$context  = stream_context_create($options);
-			$response = file_get_contents($url, false, $context);
+			$response_content = file_get_contents($url, false, $context);
 	
 			$json['succeed'] = true;
-			$json['result'] = array(
-				array(
-					"title" => "response",
-					"json" => "".$response
-				)
-			);
+			$json['content'] = $response_content;
 		}
 		else {
 			$json['toast'] = 'Unauthorized access.';
