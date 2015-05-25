@@ -150,17 +150,17 @@ class RoboticsController extends \lib\Controller {
 		$user = $userManager->getById($id_user);
 
 		if($user->isAdmin()) {
-			$value = '0';
+			$send_json = '0';
 	
-			if(HTTPRequest::postExist('value'))
-				$value = HTTPRequest::postData('value');
+			if(HTTPRequest::postExist('json'))
+				$send_json = HTTPRequest::postData('json');
 				
 			$servo = false;
 			if(HTTPRequest::postExist('servo'))
 				$servo = HTTPRequest::postData('servo');
 	
 			$url = $this->_app->_config->get('server_robotics_2')."cgi-bin/index.py";
-			$data = array('value' => $value);
+			$data = array('json' => $json);
 	
 			$options = array(
 			    'http' => array(
@@ -176,7 +176,7 @@ class RoboticsController extends \lib\Controller {
 			$json['result'] = array(
 				array(
 					"title" => "response",
-					"value" => "".$response
+					"json" => "".$response
 				)
 			);
 		}
