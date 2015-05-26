@@ -18,7 +18,12 @@ class FileController extends \lib\Controller {
 	 */
 	public function get() {
 		$result = []; //In case where list_file is empty;
+		$list_file = [];
 		$id_user = $this->_app->_config->getId_user();
+
+		$apk_update = false;
+		if(HTTPRequest::getExist('apk_update'))
+			$apk_update = HTTPRequest::getData('apk_update');
 
 		$all = false;
 		if(HTTPRequest::getExist('all'))
@@ -36,7 +41,12 @@ class FileController extends \lib\Controller {
 		if(HTTPRequest::getExist('id_file_parent'))
 			$id_file_parent = HTTPRequest::getData('id_file_parent');
 
-		if($all) {
+
+		if($apk_update) {
+			$list_file = $this->getManagerof('File')->getApkUpdate();
+		}
+
+		else if($all) {
 			if(HTTPRequest::getExist('search'))
 				$list_file = $this->getManagerof('File')->getAll($id_user, $id_file_parent, HTTPRequest::getData('search'));
 			else
@@ -64,7 +74,7 @@ class FileController extends \lib\Controller {
 		$json['succeed'] = true;
 		$json['result'] = $result;
 
-		HTTPResponse::send(json_encode($json, JSON_NUMERIC_CHECK));
+		HTTPResponse::send($this->getJson($json));
 	}
 
 	/**
@@ -306,6 +316,16 @@ class FileController extends \lib\Controller {
 			$fileManager->updatePublic($file);
 			$json['succeed'] = true;
 			$json['toast'] = 'Your file is ' . (($public == "true" || $public == 1 || $public == "1") ? 'public.' : 'private.');
+		}
+
+		else if(HTTPRequest::postExist('is_apk_update')) {
+			$file = $fileManager->getById($id);
+			$is_apk_update = HTTPRequest::postData('is_apk_update');
+			$file->setIs_apk_update( ($is_apk_update == "true" || $is_apk_update == 1 || $public == "1") ? 1 : 0);
+			$fileManager->resetApkUpdate();
+			$fileManager->updateIs_apk_update($file);
+			$json['succeed'] = true;
+			$json['toast'] = 'Your file is ' . (($public == "true" || $public == 1 || $public == "1") ? ' the Jarvis update.' : ' not the Jarvis update.');
 		}
 
 		else if(HTTPRequest::postExist('id_file_parent')) {

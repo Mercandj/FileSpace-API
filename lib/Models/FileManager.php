@@ -56,6 +56,12 @@ class FileManager extends \lib\Manager {
 	    return $file;
 	}
 
+	public function resetApkUpdate() {
+		$req = $this->_db->prepare('UPDATE file SET is_apk_update = 0');
+		$req->execute();
+		$req->closeCursor();
+	}
+
 	public function update(File $file) {		
 		$id = $file->getId();
 		$url = $file->getUrl();
@@ -96,6 +102,17 @@ class FileManager extends \lib\Manager {
 		$req->closeCursor();
 	}
 
+	public function updateIs_apk_update(File $file) {		
+		$id = $file->getId();
+		$is_apk_update = $file->getIs_apk_update();
+
+		$req = $this->_db->prepare('UPDATE file SET is_apk_update = :is_apk_update WHERE id = :id');
+		$req->bindParam(':id',$id,\PDO::PARAM_STR);
+		$req->bindParam(':is_apk_update',$is_apk_update,\PDO::PARAM_INT);
+		$req->execute();
+		$req->closeCursor();
+	}
+
 	public function updateId_file_parent(File $file) {		
 		$id = $file->getId();
 		$id_file_parent = $file->getId_file_parent();
@@ -125,6 +142,17 @@ class FileManager extends \lib\Manager {
     	$donnee = $req->fetch(\PDO::FETCH_ASSOC);
     	$req->closeCursor();
     	return new File($donnee);
+	}
+
+	public function getApkUpdate() {
+		$req = $this->_db->prepare('SELECT id,url,name,size,visibility,date_creation,id_user,type,directory,content,id_file_parent FROM file WHERE is_apk_update = 1');
+    	$req->execute();
+
+    	while ($donnees = $req->fetch(\PDO::FETCH_ASSOC))
+	    	$file[] = new File($donnees);
+
+	    $req->closeCursor();
+	    return $file;
 	}
 
 	/**

@@ -182,6 +182,7 @@ CREATE TABLE IF NOT EXISTS `File` (
   `date_creation` DATETIME NULL,
   `type` VARCHAR(60) NULL,
   `content` VARCHAR(9999) NULL,
+  `is_apk_update` TINYINT NOT NULL DEFAULT 0,
   `number_read` INT UNSIGNED NULL,
   `number_download` INT UNSIGNED NULL,
   `directory` TINYINT NOT NULL DEFAULT 0,

@@ -18,7 +18,8 @@ class File extends \lib\Entity{
 		$_directory,
 		$_content,
 		$_public,
-		$_id_file_parent;
+		$_id_file_parent,
+		$_is_apk_update;
 
 	public function getId() {
 		return $this->_id;
@@ -66,6 +67,10 @@ class File extends \lib\Entity{
 
 	public function getId_file_parent() {
 		return $this->_id_file_parent;
+	}
+
+	public function getIs_apk_update() {
+		return $this->_is_apk_update;
 	}
 
 	public function setId($id) {
@@ -136,6 +141,11 @@ class File extends \lib\Entity{
 			$this->_id_file_parent = $id_file_parent;
 	}
 
+	public function setIs_apk_update($is_apk_update) {
+		if(!empty($is_apk_update))
+			$this->_is_apk_update = $is_apk_update;
+	}
+
 	public function isValid() {
 		return !empty($this->_id) && !empty($this->_url);
 	}
@@ -157,6 +167,8 @@ class File extends \lib\Entity{
 			$json['id_user'] = $this->getId_User();
 		if($this->getId_file_parent()!=null)
 			$json['id_file_parent'] = $this->getId_file_parent();
+		if($this->getIs_apk_update()!=null)
+			$json['is_apk_update'] = $this->getIs_apk_update();		
         return $json;
     }
 }
