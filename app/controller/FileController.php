@@ -19,6 +19,7 @@ class FileController extends \lib\Controller {
 	public function get() {
 		$result = []; //In case where list_file is empty;
 		$list_file = [];
+
 		$id_user = $this->_app->_config->getId_user();
 
 		$apk_update = false;
@@ -296,6 +297,11 @@ class FileController extends \lib\Controller {
 	 * @method 	POST
 	 */
 	public function update($id) {
+
+		$id_user = $this->_app->_config->getId_user();
+		$userManager = $this->getManagerof('User');
+		$user = $userManager->getById($id_user);
+
 		$json['succeed'] = false;
 		$json['toast'] = '';
 
@@ -318,14 +324,14 @@ class FileController extends \lib\Controller {
 			$json['toast'] = 'Your file is ' . (($public == "true" || $public == 1 || $public == "1") ? 'public.' : 'private.');
 		}
 
-		else if(HTTPRequest::postExist('is_apk_update')) {
+		else if(HTTPRequest::postExist('is_apk_update') && $user->isAdmin()) {
 			$file = $fileManager->getById($id);
 			$is_apk_update = HTTPRequest::postData('is_apk_update');
 			$file->setIs_apk_update( ($is_apk_update == "true" || $is_apk_update == 1 || $public == "1") ? 1 : 0);
 			$fileManager->resetApkUpdate();
 			$fileManager->updateIs_apk_update($file);
 			$json['succeed'] = true;
-			$json['toast'] = 'Your file is ' . (($public == "true" || $public == 1 || $public == "1") ? ' the Jarvis update.' : ' not the Jarvis update.');
+			$json['toast'] = 'Your file is ' . (($is_apk_update == "true" || $is_apk_update == 1 || $is_apk_update == "1") ? ' a Jarvis update.' : ' not a Jarvis update.');
 		}
 
 		else if(HTTPRequest::postExist('id_file_parent')) {
