@@ -28,6 +28,6 @@ abstract class Controller extends ApplicationComponent {
 		}
 		$array['apk_update'] = $apk_update;
 
-		json_encode($array, JSON_NUMERIC_CHECK);
+		return json_encode($array, JSON_NUMERIC_CHECK);
 	}
 }
