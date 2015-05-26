@@ -327,7 +327,7 @@ class FileController extends \lib\Controller {
 		else if(HTTPRequest::postExist('is_apk_update') && $user->isAdmin()) {
 			$file = $fileManager->getById($id);
 			$is_apk_update = HTTPRequest::postData('is_apk_update');
-			$file->setIs_apk_update( ($is_apk_update == "true" || $is_apk_update == 1 || $public == "1") ? 1 : 0);
+			$file->setIs_apk_update( ($is_apk_update == "true" || $is_apk_update == 1 || $is_apk_update == "1") ? 1 : 0);
 			$fileManager->resetApkUpdate();
 			$fileManager->updateIs_apk_update($file);
 			$json['succeed'] = true;
