@@ -5,8 +5,6 @@ use \lib\Entities\File;
 class FileManager extends \lib\Manager {
 	protected static $instance;
 
-	private $attrs = 'id,url,name,size,visibility,date_creation,id_user,type,directory,content,public,id_file_parent,is_apk_update';
-
 	public function add(File $file) {
 		$url = $file->getUrl();
 		$name = $file->getName();
@@ -148,8 +146,7 @@ class FileManager extends \lib\Manager {
 
 	public function getApkUpdate() {
 		$file = [];
-		$req = $this->_db->prepare('SELECT :attrs FROM file WHERE is_apk_update = 1 AND type = apk');    	
-		$req->bindParam(':attrs', $this->attrs, \PDO::PARAM_STR);
+		$req = $this->_db->prepare('SELECT * FROM file WHERE is_apk_update = 1 AND type = apk');    	
     	$req->execute();
 
     	while ($donnees = $req->fetch(\PDO::FETCH_ASSOC))
@@ -168,16 +165,14 @@ class FileManager extends \lib\Manager {
 
 		if($id_user == 0) {
 			$search = '%'.$search.'%';
-			$req = $this->_db->prepare('SELECT :attrs FROM file WHERE id_file_parent = :id_file_parent AND name LIKE :search ORDER BY date_creation DESC');
-			$req->bindParam(':attrs', $this->attrs, \PDO::PARAM_STR);
+			$req = $this->_db->prepare('SELECT * FROM file WHERE id_file_parent = :id_file_parent AND name LIKE :search ORDER BY date_creation DESC');
 			$req->bindParam(':id_file_parent', $id_file_parent, \PDO::PARAM_INT);
 			$req->bindParam(':search', $search, \PDO::PARAM_STR);
 			$req->execute();
 
 		}
 		else {
-			$req = $this->_db->prepare('SELECT :attrs FROM file WHERE id_file_parent = :id_file_parent AND id_user = :id_user AND name LIKE :search ORDER BY date_creation DESC');
-			$req->bindParam(':attrs', $this->attrs, \PDO::PARAM_STR);
+			$req = $this->_db->prepare('SELECT * FROM file WHERE id_file_parent = :id_file_parent AND id_user = :id_user AND name LIKE :search ORDER BY date_creation DESC');
 			$req->bindParam(':id_file_parent', $id_file_parent, \PDO::PARAM_INT);
 			$req->bindParam(':search', $search, \PDO::PARAM_STR);
 			$req->bindParam(':id_user', $id_user, \PDO::PARAM_INT);
@@ -194,8 +189,7 @@ class FileManager extends \lib\Manager {
 	public function getAllByType($type) {
 		$file = [];
 
-		$req = $this->_db->prepare('SELECT :attrs FROM file WHERE type = :type ORDER BY date_creation DESC');
-		$req->bindParam(':attrs', $this->attrs, \PDO::PARAM_STR);
+		$req = $this->_db->prepare('SELECT * FROM file WHERE type = :type ORDER BY date_creation DESC');
 		$req->bindParam(':type', $type, \PDO::PARAM_STR);
 		$req->execute();
 
@@ -212,8 +206,7 @@ class FileManager extends \lib\Manager {
 		$search = '%'.$psearch.'%';
 
 		if($id_user == 0) {
-			$req = $this->_db->prepare('SELECT :attrs FROM file WHERE url REGEXP :url AND name LIKE :search ORDER BY date_creation DESC');
-			$req->bindParam(':attrs', $this->attrs, \PDO::PARAM_STR);
+			$req = $this->_db->prepare('SELECT * FROM file WHERE url REGEXP :url AND name LIKE :search ORDER BY date_creation DESC');
 			$req->bindParam(':url', $url, \PDO::PARAM_STR);
 			$req->bindParam(':search', $search, \PDO::PARAM_STR);
 			$req->execute();
@@ -225,8 +218,7 @@ class FileManager extends \lib\Manager {
 		    return $file;
 		}
 		else {
-			$req = $this->_db->prepare('SELECT :attrs FROM file WHERE url REGEXP :url AND id_user = :id_user AND name LIKE :search ORDER BY date_creation DESC');
-			$req->bindParam(':attrs', $this->attrs, \PDO::PARAM_STR);
+			$req = $this->_db->prepare('SELECT * FROM file WHERE url REGEXP :url AND id_user = :id_user AND name LIKE :search ORDER BY date_creation DESC');
 			$req->bindParam(':url', $url, \PDO::PARAM_STR);
 			$req->bindParam(':search', $search, \PDO::PARAM_STR);
 			$req->bindParam(':id_user', $id_user, \PDO::PARAM_INT);
@@ -245,8 +237,7 @@ class FileManager extends \lib\Manager {
 		$search = '%'.$psearch.'%';
 
 		if($id_user == 0) {
-			$req = $this->_db->prepare('SELECT :attrs FROM file WHERE id_file_parent = :id_file_parent AND name LIKE :search ORDER BY date_creation DESC');
-			$req->bindParam(':attrs', $this->attrs, \PDO::PARAM_STR);
+			$req = $this->_db->prepare('SELECT * FROM file WHERE id_file_parent = :id_file_parent AND name LIKE :search ORDER BY date_creation DESC');
 			$req->bindParam(':id_file_parent', $id_file_parent, \PDO::PARAM_INT);
 			$req->bindParam(':search', $search, \PDO::PARAM_STR);
 			$req->execute();
@@ -258,8 +249,7 @@ class FileManager extends \lib\Manager {
 		    return $file;
 		}
 		else {
-			$req = $this->_db->prepare('SELECT :attrs FROM file WHERE id_file_parent = :id_file_parent AND id_user = :id_user AND name LIKE :search ORDER BY date_creation DESC');
-			$req->bindParam(':attrs', $this->attrs, \PDO::PARAM_STR);
+			$req = $this->_db->prepare('SELECT * FROM file WHERE id_file_parent = :id_file_parent AND id_user = :id_user AND name LIKE :search ORDER BY date_creation DESC');
 			$req->bindParam(':id_file_parent', $id_file_parent, \PDO::PARAM_INT);
 			$req->bindParam(':search', $search, \PDO::PARAM_STR);
 			$req->bindParam(':id_user', $id_user, \PDO::PARAM_INT);
@@ -278,8 +268,7 @@ class FileManager extends \lib\Manager {
 		$search = '%'.$psearch.'%';
 
 		if($id_user == 0) {
-			$req = $this->_db->prepare('SELECT :attrs FROM file WHERE public = 1 AND name LIKE :search ORDER BY date_creation DESC');
-			$req->bindParam(':attrs', $this->attrs, \PDO::PARAM_STR);
+			$req = $this->_db->prepare('SELECT * FROM file WHERE public = 1 AND name LIKE :search ORDER BY date_creation DESC');
 			$req->bindParam(':search', $search, \PDO::PARAM_STR);
 			$req->execute();
 
@@ -290,8 +279,7 @@ class FileManager extends \lib\Manager {
 		    return $file;
 		}
 		else {
-			$req = $this->_db->prepare('SELECT :attrs FROM file WHERE id_user = :id_user AND public = 1 AND name LIKE :search ORDER BY date_creation DESC');
-			$req->bindParam(':attrs', $this->attrs, \PDO::PARAM_STR);
+			$req = $this->_db->prepare('SELECT * FROM file WHERE id_user = :id_user AND public = 1 AND name LIKE :search ORDER BY date_creation DESC');
 			$req->bindParam(':search', $search, \PDO::PARAM_STR);
 			$req->bindParam(':id_user', $id_user, \PDO::PARAM_INT);
 			$req->execute();
