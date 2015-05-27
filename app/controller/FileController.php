@@ -330,8 +330,12 @@ class FileController extends \lib\Controller {
 			$file->setIs_apk_update( ($is_apk_update == "true" || $is_apk_update == 1 || $is_apk_update == "1") ? 1 : 0);
 			$fileManager->resetApkUpdate();
 			$fileManager->updateIs_apk_update($file);
+
+			$file = $fileManager->getById($id);
+			$is_apk_update = $file->getIs_apk_update();
+
 			$json['succeed'] = true;
-			$json['toast'] = 'Your file is ' . (($is_apk_update == "true" || $is_apk_update == 1 || $is_apk_update == "1") ? ' a Jarvis update.' : ' not a Jarvis update.');
+			$json['toast'] = 'Your file is ' . (($is_apk_update == "true" || $is_apk_update == 1 || $is_apk_update == "1") ? 'a Jarvis update.' : 'not a Jarvis update.');
 		}
 
 		else if(HTTPRequest::postExist('id_file_parent')) {
