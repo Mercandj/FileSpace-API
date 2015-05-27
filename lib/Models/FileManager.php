@@ -146,7 +146,7 @@ class FileManager extends \lib\Manager {
 
 	public function getApkUpdate() {
 		$file = [];
-		$req = $this->_db->prepare('SELECT * FROM file WHERE is_apk_update = 1 AND type = apk');    	
+		$req = $this->_db->prepare('SELECT * FROM file WHERE is_apk_update = 1 AND type = "apk"');    	
     	$req->execute();
 
     	while ($donnees = $req->fetch(\PDO::FETCH_ASSOC))
