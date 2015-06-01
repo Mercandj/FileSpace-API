@@ -20,7 +20,7 @@ class User extends \lib\Entity{
 		$_android_id,
 		$_num_files,
 		$_size_files,
-		$_id_file_profile_picture;
+		$_id_file_profile_picture = -1;
 
 	public function getId(){
 		return $this->_id;
@@ -188,7 +188,8 @@ class User extends \lib\Entity{
 		if($this->getSize_files()!=null)
 			$json['size_files'] = $this->getSize_files();
 		if($this->getId_file_profile_picture()!=null)
-			$json['id_file_profile_picture'] = $this->getId_file_profile_picture();
+			if($this->getId_file_profile_picture()!=-1)
+				$json['id_file_profile_picture'] = $this->getId_file_profile_picture();
         return $json;
     }
 }

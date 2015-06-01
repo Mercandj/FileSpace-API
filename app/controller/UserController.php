@@ -2,6 +2,7 @@
 namespace app\controller;
 use \lib\Entities\User;
 use \lib\Entities\UserConnection;
+use \lib\Entities\File;
 use \lib\HTTPRequest;
 use \lib\HTTPResponse;
 
@@ -17,6 +18,7 @@ class UserController extends \lib\Controller {
 		$result = []; //In case where list_file is empty;
 		$json['succeed'] = false;
 		$userManager = $this->getManagerof('User');
+		$fileManager = $this->getManagerof('File');
 
 		if($this->isUser()) {
 			if(HTTPRequest::getExist('login')) {
@@ -27,7 +29,14 @@ class UserController extends \lib\Controller {
 			else {
 				$list_user = $userManager->getAll();
 				foreach ($list_user as $user) {
-					$result[] = $user->toArray();
+					$user_array = $user->toArray();
+					$id_file_profile_picture = $user->getId_file_profile_picture();
+					if($id_file_profile_picture!=-1) {
+						$file_profile_picture = $fileManager->getById($id_file_profile_picture);
+						$user_array["file_profile_picture_size"] = $file_profile_picture->getSize();
+						$user_array["file_profile_picture_url"] = $file_profile_picture->getUrl();
+					}
+					$result[] = $user_array;
 				}
 				$json['succeed'] = true;
 				$json['result'] = $result;
