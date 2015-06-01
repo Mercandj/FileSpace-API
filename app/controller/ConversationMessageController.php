@@ -158,7 +158,13 @@ class ConversationMessageController extends \lib\Controller {
 		$list_conversationMessage = $conversationMessageManager->getAllByConversationId($id);
 		foreach ($list_conversationMessage as $conversationMessage) {
 			$tmp_array = $conversationMessage->toArray();
-			$tmp_array['user'] = $userManager->getById($conversationMessage->getId_user())->toArray();
+			$tmp_user = $userManager->getById($conversationMessage->getId_user());
+			$tmp_array['user'] = $tmp_user->toArray();
+			$id_file_profile_picture = $tmp_user->getId_file_profile_picture();
+			if(intval($id_file_profile_picture)!=-1 && $id_file_profile_picture!=null) {
+				$file_profile_picture = $fileManager->getById($id_file_profile_picture);
+				$tmp_array['user']["file_profile_picture_size"] = $file_profile_picture->getSize();
+			}
 			$result[] = $tmp_array;
 		}
 
