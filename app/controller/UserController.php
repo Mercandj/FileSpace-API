@@ -34,7 +34,6 @@ class UserController extends \lib\Controller {
 					if(intval($id_file_profile_picture)!=-1 && $id_file_profile_picture!=null) {
 						$file_profile_picture = $fileManager->getById($id_file_profile_picture);
 						$user_array["file_profile_picture_size"] = $file_profile_picture->getSize();
-						$user_array["file_profile_picture_url"] = $file_profile_picture->getUrl();
 					}
 					$result[] = $user_array;
 				}
