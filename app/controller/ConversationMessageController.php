@@ -1,6 +1,7 @@
 <?php
 namespace app\controller;
 use \lib\Entities\User;
+use \lib\Entities\File;
 use \lib\Entities\Conversation;
 use \lib\Entities\ConversationUser;
 use \lib\Entities\ConversationMessage;
@@ -153,6 +154,7 @@ class ConversationMessageController extends \lib\Controller {
 		$result = [];
 
 		$userManager = $this->getManagerof('User');
+		$fileManager = $this->getManagerof('File');
 		$conversationMessageManager = $this->getManagerof('ConversationMessage');
 
 		$list_conversationMessage = $conversationMessageManager->getAllByConversationId($id);
