@@ -73,24 +73,55 @@ class UserController extends \lib\Controller {
 		}
 
 		else{
-			$user = new User(array(
-				'id'=> 0,
-				'username' => HTTPRequest::postData('username'),
-				'password' => sha1(HTTPRequest::postData('password')),
-				'date_creation' => date('Y-m-d H:i:s'),
-				'date_last_connection' => date('Y-m-d H:i:s')
-			));
+			if(HTTPRequest::getExist('google_plus')) {
+				// Inscription / Login via Google plus
+				$user = new User(array(
+					'id'=> 0,
+					'username' => HTTPRequest::postData('username'),
+					'password' => sha1(HTTPRequest::postData('password')),
+					'date_creation' => date('Y-m-d H:i:s'),
+					'date_last_connection' => date('Y-m-d H:i:s')
+				));
 
-			$userManager = $this->getManagerof('User');
+				$userManager = $this->getManagerof('User');
 
-			// Check if User exist and is valid
-			if($user->isValid() && !$userManager->exist(HTTPRequest::postData('username'))) {
-				$userManager->add($user);
-				$json = '{"succeed":true}';
+				// Check if User !exist and is valid
+				if($user->isValid() && !$userManager->exist(HTTPRequest::postData('username'))) {
+					$userManager->add($user);
+					$json = '{"succeed":true, "toast":"Inscription via Google+.", "debug":"Inscription via Google+."}';
+				}
+				else {
+					if($this->isUser()) {
+						$json = '{"succeed":true, "toast":"Login via Google+.", "debug":"Login via Google+."}';
+					}
+					else {
+						$json = '{"succeed":false,"toast":"Username already exists or wrong password."}';
+					}
+				}
 			}
 			else {
-				$json = '{"succeed":false,"toast":"Username already exists."}';
+				// Inscription normal
+				$user = new User(array(
+					'id'=> 0,
+					'username' => HTTPRequest::postData('username'),
+					'password' => sha1(HTTPRequest::postData('password')),
+					'date_creation' => date('Y-m-d H:i:s'),
+					'date_last_connection' => date('Y-m-d H:i:s')
+				));
+
+				$userManager = $this->getManagerof('User');
+
+				// Check if User !exist and is valid
+				if($user->isValid() && !$userManager->exist(HTTPRequest::postData('username'))) {
+					$userManager->add($user);
+					$json = '{"succeed":true}';
+				}
+				else {
+					$json = '{"succeed":false,"toast":"Username already exists."}';
+				}
 			}
+
+
 
 			HTTPResponse::send($json);
 		}	
