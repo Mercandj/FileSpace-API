@@ -50,6 +50,36 @@ class UserController extends \lib\Controller {
 	}
 
 	/**
+	 * Login a User
+	 * @uri    /user/:id
+	 * @method GET
+	 * @return JSON with info about user like ID
+	 */
+	public function getById($id) {
+		$result = []; //In case where list_file is empty;
+		$json['succeed'] = false;
+		$userManager = $this->getManagerof('User');
+		$fileManager = $this->getManagerof('File');
+
+		if($this->isAdmin() || $id == intval($this->_app->_config->getId_user())) {
+			$user = $userManager->getById($id);
+			$user_array = $user->toArray();
+			$id_file_profile_picture = $user->getId_file_profile_picture();
+			if(intval($id_file_profile_picture)!=-1 && $id_file_profile_picture!=null) {
+				$file_profile_picture = $fileManager->getById($id_file_profile_picture);
+				$user_array["file_profile_picture_size"] = $file_profile_picture->getSize();
+			}
+			$json['succeed'] = true;
+			$json['result'] = $user_array;
+		}
+		else {
+			$json['toast'] = 'Not admin.';
+		}
+
+		HTTPResponse::send(json_encode($json, JSON_NUMERIC_CHECK));
+	}
+
+	/**
 	 * Register a new user
 	 * @uri    /user
 	 * @method POST
@@ -271,7 +301,22 @@ class UserController extends \lib\Controller {
 		$result = []; //In case where list_file is empty;
 		$json['succeed'] = false;
 
+		$userManager = $this->getManagerof('User');
+
 		if($this->isAdmin()) {
+
+			if(!$userManager->existById($id)) {
+				$json['toast'] = 'Bad id.';
+				HTTPResponse::send(json_encode($json, JSON_NUMERIC_CHECK));
+				return;
+			}
+
+			$userToDelete = $userManager->getById($id);
+			if($userToDelete->isAdmin()) {
+				$json['toast'] = 'You cannot delete an admin.';
+				HTTPResponse::send(json_encode($json, JSON_NUMERIC_CHECK));
+				return;
+			}
 			
 			// TODO delete all the user stuff
 
@@ -321,7 +366,6 @@ class UserController extends \lib\Controller {
 			}
 
 			/*
-			$userManager = $this->getManagerof('User');
 			$user = $userManager->delete($id);
 			*/
 
