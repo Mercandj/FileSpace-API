@@ -452,7 +452,7 @@ class FileController extends \lib\Controller {
 						$json['toast'] = 'Database : file is directory.';
 				}
 				else if($file->getDirectory()) {					
-					$json['succeed'] = $this->deleteWithChildren($file->getId());;
+					$json['succeed'] = $this->deleteFileWithChildren($file->getId());
 				}
 				else {
 					$json['toast'] = 'Physic : Bad File url.';
@@ -463,7 +463,7 @@ class FileController extends \lib\Controller {
 		HTTPResponse::send(json_encode($json));
 	}
 
-	private function deleteWithChildren($id) {
+	private function deleteFileWithChildren($id) {
 		$fileManager = $this->getManagerof('File');
 		if(!$fileManager->existById($id))
 			return false;
@@ -474,7 +474,7 @@ class FileController extends \lib\Controller {
 		$file_children = $fileManager->getChildren($id);
 
 		foreach($file_children as $child) {
-			if(!$this->deleteWithChildren($child->getId()))
+			if(!$this->deleteFileWithChildren($child->getId()))
 				$return = false;
 		}
 

@@ -200,6 +200,20 @@ class FileManager extends \lib\Manager {
 	    return $file;
 	}
 
+	public function getAllByUser($id_user) {
+		$file = [];
+
+		$req = $this->_db->prepare('SELECT * FROM file WHERE id_user = :id_user ORDER BY date_creation DESC');
+		$req->bindParam(':id_user', $id_user, \PDO::PARAM_STR);
+		$req->execute();
+
+    	while ($donnees = $req->fetch(\PDO::FETCH_ASSOC))
+	    	$file[] = new File($donnees);
+
+	    $req->closeCursor();
+	    return $file;
+	}
+
 	public function getWithUrl($id_user = 0, $purl="", $psearch = "") {
 		$file = [];
 		$url = '^'.$purl.'.[^/]*$';

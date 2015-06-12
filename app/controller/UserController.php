@@ -3,6 +3,7 @@ namespace app\controller;
 use \lib\Entities\User;
 use \lib\Entities\UserConnection;
 use \lib\Entities\File;
+use \lib\Entities\ConversationUser;
 use \lib\HTTPRequest;
 use \lib\HTTPResponse;
 
@@ -258,5 +259,112 @@ class UserController extends \lib\Controller {
 		}
 
 		HTTPResponse::send(json_encode($json, JSON_NUMERIC_CHECK));
+	}
+
+	/**
+	 * Modify a User
+	 * @uri    /user/id
+	 * @method DELETE
+	 * @return JSON with info about user
+	 */
+	public function delete($id) {
+		$result = []; //In case where list_file is empty;
+		$json['succeed'] = false;
+
+		if($this->isAdmin()) {
+			
+			// TODO delete all the user stuff
+
+			// Delete all user files
+			$fileManager = $this->getManagerof('File');
+			$root_upload = __DIR__.$this->_app->_config->get('root_upload');
+			$list_file = $fileManager->getAllByUser($id);
+			foreach ($list_user as $file) {
+				$json['succeed'] = true;
+
+				if($file == null) {
+					$json['toast'] = 'Bad id.';
+					$json['succeed'] = false;
+					HTTPResponse::send(json_encode($json, JSON_NUMERIC_CHECK));
+					return;
+				}
+
+				else {
+					$file_name = $root_upload . $file->getUrl();
+					if(is_file($file_name)) {
+						if(!$file->getDirectory()) {
+							$fileManager->delete($file->getId());
+							unlink($file_name);
+							$json['succeed'] = true;
+						}
+						else {
+							$json['toast'] = 'Database : file is directory.';
+							$json['succeed'] = false;
+							HTTPResponse::send(json_encode($json, JSON_NUMERIC_CHECK));
+							return;
+						}
+					}
+					else if($file->getDirectory()) {					
+						if(!$this->deleteFileWithChildren($file->getId())) {
+							$json['succeed'] = false;
+							HTTPResponse::send(json_encode($json, JSON_NUMERIC_CHECK));
+							return;
+						}
+					}
+					else {
+						$json['toast'] = 'Physic : Bad File url.';
+						$json['succeed'] = false;
+						HTTPResponse::send(json_encode($json, JSON_NUMERIC_CHECK));
+						return;
+					}
+				}
+			}
+
+			/*
+			$userManager = $this->getManagerof('User');
+			$user = $userManager->delete($id);
+			*/
+
+			
+			$json['toast'] = "The user has been deleted.";
+		}
+		else {
+			$json['toast'] = "Not admin.";
+		}
+
+		HTTPResponse::send(json_encode($json, JSON_NUMERIC_CHECK));
+	}
+
+	private function deleteFileWithChildren($id) {
+		$fileManager = $this->getManagerof('File');
+		if(!$fileManager->existById($id))
+			return false;
+
+		$return = true;
+
+		$file = $fileManager->getById($id);
+		$file_children = $fileManager->getChildren($id);
+
+		foreach($file_children as $child) {
+			if(!$this->deleteFileWithChildren($child->getId()))
+				$return = false;
+		}
+
+		$root_upload = __DIR__.$this->_app->_config->get('root_upload');
+		$file_name = $root_upload . $file->getUrl();
+
+		if($file->getDirectory()) {
+			$fileManager->delete($file->getId());
+		}
+		else if(is_file($file_name)) {
+			if(!$file->getDirectory()) {
+				$fileManager->delete($file->getId());
+				unlink($file_name);
+			}
+			else
+				$return = false;
+		}		
+
+		return $return;		
 	}
 }
