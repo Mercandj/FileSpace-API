@@ -8,7 +8,7 @@ use \lib\HTTPResponse;
 class FileController extends \lib\Controller {
 
 	// Good extenstions : secure
-	var $extensions_valides = array( 'rar', 'zip', 'apk', 'png', 'jpg', 'jpeg', 'gif', 'png', 'psd', 'txt', 'json', 'mp3', 'wav', 'avi', 'mp4', 'webm', 'mkv', 'pdf', 'doc', 'docx', 'pptx', 'xlsx', 'vcf', 'jarvis' );
+	var $extensions_valides = array( 'rar', 'zip', 'apk', 'png', 'jpg', 'jpeg', 'gif', 'png', 'psd', 'txt', 'json', 'mp3', 'wav', 'wma', 'avi', 'mp4', 'webm', 'mkv', 'pdf', 'doc', 'docx', 'pptx', 'xlsx', 'vcf', 'jarvis' );
 
 	/**
 	 * Return Get list of files
