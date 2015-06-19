@@ -1,4 +1,4 @@
-J.A.R.V.I.S - API
+FileSpace - API
 =====================
 
 **_Unfinished project, still in development_**
@@ -6,9 +6,9 @@ J.A.R.V.I.S - API
 
 ## PROJECT DESCRIPTION
 
-* Name : Jarvis (Just A Remote Very Intelligent System)
+* Name : FileSpace
 * Description : Remote file manager + Home automation with Raspberry Pi
-* Front : [Android](https://github.com/Mercandj/Jarvis-Android) & [Web](https://github.com/Mercandj/Jarvis-Angular)
+* Front : [Android](https://github.com/Mercandj/FileSpace-Android) & [Web](https://github.com/Mercandj/FileSpace-Angular)
 * Back : Rest API PHP
 * Location : Paris
 * Starting Date : October 2014
@@ -55,7 +55,7 @@ For each file request : basic-authentication token:empty
 
 ## DEVELOPERS
 
-* Mercandalli Jonathan ([Front Android](https://github.com/Mercandj/Jarvis-Android) + [Front Web Beta](https://github.com/Mercandj/Jarvis-Angular) + Rest API)
+* Mercandalli Jonathan ([Front Android](https://github.com/Mercandj/FileSpace-Android) + [Front Web Beta](https://github.com/Mercandj/FileSpace-Angular) + Rest API)
 * 7h1b0 (Rest API)
 
 
