@@ -1,9 +1,9 @@
 {
-	"title":"Jarvis",
+	"title":"FileSpace",
 	"bdd_name":"jarvis",
 	"bdd_login":"root",
 	"bdd_password":"",
-	"root":"/Jarvis-API",
+	"root":"/FileSpace-API",
 	"root_upload":"\\..\\..\\upload\\",
 	"registration_open":false,
 	"server_max_size":10000000000,
