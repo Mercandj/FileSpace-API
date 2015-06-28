@@ -10,7 +10,7 @@ class RESTapi extends \lib\Application {
 		$this->_router
 			->get('/user','User#get')
 			->post('/user','User#post')
-			->post('/android_app','File#download_android_app')
+			->get('/android_app','File#download_android_app')
 			->post('/launchdaemon/:id','ServerDaemon#launchDaemon')
 			->authorize((new UserController($this))->isUser())
 			->authorize((new ServerDaemonController($this))->checkDaemon())
