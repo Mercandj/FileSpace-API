@@ -1,6 +1,6 @@
 RewriteEngine On
 
-RewriteCond %{REQUEST_URI} !^/android_filespace.apk?$
+RewriteCond %{REQUEST_URI} !^/FileSpace-API/android_filespace.apk?$
 RewriteRule ^(.*)$ index.php [QSA,L]
 
 php_value post_max_size 1800M
