@@ -173,8 +173,34 @@ class ConversationMessageController extends \lib\Controller {
 		$json['succeed'] = true;
 		$json['result'] = $result;
 
+		HTTPResponse::send(json_encode($json));
+	}
+
+	/**
+	 * id = id_conversation
+	 * @uri    /user_message
+	 * @method DELETE
+	 */
+	public function delete($id) {
+
+		$json['succeed'] = false;
+		$result = [];
+
+		$userManager = $this->getManagerof('User');
+		$fileManager = $this->getManagerof('File');
+		$conversationMessageManager = $this->getManagerof('ConversationMessage');
+		
+		$id_user = $this->_app->_config->getId_user();
+		$admin_user = $userManager->getById($id_user)->isAdmin();
+
+		if($conversationMessageManager->existById($id)) {
+			$conversationMessage = $conversationMessageManager->getById($id);
+			if($admin_user || $conversationMessage->getId_user()) {
+				$conversationMessageManager->delete($id);
+				$json['succeed'] = true;
+			}
+		}		
 
 		HTTPResponse::send(json_encode($json));
-
 	}
 }

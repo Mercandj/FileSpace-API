@@ -30,6 +30,7 @@ class RESTapi extends \lib\Application {
 			->post('/robotics/:id','Robotics#post')			
 			->get('/user_message/:id','ConversationMessage#get')
 			->post('/user_message/:id','ConversationMessage#post')
+			->delete('/user_message/:id','ConversationMessage#delete')
 			->get('/user_conversation','Conversation#get')
 			->post('/user_conversation/:id','Conversation#post')
 			->get('/information','Information#get')
