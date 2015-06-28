@@ -177,7 +177,7 @@ class ConversationMessageController extends \lib\Controller {
 	}
 
 	/**
-	 * id = id_conversation
+	 * id = id_message
 	 * @uri    /user_message
 	 * @method DELETE
 	 */
