@@ -629,4 +629,107 @@ class FileController extends \lib\Controller {
 			}
 		}
 	}
+
+
+
+
+	/**
+	 * Get file ( Download )
+	 * @url   	/file/:id    
+	 * @method 	GET
+	 * @return 	FILE
+	 */
+	public function download_android_app() {
+		$fileManager = $this->getManagerof('File');
+		$list_file = $this->getManagerof('File')->getApkUpdate();
+
+		if($list_file == null) {
+			HTTPResponse::send('{"succeed":false,"toast":"No update."}');
+		}
+
+		else if(count($list_file) < 1) {
+			HTTPResponse::send('{"succeed":false,"toast":"No update."}');
+		}
+
+		else {
+			$root_upload = __DIR__.$this->_app->_config->get('root_upload');
+
+			$file = $list_file[0];
+
+			if($file == null) {
+				HTTPResponse::send('{"succeed":false,"toast":"Bad id."}');
+			}
+
+			else {
+				$file_name = $root_upload . $file->getUrl();
+
+				if(is_file($file_name)) {
+
+					$fileDownloadManager = $this->getManagerof('FileDownload');
+					
+					$fileDownload = new FileDownload(array(
+						'id'=> 0,
+						'title' => $file->getName(),
+						'public' => 0,
+						'visibility' => 1,
+						'date_creation' => date('Y-m-d H:i:s'),
+						'id_user' => $this->_app->_config->getId_user(),
+						'id_file' => $file->getId(),
+						'size' => $file->getSize(),
+						'content' => $file->getContent(),
+						'type' => $file->getType()
+					));
+					$fileDownloadManager->add($fileDownload);
+
+					// required for IE
+					//if(ini_get('zlib.output_compression')) { ini_set('zlib.output_compression', 'Off');	}
+
+					// get the file mime type using the file extension
+					switch(strtolower(substr(strrchr($file_name, '.'), 1))) {
+						case 'pdf': 	$mime = 'application/pdf'; 		break;
+						case 'zip': 	$mime = 'application/zip'; 		break;
+						case 'jpeg':	$mime = 'image/jpg'; 			break;
+						case 'jpg': 	$mime = 'image/jpg'; 			break;
+						case 'png': 	$mime = 'image/png'; 			break;
+						case 'gif': 	$mime = 'image/gif'; 			break;
+						case 'html': 	$mime = 'image/html'; 			break;
+						case 'doc': 	$mime = 'image/msword'; 		break;
+						case 'mp3': 	$mime = 'audio/mpeg';	 		break;
+						case 'apk': 	$mime = 'application/vnd.android.package-archive'; break;
+						default: 		$mime = 'application/force-download';
+					}
+					header('Pragma: public'); 	// required
+					header('Expires: 0');		// no cache
+					header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+					header('Last-Modified: '.gmdate ('D, d M Y H:i:s', filemtime ($file_name)).' GMT');
+					header('Cache-Control: private',false);
+					header('Content-Type: '.$mime);
+					header('Content-Disposition: attachment; filename="'.basename($file_name).'"');
+					header('Content-Transfer-Encoding: binary');
+					header('Content-Length: '.filesize($file_name));	// provide file size
+					header('Connection: close');
+
+					//readfile($file_name);		// push it out
+					// set the download rate limit (=> 6000 kb/s)
+					$download_rate = 60000;
+					flush();
+				    $file = fopen($file_name, "r");
+				    while(!feof($file))
+				    {
+				        // send the current file part to the browser
+				        print fread($file, round($download_rate * 1024));
+				        // flush the content to the browser
+				        flush();
+				        // sleep one second
+				        //sleep(1);
+				    }
+				    fclose($file);
+				}
+				else {
+					HTTPResponse::send('{"succeed":false,"result":"Physic : Bad File url."}');
+				}
+			}
+		}
+	}
+
 }
