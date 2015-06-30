@@ -99,7 +99,7 @@ class UserController extends \lib\Controller {
 			HTTPResponse::send('{"succeed":false,"toast":"Wrong Password."}');
 		}
 
-		else if(!$this->_app->_config->get('registration_open')) {
+		else if(!$this->_app->_config->get('registration_open') && !$this->isAdmin()) {
 			HTTPResponse::send('{"succeed":false,"toast":"Registration close."}');
 		}
 
