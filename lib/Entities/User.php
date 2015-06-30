@@ -10,7 +10,7 @@ class User extends \lib\Entity{
 	protected $_id,
 		$_username,
 		$_password,
-		$_admin,
+		$_admin = 0,
 		$_date_creation,
 		$_date_last_connection,
 		$_first_name,

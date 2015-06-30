@@ -252,7 +252,7 @@ class UserController extends \lib\Controller {
 				$userbdd = $userManager->get($user->getUsername());
 
 				if($user->getPassword() === $userbdd->getPassword()) {					
-					return $userbdd->isAdmin();
+					return intval($userbdd->isAdmin()) == 1;
 				}
 
 			}
