@@ -100,7 +100,7 @@ class UserController extends \lib\Controller {
 		}
 
 		else if(!$this->_app->_config->get('registration_open') && !$this->isAdmin()) {
-			HTTPResponse::send('{"succeed":false,"toast":"Registration close."}');
+			HTTPResponse::send('{"succeed":false,"toast":"Registration close. $this->isAdmin()='.$this->isAdmin().'""}');
 		}
 
 		else{
