@@ -238,7 +238,7 @@ class UserController extends \lib\Controller {
 	*/
 	public function isAdmin() {
 
-		if(HTTPRequest::serverExist('PHP_AUTH_USER') && HTTPRequest::serverExist('PHP_AUTH_PW')){
+		if(HTTPRequest::serverExist('PHP_AUTH_USER') && HTTPRequest::serverExist('PHP_AUTH_PW')) {
 			
 			$user = new User(array(
 				'username' => HTTPRequest::serverData('PHP_AUTH_USER'),
@@ -251,13 +251,10 @@ class UserController extends \lib\Controller {
 
 				$userbdd = $userManager->get($user->getUsername());
 
-				if($user->getPassword() === $userbdd->getPassword()) {
-					return -1;				
+				if($this->isUser()) {
 					return intval($userbdd->isAdmin());
 				}
-				return -2;	
 			}
-			return -3;	
 		}
 
 		return 0;
