@@ -67,10 +67,13 @@ class User extends \lib\Entity{
 
 	public function getId_file_profile_picture(){
 		return $this->_id_file_profile_picture;
-	}	
+	}
 
+	public function getAdmin(){
+		return $this->_admin;
+	}
 	public function isAdmin(){
-		return ($this->_admin == 1);
+		return $this->_admin;
 	}
 
 	public function setId($id){
