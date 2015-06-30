@@ -35,7 +35,8 @@ class RESTapi extends \lib\Application {
 			->post('/user_conversation/:id','Conversation#post')
 			->get('/information','Information#get')
 			->authorize((new UserController($this))->isAdmin())
-			->get('/daemon','ServerDaemon#get')	
+			->get('/user_connection','UserConnection#get')
+			->get('/daemon','ServerDaemon#get')
 			->post('/daemon','ServerDaemon#post')
 			->otherwise(function(){
 				\lib\HTTPResponse::redirect404();
