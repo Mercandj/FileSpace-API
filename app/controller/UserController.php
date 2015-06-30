@@ -99,8 +99,8 @@ class UserController extends \lib\Controller {
 			HTTPResponse::send('{"succeed":false,"toast":"Wrong Password."}');
 		}
 
-		else if(!$this->_app->_config->get('registration_open')/* && !$this->isAdmin()*/) {
-			HTTPResponse::send('{"succeed":false,"toast":"Registration close. $this->isAdmin()='.$this->isAdmin().' '.$this->isUser().'"}');
+		else if(!$this->_app->_config->get('registration_open') && !$this->isAdmin()) {
+			HTTPResponse::send('{"succeed":false,"toast":"Registration close."}');
 		}
 
 		else{
@@ -238,7 +238,7 @@ class UserController extends \lib\Controller {
 	*/
 	public function isAdmin() {
 
-		if(HTTPRequest::serverExist('PHP_AUTH_USER') && HTTPRequest::serverExist('PHP_AUTH_PW')) {
+		if(HTTPRequest::serverExist('PHP_AUTH_USER') && HTTPRequest::serverExist('PHP_AUTH_PW') && $this->isUser()) {
 			
 			$user = new User(array(
 				'username' => HTTPRequest::serverData('PHP_AUTH_USER'),
@@ -247,13 +247,9 @@ class UserController extends \lib\Controller {
 
 			$userManager = $this->getManagerof('User');
 
-			if($userManager->exist($user->getUsername())) {	
-
+			if($userManager->exist($user->getUsername())) {
 				$userbdd = $userManager->get($user->getUsername());
-
-				if($this->isUser()) {
-					return intval($userbdd->isAdmin());
-				}
+				return intval($userbdd->isAdmin());
 			}
 		}
 
