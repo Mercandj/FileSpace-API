@@ -317,7 +317,7 @@ class UserController extends \lib\Controller {
 
 			// Delete UserConnection: logs
 			$userConnectionManager = $this->getManagerof('UserConnection');
-			$userConnectionManage->deleteByUserId($id);
+			$userConnectionManager->deleteByUserId($id);
 
 			// Delete all user files
 			$fileManager = $this->getManagerof('File');
