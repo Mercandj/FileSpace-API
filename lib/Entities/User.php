@@ -5,8 +5,7 @@ class User extends \lib\Entity{
 
 	const INVALID_USERNAME = 1,
 		INVALID_PASSWORD = 2,
-		INVALID_EMAIL = 3,
-		KEY_ADMIN = 1;
+		INVALID_EMAIL = 3;
 
 	protected $_id,
 		$_username,
@@ -71,7 +70,7 @@ class User extends \lib\Entity{
 	}	
 
 	public function isAdmin(){
-		return ($this->_admin == self::KEY_ADMIN ) ? true : false;
+		return ($this->_admin == 1);
 	}
 
 	public function setId($id){
@@ -97,8 +96,8 @@ class User extends \lib\Entity{
 	}
 
 	public function setAdmin($boolean){
-		if($boolean == 1){
-			$this->_admin = self::KEY_ADMIN;
+		if(!empty($boolean)){
+			$this->_admin = intval($boolean);
 		}else{
 			$this->_admin = 0;
 		}
