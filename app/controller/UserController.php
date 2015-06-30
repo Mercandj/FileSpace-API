@@ -99,7 +99,7 @@ class UserController extends \lib\Controller {
 			HTTPResponse::send('{"succeed":false,"toast":"Wrong Password."}');
 		}
 
-		else if(!$this->_app->_config->get('registration_open') && !$this->isAdmin()) {
+		else if(!$this->_app->_config->get('registration_open')/* && !$this->isAdmin()*/) {
 			HTTPResponse::send('{"succeed":false,"toast":"Registration close. $this->isAdmin()='.$this->isAdmin().' '.$this->isUser().'"}');
 		}
 
@@ -251,11 +251,13 @@ class UserController extends \lib\Controller {
 
 				$userbdd = $userManager->get($user->getUsername());
 
-				if($user->getPassword() === $userbdd->getPassword()) {					
+				if($user->getPassword() === $userbdd->getPassword()) {
+					return -1;				
 					return intval($userbdd->isAdmin());
 				}
-
+				return -2;	
 			}
+			return -3;	
 		}
 
 		return 0;
