@@ -315,11 +315,15 @@ class UserController extends \lib\Controller {
 			
 			// TODO delete all the user stuff
 
+			// Delete UserConnection: logs
+			$userConnectionManager = $this->getManagerof('UserConnection');
+			$userConnectionManage->deleteByUserId($id);
+
 			// Delete all user files
 			$fileManager = $this->getManagerof('File');
 			$root_upload = __DIR__.$this->_app->_config->get('root_upload');
 			$list_file = $fileManager->getAllByUser($id);
-			foreach ($list_user as $file) {
+			foreach ($list_file as $file) {
 				$json['succeed'] = true;
 
 				if($file == null) {
@@ -360,10 +364,8 @@ class UserController extends \lib\Controller {
 				}
 			}
 
-			/*
-			$user = $userManager->delete($id);
-			*/
-
+			// Delete User
+			$userManager->delete($id);
 			
 			$json['toast'] = "The user has been deleted.";
 		}

@@ -57,6 +57,23 @@ class UserConnectionManager extends \lib\Manager {
     	return new FileUpload($donnee);
 	}
 
+	public function getByUserId($id_user) {
+		$req = $this->_db->prepare('SELECT * FROM user_connection WHERE id_user = :id_user');
+    	$req->bindParam(':id_user', $id_user, \PDO::PARAM_INT);
+    	$req->execute();
+		while ($donnees = $req->fetch(\PDO::FETCH_ASSOC))
+	    	$users[] = new UserConnection($donnees);
+	    $req->closeCursor();
+	    return $users;
+	}
+
+	public function deleteByUserId($id_user) {
+		$req = $this->_db->prepare('DELETE * FROM user_connection WHERE id_user = :id_user');
+    	$req->bindParam(':id_user', $id_user, \PDO::PARAM_INT);
+    	$req->execute();
+    	$req->closeCursor();
+	}
+
 	public function getAll() {
 		$users = [];
 		$req = $this->_db->prepare('SELECT * FROM user_connection');
