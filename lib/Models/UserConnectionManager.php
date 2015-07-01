@@ -84,7 +84,7 @@ class UserConnectionManager extends \lib\Manager {
 	    return $users;
 	}
 
-	public function getAll($per_page, $page) {
+	public function getAllPage($per_page, $page) {
 		$users = [];
 		$req = $this->_db->prepare('SELECT * FROM user_connection ORDER BY date_creation DESC LIMIT '.$per_page.' OFFSET '.(($page-1)*$per_page));
 		$req->execute();

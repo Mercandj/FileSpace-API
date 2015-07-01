@@ -26,7 +26,7 @@ class UserConnectionController extends \lib\Controller {
 		$userConnectionManager = $this->getManagerof('UserConnection');
 
 		if($user->isAdmin()) {			
-			$list_user_connetion = $userConnectionManager->getAll(1, 150);
+			$list_user_connetion = $userConnectionManager->getAllPage(1, 150);
 			foreach ($list_user_connetion as $user_connetion) {
 				$result[] = $user_connetion->toArray();
 			}
