@@ -76,7 +76,7 @@ class UserConnectionManager extends \lib\Manager {
 
 	public function getAll() {
 		$users = [];
-		$req = $this->_db->prepare('SELECT * FROM user_connection ORDER BY date_creation DESC'));
+		$req = $this->_db->prepare('SELECT * FROM user_connection ORDER BY date_creation DESC');
 		$req->execute();
     	while ($donnees = $req->fetch(\PDO::FETCH_ASSOC))
 	    	$users[] = new UserConnection($donnees);
