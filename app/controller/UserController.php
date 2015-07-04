@@ -249,7 +249,8 @@ class UserController extends \lib\Controller {
 
 			if($userManager->exist($user->getUsername())) {
 				$userbdd = $userManager->get($user->getUsername());
-		
+	
+				/*
 				date_default_timezone_set("UTC");
 				$pass_expiry_time = 240; // minutes
 
@@ -269,6 +270,8 @@ class UserController extends \lib\Controller {
 						return intval($userbdd->isAdmin());
 					}
 				}
+				*/
+				return intval($userbdd->isAdmin());
 			}
 		}
 
