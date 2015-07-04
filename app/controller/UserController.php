@@ -238,7 +238,7 @@ class UserController extends \lib\Controller {
 	*/
 	public function isAdmin() {
 
-		if(HTTPRequest::serverExist('PHP_AUTH_USER') && HTTPRequest::serverExist('PHP_AUTH_PW') && $this->isUser()) {
+		if(HTTPRequest::serverExist('PHP_AUTH_USER') && HTTPRequest::serverExist('PHP_AUTH_PW')) {
 			
 			$user = new User(array(
 				'username' => HTTPRequest::serverData('PHP_AUTH_USER'),
