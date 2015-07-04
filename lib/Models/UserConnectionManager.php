@@ -103,4 +103,11 @@ class UserConnectionManager extends \lib\Manager {
     	$req->closeCursor();
     	return ($donnee['id'] != NULL) ? true : false;
 	}
+
+	public function count() {
+		$req = $this->_db->query('SELECT COUNT(id) AS countAll FROM user_connection');
+		$req->execute();
+		$donnee = $req->fetch(\PDO::FETCH_ASSOC);
+		return $donnee['countAll'];
+	}
 }

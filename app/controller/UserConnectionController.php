@@ -35,6 +35,7 @@ class UserConnectionController extends \lib\Controller {
 				$result[] = $user_connetion_array;
 			}
 			$json['result'] = $result;
+			$json['result_count_all'] = $userConnectionManager->count();
 			$json['succeed'] = true;
 		}
 		else {
