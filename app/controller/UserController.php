@@ -112,11 +112,11 @@ class UserController extends \lib\Controller {
 				$user = $userManager->get(HTTPRequest::serverData('PHP_AUTH_USER'));
 				$json['succeed'] = true;
 				$json['user'] = $user->toArray();
-
-				HTTPResponse::send($json);
+			}
+			else {
+				$json['toast'] = 'Wrong User or Password.';
 			}
 
-			$json['toast'] = 'Wrong User or Password.';
 			HTTPResponse::send($json);
 		}
 
