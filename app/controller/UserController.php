@@ -84,6 +84,8 @@ class UserController extends \lib\Controller {
 	 */
 	public function post() {
 
+		$userManager = $this->getManagerof('User');
+
 		if(HTTPRequest::postExist('login')) {
 			$json['succeed'] = false;
 
@@ -132,8 +134,6 @@ class UserController extends \lib\Controller {
 					'date_last_connection' => date('Y-m-d H:i:s')
 				));
 
-				$userManager = $this->getManagerof('User');
-
 				// Check if User !exist and is valid
 				if($user->isValid() && !$userManager->exist(HTTPRequest::postData('username'))) {
 					$userManager->add($user);
@@ -157,8 +157,6 @@ class UserController extends \lib\Controller {
 					'date_creation' => date('Y-m-d H:i:s'),
 					'date_last_connection' => date('Y-m-d H:i:s')
 				));
-
-				$userManager = $this->getManagerof('User');
 
 				// Check if User !exist and is valid
 				if($user->isValid() && !$userManager->exist(HTTPRequest::postData('username'))) {
