@@ -105,7 +105,7 @@ class UserManager extends \lib\Manager {
 
     	$donnee = $req->fetch(\PDO::FETCH_ASSOC);
     	$req->closeCursor();
-    	return new User($donnee);
+    	return ($donnee['id'] != NULL) ? (new User($donnee)) : NULL;
 	}
 
 	public function getAll() {
