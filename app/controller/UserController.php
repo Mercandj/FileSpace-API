@@ -22,25 +22,18 @@ class UserController extends \lib\Controller {
 		$fileManager = $this->getManagerof('File');
 
 		if($this->isUser()) {
-			if(HTTPRequest::getExist('login')) {
-				$user = $userManager->get(HTTPRequest::serverData('PHP_AUTH_USER'));
-				$json['succeed'] = true;
-				$json['user'] = $user->toArray();
-			}
-			else {
-				$list_user = $userManager->getAll();
-				foreach ($list_user as $user) {
-					$user_array = $user->toArray();
-					$id_file_profile_picture = $user->getId_file_profile_picture();
-					if(intval($id_file_profile_picture)!=-1 && $id_file_profile_picture!=null) {
-						$file_profile_picture = $fileManager->getById($id_file_profile_picture);
-						$user_array["file_profile_picture_size"] = $file_profile_picture->getSize();
-					}
-					$result[] = $user_array;
+			$list_user = $userManager->getAll();
+			foreach ($list_user as $user) {
+				$user_array = $user->toArray();
+				$id_file_profile_picture = $user->getId_file_profile_picture();
+				if(intval($id_file_profile_picture)!=-1 && $id_file_profile_picture!=null) {
+					$file_profile_picture = $fileManager->getById($id_file_profile_picture);
+					$user_array["file_profile_picture_size"] = $file_profile_picture->getSize();
 				}
-				$json['succeed'] = true;
-				$json['result'] = $result;
-			}			
+				$result[] = $user_array;
+			}
+			$json['succeed'] = true;
+			$json['result'] = $result;
 		}
 		else {
 			$json['toast'] = 'Wrong User or Password.';
@@ -103,7 +96,32 @@ class UserController extends \lib\Controller {
 			HTTPResponse::send('{"succeed":false,"toast":"Registration close."}');
 		}
 
-		else{
+		else if(HTTPRequest::getExist('login')) {
+			$json['succeed'] = false;
+
+			if($this->isUser()) {
+
+				$user = $userManager->get(HTTPRequest::serverData('PHP_AUTH_USER'));
+
+				if(HTTPRequest::getExist('longitude') && HTTPRequest::getExist('latitude')) {
+					$user->setLongitude(HTTPRequest::postData('longitude'));
+					$user->setLatitude(HTTPRequest::postData('latitude'));
+					$userManager->updatePosition($user);
+				}
+
+				$user = $userManager->get(HTTPRequest::serverData('PHP_AUTH_USER'));
+				$json['succeed'] = true;
+				$json['user'] = $user->toArray();
+
+				HTTPResponse::send($json);
+			}
+
+			$json['toast'] = 'Wrong User or Password.';
+			HTTPResponse::send($json);
+		}
+
+		else {
+
 			if(HTTPRequest::getExist('google_plus')) {
 				// Inscription / Login via Google plus
 				$user = new User(array(
@@ -151,8 +169,6 @@ class UserController extends \lib\Controller {
 					$json = '{"succeed":false,"toast":"Username already exists."}';
 				}
 			}
-
-
 
 			HTTPResponse::send($json);
 		}	

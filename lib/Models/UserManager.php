@@ -77,6 +77,19 @@ class UserManager extends \lib\Manager {
 		$req->closeCursor();
 	}
 
+	public function updatePosition(User $user){
+		$username = $user->getUsername();
+		$longitude = $user->getLongitude();
+		$latitude = $user->getLatitude();
+
+		$req = $this->_db->prepare('UPDATE user SET longitude = :longitude, latitude = :latitude WHERE username = :username');
+		$req->bindParam(':username',$username,\PDO::PARAM_STR);
+		$req->bindParam(':longitude',$longitude,\PDO::PARAM_STR);
+		$req->bindParam(':latitude',$latitude,\PDO::PARAM_STR);
+		$req->execute();
+		$req->closeCursor();
+	}
+
 	public function updateToken(User $user){
 		$username = $user->getUsername();
 		$token = $user->getToken();

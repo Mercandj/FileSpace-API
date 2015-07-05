@@ -19,7 +19,9 @@ class User extends \lib\Entity{
 		$_android_id,
 		$_num_files,
 		$_size_files,
-		$_id_file_profile_picture = -1;
+		$_id_file_profile_picture = -1,
+		$_longitude,
+		$_latitude;
 
 	public function getId(){
 		return $this->_id;
@@ -67,6 +69,14 @@ class User extends \lib\Entity{
 
 	public function getId_file_profile_picture(){
 		return $this->_id_file_profile_picture;
+	}
+
+	public function getLongitude(){
+		return $this->_longitude;
+	}
+
+	public function getLatitude(){
+		return $this->_latitude;
 	}
 
 	public function getAdmin(){
@@ -166,6 +176,18 @@ class User extends \lib\Entity{
 		}
 	}
 
+	public function setLongitude($logitude){
+		if(!empty($logitude)){
+			$this->_logitude = $logitude;
+		}
+	}
+
+	public function setLatitude($latitude){
+		if(!empty($latitude)){
+			$this->_latitude = $latitude;
+		}
+	}
+
 	public function isValid(){
 		return !empty($this->_username) && !empty($this->_password);
 	}
@@ -189,6 +211,10 @@ class User extends \lib\Entity{
 			$json['num_files'] = $this->getNum_files();
 		if($this->getSize_files()!=null)
 			$json['size_files'] = $this->getSize_files();
+		if($this->getLongitude()!=null)
+			$json['longitude'] = $this->getLogitutde();
+		if($this->getLatitude()!=null)
+			$json['latitude'] = $this->getLatitude();
 		if($this->getId_file_profile_picture()!=null)
 			if($this->getId_file_profile_picture()!=-1)
 				$json['id_file_profile_picture'] = $this->getId_file_profile_picture();
