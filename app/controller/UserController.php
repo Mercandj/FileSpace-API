@@ -107,7 +107,7 @@ class UserController extends \lib\Controller {
 				$json['toast'] = 'Wrong User or Password.';
 			}
 
-			HTTPResponse::send($json);
+			HTTPResponse::send(json_encode($json, JSON_NUMERIC_CHECK));
 		}
 
 		else if(!HTTPRequest::postExist('username')) {
