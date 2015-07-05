@@ -367,6 +367,7 @@ class UserController extends \lib\Controller {
 			// Delete User
 			$userManager->delete($id);
 			
+			$json['succeed'] = true;
 			$json['toast'] = "The user has been deleted.";
 		}
 		else {

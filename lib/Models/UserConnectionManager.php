@@ -68,7 +68,7 @@ class UserConnectionManager extends \lib\Manager {
 	}
 
 	public function deleteByUserId($id_user) {
-		$req = $this->_db->prepare('DELETE * FROM user_connection WHERE id_user = :id_user');
+		$req = $this->_db->prepare('DELETE FROM user_connection WHERE id_user = :id_user');
     	$req->bindParam(':id_user', $id_user, \PDO::PARAM_INT);
     	$req->execute();
     	$req->closeCursor();
