@@ -84,19 +84,7 @@ class UserController extends \lib\Controller {
 	 */
 	public function post() {
 
-		if(!HTTPRequest::postExist('username')) {
-			HTTPResponse::send('{"succeed":false,"toast":"Wrong User."}');
-		}
-
-		else if(!HTTPRequest::postExist('password')) {
-			HTTPResponse::send('{"succeed":false,"toast":"Wrong Password."}');
-		}
-
-		else if(!$this->_app->_config->get('registration_open') && !$this->isAdmin()) {
-			HTTPResponse::send('{"succeed":false,"toast":"Registration close."}');
-		}
-
-		else if(HTTPRequest::getExist('login')) {
+		if(HTTPRequest::getExist('login')) {
 			$json['succeed'] = false;
 
 			if($this->isUser()) {
@@ -118,6 +106,18 @@ class UserController extends \lib\Controller {
 			}
 
 			HTTPResponse::send($json);
+		}
+
+		else if(!HTTPRequest::postExist('username')) {
+			HTTPResponse::send('{"succeed":false,"toast":"Wrong User."}');
+		}
+
+		else if(!HTTPRequest::postExist('password')) {
+			HTTPResponse::send('{"succeed":false,"toast":"Wrong Password."}');
+		}
+
+		else if(!$this->_app->_config->get('registration_open') && !$this->isAdmin()) {
+			HTTPResponse::send('{"succeed":false,"toast":"Registration close."}');
 		}
 
 		else {
