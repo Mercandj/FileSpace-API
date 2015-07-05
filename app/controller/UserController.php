@@ -84,14 +84,14 @@ class UserController extends \lib\Controller {
 	 */
 	public function post() {
 
-		if(HTTPRequest::getExist('login')) {
+		if(HTTPRequest::postExist('login')) {
 			$json['succeed'] = false;
 
 			if($this->isUser()) {
 
 				$user = $userManager->get(HTTPRequest::serverData('PHP_AUTH_USER'));
 
-				if(HTTPRequest::getExist('longitude') && HTTPRequest::getExist('latitude')) {
+				if(HTTPRequest::postExist('longitude') && HTTPRequest::postExist('latitude')) {
 					$user->setLongitude(HTTPRequest::postData('longitude'));
 					$user->setLatitude(HTTPRequest::postData('latitude'));
 					$userManager->updatePosition($user);
