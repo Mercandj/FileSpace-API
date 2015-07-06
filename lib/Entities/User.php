@@ -212,7 +212,7 @@ class User extends \lib\Entity{
 		if($this->getSize_files()!=null)
 			$json['size_files'] = $this->getSize_files();
 		if($this->getLongitude()!=null)
-			$json['longitude'] = $this->getLogitutde();
+			$json['longitude'] = $this->getLongitutde();
 		if($this->getLatitude()!=null)
 			$json['latitude'] = $this->getLatitude();
 		if($this->getId_file_profile_picture()!=null)
