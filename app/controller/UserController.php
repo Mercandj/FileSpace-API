@@ -280,6 +280,9 @@ class UserController extends \lib\Controller {
 		$result = []; //In case where list_file is empty;
 		$json['succeed'] = false;
 
+		$userManager = $this->getManagerof('User');
+		$user = $userManager->get(HTTPRequest::serverData('PHP_AUTH_USER'));
+
 		if(HTTPRequest::postExist('id_file_profile_picture')) {
 			$id_file_profile_picture = intval(HTTPRequest::postData('id_file_profile_picture'));
 			
