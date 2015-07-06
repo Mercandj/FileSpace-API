@@ -176,9 +176,9 @@ class User extends \lib\Entity{
 		}
 	}
 
-	public function setLongitude($logitude){
-		if(!empty($logitude)){
-			$this->_logitude = $logitude;
+	public function setLongitude($longitude){
+		if(!empty($longitude)){
+			$this->_longitude = $longitude;
 		}
 	}
 
