@@ -293,6 +293,11 @@ class UserController extends \lib\Controller {
 			$json['succeed'] = true;
 			$json['toast'] = "Your picture has been updated.";
 		}
+		else if(HTTPRequest::postExist('longitude') && HTTPRequest::postExist('latitude')) {
+			$user->setLongitude(HTTPRequest::postData('longitude'));
+			$user->setLatitude(HTTPRequest::postData('latitude'));
+			$userManager->updatePosition($user);
+		}
 		else {
 			$json['toast'] = "No parameter.";
 		}
