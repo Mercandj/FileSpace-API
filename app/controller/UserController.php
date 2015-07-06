@@ -300,6 +300,7 @@ class UserController extends \lib\Controller {
 			$user->setLongitude(HTTPRequest::postData('longitude'));
 			$user->setLatitude(HTTPRequest::postData('latitude'));
 			$userManager->updatePosition($user);
+			$json['succeed'] = true;
 		}
 		else {
 			$json['toast'] = "No parameter.";
