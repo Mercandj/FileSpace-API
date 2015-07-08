@@ -51,7 +51,7 @@ class InformationController extends \lib\Controller {
 
 	private function size($bytes) {
 		if ($bytes >= 1000000000000) {
-            return number_format($bytes / 1000000000000, 1) . ' GB';
+            return number_format($bytes / 1000000000000, 1) . ' TB';
         }
 		if ($bytes >= 1000000000) {
             return number_format($bytes / 1000000000, 1) . ' GB';
