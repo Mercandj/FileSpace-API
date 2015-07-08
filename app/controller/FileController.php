@@ -71,7 +71,7 @@ class FileController extends \lib\Controller {
 		foreach ($list_file as $file) {
 			$file_array = $file->toArray();
 			if($file->getDirectory() == 1) {
-				$file_array['dir-size'] = $this->getManagerof('File')->getFolderSize($file->->getByParentId());
+				$file_array['dir-size'] = $this->getManagerof('File')->getFolderSize($file->getId());
 			}
 			$result[] = $file_array;
 		}
