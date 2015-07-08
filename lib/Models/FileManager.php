@@ -186,6 +186,14 @@ class FileManager extends \lib\Manager {
 	    return $file;
 	}
 
+	public function getFolderSize($id_file_parent=-1) {
+		$req = $this->_db->query('SELECT COUNT(url) AS countAll FROM file WHERE id_file_parent = :id_file_parent');
+		$req->bindParam(':id_file_parent', $id_file_parent, \PDO::PARAM_INT);
+		$req->execute();
+		$donnee = $req->fetch(\PDO::FETCH_ASSOC);
+		return $donnee['countAll'];
+	}
+
 	public function getAllByType($type) {
 		$file = [];
 

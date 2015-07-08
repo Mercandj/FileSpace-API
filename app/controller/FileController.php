@@ -69,7 +69,11 @@ class FileController extends \lib\Controller {
 		}
 		
 		foreach ($list_file as $file) {
-			$result[] = $file->toArray();
+			$file_array = $file->toArray();
+			if($file->getDirectory() == 1) {
+				$file_array['dir-size'] = $this->getManagerof('File')->getFolderSize($file->->getByParentId());
+			}
+			$result[] = $file_array;
 		}
 
 		$json['succeed'] = true;
