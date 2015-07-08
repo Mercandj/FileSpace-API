@@ -50,13 +50,21 @@ class InformationController extends \lib\Controller {
 	}
 
 	private function size($bytes) {
-	    if ($bytes > 0) {
-	        $unit = intval(log($bytes, 1024));
-	        $units = array('B', 'KB', 'MB', 'GB');
-
-	        if (array_key_exists($unit, $units) === true)
-	            return sprintf('%d %s', $bytes / pow(1024, $unit), $units[$unit]);
-	    }
-	    return $bytes;
+		if ($bytes >= 1000000000000) {
+            return number_format($bytes / 1000000000000, 1) . ' GB';
+        }
+		if ($bytes >= 1000000000) {
+            return number_format($bytes / 1000000000, 1) . ' GB';
+        }
+        else if ($bytes >= 1000000) {
+            return number_format($bytes / 1000000, 1) . ' MB';
+        }
+        else if ($bytes >= 1000) {
+            return number_format($bytes / 1000, 1) . ' KB';
+        }
+        else if ($bytes > 1) {
+            return $bytes . ' bytes';
+        }
+        return $bytes . ' byte';
 	}
 }
