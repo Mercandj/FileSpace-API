@@ -62,6 +62,7 @@ class UserController extends \lib\Controller {
 				$file_profile_picture = $fileManager->getById($id_file_profile_picture);
 				$user_array["file_profile_picture_size"] = $file_profile_picture->getSize();
 			}
+			$user_array['server_max_size_end_user'] = $this->_app->_config->get('server_max_size_end_user');
 			$json['succeed'] = true;
 			$json['result'] = $user_array;
 		}
