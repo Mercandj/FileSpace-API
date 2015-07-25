@@ -174,7 +174,7 @@ class FileController extends \lib\Controller {
 			if(HTTPRequest::postExist('id_file_parent'))
 				$id_file_parent = HTTPRequest::postData('id_file_parent');
 			
-			$extension_upload = 'jarvis';
+			$extension_upload = 'filespace';
 			$input_url = $input_name . '.' . $extension_upload;
 			$input_url = date('Y-m-d_H-i-s') . '_' . $input_url . '_' . hash("md5", $input_url . date('Y-m-d H:i:s')) . '.' . $extension_upload;
 			$target_dir = $root_upload . $input_url;
@@ -350,7 +350,7 @@ class FileController extends \lib\Controller {
 			$is_apk_update = $file->getIs_apk_update();
 
 			$json['succeed'] = true;
-			$json['toast'] = 'Your file is ' . (($is_apk_update == "true" || $is_apk_update == 1 || $is_apk_update == "1") ? 'a Jarvis update.' : 'not a Jarvis update.');
+			$json['toast'] = 'Your file is ' . (($is_apk_update == "true" || $is_apk_update == 1 || $is_apk_update == "1") ? 'a FileSpace update.' : 'not a FileSpace update.');
 		}
 
 		else if(HTTPRequest::postExist('id_file_parent')) {
