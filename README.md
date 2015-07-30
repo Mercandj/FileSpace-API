@@ -14,6 +14,7 @@ FileSpace - API
 * Starting Date : October 2014
 * Configuration : /config/config.json
 * Install data base : /database/script.sql
+* Allow rewrite_module on Apache (httpd.conf) : LoadModule rewrite_module modules/mod_rewrite.so
 * Tested on Apache
 * Optional robotics : Raspberry Pi with this [project](https://github.com/projectweekend/Pi-GPIO-Server)
 
