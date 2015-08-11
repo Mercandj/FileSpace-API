@@ -111,7 +111,7 @@ class RoboticsController extends \lib\Controller {
 
 		if($user->isAdmin()) {
 
-			$url = $this->_app->_config->get('server_robotics_2')."cgi-bin/index.py?username=" . $user->getUsername();
+			$url = $this->_app->_config->get('server_robotics_2')."?username=" . $user->getUsername();
 			
 			if(HTTPRequest::getExist('mesure_id'))
 				$url .= '&mesure_id=' . HTTPRequest::getData('mesure_id');
@@ -155,7 +155,7 @@ class RoboticsController extends \lib\Controller {
 			if(HTTPRequest::postExist('json'))
 				$json_data = HTTPRequest::postData('json');
 	
-			$url = $this->_app->_config->get('server_robotics_2')."cgi-bin/index.py";
+			$url = $this->_app->_config->get('server_robotics_2');
 	
 			$options = array(
 				'http' => array(
