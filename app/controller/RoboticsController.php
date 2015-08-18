@@ -127,14 +127,14 @@ class RoboticsController extends \lib\Controller {
 			$context  = stream_context_create($options);
 
 			//$response_content = @file_get_contents($url, false, $context); return false
-			$fp = @fopen($sUrl, 'rb', false, $ctx);
+			$fp = @fopen($url, 'rb', false, $context);
 			if (!$fp) {
-			    $json['error-1'] = "Problem with $sUrl, $php_errormsg";
+			    $json['error-1'] = "Problem with $url";
 			}
 
 			$response_content = @stream_get_contents($fp);
 			if ($response_content === false) {
-			    $json['error-2'] = "Problem reading data from $sUrl, $php_errormsg";
+			    $json['error-2'] = "Problem reading data from $url";
 			}
 	
 			$json['succeed'] = true;
