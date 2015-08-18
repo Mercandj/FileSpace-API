@@ -127,15 +127,16 @@ class RoboticsController extends \lib\Controller {
 			$context  = stream_context_create($options);
 
 			//$response_content = @file_get_contents($url, false, $context); return false
-			$fp = @fopen($url, 'rb', false, $context);
+			$fp = @fopen($url, 'r', false, $context);
 			if (!$fp) {
 			    $json['error-1'] = "Problem with $url";
 			}
 
-			$response_content = @stream_get_contents($fp);
-			if ($response_content === false) {
-			    $json['error-2'] = "Problem reading data from $url";
+			$response_content = '';
+			while (!feof($fp)) {
+			  $response_content .= fread($fp, 8192);
 			}
+			fclose($fp);
 	
 			$json['succeed'] = true;
 			$json['raspberry-content'] = $response_content;
