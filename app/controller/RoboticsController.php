@@ -121,7 +121,7 @@ class RoboticsController extends \lib\Controller {
 			    )
 			);
 			$context  = stream_context_create($options);
-			$response_content = file_get_contents($url, false, $context);
+			$response_content = @file_get_contents($url, false, $context);
 
 			$json['succeed'] = true;
 			$json['raspberry-content'] = $response_content;
