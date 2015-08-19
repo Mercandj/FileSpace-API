@@ -121,12 +121,13 @@ class RoboticsController extends \lib\Controller {
 					'header'  => "Content-type: application/json\r\n".
 								 "Content-length: " . strlen($json_data) . "\r\n",
 					'method'  => 'POST',
-					'content' => $json_data,
+					'content' => $json_data
 			    )
 			);
 			$context  = stream_context_create($options);
+			$response_content = file_get_contents($url, false, $context);
 
-			//$response_content = @file_get_contents($url, false, $context); return false
+			/*
 			$fp = @fopen($url, 'r', false, $context);
 			if (!$fp) {
 			    $json['error-1'] = "Problem with $url";
@@ -137,7 +138,8 @@ class RoboticsController extends \lib\Controller {
 			  $response_content .= fread($fp, 8192);
 			}
 			fclose($fp);
-	
+			*/
+
 			$json['succeed'] = true;
 			$json['raspberry-content'] = $response_content;
 			$json['debug-json-nuc-request'] = $json_data;
