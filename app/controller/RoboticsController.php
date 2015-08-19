@@ -91,10 +91,6 @@ class RoboticsController extends \lib\Controller {
 
 
 
-
-
-
-
 	/**
 	 * Do robotics actions
 	 * @uri    	/robotics
@@ -126,19 +122,6 @@ class RoboticsController extends \lib\Controller {
 			);
 			$context  = stream_context_create($options);
 			$response_content = file_get_contents($url, false, $context);
-
-			/*
-			$fp = @fopen($url, 'r', false, $context);
-			if (!$fp) {
-			    $json['error-1'] = "Problem with $url";
-			}
-
-			$response_content = '';
-			while (!feof($fp)) {
-			  $response_content .= fread($fp, 8192);
-			}
-			fclose($fp);
-			*/
 
 			$json['succeed'] = true;
 			$json['raspberry-content'] = $response_content;
