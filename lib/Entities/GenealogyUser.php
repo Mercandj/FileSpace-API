@@ -61,6 +61,10 @@ class GenealogyUser extends \lib\Entity{
 		return $this->_date_birth;
 	}
 
+	public function getIs_man(){
+		return $this->_is_man;
+	}
+
 	public function setId($id){
 		if(!empty($id)){
 			$this->_id = $id;
