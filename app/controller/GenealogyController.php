@@ -63,7 +63,7 @@ class GenealogyController extends \lib\Controller {
 			if(HTTPRequest::postExist('last_name'))
 				$last_name = HTTPRequest::postData('last_name');
 
-			$genealogyUser = new File(array(
+			$genealogyUser = new GenealogyUser(array(
 				'id'=> 0,
 				'first_name_1' => $first_name_1,
 				'first_name_2' => $first_name_2,
