@@ -76,7 +76,7 @@ class GenealogyController extends \lib\Controller {
 			if(HTTPRequest::postExist('last_name'))
 				$last_name = HTTPRequest::postData('last_name');
 			if(HTTPRequest::postExist('is_man'))
-				$last_name = (HTTPRequest::postData('is_man') == 'true') ? 1 : 0;
+				$is_man = (HTTPRequest::postData('is_man') == 'true') ? 1 : 0;
 			if(HTTPRequest::postExist('date_birth'))
 				$date_birth = HTTPRequest::postData('date_birth');
 			if(HTTPRequest::postExist('date_death'))
