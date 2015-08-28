@@ -55,17 +55,13 @@ class GenealogyController extends \lib\Controller {
 			$last_name = NULL;
 	
 			if(HTTPRequest::postExist('first_name_1'))
-				$first_name_1 = HTTPRequest::postData('first_name_1');				
-			}
+				$first_name_1 = HTTPRequest::postData('first_name_1');
 			if(HTTPRequest::postExist('first_name_2'))
-				$first_name_2 = HTTPRequest::postData('first_name_2');				
-			}
+				$first_name_2 = HTTPRequest::postData('first_name_2');
 			if(HTTPRequest::postExist('first_name_3'))
-				$first_name_3 = HTTPRequest::postData('first_name_3');				
-			}
+				$first_name_3 = HTTPRequest::postData('first_name_3');
 			if(HTTPRequest::postExist('last_name'))
-				$last_name = HTTPRequest::postData('last_name');				
-			}
+				$last_name = HTTPRequest::postData('last_name');
 
 			$genealogyUser = new File(array(
 				'id'=> 0,
