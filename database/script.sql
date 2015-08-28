@@ -298,7 +298,7 @@ ENGINE = MyISAM;
 SHOW WARNINGS;
 
 -- -----------------------------------------------------
--- Table `Conversation_User`
+-- Table `Genealogy_User`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `Genealogy_User` ;
 
@@ -320,7 +320,7 @@ CREATE TABLE IF NOT EXISTS `Genealogy_User` (
   `public` TINYINT NOT NULL DEFAULT 0,
   `date_creation` DATETIME NULL,
   `content` VARCHAR(9999) NULL,
-  `description` VARCHAR(9999) NULL
+  `description` VARCHAR(9999) NULL,
   PRIMARY KEY (`id`))
 ENGINE = MyISAM;
 
