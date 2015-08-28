@@ -17,6 +17,14 @@ class GenealogyUser extends \lib\Entity{
 		return $this->_first_name_1;
 	}
 
+	public function getFirst_name_2(){
+		return $this->_first_name_2;
+	}
+
+	public function getFirst_name_3(){
+		return $this->_first_name_3;
+	}
+
 	public function getLast_name(){
 		return $this->_last_name;
 	}
@@ -34,16 +42,24 @@ class GenealogyUser extends \lib\Entity{
 	public function setFirst_name_1($first_name_1){
 		if(!empty($first_name_1)){
 			$this->_first_name_1 = $first_name_1;
-		}else{
-			// Well ...
+		}
+	}
+
+	public function setFirst_name_2($first_name_2){
+		if(!empty($first_name_2)){
+			$this->_first_name_2 = $first_name_2;
+		}
+	}
+
+	public function setFirst_name_3($first_name_3){
+		if(!empty($first_name_3)){
+			$this->_first_name_3 = $first_name_3;
 		}
 	}
 
 	public function setLast_name($last_name){
 		if(!empty($last_name)){
 			$this->_last_name = $last_name;
-		}else{
-			// Well ...
 		}
 	}
 
