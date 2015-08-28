@@ -15,6 +15,9 @@ class GenealogyController extends \lib\Controller {
 	 */
 	public function get($id) {
 		$json['succeed'] = false;
+
+		$result = []; //In case where list_file is empty;
+		$list_user = [];
 		
 		$id_user = $this->_app->_config->getId_user();
 		$userManager = $this->getManagerof('User');
@@ -24,6 +27,13 @@ class GenealogyController extends \lib\Controller {
 			$json['succeed'] = true;
 
 
+			$list_user = $this->getManagerof('GenealogyUser')->getAll();
+
+			foreach ($list_user as $file) {
+				$result[] = $file->toArray();
+			}
+
+			$json['result'] = $result;
 		}
 		else {
 			$json['toast'] = 'Unauthorized access.';
