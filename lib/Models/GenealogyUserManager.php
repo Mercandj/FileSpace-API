@@ -71,14 +71,7 @@ class GenealogyUserManager extends \lib\Manager {
     	$req->closeCursor();
     	return new GenealogyUser($donnee);
 	}
-
-	public function delete($id) {
-		$req = $this->_db->prepare('DELETE FROM genealogy_user WHERE id = :id');
-    	$req->bindParam(':id', $id, \PDO::PARAM_INT);
-    	$req->execute();
-		$req->closeCursor();
-	}
-
+	
 	public function getAll() {
 		$users = [];
 		$req = $this->_db->prepare('SELECT * FROM genealogy_user');
