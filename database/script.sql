@@ -297,6 +297,35 @@ ENGINE = MyISAM;
 
 SHOW WARNINGS;
 
+-- -----------------------------------------------------
+-- Table `Conversation_User`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `Genealogy_User` ;
+
+SHOW WARNINGS;
+CREATE TABLE IF NOT EXISTS `Genealogy_User` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `first_name_1`VARCHAR(500) NULL,
+  `first_name_2`VARCHAR(500) NULL,
+  `first_name_3`VARCHAR(500) NULL,
+  `last_name`VARCHAR(500) NULL,
+  `date_death`VARCHAR(500) NULL,
+  `date_birth`VARCHAR(500) NULL,
+  `birth_location`VARCHAR(500) NULL,
+  `death_location`VARCHAR(500) NULL,
+  `life_location`VARCHAR(500) NULL,
+  `id_father` INT NULL,
+  `id_mother` INT NULL,
+  `visibility` TINYINT NOT NULL DEFAULT 1,
+  `public` TINYINT NOT NULL DEFAULT 0,
+  `date_creation` DATETIME NULL,
+  `content` VARCHAR(9999) NULL,
+  `description` VARCHAR(9999) NULL
+  PRIMARY KEY (`id`))
+ENGINE = MyISAM;
+
+SHOW WARNINGS;
+
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
