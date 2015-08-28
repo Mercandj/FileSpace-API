@@ -63,6 +63,9 @@ class GenealogyController extends \lib\Controller {
 			$first_name_2 = NULL;
 			$first_name_3 = NULL;
 			$last_name = NULL;
+			$is_man = NULL;
+			$date_birth = NULL;
+			$date_death = NULL;
 	
 			if(HTTPRequest::postExist('first_name_1'))
 				$first_name_1 = HTTPRequest::postData('first_name_1');
@@ -72,6 +75,12 @@ class GenealogyController extends \lib\Controller {
 				$first_name_3 = HTTPRequest::postData('first_name_3');
 			if(HTTPRequest::postExist('last_name'))
 				$last_name = HTTPRequest::postData('last_name');
+			if(HTTPRequest::postExist('is_man'))
+				$last_name = (HTTPRequest::postData('is_man') == 'true') ? 1 : 0;
+			if(HTTPRequest::postExist('date_birth'))
+				$date_birth = HTTPRequest::postData('date_birth');
+			if(HTTPRequest::postExist('date_death'))
+				$date_death = HTTPRequest::postData('date_death');
 
 			$genealogyUser = new GenealogyUser(array(
 				'id'=> 0,
@@ -79,6 +88,9 @@ class GenealogyController extends \lib\Controller {
 				'first_name_2' => $first_name_2,
 				'first_name_3' => $first_name_3,
 				'last_name' => $last_name,
+				'is_man' => $is_man,
+				'date_birth' => $date_birth,
+				'date_death' => $date_death,
 				'date_creation' => date('Y-m-d H:i:s')
 			));
 

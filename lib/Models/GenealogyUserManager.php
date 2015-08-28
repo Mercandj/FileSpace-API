@@ -11,12 +11,18 @@ class GenealogyUserManager extends \lib\Manager {
 		$first_name_3 = $genealogyUser->getFirst_name_3();
 		$last_name = $genealogyUser->getLast_name();
 		$date_creation = $genealogyUser->getDate_creation();
+		$is_man = $genealogyUser->getIs_man();
+		$date_birth = $genealogyUser->getDate_birth();
+		$date_death = $genealogyUser->getDate_death();
 		
-		$req = $this->_db->prepare('INSERT INTO `genealogy_user`(first_name_1,first_name_2,first_name_3,last_name,date_creation) VALUES (:first_name_1, :first_name_2, :first_name_3, :last_name, :date_creation)');
+		$req = $this->_db->prepare('INSERT INTO `genealogy_user`(first_name_1,first_name_2,first_name_3,last_name,is_man,date_birth,date_death,date_creation) VALUES (:first_name_1, :first_name_2, :first_name_3, :last_name, :is_man, :date_birth, :date_death, :date_creation)');
 		$req->bindParam(':first_name_1',$first_name_1,\PDO::PARAM_STR);
 		$req->bindParam(':first_name_2',$first_name_2,\PDO::PARAM_STR);
 		$req->bindParam(':first_name_3',$first_name_3,\PDO::PARAM_STR);
 		$req->bindParam(':last_name',$last_name,\PDO::PARAM_STR);
+		$req->bindParam(':is_man',$is_man,\PDO::PARAM_INT);
+		$req->bindParam(':date_birth',$last_name,\PDO::PARAM_STR);
+		$req->bindParam(':date_death',$last_name,\PDO::PARAM_STR);
 		$req->bindParam(':date_creation',$date_creation,\PDO::PARAM_STR);
 		$req->execute();
 		$req->closeCursor();
