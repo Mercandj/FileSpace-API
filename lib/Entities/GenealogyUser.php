@@ -126,7 +126,7 @@ class GenealogyUser extends \lib\Entity{
 		return $this->_date_death;
 	}
 
-	public function setDate_birth($date_death){
+	public function setDate_birth($date_birth){
 		if(!empty($date_birth)){
 			$this->_date_birth = $date_birth;
 		}

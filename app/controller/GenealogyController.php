@@ -131,4 +131,32 @@ class GenealogyController extends \lib\Controller {
 
 		HTTPResponse::send(json_encode($json));
 	}
+
+
+	/**
+	 * Do genealogy actions
+	 * @uri    	/genealogy_put
+	 * @method 	POST
+	 */
+	public function put($id) {
+		$json['succeed'] = false;
+		
+		$id_user = $this->_app->_config->getId_user();
+		$userManager = $this->getManagerof('User');
+		$user = $userManager->getById($id_user);
+
+		if($user->isAdmin()) {
+			$genealogyUserManager = $this->getManagerof('GenealogyUser');
+			
+			
+
+			$json['succeed'] = true;
+			$json['toast'] = 'User deleted.';
+		}
+		else {
+			$json['toast'] = 'Unauthorized access.';
+		}
+
+		HTTPResponse::send(json_encode($json));
+	}
 }
