@@ -11,7 +11,11 @@ class GenealogyUser extends \lib\Entity{
 		$_date_creation,
 		$_content,
 		$_id_father,
-		$_id_mother;
+		$_id_mother,
+		$_date_death,
+		$_date_birth,
+		$_is_man,
+		$_profession;
 
 	public function getId(){
 		return $this->_id;
@@ -47,6 +51,14 @@ class GenealogyUser extends \lib\Entity{
 
 	public function getId_mother(){
 		return $this->_id_mother;
+	}
+
+	public function getDate_death(){
+		return $this->_date_death;
+	}
+
+	public function getDate_birth(){
+		return $this->_date_birth;
 	}
 
 	public function setId($id){
@@ -103,6 +115,27 @@ class GenealogyUser extends \lib\Entity{
 		}
 	}
 
+	public function setDate_death($date_death){
+		if(!empty($date_death)){
+			$this->_date_death = $date_death;
+		}
+		return $this->_date_death;
+	}
+
+	public function setDate_birth($date_death){
+		if(!empty($date_birth)){
+			$this->_date_birth = $date_birth;
+		}
+		return $this->_date_birth;
+	}
+
+	public function setIs_man($is_man){
+		if(!empty($is_man)){
+			$this->_is_man = $is_man;
+		}
+		return $this->_is_man;
+	}
+
 	public function isValid(){
 		return true;
 	}
@@ -125,6 +158,12 @@ class GenealogyUser extends \lib\Entity{
 			$json['id_father'] = $this->getId_father();
 		if($this->getId_mother()!=null)
 			$json['id_mother'] = $this->getId_mother();
+		if($this->getDate_death()!=null)
+			$json['date_death'] = $this->getDate_death();
+		if($this->getDate_birth()!=null)
+			$json['date_birth'] = $this->getDate_birth();
+		if($this->getIs_man()!=null)
+			$json['is_man'] = $this->getIs_man();
         return $json;
     }
 }
