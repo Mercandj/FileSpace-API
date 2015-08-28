@@ -21,8 +21,8 @@ class GenealogyUserManager extends \lib\Manager {
 		$req->bindParam(':first_name_3',$first_name_3,\PDO::PARAM_STR);
 		$req->bindParam(':last_name',$last_name,\PDO::PARAM_STR);
 		$req->bindParam(':is_man',$is_man,\PDO::PARAM_INT);
-		$req->bindParam(':date_birth',$last_name,\PDO::PARAM_STR);
-		$req->bindParam(':date_death',$last_name,\PDO::PARAM_STR);
+		$req->bindParam(':date_birth',$date_birth,\PDO::PARAM_STR);
+		$req->bindParam(':date_death',$date_death,\PDO::PARAM_STR);
 		$req->bindParam(':date_creation',$date_creation,\PDO::PARAM_STR);
 		$req->execute();
 		$req->closeCursor();
