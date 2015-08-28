@@ -13,7 +13,7 @@ class GenealogyController extends \lib\Controller {
 	 * @method GET
 	 * @return JSON with info about genealogy
 	 */
-	public function get($id) {
+	public function get() {
 		$json['succeed'] = false;
 
 		$result = []; //In case where list_file is empty;

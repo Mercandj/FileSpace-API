@@ -33,7 +33,7 @@ class RESTapi extends \lib\Application {
 			->get('/user_conversation','Conversation#get')
 			->post('/user_conversation/:id','Conversation#post')
 			->get('/information','Information#get')
-			->get('/genealogy/:id','Genealogy#get')
+			->get('/genealogy','Genealogy#get')
 			->post('/genealogy','Genealogy#post')
 			->authorize((new UserController($this))->isAdmin())
 			->get('/user_connection','UserConnection#get')
