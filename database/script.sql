@@ -309,6 +309,7 @@ CREATE TABLE IF NOT EXISTS `Genealogy_User` (
   `first_name_2`VARCHAR(500) NULL,
   `first_name_3`VARCHAR(500) NULL,
   `last_name`VARCHAR(500) NULL,
+  `is_man` TINYINT(1) NULL,
   `date_death`VARCHAR(500) NULL,
   `date_birth`VARCHAR(500) NULL,
   `birth_location`VARCHAR(500) NULL,

@@ -7,7 +7,11 @@ class GenealogyUser extends \lib\Entity{
 		$_first_name_1,
 		$_first_name_2,
 		$_first_name_3,
-		$_last_name;
+		$_last_name,
+		$_date_creation,
+		$_content,
+		$_id_father,
+		$_id_mother;
 
 	public function getId(){
 		return $this->_id;
@@ -31,6 +35,18 @@ class GenealogyUser extends \lib\Entity{
 
 	public function getDate_creation(){
 		return $this->_date_creation;
+	}
+
+	public function getContent(){
+		return $this->_content;
+	}
+
+	public function getId_father(){
+		return $this->_id_father;
+	}
+
+	public function getId_mother(){
+		return $this->_id_mother;
 	}
 
 	public function setId($id){
@@ -69,6 +85,24 @@ class GenealogyUser extends \lib\Entity{
 		}
 	}
 
+	public function setContent($content){
+		if(!empty($content)){
+			$this->_content = $content;
+		}
+	}
+
+	public function setId_father($id_father){
+		if(!empty($id_father)){
+			$this->_id_father = $id_father;
+		}
+	}
+
+	public function setId_mother($id_mother){
+		if(!empty($id_mother)){
+			$this->_id_mother = $id_mother;
+		}
+	}
+
 	public function isValid(){
 		return true;
 	}
@@ -85,6 +119,8 @@ class GenealogyUser extends \lib\Entity{
 			$json['last_name'] = $this->getLast_name();
 		if($this->getDate_creation()!=null)
 			$json['date_creation'] = $this->getDate_creation();
+		if($this->getContent()!=null)
+			$json['content'] = $this->getContent();
         return $json;
     }
 }

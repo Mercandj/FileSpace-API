@@ -6,10 +6,10 @@ class GenealogyUserManager extends \lib\Manager {
 	protected static $instance;
 
 	public function add(GenealogyUser $genealogyUser) {
-		$first_name_1 = $genealogyUser->getId_user();
-		$first_name_2 = $genealogyUser->getId_file();
-		$first_name_3 = $genealogyUser->getType();
-		$last_name = $genealogyUser->getContent();
+		$first_name_1 = $genealogyUser->getFirst_name_1();
+		$first_name_2 = $genealogyUser->getFirst_name_2();
+		$first_name_3 = $genealogyUser->getFirst_name_3();
+		$last_name = $genealogyUser->getLast_name();
 		$date_creation = $genealogyUser->getDate_creation();
 		
 		$req = $this->_db->prepare('INSERT INTO `genealogy_user`(first_name_1,first_name_2,first_name_3,last_name,date_creation) VALUES (:first_name_1, :first_name_2, :first_name_3, :last_name, :date_creation)');
@@ -26,6 +26,28 @@ class GenealogyUserManager extends \lib\Manager {
 		$req = $this->_db->prepare('DELETE FROM genealogy_user WHERE id = :id');
     	$req->bindParam(':id', $id, \PDO::PARAM_INT);
     	$req->execute();
+		$req->closeCursor();
+	}
+
+	public function updateFather(GenealogyUser $genealogyUser) {		
+		$id = $genealogyUser->getId();
+		$id_father = $genealogyUser->getId_father();
+
+		$req = $this->_db->prepare('UPDATE genealogy_user SET id_father = :id_father WHERE id = :id');
+		$req->bindParam(':id',$id,\PDO::PARAM_INT);
+		$req->bindParam(':id_father',$id_father,\PDO::PARAM_INT);
+		$req->execute();
+		$req->closeCursor();
+	}
+
+	public function updateMother(GenealogyUser $genealogyUser) {		
+		$id = $genealogyUser->getId();
+		$id_mother = $genealogyUser->getId_mother();
+
+		$req = $this->_db->prepare('UPDATE genealogy_user SET id_mother = :id_mother WHERE id = :id');
+		$req->bindParam(':id',$id,\PDO::PARAM_INT);
+		$req->bindParam(':id_mother',$id_mother,\PDO::PARAM_INT);
+		$req->execute();
 		$req->closeCursor();
 	}
 
