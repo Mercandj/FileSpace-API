@@ -121,6 +121,10 @@ class GenealogyUser extends \lib\Entity{
 			$json['date_creation'] = $this->getDate_creation();
 		if($this->getContent()!=null)
 			$json['content'] = $this->getContent();
+		if($this->getId_father()!=null)
+			$json['id_father'] = $this->getId_father();
+		if($this->getId_mother()!=null)
+			$json['id_mother'] = $this->getId_mother();
         return $json;
     }
 }
