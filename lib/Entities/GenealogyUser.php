@@ -15,7 +15,8 @@ class GenealogyUser extends \lib\Entity{
 		$_date_death,
 		$_date_birth,
 		$_is_man,
-		$_profession;
+		$_profession,
+		$_description;
 
 	public function getId(){
 		return $this->_id;
@@ -63,6 +64,10 @@ class GenealogyUser extends \lib\Entity{
 
 	public function getIs_man(){
 		return $this->_is_man;
+	}
+
+	public function getDescription(){
+		return $this->_description;
 	}
 
 	public function setId($id){
@@ -140,6 +145,13 @@ class GenealogyUser extends \lib\Entity{
 		return $this->_is_man;
 	}
 
+	public function setDescription($description){
+		if(!empty($description)){
+			$this->_description = $description;
+		}
+		return $this->_description;
+	}	
+
 	public function isValid(){
 		return true;
 	}
@@ -168,6 +180,8 @@ class GenealogyUser extends \lib\Entity{
 			$json['date_birth'] = $this->getDate_birth();
 		if($this->getIs_man()!=null)
 			$json['is_man'] = $this->getIs_man();
+		if($this->getDescription()!=null)
+			$json['description'] = $this->getDescription();
         return $json;
     }
 }

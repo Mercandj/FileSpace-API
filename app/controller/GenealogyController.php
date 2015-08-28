@@ -66,6 +66,7 @@ class GenealogyController extends \lib\Controller {
 			$is_man = NULL;
 			$date_birth = NULL;
 			$date_death = NULL;
+			$description = NULL;
 	
 			if(HTTPRequest::postExist('first_name_1'))
 				$first_name_1 = HTTPRequest::postData('first_name_1');
@@ -81,6 +82,8 @@ class GenealogyController extends \lib\Controller {
 				$date_birth = HTTPRequest::postData('date_birth');
 			if(HTTPRequest::postExist('date_death'))
 				$date_death = HTTPRequest::postData('date_death');
+			if(HTTPRequest::postExist('description'))
+				$description = HTTPRequest::postData('description');
 
 			$genealogyUser = new GenealogyUser(array(
 				'id'=> 0,
@@ -91,6 +94,7 @@ class GenealogyController extends \lib\Controller {
 				'is_man' => $is_man,
 				'date_birth' => $date_birth,
 				'date_death' => $date_death,
+				'description' => $description,
 				'date_creation' => date('Y-m-d H:i:s')
 			));
 
@@ -148,7 +152,7 @@ class GenealogyController extends \lib\Controller {
 		if($user->isAdmin()) {
 			$genealogyUserManager = $this->getManagerof('GenealogyUser');
 			
-			
+
 
 			$json['succeed'] = true;
 			$json['toast'] = 'User deleted.';
