@@ -151,11 +151,36 @@ class GenealogyController extends \lib\Controller {
 
 		if($user->isAdmin()) {
 			$genealogyUserManager = $this->getManagerof('GenealogyUser');
-			
 
+			if(!$genealogyUserManager->existById($id)) {
+				$json['toast'] = 'Bad id.';
+				HTTPResponse::send(json_encode($json));
+				return;
+			}
+			
+			$genealogyUser = $genealogyUserManager->getById($id);
+
+			if(HTTPRequest::postExist('first_name_1'))
+				$genealogyUser->setFirst_name_1(HTTPRequest::postData('first_name_1'));
+			if(HTTPRequest::postExist('first_name_2'))
+				$genealogyUser->setFirst_name_2(HTTPRequest::postData('first_name_2'));
+			if(HTTPRequest::postExist('first_name_3'))
+				$genealogyUser->setFirst_name_3(HTTPRequest::postData('first_name_3'));
+			if(HTTPRequest::postExist('last_name'))
+				$genealogyUser->setLast_name(HTTPRequest::postData('last_name'));
+			if(HTTPRequest::postExist('is_man'))
+				$genealogyUser->setIs_man((HTTPRequest::postData('is_man') == 'true') ? 1 : 0);
+			if(HTTPRequest::postExist('date_birth'))
+				$genealogyUser->setDate_birth(HTTPRequest::postData('date_birth'));
+			if(HTTPRequest::postExist('date_death'))
+				$genealogyUser->setDate_death(HTTPRequest::postData('date_death'));
+			if(HTTPRequest::postExist('description'))
+				$genealogyUser->setDescription(HTTPRequest::postData('description'));			
+
+			$genealogyUserManager->update($genealogyUser);
 
 			$json['succeed'] = true;
-			$json['toast'] = 'User deleted.';
+			$json['toast'] = 'User modified.';
 		}
 		else {
 			$json['toast'] = 'Unauthorized access.';

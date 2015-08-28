@@ -30,6 +30,32 @@ class GenealogyUserManager extends \lib\Manager {
 		$req->closeCursor();
 	}
 
+	public function update(GenealogyUser $genealogyUser) {		
+		$id = $genealogyUser->getId();
+		$first_name_1 = $genealogyUser->getFirst_name_1();
+		$first_name_2 = $genealogyUser->getFirst_name_2();
+		$first_name_3 = $genealogyUser->getFirst_name_3();
+		$last_name = $genealogyUser->getLast_name();
+		$date_creation = $genealogyUser->getDate_creation();
+		$is_man = $genealogyUser->getIs_man();
+		$date_birth = $genealogyUser->getDate_birth();
+		$date_death = $genealogyUser->getDate_death();
+		$description = $genealogyUser->getDescription();
+
+		$req = $this->_db->prepare('UPDATE genealogy_user SET first_name_1 = :first_name_1, first_name_2 = :first_name_2, first_name_3 = :first_name_3, last_name = :last_name, is_man = :is_man, date_birth = :date_birth, date_death = :date_death, date_creation = :date_creation, description = :description WHERE id = :id');
+		$req->bindParam(':first_name_1',$first_name_1,\PDO::PARAM_STR);
+		$req->bindParam(':first_name_2',$first_name_2,\PDO::PARAM_STR);
+		$req->bindParam(':first_name_3',$first_name_3,\PDO::PARAM_STR);
+		$req->bindParam(':last_name',$last_name,\PDO::PARAM_STR);
+		$req->bindParam(':is_man',$is_man,\PDO::PARAM_INT);
+		$req->bindParam(':date_birth',$date_birth,\PDO::PARAM_STR);
+		$req->bindParam(':date_death',$date_death,\PDO::PARAM_STR);
+		$req->bindParam(':date_creation',$date_creation,\PDO::PARAM_STR);
+		$req->bindParam(':description',$description,\PDO::PARAM_STR);
+		$req->execute();
+		$req->closeCursor();
+	}
+
 	public function delete($id) {
 		$req = $this->_db->prepare('DELETE FROM genealogy_user WHERE id = :id');
     	$req->bindParam(':id', $id, \PDO::PARAM_INT);
