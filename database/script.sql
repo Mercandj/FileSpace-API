@@ -319,8 +319,8 @@ CREATE TABLE IF NOT EXISTS `Genealogy_User` (
   `visibility` TINYINT NOT NULL DEFAULT 1,
   `public` TINYINT NOT NULL DEFAULT 0,
   `date_creation` DATETIME NULL,
-  `content` VARCHAR(9999) NULL,
-  `description` VARCHAR(9999) NULL,
+  `content` VARCHAR(999) NULL,
+  `description` VARCHAR(999) NULL,
   PRIMARY KEY (`id`))
 ENGINE = MyISAM;
 
