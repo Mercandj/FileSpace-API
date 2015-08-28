@@ -77,6 +77,9 @@ class GenealogyController extends \lib\Controller {
 			));
 
 			$genealogyUserManager->add($genealogyUser);
+
+			$json['succeed'] = true;
+			$json['toast'] = 'User added.';
 		}
 		else {
 			$json['toast'] = 'Unauthorized access.';
