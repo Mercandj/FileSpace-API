@@ -109,7 +109,7 @@ class GenealogyUserManager extends \lib\Manager {
 	
 	public function getAll() {
 		$users = [];
-		$req = $this->_db->prepare('SELECT * FROM genealogy_user ORDER BY date_creation DESC');
+		$req = $this->_db->prepare('SELECT * FROM genealogy_user ORDER BY date_birth DESC');
 		$req->execute();
     	while ($donnees = $req->fetch(\PDO::FETCH_ASSOC))
 	    	$users[] = new GenealogyUser($donnees);
