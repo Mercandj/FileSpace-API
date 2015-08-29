@@ -67,6 +67,8 @@ class GenealogyController extends \lib\Controller {
 			$date_birth = NULL;
 			$date_death = NULL;
 			$description = NULL;
+			$id_father = NULL;
+			$id_mother = NULL;
 	
 			if(HTTPRequest::postExist('first_name_1'))
 				$first_name_1 = HTTPRequest::postData('first_name_1');
@@ -84,6 +86,10 @@ class GenealogyController extends \lib\Controller {
 				$date_death = HTTPRequest::postData('date_death');
 			if(HTTPRequest::postExist('description'))
 				$description = HTTPRequest::postData('description');
+			if(HTTPRequest::postExist('id_father'))
+				$id_father = HTTPRequest::postData('id_father');
+			if(HTTPRequest::postExist('id_mother'))
+				$id_mother = HTTPRequest::postData('id_mother');
 
 			$genealogyUser = new GenealogyUser(array(
 				'id'=> 0,
@@ -95,7 +101,9 @@ class GenealogyController extends \lib\Controller {
 				'date_birth' => $date_birth,
 				'date_death' => $date_death,
 				'description' => $description,
-				'date_creation' => date('Y-m-d H:i:s')
+				'date_creation' => date('Y-m-d H:i:s'),
+				'id_father' => $id_father,
+				'id_mother' => $id_mother
 			));
 
 			$genealogyUserManager->add($genealogyUser);
@@ -175,7 +183,11 @@ class GenealogyController extends \lib\Controller {
 			if(HTTPRequest::postExist('date_death'))
 				$genealogyUser->setDate_death(HTTPRequest::postData('date_death'));
 			if(HTTPRequest::postExist('description'))
-				$genealogyUser->setDescription(HTTPRequest::postData('description'));			
+				$genealogyUser->setDescription(HTTPRequest::postData('description'));
+			if(HTTPRequest::postExist('id_father'))
+				$genealogyUser->setId_father(HTTPRequest::postData('id_father'));
+			if(HTTPRequest::postExist('id_mother'))
+				$genealogyUser->setId_mother(HTTPRequest::postData('id_mother'));
 
 			$genealogyUserManager->update($genealogyUser);
 

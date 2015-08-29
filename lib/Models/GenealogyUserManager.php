@@ -15,8 +15,10 @@ class GenealogyUserManager extends \lib\Manager {
 		$date_birth = $genealogyUser->getDate_birth();
 		$date_death = $genealogyUser->getDate_death();
 		$description = $genealogyUser->getDescription();
+		$id_father = $genealogyUser->getId_father();
+		$id_mother = $genealogyUser->getId_mother();
 		
-		$req = $this->_db->prepare('INSERT INTO `genealogy_user`(first_name_1,first_name_2,first_name_3,last_name,is_man,date_birth,date_death,date_creation,description) VALUES (:first_name_1, :first_name_2, :first_name_3, :last_name, :is_man, :date_birth, :date_death, :date_creation, :description)');
+		$req = $this->_db->prepare('INSERT INTO `genealogy_user`(first_name_1,first_name_2,first_name_3,last_name,is_man,date_birth,date_death,date_creation,description,id_father,id_mother) VALUES (:first_name_1, :first_name_2, :first_name_3, :last_name, :is_man, :date_birth, :date_death, :date_creation, :description, :id_father, :id_mother)');
 		$req->bindParam(':first_name_1',$first_name_1,\PDO::PARAM_STR);
 		$req->bindParam(':first_name_2',$first_name_2,\PDO::PARAM_STR);
 		$req->bindParam(':first_name_3',$first_name_3,\PDO::PARAM_STR);
@@ -26,6 +28,8 @@ class GenealogyUserManager extends \lib\Manager {
 		$req->bindParam(':date_death',$date_death,\PDO::PARAM_STR);
 		$req->bindParam(':date_creation',$date_creation,\PDO::PARAM_STR);
 		$req->bindParam(':description',$description,\PDO::PARAM_STR);
+		$req->bindParam(':id_father',$id_father,\PDO::PARAM_INT);
+		$req->bindParam(':id_mother',$id_mother,\PDO::PARAM_INT);
 		$req->execute();
 		$req->closeCursor();
 	}
@@ -41,8 +45,10 @@ class GenealogyUserManager extends \lib\Manager {
 		$date_birth = $genealogyUser->getDate_birth();
 		$date_death = $genealogyUser->getDate_death();
 		$description = $genealogyUser->getDescription();
+		$id_father = $genealogyUser->getId_father();
+		$id_mother = $genealogyUser->getId_mother();
 
-		$req = $this->_db->prepare('UPDATE genealogy_user SET first_name_1 = :first_name_1, first_name_2 = :first_name_2, first_name_3 = :first_name_3, last_name = :last_name, is_man = :is_man, date_birth = :date_birth, date_death = :date_death, date_creation = :date_creation, description = :description WHERE id = :id');
+		$req = $this->_db->prepare('UPDATE genealogy_user SET first_name_1 = :first_name_1, first_name_2 = :first_name_2, first_name_3 = :first_name_3, last_name = :last_name, is_man = :is_man, date_birth = :date_birth, date_death = :date_death, date_creation = :date_creation, description = :description, id_father = :id_father, id_mother = :id_mother WHERE id = :id');
 		$req->bindParam(':first_name_1',$first_name_1,\PDO::PARAM_STR);
 		$req->bindParam(':first_name_2',$first_name_2,\PDO::PARAM_STR);
 		$req->bindParam(':first_name_3',$first_name_3,\PDO::PARAM_STR);
@@ -52,6 +58,8 @@ class GenealogyUserManager extends \lib\Manager {
 		$req->bindParam(':date_death',$date_death,\PDO::PARAM_STR);
 		$req->bindParam(':date_creation',$date_creation,\PDO::PARAM_STR);
 		$req->bindParam(':description',$description,\PDO::PARAM_STR);
+		$req->bindParam(':id_father',$id_father,\PDO::PARAM_INT);
+		$req->bindParam(':id_mother',$id_mother,\PDO::PARAM_INT);
 		$req->bindParam(':id', $id, \PDO::PARAM_INT);
 		$req->execute();
 		$req->closeCursor();

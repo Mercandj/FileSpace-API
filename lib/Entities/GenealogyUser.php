@@ -16,7 +16,9 @@ class GenealogyUser extends \lib\Entity{
 		$_date_birth,
 		$_is_man,
 		$_profession,
-		$_description;
+		$_description,
+		$_id_father,
+		$_id_mother;
 
 	public function getId(){
 		return $this->_id;
@@ -68,6 +70,14 @@ class GenealogyUser extends \lib\Entity{
 
 	public function getDescription(){
 		return $this->_description;
+	}
+
+	public function getId_father(){
+		return $this->_id_father;
+	}
+
+	public function getId_mother(){
+		return $this->_id_mother;
 	}
 
 	public function setId($id){
@@ -150,7 +160,21 @@ class GenealogyUser extends \lib\Entity{
 			$this->_description = $description;
 		}
 		return $this->_description;
-	}	
+	}
+
+	public function setId_father($id_father){
+		if(!empty($id_father)){
+			$this->_id_father = $id_father;
+		}
+		return $this->_description;
+	}
+
+	public function setId_mother($id_mother){
+		if(!empty($id_mother)){
+			$this->_id_mother = $id_mother;
+		}
+		return $this->_description;
+	}
 
 	public function isValid(){
 		return true;
