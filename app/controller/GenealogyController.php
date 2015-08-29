@@ -26,11 +26,20 @@ class GenealogyController extends \lib\Controller {
 		if($user->isAdmin()) {
 			$json['succeed'] = true;
 
-
-			$list_user = $this->getManagerof('GenealogyUser')->getAll();
+			$genealogyUserManager = $this->getManagerof('GenealogyUser');
+			$list_user = $genealogyUserManager->getAll();
 
 			foreach ($list_user as $file) {
-				$result[] = $file->toArray();
+				$person = $file->toArray()
+
+				if(array_key_exists('id_mother', $person))
+					if(isset($person['id_mother']))
+						$person['mother'] = $genealogyUserManager->getById($person['id_mother'])->toArray();
+				if(array_key_exists('id_father', $person))
+					if(isset($person['id_father']))
+						$person['father'] = $genealogyUserManager->getById($person['id_father'])->toArray();
+
+				$result[] = $person;
 			}
 
 			$json['result'] = $result;
