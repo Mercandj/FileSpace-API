@@ -53,6 +53,38 @@ class GenealogyController extends \lib\Controller {
 		HTTPResponse::send(json_encode($json));
 	}
 
+	/**
+	 * @uri    /genealogy/:id
+	 * @method GET
+	 * @return JSON with info about genealogy
+	 */
+	public function getById($id) {
+		$json['succeed'] = false;
+
+		$result = []; //In case where list_file is empty;
+		$list_user = [];
+		
+		$id_user = $this->_app->_config->getId_user();
+		$userManager = $this->getManagerof('User');
+		$user = $userManager->getById($id_user);
+
+		if($user->isAdmin()) {
+			$genealogyUserManager = $this->getManagerof('GenealogyUser');
+			if($genealogyUserManager->existById($id)) {
+				$json['succeed'] = true;
+				$json['result'] = $genealogyUserManager->getById($id)->toArray();
+			}
+			else {
+				$json['toast'] = 'Bad id.';
+			}
+		}
+		else {
+			$json['toast'] = 'Unauthorized access.';
+		}
+
+		HTTPResponse::send(json_encode($json));
+	}
+
 
 	/**
 	 * Do genealogy actions
