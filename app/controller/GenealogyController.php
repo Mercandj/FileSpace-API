@@ -71,8 +71,19 @@ class GenealogyController extends \lib\Controller {
 		if($user->isAdmin()) {
 			$genealogyUserManager = $this->getManagerof('GenealogyUser');
 			if($genealogyUserManager->existById($id)) {
+				$person = $genealogyUserManager->getById($id)->toArray();
+
+				if(array_key_exists('id_mother', $person)) {
+					if(isset($person['id_mother']))
+						$person['mother'] = $genealogyUserManager->getById($person['id_mother'])->toArray();
+				}
+				if(array_key_exists('id_father', $person)) {
+					if(isset($person['id_father']))
+						$person['father'] = $genealogyUserManager->getById($person['id_father'])->toArray();
+				}
+
+				$json['result'] = $person;
 				$json['succeed'] = true;
-				$json['result'] = $genealogyUserManager->getById($id)->toArray();
 			}
 			else {
 				$json['toast'] = 'Bad id.';
