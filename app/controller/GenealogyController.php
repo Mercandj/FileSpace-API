@@ -50,7 +50,7 @@ class GenealogyController extends \lib\Controller {
 			$json['toast'] = 'Unauthorized access.';
 		}
 
-		HTTPResponse::send(json_encode($json));
+		HTTPResponse::send($this->getJson($json));
 	}
 
 	/**
