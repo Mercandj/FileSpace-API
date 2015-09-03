@@ -114,6 +114,18 @@ class GenealogyUserManager extends \lib\Manager {
     	$req->closeCursor();
     	return new GenealogyUser($donnee);
 	}
+
+	public function getChildren($id) {
+		$users = [];
+		$req = $this->_db->prepare('SELECT * FROM genealogy_user WHERE id_father = :id_father OR id_mother = :id_mother ORDER BY date_birth DESC');
+		$req->bindParam(':id_father', $id, \PDO::PARAM_INT);
+		$req->bindParam(':id_mother', $id, \PDO::PARAM_INT);
+		$req->execute();
+    	while ($donnees = $req->fetch(\PDO::FETCH_ASSOC))
+	    	$users[] = new GenealogyUser($donnees);
+	    $req->closeCursor();
+	    return $users;
+	}
 	
 	public function getAll() {
 		$users = [];

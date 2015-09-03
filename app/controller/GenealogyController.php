@@ -96,6 +96,56 @@ class GenealogyController extends \lib\Controller {
 		HTTPResponse::send(json_encode($json));
 	}
 
+	/**
+	 * @uri    /genealogy/:id
+	 * @method GET
+	 * @return JSON with info about genealogy
+	 */
+	public function getChildren($id) {
+		$json['succeed'] = false;
+
+		$result = []; //In case where list_file is empty;
+		$list_user = [];
+		
+		$id_user = $this->_app->_config->getId_user();
+		$userManager = $this->getManagerof('User');
+		$user = $userManager->getById($id_user);
+
+		if($user->isAdmin()) {
+			$genealogyUserManager = $this->getManagerof('GenealogyUser');
+			if($genealogyUserManager->existById($id)) {
+
+				$list_user = $genealogyUserManager->getChildren($id);
+
+				foreach ($list_user as $file) {
+					$person = $file->toArray();
+
+					if(array_key_exists('id_mother', $person)) {
+						if(isset($person['id_mother']))
+							$person['mother'] = $genealogyUserManager->getById($person['id_mother'])->toArray();
+					}
+					if(array_key_exists('id_father', $person)) {
+						if(isset($person['id_father']))
+							$person['father'] = $genealogyUserManager->getById($person['id_father'])->toArray();
+					}
+
+					$result[] = $person;
+				}
+
+				$json['result'] = $result;
+				$json['succeed'] = true;
+			}
+			else {
+				$json['toast'] = 'Bad id.';
+			}
+		}
+		else {
+			$json['toast'] = 'Unauthorized access.';
+		}
+
+		HTTPResponse::send(json_encode($json));
+	}
+
 
 	/**
 	 * Do genealogy actions
