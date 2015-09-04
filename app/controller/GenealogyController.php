@@ -41,7 +41,7 @@ class GenealogyController extends \lib\Controller {
 						if($genealogyUserManager->existById($person['id_mother'])) {
 							$list_user = $genealogyUserManager->getChildren($person['id_mother']);
 							foreach ($list_user as $file) {
-								if($file->getId() != $person->getId()) {
+								if($file->getId() != $person['id']) {
 									$brotherSister = $file->toArray();
 									if(array_key_exists('id_mother', $brotherSister)) {
 										if(isset($brotherSister['id_mother']))
@@ -68,7 +68,7 @@ class GenealogyController extends \lib\Controller {
 						if($genealogyUserManager->existById($person['id_father'])) {
 							$list_user = $genealogyUserManager->getChildren($person['id_father']);
 							foreach ($list_user as $file) {
-								if($file->getId() != $person->getId()) {
+								if($file->getId() != $person['id']) {
 									$brotherSister = $file->toArray();
 									if(array_key_exists('id_mother', $brotherSister)) {
 										if(isset($brotherSister['id_mother']))
