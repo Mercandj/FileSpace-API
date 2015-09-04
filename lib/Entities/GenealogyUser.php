@@ -139,9 +139,7 @@ class GenealogyUser extends \lib\Entity{
 	}
 
 	public function setIs_man($is_man){
-		if(!empty($is_man)){
-			$this->_is_man = $is_man;
-		}
+		$this->_is_man = $is_man;
 		return $this->_is_man;
 	}
 
