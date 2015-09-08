@@ -146,4 +146,18 @@ class GenealogyUserManager extends \lib\Manager {
     	$req->closeCursor();
     	return ($donnee['id'] != NULL) ? true : false;
 	}
+
+	public function count() {
+		$req = $this->_db->query('SELECT COUNT(id) AS countAll FROM genealogy_user');
+		$req->execute();
+		$donnee = $req->fetch(\PDO::FETCH_ASSOC);
+		return $donnee['countAll'];
+	}
+
+	public function biggerDate_creation() {
+		$req = $this->_db->query('SELECT MAX(date_creation) AS countAll FROM genealogy_user');
+		$req->execute();
+		$donnee = $req->fetch(\PDO::FETCH_ASSOC);
+		return $donnee['countAll'];
+	}
 }

@@ -13,7 +13,6 @@ class InformationController extends \lib\Controller {
 	 * @return JSON with info about server Info
 	 */
 	public function get() {
-
 		$fileManager = $this->getManagerof('File');
 		$json['succeed'] = true;
 

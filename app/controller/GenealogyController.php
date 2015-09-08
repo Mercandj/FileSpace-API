@@ -442,4 +442,30 @@ class GenealogyController extends \lib\Controller {
 
 		HTTPResponse::send(json_encode($json));
 	}
+
+	/**
+	 * Do genealogy actions
+	 * @uri    	/genealogy_statistics
+	 * @method 	GET
+	 */
+	public function statistics() {
+		$genealogyUserManager = $this->getManagerof('GenealogyUser');
+		$json['succeed'] = true;
+
+		$json['result'] = array(
+
+			array(
+				"title" => "Number of persons",
+				"value" => "".$genealogyUserManager->count()
+			),
+
+			array(
+				"title" => "Last added",
+				"value" => "".$genealogyUserManager->biggerDate_creation()
+			)
+
+		);
+
+		HTTPResponse::send(json_encode($json));
+	}
 }

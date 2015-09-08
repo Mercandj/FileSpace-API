@@ -34,6 +34,7 @@ class RESTapi extends \lib\Application {
 			->post('/user_conversation/:id','Conversation#post')
 			->get('/information','Information#get')
 			->get('/genealogy','Genealogy#get')
+			->get('/genealogy_statistics','Genealogy#statistics')
 			->get('/genealogy/:id','Genealogy#getById')
 			->get('/genealogy_children/:id','Genealogy#getChildren')
 			->post('/genealogy','Genealogy#post')
