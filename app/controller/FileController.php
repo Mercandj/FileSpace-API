@@ -158,7 +158,7 @@ class FileController extends \lib\Controller {
 			}
 		}
 
-		else if(HTTPRequest::postExist('content')) {
+		else if(HTTPRequest::postExist('content')) { // FileSpace custom files
 			$root_upload = __DIR__.$this->_app->_config->get('root_upload');
 
 			// Configuring Optional parameters
@@ -186,7 +186,7 @@ class FileController extends \lib\Controller {
 				'visibility' => $visibility,
 				'date_creation' => date('Y-m-d H:i:s'),
 				'id_user' => $id_user,
-				'content' => HTTPRequest::postData('content'),
+				'content' => utf8_encode(HTTPRequest::postData('content')),
 				'size' => 0,
 				'type' => $extension_upload,
 				'directory' => 0,
@@ -197,7 +197,7 @@ class FileController extends \lib\Controller {
 
 			// Create file on disk, and fill it
 			$myfile = fopen($target_dir, "w");
-			fwrite($myfile, HTTPRequest::postData('content'));
+			fwrite($myfile, utf8_encode(HTTPRequest::postData('content')));
 			fclose($myfile);
 
 			// Everything is OK ... well it seems OK
