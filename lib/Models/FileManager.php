@@ -49,6 +49,7 @@ class FileManager extends \lib\Manager {
     	$req->bindParam(':id_file_parent', $id, \PDO::PARAM_INT);
     	$req->execute();
 
+		$file = [];
     	while ($donnees = $req->fetch(\PDO::FETCH_ASSOC))
 	    	$file[] = new File($donnees);
 
