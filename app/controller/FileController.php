@@ -186,7 +186,7 @@ class FileController extends \lib\Controller {
 				'visibility' => $visibility,
 				'date_creation' => date('Y-m-d H:i:s'),
 				'id_user' => $id_user,
-				'content' => utf8_encode(HTTPRequest::postData('content')),
+				'content' => HTTPRequest::postData('content'),
 				'size' => 0,
 				'type' => $extension_upload,
 				'directory' => 0,
@@ -197,7 +197,7 @@ class FileController extends \lib\Controller {
 
 			// Create file on disk, and fill it
 			$myfile = fopen($target_dir, "w");
-			fwrite($myfile, utf8_encode(HTTPRequest::postData('content')));
+			fwrite($myfile, HTTPRequest::postData('content'));
 			fclose($myfile);
 
 			// Everything is OK ... well it seems OK
