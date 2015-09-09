@@ -27,7 +27,11 @@ class GenealogyController extends \lib\Controller {
 			$json['succeed'] = true;
 
 			$genealogyUserManager = $this->getManagerof('GenealogyUser');
-			$list_user = $genealogyUserManager->getAll();
+
+			if(HTTPRequest::getExist('search'))
+				$list_user = $genealogyUserManager->getAll(HTTPRequest::getData('search'));
+			else
+				$list_user = $genealogyUserManager->getAll();
 
 			foreach ($list_user as $file) {
 				$person = $file->toArray();

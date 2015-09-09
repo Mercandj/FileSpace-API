@@ -127,9 +127,11 @@ class GenealogyUserManager extends \lib\Manager {
 	    return $users;
 	}
 	
-	public function getAll() {
+	public function getAll($psearch = "") {
 		$users = [];
-		$req = $this->_db->prepare('SELECT * FROM genealogy_user ORDER BY date_birth DESC');
+		$search = '%'.$psearch.'%';
+		$req = $this->_db->prepare('SELECT * FROM genealogy_user WHERE last_name LIKE :search ORDER BY date_birth DESC');
+		$req->bindParam(':search', $search, \PDO::PARAM_STR);
 		$req->execute();
     	while ($donnees = $req->fetch(\PDO::FETCH_ASSOC))
 	    	$users[] = new GenealogyUser($donnees);
