@@ -120,12 +120,14 @@ class GenealogyController extends \lib\Controller {
 
 		if($user->isAdmin()) {
 			$genealogyUserManager = $this->getManagerof('GenealogyUser');
+
 			if($genealogyUserManager->existById($id)) {
 				$person = $genealogyUserManager->getById($id)->toArray();
 
 				if(array_key_exists('id_mother', $person)) {
 					if(isset($person['id_mother'])) {
-						$person['mother'] = $genealogyUserManager->getById($person['id_mother'])->toArray();
+						$tmp_mother = $this->getPersonTree($genealogyUserManager, $genealogyUserManager->getById($person['id_mother'], 4));
+						$person['mother'] = $tmp_mother->toArray();
 
 						// Get brothers & sisters
 						$brothersSisters = [];
@@ -152,7 +154,8 @@ class GenealogyController extends \lib\Controller {
 				}
 				if(array_key_exists('id_father', $person)) {
 					if(isset($person['id_father'])) {
-						$person['father'] = $genealogyUserManager->getById($person['id_father'])->toArray();
+						$tmp_father = $this->getPersonTree($genealogyUserManager, $genealogyUserManager->getById($person['id_father'], 4));
+						$person['father'] = $tmp_father->toArray();
 
 						// Get brothers & sisters
 						$brothersSisters = [];
@@ -178,6 +181,7 @@ class GenealogyController extends \lib\Controller {
 					}
 				}
 
+
 				$json['result'] = $person;
 				$json['succeed'] = true;
 			}
@@ -191,6 +195,32 @@ class GenealogyController extends \lib\Controller {
 
 		HTTPResponse::send(json_encode($json));
 	}
+
+	private function getPersonTree($genealogyUserManager, $id, $time) {
+		$person = null;
+
+		if($genealogyUserManager->existById($id) && $time > 0) {
+			$person = $genealogyUserManager->getById($id)->toArray();
+
+			if(array_key_exists('id_mother', $person)) {
+				if(isset($person['id_mother'])) {
+					$mother = getParent($genealogyUserManager, $person['id_mother'], $time-1);
+					if($mother != null)
+						$person['mother'] = $mother;
+				}
+			}
+			if(array_key_exists('id_father', $person)) {
+				if(isset($person['id_father'])) {
+					$father = getParent($genealogyUserManager, $person['id_father'], $time-1);
+					if($father != null)
+						$person['father'] = $father;
+				}
+			}
+		}
+
+		return $person;
+	}
+
 
 	/**
 	 * @uri    /genealogy_children/:id
