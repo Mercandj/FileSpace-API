@@ -128,7 +128,7 @@ class GenealogyController extends \lib\Controller {
 					if(isset($person['id_mother'])) {
 						$tmp_mother = $this->getPersonTree($genealogyUserManager, $person['id_mother'], 4);
 						if($tmp_mother != null)
-							$person['mother'] = $tmp_mother->toArray();
+							$person['mother'] = $tmp_mother;
 
 						// Get brothers & sisters
 						$brothersSisters = [];
@@ -157,7 +157,7 @@ class GenealogyController extends \lib\Controller {
 					if(isset($person['id_father'])) {
 						$tmp_father = $this->getPersonTree($genealogyUserManager, $person['id_father'], 4);
 						if($tmp_father != null)
-							$person['father'] = $tmp_father->toArray();
+							$person['father'] = $tmp_father;
 
 						// Get brothers & sisters
 						$brothersSisters = [];
