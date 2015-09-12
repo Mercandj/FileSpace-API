@@ -127,7 +127,8 @@ class GenealogyController extends \lib\Controller {
 				if(array_key_exists('id_mother', $person)) {
 					if(isset($person['id_mother'])) {
 						$tmp_mother = $this->getPersonTree($genealogyUserManager, $person['id_mother'], 4);
-						$person['mother'] = $tmp_mother->toArray();
+						if($tmp_mother != null)
+							$person['mother'] = $tmp_mother->toArray();
 
 						// Get brothers & sisters
 						$brothersSisters = [];
@@ -155,7 +156,8 @@ class GenealogyController extends \lib\Controller {
 				if(array_key_exists('id_father', $person)) {
 					if(isset($person['id_father'])) {
 						$tmp_father = $this->getPersonTree($genealogyUserManager, $person['id_father'], 4);
-						$person['father'] = $tmp_father->toArray();
+						if($tmp_father != null)
+							$person['father'] = $tmp_father->toArray();
 
 						// Get brothers & sisters
 						$brothersSisters = [];
@@ -204,14 +206,14 @@ class GenealogyController extends \lib\Controller {
 
 			if(array_key_exists('id_mother', $person)) {
 				if(isset($person['id_mother'])) {
-					$mother = getParent($genealogyUserManager, $person['id_mother'], $time-1);
+					$mother = $this->getPersonTree($genealogyUserManager, $person['id_mother'], $time-1);
 					if($mother != null)
 						$person['mother'] = $mother;
 				}
 			}
 			if(array_key_exists('id_father', $person)) {
 				if(isset($person['id_father'])) {
-					$father = getParent($genealogyUserManager, $person['id_father'], $time-1);
+					$father = $this->getPersonTree($genealogyUserManager, $person['id_father'], $time-1);
 					if($father != null)
 						$person['father'] = $father;
 				}
