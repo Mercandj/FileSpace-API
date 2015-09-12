@@ -126,7 +126,7 @@ class GenealogyController extends \lib\Controller {
 
 				if(array_key_exists('id_mother', $person)) {
 					if(isset($person['id_mother'])) {
-						$tmp_mother = $this->getPersonTree($genealogyUserManager, $genealogyUserManager->getById($person['id_mother'], 4));
+						$tmp_mother = $this->getPersonTree($genealogyUserManager, $genealogyUserManager->getById($person['id_mother']), 4);
 						$person['mother'] = $tmp_mother->toArray();
 
 						// Get brothers & sisters
@@ -154,7 +154,7 @@ class GenealogyController extends \lib\Controller {
 				}
 				if(array_key_exists('id_father', $person)) {
 					if(isset($person['id_father'])) {
-						$tmp_father = $this->getPersonTree($genealogyUserManager, $genealogyUserManager->getById($person['id_father'], 4));
+						$tmp_father = $this->getPersonTree($genealogyUserManager, $genealogyUserManager->getById($person['id_father']), 4);
 						$person['father'] = $tmp_father->toArray();
 
 						// Get brothers & sisters
