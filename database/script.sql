@@ -336,8 +336,8 @@ DROP TABLE IF EXISTS `Genealogy_Marriage` ;
 SHOW WARNINGS;
 CREATE TABLE IF NOT EXISTS `Genealogy_Marriage` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `id_husband` INT NULL,
-  `id_wife` INT NULL,
+  `id_person_husband` INT NULL,
+  `id_person_wife` INT NULL,
   `date` DATETIME NULL,
   `location` VARCHAR(500) NULL,
   `visibility` TINYINT NOT NULL DEFAULT 1,
