@@ -1,6 +1,6 @@
 {
 	"title":"FileSpace",
-	"bdd_name":"jarvis",
+	"bdd_name":"filespace",
 	"bdd_login":"root",
 	"bdd_password":"",
 	"root":"/FileSpace-API",
