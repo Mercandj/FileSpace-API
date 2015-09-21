@@ -388,7 +388,7 @@ class GenealogyController extends \lib\Controller {
 			$genealogyPersonManager->add($genealogyPerson);
 
 			$json['succeed'] = true;
-			$json['toast'] = 'User added.';
+			$json['toast'] = 'Person added.';
 		}
 		else {
 			$json['toast'] = 'Unauthorized access.';
