@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS `User` (
   `language` VARCHAR(50) NULL,
   `longitude` VARCHAR(80) NULL,
   `latitude` VARCHAR(80) NULL,
-  `android_jarvis_version` VARCHAR(45) NULL,
+  `android_apk_version` VARCHAR(45) NULL,
   `android_sdk` VARCHAR(60) NULL,
   `android_id` VARCHAR(600) NULL,
   PRIMARY KEY (`id`))
@@ -298,12 +298,12 @@ ENGINE = MyISAM;
 SHOW WARNINGS;
 
 -- -----------------------------------------------------
--- Table `Genealogy_User`
+-- Table `Genealogy_Person`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `Genealogy_User` ;
+DROP TABLE IF EXISTS `Genealogy_Person` ;
 
 SHOW WARNINGS;
-CREATE TABLE IF NOT EXISTS `Genealogy_User` (
+CREATE TABLE IF NOT EXISTS `Genealogy_Person` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `first_name_1` VARCHAR(500) NULL,
   `first_name_2` VARCHAR(500) NULL,

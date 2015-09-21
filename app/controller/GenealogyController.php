@@ -1,7 +1,7 @@
 <?php
 namespace app\controller;
 use \lib\Entities\User;
-use \lib\Entities\GenealogyUser;
+use \lib\Entities\GenealogyPerson;
 use \lib\HTTPRequest;
 use \lib\HTTPResponse;
 
@@ -26,34 +26,34 @@ class GenealogyController extends \lib\Controller {
 		if($user->isAdmin()) {
 			$json['succeed'] = true;
 
-			$genealogyUserManager = $this->getManagerof('GenealogyUser');
+			$genealogyPersonManager = $this->getManagerof('GenealogyPerson');
 
 			if(HTTPRequest::getExist('search'))
-				$list_user = $genealogyUserManager->getAll(HTTPRequest::getData('search'));
+				$list_user = $genealogyPersonManager->getAll(HTTPRequest::getData('search'));
 			else
-				$list_user = $genealogyUserManager->getAll();
+				$list_user = $genealogyPersonManager->getAll();
 
 			foreach ($list_user as $file) {
 				$person = $file->toArray();
 
 				if(array_key_exists('id_mother', $person)) {
 					if(isset($person['id_mother'])) {
-						$person['mother'] = $genealogyUserManager->getById($person['id_mother'])->toArray();
+						$person['mother'] = $genealogyPersonManager->getById($person['id_mother'])->toArray();
 
 						// Get brothers & sisters
 						$brothersSisters = [];
-						if($genealogyUserManager->existById($person['id_mother'])) {
-							$list_user = $genealogyUserManager->getChildren($person['id_mother']);
+						if($genealogyPersonManager->existById($person['id_mother'])) {
+							$list_user = $genealogyPersonManager->getChildren($person['id_mother']);
 							foreach ($list_user as $file) {
 								if($file->getId() != $person['id']) {
 									$brotherSister = $file->toArray();
 									if(array_key_exists('id_mother', $brotherSister)) {
 										if(isset($brotherSister['id_mother']))
-											$brotherSister['mother'] = $genealogyUserManager->getById($brotherSister['id_mother'])->toArray();
+											$brotherSister['mother'] = $genealogyPersonManager->getById($brotherSister['id_mother'])->toArray();
 									}
 									if(array_key_exists('id_father', $brotherSister)) {
 										if(isset($brotherSister['id_father']))
-											$brotherSister['father'] = $genealogyUserManager->getById($brotherSister['id_father'])->toArray();
+											$brotherSister['father'] = $genealogyPersonManager->getById($brotherSister['id_father'])->toArray();
 									}
 									$brothersSisters[] = $brotherSister;
 								}
@@ -65,22 +65,22 @@ class GenealogyController extends \lib\Controller {
 				}
 				if(array_key_exists('id_father', $person)) {
 					if(isset($person['id_father'])) {
-						$person['father'] = $genealogyUserManager->getById($person['id_father'])->toArray();
+						$person['father'] = $genealogyPersonManager->getById($person['id_father'])->toArray();
 
 						// Get brothers & sisters
 						$brothersSisters = [];
-						if($genealogyUserManager->existById($person['id_father'])) {
-							$list_user = $genealogyUserManager->getChildren($person['id_father']);
+						if($genealogyPersonManager->existById($person['id_father'])) {
+							$list_user = $genealogyPersonManager->getChildren($person['id_father']);
 							foreach ($list_user as $file) {
 								if($file->getId() != $person['id']) {
 									$brotherSister = $file->toArray();
 									if(array_key_exists('id_mother', $brotherSister)) {
 										if(isset($brotherSister['id_mother']))
-											$brotherSister['mother'] = $genealogyUserManager->getById($brotherSister['id_mother'])->toArray();
+											$brotherSister['mother'] = $genealogyPersonManager->getById($brotherSister['id_mother'])->toArray();
 									}
 									if(array_key_exists('id_father', $brotherSister)) {
 										if(isset($brotherSister['id_father']))
-											$brotherSister['father'] = $genealogyUserManager->getById($brotherSister['id_father'])->toArray();
+											$brotherSister['father'] = $genealogyPersonManager->getById($brotherSister['id_father'])->toArray();
 									}
 									$brothersSisters[] = $brotherSister;
 								}
@@ -119,31 +119,31 @@ class GenealogyController extends \lib\Controller {
 		$user = $userManager->getById($id_user);
 
 		if($user->isAdmin()) {
-			$genealogyUserManager = $this->getManagerof('GenealogyUser');
+			$genealogyPersonManager = $this->getManagerof('GenealogyPerson');
 
-			if($genealogyUserManager->existById($id)) {
-				$person = $genealogyUserManager->getById($id)->toArray();
+			if($genealogyPersonManager->existById($id)) {
+				$person = $genealogyPersonManager->getById($id)->toArray();
 
 				if(array_key_exists('id_mother', $person)) {
 					if(isset($person['id_mother'])) {
-						$tmp_mother = $this->getPersonTree($genealogyUserManager, $person['id_mother'], 4);
+						$tmp_mother = $this->getPersonTree($genealogyPersonManager, $person['id_mother'], 4);
 						if($tmp_mother != null)
 							$person['mother'] = $tmp_mother;
 
 						// Get brothers & sisters
 						$brothersSisters = [];
-						if($genealogyUserManager->existById($person['id_mother'])) {
-							$list_user = $genealogyUserManager->getChildren($person['id_mother']);
+						if($genealogyPersonManager->existById($person['id_mother'])) {
+							$list_user = $genealogyPersonManager->getChildren($person['id_mother']);
 							foreach ($list_user as $file) {
 								if($file->getId() != $id) {
 									$brotherSister = $file->toArray();
 									if(array_key_exists('id_mother', $brotherSister)) {
 										if(isset($brotherSister['id_mother']))
-											$brotherSister['mother'] = $genealogyUserManager->getById($brotherSister['id_mother'])->toArray();
+											$brotherSister['mother'] = $genealogyPersonManager->getById($brotherSister['id_mother'])->toArray();
 									}
 									if(array_key_exists('id_father', $brotherSister)) {
 										if(isset($brotherSister['id_father']))
-											$brotherSister['father'] = $genealogyUserManager->getById($brotherSister['id_father'])->toArray();
+											$brotherSister['father'] = $genealogyPersonManager->getById($brotherSister['id_father'])->toArray();
 									}
 									$brothersSisters[] = $brotherSister;
 								}
@@ -155,24 +155,24 @@ class GenealogyController extends \lib\Controller {
 				}
 				if(array_key_exists('id_father', $person)) {
 					if(isset($person['id_father'])) {
-						$tmp_father = $this->getPersonTree($genealogyUserManager, $person['id_father'], 4);
+						$tmp_father = $this->getPersonTree($genealogyPersonManager, $person['id_father'], 4);
 						if($tmp_father != null)
 							$person['father'] = $tmp_father;
 
 						// Get brothers & sisters
 						$brothersSisters = [];
-						if($genealogyUserManager->existById($person['id_father'])) {
-							$list_user = $genealogyUserManager->getChildren($person['id_father']);
+						if($genealogyPersonManager->existById($person['id_father'])) {
+							$list_user = $genealogyPersonManager->getChildren($person['id_father']);
 							foreach ($list_user as $file) {
 								if($file->getId() != $id) {
 									$brotherSister = $file->toArray();
 									if(array_key_exists('id_mother', $brotherSister)) {
 										if(isset($brotherSister['id_mother']))
-											$brotherSister['mother'] = $genealogyUserManager->getById($brotherSister['id_mother'])->toArray();
+											$brotherSister['mother'] = $genealogyPersonManager->getById($brotherSister['id_mother'])->toArray();
 									}
 									if(array_key_exists('id_father', $brotherSister)) {
 										if(isset($brotherSister['id_father']))
-											$brotherSister['father'] = $genealogyUserManager->getById($brotherSister['id_father'])->toArray();
+											$brotherSister['father'] = $genealogyPersonManager->getById($brotherSister['id_father'])->toArray();
 									}
 									$brothersSisters[] = $brotherSister;
 								}
@@ -198,22 +198,22 @@ class GenealogyController extends \lib\Controller {
 		HTTPResponse::send(json_encode($json));
 	}
 
-	private function getPersonTree($genealogyUserManager, $id, $time) {
+	private function getPersonTree($genealogyPersonManager, $id, $time) {
 		$person = null;
 
-		if($genealogyUserManager->existById($id) && $time > 0) {
-			$person = $genealogyUserManager->getById($id)->toArray();
+		if($genealogyPersonManager->existById($id) && $time > 0) {
+			$person = $genealogyPersonManager->getById($id)->toArray();
 
 			if(array_key_exists('id_mother', $person)) {
 				if(isset($person['id_mother'])) {
-					$mother = $this->getPersonTree($genealogyUserManager, $person['id_mother'], $time-1);
+					$mother = $this->getPersonTree($genealogyPersonManager, $person['id_mother'], $time-1);
 					if($mother != null)
 						$person['mother'] = $mother;
 				}
 			}
 			if(array_key_exists('id_father', $person)) {
 				if(isset($person['id_father'])) {
-					$father = $this->getPersonTree($genealogyUserManager, $person['id_father'], $time-1);
+					$father = $this->getPersonTree($genealogyPersonManager, $person['id_father'], $time-1);
 					if($father != null)
 						$person['father'] = $father;
 				}
@@ -240,32 +240,32 @@ class GenealogyController extends \lib\Controller {
 		$user = $userManager->getById($id_user);
 
 		if($user->isAdmin()) {
-			$genealogyUserManager = $this->getManagerof('GenealogyUser');
-			if($genealogyUserManager->existById($id)) {
+			$genealogyPersonManager = $this->getManagerof('GenealogyPerson');
+			if($genealogyPersonManager->existById($id)) {
 
-				$list_user = $genealogyUserManager->getChildren($id);
+				$list_user = $genealogyPersonManager->getChildren($id);
 
 				foreach ($list_user as $file) {
 					$person = $file->toArray();
 
 					if(array_key_exists('id_mother', $person)) {
 						if(isset($person['id_mother'])) {
-							$person['mother'] = $genealogyUserManager->getById($person['id_mother'])->toArray();
+							$person['mother'] = $genealogyPersonManager->getById($person['id_mother'])->toArray();
 
 							// Get brothers & sisters
 							$brothersSisters = [];
-							if($genealogyUserManager->existById($person['id_mother'])) {
-								$list_user = $genealogyUserManager->getChildren($person['id_mother']);
+							if($genealogyPersonManager->existById($person['id_mother'])) {
+								$list_user = $genealogyPersonManager->getChildren($person['id_mother']);
 								foreach ($list_user as $file) {
 									if($file->getId() != $person['id']) {
 										$brotherSister = $file->toArray();
 										if(array_key_exists('id_mother', $brotherSister)) {
 											if(isset($brotherSister['id_mother']))
-												$brotherSister['mother'] = $genealogyUserManager->getById($brotherSister['id_mother'])->toArray();
+												$brotherSister['mother'] = $genealogyPersonManager->getById($brotherSister['id_mother'])->toArray();
 										}
 										if(array_key_exists('id_father', $brotherSister)) {
 											if(isset($brotherSister['id_father']))
-												$brotherSister['father'] = $genealogyUserManager->getById($brotherSister['id_father'])->toArray();
+												$brotherSister['father'] = $genealogyPersonManager->getById($brotherSister['id_father'])->toArray();
 										}
 										$brothersSisters[] = $brotherSister;
 									}
@@ -277,22 +277,22 @@ class GenealogyController extends \lib\Controller {
 					}
 					if(array_key_exists('id_father', $person)) {
 						if(isset($person['id_father'])) {
-							$person['father'] = $genealogyUserManager->getById($person['id_father'])->toArray();
+							$person['father'] = $genealogyPersonManager->getById($person['id_father'])->toArray();
 
 							// Get brothers & sisters
 							$brothersSisters = [];
-							if($genealogyUserManager->existById($person['id_father'])) {
-								$list_user = $genealogyUserManager->getChildren($person['id_father']);
+							if($genealogyPersonManager->existById($person['id_father'])) {
+								$list_user = $genealogyPersonManager->getChildren($person['id_father']);
 								foreach ($list_user as $file) {
 									if($file->getId() != $person['id']) {
 										$brotherSister = $file->toArray();
 										if(array_key_exists('id_mother', $brotherSister)) {
 											if(isset($brotherSister['id_mother']))
-												$brotherSister['mother'] = $genealogyUserManager->getById($brotherSister['id_mother'])->toArray();
+												$brotherSister['mother'] = $genealogyPersonManager->getById($brotherSister['id_mother'])->toArray();
 										}
 										if(array_key_exists('id_father', $brotherSister)) {
 											if(isset($brotherSister['id_father']))
-												$brotherSister['father'] = $genealogyUserManager->getById($brotherSister['id_father'])->toArray();
+												$brotherSister['father'] = $genealogyPersonManager->getById($brotherSister['id_father'])->toArray();
 										}
 										$brothersSisters[] = $brotherSister;
 									}
@@ -335,7 +335,7 @@ class GenealogyController extends \lib\Controller {
 
 		if($user->isAdmin()) {
 
-			$genealogyUserManager = $this->getManagerof('GenealogyUser');
+			$genealogyPersonManager = $this->getManagerof('GenealogyPerson');
 
 			$first_name_1 = NULL;
 			$first_name_2 = NULL;
@@ -369,7 +369,7 @@ class GenealogyController extends \lib\Controller {
 			if(HTTPRequest::postExist('id_mother'))
 				$id_mother = HTTPRequest::postData('id_mother');
 
-			$genealogyUser = new GenealogyUser(array(
+			$genealogyPerson = new GenealogyPerson(array(
 				'id'=> 0,
 				'first_name_1' => $first_name_1,
 				'first_name_2' => $first_name_2,
@@ -384,7 +384,7 @@ class GenealogyController extends \lib\Controller {
 				'id_mother' => $id_mother
 			));
 
-			$genealogyUserManager->add($genealogyUser);
+			$genealogyPersonManager->add($genealogyPerson);
 
 			$json['succeed'] = true;
 			$json['toast'] = 'User added.';
@@ -409,8 +409,8 @@ class GenealogyController extends \lib\Controller {
 		$user = $userManager->getById($id_user);
 
 		if($user->isAdmin()) {
-			$genealogyUserManager = $this->getManagerof('GenealogyUser');
-			$genealogyUserManager->delete($id);
+			$genealogyPersonManager = $this->getManagerof('GenealogyPerson');
+			$genealogyPersonManager->delete($id);
 
 			$json['succeed'] = true;
 			$json['toast'] = 'User deleted.';
@@ -436,38 +436,38 @@ class GenealogyController extends \lib\Controller {
 		$user = $userManager->getById($id_user);
 
 		if($user->isAdmin()) {
-			$genealogyUserManager = $this->getManagerof('GenealogyUser');
+			$genealogyPersonManager = $this->getManagerof('GenealogyPerson');
 
-			if(!$genealogyUserManager->existById($id)) {
+			if(!$genealogyPersonManager->existById($id)) {
 				$json['toast'] = 'Bad id.';
 				HTTPResponse::send(json_encode($json));
 				return;
 			}
 			
-			$genealogyUser = $genealogyUserManager->getById($id);
+			$genealogyPerson = $genealogyPersonManager->getById($id);
 
 			if(HTTPRequest::postExist('first_name_1'))
-				$genealogyUser->setFirst_name_1(HTTPRequest::postData('first_name_1'));
+				$genealogyPerson->setFirst_name_1(HTTPRequest::postData('first_name_1'));
 			if(HTTPRequest::postExist('first_name_2'))
-				$genealogyUser->setFirst_name_2(HTTPRequest::postData('first_name_2'));
+				$genealogyPerson->setFirst_name_2(HTTPRequest::postData('first_name_2'));
 			if(HTTPRequest::postExist('first_name_3'))
-				$genealogyUser->setFirst_name_3(HTTPRequest::postData('first_name_3'));
+				$genealogyPerson->setFirst_name_3(HTTPRequest::postData('first_name_3'));
 			if(HTTPRequest::postExist('last_name'))
-				$genealogyUser->setLast_name(HTTPRequest::postData('last_name'));
+				$genealogyPerson->setLast_name(HTTPRequest::postData('last_name'));
 			if(HTTPRequest::postExist('is_man'))
-				$genealogyUser->setIs_man((HTTPRequest::postData('is_man') == 'true') ? 1 : 0);
+				$genealogyPerson->setIs_man((HTTPRequest::postData('is_man') == 'true') ? 1 : 0);
 			if(HTTPRequest::postExist('date_birth'))
-				$genealogyUser->setDate_birth(HTTPRequest::postData('date_birth'));
+				$genealogyPerson->setDate_birth(HTTPRequest::postData('date_birth'));
 			if(HTTPRequest::postExist('date_death'))
-				$genealogyUser->setDate_death(HTTPRequest::postData('date_death'));
+				$genealogyPerson->setDate_death(HTTPRequest::postData('date_death'));
 			if(HTTPRequest::postExist('description'))
-				$genealogyUser->setDescription(HTTPRequest::postData('description'));
+				$genealogyPerson->setDescription(HTTPRequest::postData('description'));
 			if(HTTPRequest::postExist('id_father'))
-				$genealogyUser->setId_father(HTTPRequest::postData('id_father'));
+				$genealogyPerson->setId_father(HTTPRequest::postData('id_father'));
 			if(HTTPRequest::postExist('id_mother'))
-				$genealogyUser->setId_mother(HTTPRequest::postData('id_mother'));
+				$genealogyPerson->setId_mother(HTTPRequest::postData('id_mother'));
 
-			$genealogyUserManager->update($genealogyUser);
+			$genealogyPersonManager->update($genealogyPerson);
 
 			$json['succeed'] = true;
 			$json['toast'] = 'User modified.';
@@ -485,19 +485,19 @@ class GenealogyController extends \lib\Controller {
 	 * @method 	GET
 	 */
 	public function statistics() {
-		$genealogyUserManager = $this->getManagerof('GenealogyUser');
+		$genealogyPersonManager = $this->getManagerof('GenealogyPerson');
 		$json['succeed'] = true;
 
 		$json['result'] = array(
 
 			array(
 				"title" => "Number of persons",
-				"value" => "".$genealogyUserManager->count()
+				"value" => "".$genealogyPersonManager->count()
 			),
 
 			array(
 				"title" => "Last added",
-				"value" => "".$genealogyUserManager->biggerDate_creation()
+				"value" => "".$genealogyPersonManager->biggerDate_creation()
 			)
 
 		);

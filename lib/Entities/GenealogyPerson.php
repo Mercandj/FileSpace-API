@@ -1,7 +1,7 @@
 <?php
 namespace lib\Entities;
 
-class GenealogyUser extends \lib\Entity{
+class GenealogyPerson extends \lib\Entity{
 
 	protected $_id,
 		$_first_name_1,
