@@ -2,6 +2,7 @@
 namespace app\controller;
 use \lib\Entities\User;
 use \lib\Entities\GenealogyPerson;
+use \lib\Entities\GenealogyMarriage;
 use \lib\HTTPRequest;
 use \lib\HTTPResponse;
 
@@ -413,7 +414,7 @@ class GenealogyController extends \lib\Controller {
 			$genealogyPersonManager->delete($id);
 
 			$json['succeed'] = true;
-			$json['toast'] = 'User deleted.';
+			$json['toast'] = 'Person deleted.';
 		}
 		else {
 			$json['toast'] = 'Unauthorized access.';
