@@ -328,6 +328,28 @@ ENGINE = MyISAM;
 
 SHOW WARNINGS;
 
+-- -----------------------------------------------------
+-- Table `Genealogy_Marriage`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `Genealogy_Marriage` ;
+
+SHOW WARNINGS;
+CREATE TABLE IF NOT EXISTS `Genealogy_Marriage` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `id_husband` INT NULL,
+  `id_wife` INT NULL,
+  `date` DATETIME NULL,
+  `location` VARCHAR(500) NULL,
+  `visibility` TINYINT NOT NULL DEFAULT 1,
+  `public` TINYINT NOT NULL DEFAULT 0,
+  `date_creation` DATETIME NULL,
+  `content` VARCHAR(999) NULL,
+  `description` VARCHAR(999) NULL,
+  PRIMARY KEY (`id`))
+ENGINE = MyISAM;
+
+SHOW WARNINGS;
+
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
