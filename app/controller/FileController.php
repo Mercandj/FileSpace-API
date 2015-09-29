@@ -15,7 +15,7 @@ class FileController extends \lib\Controller {
 		'tex', 'txt', 'json', 'xml', 'log',
 		'mp3', 'wav', 'wma',
 		'avi', 'mp4', 'webm', 'mkv', 'flv', 'mpg', 'wmv', '3gp',
-		'pdf', 'doc', 'docx', 'ppt', 'pptx', 'pptm', 'odp', 'xlsx', 'vcf', 'keystore',
+		'pdf', 'doc', 'docx', 'ppt', 'pptx', 'pptm', 'odp', 'xlsx', 'vcf', 'keystore', 'jks',
 		'3ds', 'max', 'obj', 'iso',
 		'c', 'cpp', 'cs', 'java', 'sql',
 		'jarvis', 'filespace' );
