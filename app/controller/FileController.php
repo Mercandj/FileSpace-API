@@ -14,7 +14,7 @@ class FileController extends \lib\Controller {
 		'png', 'jpg', 'jpeg', 'gif', 'png', 'psd',
 		'tex', 'txt', 'json', 'xml', 'log',
 		'mp3', 'wav', 'wma',
-		'avi', 'mp4', 'webm', 'mkv', 'flv', 'mpg', 'wmv', '3gp',
+		'avi', 'mp4', 'webm', 'mkv', 'flv', 'mpg', 'wmv', '3gp', 'mov',
 		'pdf', 'doc', 'docx', 'ppt', 'pptx', 'pptm', 'odp', 'xlsx', 'vcf', 'keystore', 'jks',
 		'3ds', 'max', 'obj', 'iso',
 		'c', 'cpp', 'cs', 'java', 'sql',
@@ -429,7 +429,7 @@ class FileController extends \lib\Controller {
 
 	/**
 	 * Delete a file
-	 * @url   	/file/:id    
+	 * @url   	/file_delete/:id    
 	 * @method 	DELETE
 	 */
 	public function delete($id) {		
