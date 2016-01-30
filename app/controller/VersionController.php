@@ -11,7 +11,9 @@ class VersionController extends \lib\Controller {
 	 * @return JSON with info about server Info
 	 */
 	public function supported() {
-		$json['android_last_supported_version_code'] = 10;
+		$json['android_last_supported_version_code'] = 11;
+		$json['android_version_not_supported'] = array();
+
 		HTTPResponse::send(json_encode($json));
 	}
 }
