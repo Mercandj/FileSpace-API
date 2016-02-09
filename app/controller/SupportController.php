@@ -59,8 +59,6 @@ public function commentPost() {
 	$is_dev_response = 0;
 	if(HTTPRequest::postExist('is_dev_response')) {
 		$is_dev_response = boolval(HTTPRequest::postData('is_dev_response')) ? 1 : 0;
-	} else {
-		$json['succeed'] = false;
 	}
 
 	$supportManager = $this->getManagerof('Support');
