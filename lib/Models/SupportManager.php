@@ -36,9 +36,10 @@ class SupportManager extends \lib\Manager {
 		$req = $this->_db->prepare('SELECT * FROM support_comment WHERE id_device = :id_device');
     	$req->bindParam(':id_device', $id_device, \PDO::PARAM_STR);
     	$req->execute();
-
-    	$donnee = $req->fetch(\PDO::FETCH_ASSOC);
-    	$req->closeCursor();
-    	return new SupportComment($donnee);
+    	while ($donnees = $req->fetch(\PDO::FETCH_ASSOC)) {
+	    	$comments[] = new SupportComment($donnees);
+	    }
+	    $req->closeCursor();
+	    return $comments;
 	}
 }
