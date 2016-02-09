@@ -5,6 +5,7 @@ class SupportComment extends \lib\Entity {
 
 	protected $_id,
 	$_id_device,
+	$_is_dev_response,
 	$_content,
 	$_date_creation,
 	$_visibility,
@@ -16,6 +17,9 @@ class SupportComment extends \lib\Entity {
 	}
 	public function getId_device() {
 		return $this->_id_device;
+	}
+	public function getIs_dev_response() {
+		return $this->_is_dev_response;
 	}
 	public function getContent() {
 		return $this->_content;
@@ -38,6 +42,10 @@ class SupportComment extends \lib\Entity {
 	public function setId_device($id_device) {
 		if(!empty($id_device))
 			$this->_id_device = $id_device;
+	}
+	public function setIs_dev_response($is_dev_response) {
+		if(!empty($is_dev_response))
+			$this->_is_dev_response = $is_dev_response;
 	}
 	public function setContent($content) {
 		if(!empty($content))
@@ -64,7 +72,10 @@ class SupportComment extends \lib\Entity {
 		$json['id'] = $this->getId();
 		if($this->getId_device()!=null) {
 			$json['id_device'] = $this->getId_device();
-		}	
+		}
+		if($this->getIs_dev_response()!=null) {
+			$json['is_dev_response'] = boolval($this->getIs_dev_response());
+		}
 		if($this->getContent()!=null)
 			$json['content'] = $this->getContent();
 		if($this->getDate_creation()!=null)

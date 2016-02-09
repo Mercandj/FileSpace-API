@@ -56,11 +56,19 @@ public function commentPost() {
 		$json['succeed'] = false;
 	}
 
+	$is_dev_response = 0;
+	if(HTTPRequest::postExist('is_dev_response')) {
+		$is_dev_response = boolval(HTTPRequest::postData('is_dev_response')) ? 1 : 0;
+	} else {
+		$json['succeed'] = false;
+	}
+
 	$supportManager = $this->getManagerof('Support');
 
 	$supportComment = new SupportComment(array(
 				'id'=> 0,
 				'id_device' => $id_device,
+				'is_dev_response' => $is_dev_response,
 				'content' => $content,
 				'date_creation' => date('Y-m-d H:i:s')
 			));

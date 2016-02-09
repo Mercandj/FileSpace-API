@@ -7,6 +7,7 @@ class SupportManager extends \lib\Manager {
 
 	public function add(SupportComment $support_comment) {
 		$id_device = $support_comment->getId_device();
+		$is_dev_response = $support_comment->getIs_dev_response();
 		$content = $support_comment->getContent();
 		$date_creation = $support_comment->getDate_creation();
 		$visibility = $support_comment->getVisibility();
@@ -15,8 +16,9 @@ class SupportManager extends \lib\Manager {
 		if(empty($visibility)) 	$visibility = 1;
 		if(empty($public)) 		$public = 0;
 		
-		$req = $this->_db->prepare('INSERT INTO `support_comment`(id_device,content,date_creation,visibility,public) VALUES (:id_device, :content, :date_creation, :visibility, :public)');
+		$req = $this->_db->prepare('INSERT INTO `support_comment`(id_device,is_dev_response,content,date_creation,visibility,public) VALUES (:id_device, :is_dev_response, :content, :date_creation, :visibility, :public)');
 		$req->bindParam(':id_device',$id_device,\PDO::PARAM_STR);
+		$req->bindParam(':is_dev_response',$is_dev_response,\PDO::PARAM_INT);
 		$req->bindParam(':content',$content,\PDO::PARAM_STR);
 		$req->bindParam(':date_creation',$date_creation,\PDO::PARAM_STR);
 		$req->bindParam(':visibility',$visibility,\PDO::PARAM_INT);
