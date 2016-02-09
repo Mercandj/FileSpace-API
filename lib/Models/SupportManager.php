@@ -16,7 +16,7 @@ class SupportManager extends \lib\Manager {
 		if(empty($public)) 		$public = 0;
 		
 		$req = $this->_db->prepare('INSERT INTO `support_comment`(id_device,content,date_creation,visibility,public) VALUES (:id_device, :content, :date_creation, :visibility, :public)');
-		$req->bindParam(':id_device',$id_device,\PDO::PARAM_INT);
+		$req->bindParam(':id_device',$id_device,\PDO::PARAM_STR);
 		$req->bindParam(':content',$content,\PDO::PARAM_STR);
 		$req->bindParam(':date_creation',$date_creation,\PDO::PARAM_STR);
 		$req->bindParam(':visibility',$visibility,\PDO::PARAM_INT);
@@ -27,14 +27,14 @@ class SupportManager extends \lib\Manager {
 
 	public function delete($id_device) {
 		$req = $this->_db->prepare('DELETE FROM support_comment WHERE id_device = :id_device');
-    	$req->bindParam(':id_device', $id_device, \PDO::PARAM_INT);
+    	$req->bindParam(':id_device', $id_device, \PDO::PARAM_STR);
     	$req->execute();
 		$req->closeCursor();
 	}
 
 	public function getAllByIdDevice($id_device) {
 		$req = $this->_db->prepare('SELECT * FROM support_comment WHERE id_device = :id_device');
-    	$req->bindParam(':id_device', $id_device, \PDO::PARAM_INT);
+    	$req->bindParam(':id_device', $id_device, \PDO::PARAM_STR);
     	$req->execute();
 
     	$donnee = $req->fetch(\PDO::FETCH_ASSOC);
