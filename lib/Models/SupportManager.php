@@ -25,9 +25,9 @@ class SupportManager extends \lib\Manager {
 		$req->closeCursor();
 	}
 
-	public function delete($id) {
-		$req = $this->_db->prepare('DELETE FROM support_comment WHERE id = :id');
-    	$req->bindParam(':id', $id, \PDO::PARAM_INT);
+	public function delete($id_device) {
+		$req = $this->_db->prepare('DELETE FROM support_comment WHERE id_device = :id_device');
+    	$req->bindParam(':id_device', $id_device, \PDO::PARAM_INT);
     	$req->execute();
 		$req->closeCursor();
 	}
