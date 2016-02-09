@@ -4,7 +4,7 @@ use \lib\Entities\SupportComment;
 use \lib\HTTPRequest;
 use \lib\HTTPResponse;
 
-class VersionController extends \lib\Controller {
+class SupportController extends \lib\Controller {
 
 /**
 * @uri    /support/comment
