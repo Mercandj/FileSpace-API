@@ -245,6 +245,27 @@ ENGINE = MyISAM;
 SHOW WARNINGS;
 
 -- -----------------------------------------------------
+-- Table `Support_Comment`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `Support_Comment` ;
+
+SHOW WARNINGS;
+CREATE TABLE IF NOT EXISTS `Support_Comment` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `id_device` VARCHAR(500) NULL,
+  `comment_content` VARCHAR(500) NULL,
+  `visibility` TINYINT NOT NULL DEFAULT 1,
+  `public` TINYINT NOT NULL DEFAULT 0,
+  `date_creation` DATETIME NULL,
+  `content` VARCHAR(999) NULL,
+  `description` VARCHAR(999) NULL,
+  PRIMARY KEY (`id`))
+ENGINE = MyISAM;
+
+SHOW WARNINGS;
+
+
+-- -----------------------------------------------------
 -- Table `Server_Daemon`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `Server_Daemon` ;

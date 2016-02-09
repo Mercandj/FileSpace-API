@@ -14,6 +14,8 @@ class RESTapi extends \lib\Application {
 			->get('/android_app','File#download_android_app')
 			->post('/launchdaemon/:id','ServerDaemon#launchDaemon')
 			->get('/version/supported','Version#supported')
+			->get('/support/comment','Support#commentGet')
+			->post('/support/comment','Support#commentPost')
 
 			->authorize((new UserController($this))->isUser())
 			->authorize((new ServerDaemonController($this))->checkDaemon())
