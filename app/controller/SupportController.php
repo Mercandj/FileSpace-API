@@ -1,5 +1,6 @@
 <?php
 namespace app\controller;
+use \lib\Entities\SupportComment;
 use \lib\HTTPRequest;
 use \lib\HTTPResponse;
 
