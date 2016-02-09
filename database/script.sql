@@ -253,7 +253,6 @@ SHOW WARNINGS;
 CREATE TABLE IF NOT EXISTS `Support_Comment` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `id_device` VARCHAR(500) NULL,
-  `comment_content` VARCHAR(500) NULL,
   `visibility` TINYINT NOT NULL DEFAULT 1,
   `public` TINYINT NOT NULL DEFAULT 0,
   `date_creation` DATETIME NULL,
