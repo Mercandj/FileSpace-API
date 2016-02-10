@@ -7,11 +7,11 @@ class SupportManager extends \lib\Manager {
 
 	public function add(SupportComment $support_comment) {
 		$id_device = $support_comment->getId_device();
-		$is_dev_response = $support_comment->getIs_dev_response();
+		$is_dev_response = intval($support_comment->getIs_dev_response());
 		$content = $support_comment->getContent();
 		$date_creation = $support_comment->getDate_creation();
-		$visibility = $support_comment->getVisibility();
-		$public = $support_comment->getPublic();
+		$visibility = intval($support_comment->getVisibility());
+		$public = intval($support_comment->getPublic());
 
 		if(empty($visibility)) 	$visibility = 1;
 		if(empty($public)) 		$public = 0;

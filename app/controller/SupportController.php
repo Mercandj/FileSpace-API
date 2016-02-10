@@ -67,7 +67,7 @@ public function commentPost() {
 	$supportComment = new SupportComment(array(
 				'id'=> 0,
 				'id_device' => $id_device,
-				'is_dev_response' => $is_dev_response,
+				'is_dev_response' => intval($is_dev_response),
 				'content' => $content,
 				'date_creation' => date('Y-m-d H:i:s')
 			));
