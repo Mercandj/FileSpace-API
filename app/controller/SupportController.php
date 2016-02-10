@@ -30,6 +30,7 @@ public function commentGet() {
 	}
 
 	$json['result'] = $result;
+	$json['debug'] = '$id_device:' . $id_device;
 
 	HTTPResponse::send(json_encode($json));
 }
@@ -80,6 +81,7 @@ public function commentPost() {
 	}
 
 	$json['result'] = $result;
+	$json['debug'] = '$id_device:' . $id_device . ' $content:' . $content . ' $is_dev_response:' . $is_dev_response;
 
 	HTTPResponse::send(json_encode($json));
 }
