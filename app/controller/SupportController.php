@@ -44,15 +44,15 @@ class SupportController extends \lib\Controller {
 		$json['succeed'] = true;
 
 		$id_device = '';
-		if(HTTPRequest::getExist('id_device')) {
-			$id_device = HTTPRequest::getData('id_device');
+		if(HTTPRequest::postExist('id_device')) {
+			$id_device = HTTPRequest::postData('id_device');
 		} else {
 			$json['succeed'] = false;
 		}
 
 		$id = 0;
 		if(HTTPRequest::postExist('id')) {
-			$id = boolval(HTTPRequest::postData('id')) ? 1 : 0;
+			$id = HTTPRequest::postData('id');
 		} else {
 			$json['succeed'] = false;
 		}
