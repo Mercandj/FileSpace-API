@@ -56,8 +56,10 @@ class SupportController extends \lib\Controller {
 		} else {
 			$json['succeed'] = false;
 		}
-		$supportManager = $this->delete(intval($id));
+
 		$supportManager = $this->getManagerof('Support');
+		$supportManager->delete(intval($id));
+
 		$list_comment = $supportManager->getAllByIdDevice($id_device);
 		$result = [];
 		foreach ($list_comment as $comment) {
