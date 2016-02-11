@@ -95,7 +95,7 @@ class SupportController extends \lib\Controller {
 
 		$is_dev_response = 0;
 		if(HTTPRequest::postExist('is_dev_response')) {
-			$is_dev_response = boolval(HTTPRequest::postData('is_dev_response')) ? 1 : 0;
+			$is_dev_response = filter_var(HTTPRequest::postData('is_dev_response'), FILTER_VALIDATE_BOOLEAN) ? 1 : 0;
 		}
 
 		$supportManager = $this->getManagerof('Support');
