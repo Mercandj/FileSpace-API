@@ -107,7 +107,7 @@ class SupportComment extends \lib\Entity {
 			$json['id_device'] = $this->getId_device();
 		}
 		if($this->getIs_dev_response()!=null) {
-			$json['is_dev_response'] = filter_var(HTTPRequest::postData($this->getIs_dev_response()), FILTER_VALIDATE_BOOLEAN);
+			$json['is_dev_response'] = filter_var($this->getIs_dev_response(), FILTER_VALIDATE_BOOLEAN);
 		}
 		if($this->getContent()!=null)
 			$json['content'] = $this->getContent();
