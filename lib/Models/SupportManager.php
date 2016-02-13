@@ -56,7 +56,7 @@ class SupportManager extends \lib\Manager {
 
 	public function getAllByIdDevice($id_device) {
 		$comments = [];
-		$req = $this->_db->prepare('SELECT * FROM support_comment WHERE id_device = :id_device ORDER BY date_creation DESC');
+		$req = $this->_db->prepare('SELECT * FROM support_comment WHERE id_device = :id_device ORDER BY date_creation ASC');
     	$req->bindParam(':id_device', $id_device, \PDO::PARAM_STR);
     	$req->execute();
     	while ($donnees = $req->fetch(\PDO::FETCH_ASSOC)) {
