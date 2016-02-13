@@ -13,7 +13,6 @@ class SupportComment extends \lib\Entity {
 	$_android_app_version_code,
 	$_android_app_version_name,
 	$_android_device_version_sdk,
-
 	$_nb_comments_with_this_id_device;
 
 
