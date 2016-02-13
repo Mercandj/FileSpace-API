@@ -259,6 +259,21 @@ CREATE TABLE IF NOT EXISTS `Support_Comment` (
   `date_creation` DATETIME NULL,
   `content` VARCHAR(999) NULL,
   `description` VARCHAR(999) NULL,
+  `language` VARCHAR(50) NULL,
+  `longitude` VARCHAR(80) NULL,
+  `latitude` VARCHAR(80) NULL,
+  `email` VARCHAR(199) NULL,
+  `android_app_version_code` VARCHAR(45) NULL,
+  `android_app_version_name` VARCHAR(45) NULL,
+  `android_app_package` VARCHAR(80) NULL,
+  `android_device_model` VARCHAR(100) NULL,
+  `android_device_version_os` VARCHAR(100) NULL,
+  `android_device_display` VARCHAR(100) NULL,
+  `android_device_bootloader` VARCHAR(100) NULL,
+  `android_device_display_language` VARCHAR(100) NULL,
+  `android_device_radio_version` VARCHAR(100) NULL,
+  `android_device_version_sdk` VARCHAR(60) NULL,
+  `android_device_version_incremental` VARCHAR(100) NULL,
   PRIMARY KEY (`id`))
 ENGINE = MyISAM;
 
