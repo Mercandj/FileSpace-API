@@ -36,6 +36,28 @@ class SupportController extends \lib\Controller {
 	}
 
 	/**
+	* Admin get all support comments
+	*
+	* @uri    /support/comment/device_id
+	* @method GET
+	* @return JSON with info about server Info
+	*/
+	public function commentGetAllIdDevice() {
+		$json['succeed'] = true;
+		$supportManager = $this->getManagerof('Support');
+		$list_comment = $supportManager->getAllIdDevice();
+		$result = [];
+		foreach ($list_comment as $comment) {
+			$comment_array = $comment->toArray();
+			$result[] = $comment_array;
+		}
+
+		$json['result'] = $result;
+
+		HTTPResponse::send(json_encode($json));
+	}
+
+	/**
 	* @uri    /support/comment/delete
 	* @method POST
 	* @return JSON with info about server Info

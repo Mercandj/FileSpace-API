@@ -59,6 +59,9 @@ class RESTapi extends \lib\Application {
 			->post('/genealogy_marriage_delete/:id','GenealogyMarriage#delete')
 
 			->authorize((new UserController($this))->isAdmin())
+
+			->get('/support/comment/device_id','Support#commentGetAllIdDevice')
+
 			->get('/user_connection','UserConnection#get')
 			->get('/daemon','ServerDaemon#get')
 			->post('/daemon','ServerDaemon#post')

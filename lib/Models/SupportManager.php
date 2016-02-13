@@ -43,6 +43,17 @@ class SupportManager extends \lib\Manager {
 		$req->closeCursor();
 	}
 
+	public function getAllIdDevice() {
+		$comments = [];
+		$req = $this->_db->prepare('SELECT id_device, COUNT(*) AS nb_comments_with_this_id_device FROM support_comment GROUP BY id_device');
+    	$req->execute();
+    	while ($donnees = $req->fetch(\PDO::FETCH_ASSOC)) {
+	    	$comments[] = new SupportComment($donnees);
+	    }
+	    $req->closeCursor();
+	    return $comments;
+	}
+
 	public function getAllByIdDevice($id_device) {
 		$comments = [];
 		$req = $this->_db->prepare('SELECT * FROM support_comment WHERE id_device = :id_device');

@@ -12,7 +12,9 @@ class SupportComment extends \lib\Entity {
 	$_public,
 	$_android_app_version_code,
 	$_android_app_version_name,
-	$_android_device_version_sdk;
+	$_android_device_version_sdk,
+
+	$_nb_comments_with_this_id_device;
 
 
 	public function getId() {
@@ -44,6 +46,9 @@ class SupportComment extends \lib\Entity {
 	}
 	public function getAndroid_device_version_sdk() {
 		return $this->_android_device_version_sdk;
+	}
+	public function getNb_comments_with_this_id_device() {
+		return $this->_nb_comments_with_this_id_device;
 	}
 
 
@@ -87,6 +92,11 @@ class SupportComment extends \lib\Entity {
 		if(!empty($android_device_version_sdk))
 			$this->_android_device_version_sdk = $android_device_version_sdk;
 	}
+	public function setNb_comments_with_this_id_device($nb_comments_with_this_id_device) {
+		if(!empty($nb_comments_with_this_id_device))
+			$this->_nb_comments_with_this_id_device = $nb_comments_with_this_id_device;
+	}
+
 
 
 	public function isValid() {
@@ -114,6 +124,8 @@ class SupportComment extends \lib\Entity {
 			$json['android_app_version_name'] = $this->getAndroid_app_version_name();
 		if($this->getAndroid_device_version_sdk()!=null)
 			$json['android_device_version_sdk'] = $this->getAndroid_device_version_sdk();
+		if($this->getNb_comments_with_this_id_device()!=null)
+			$json['nb_comments_with_this_id_device'] = $this->getNb_comments_with_this_id_device();
 		return $json;
 	}
 }
