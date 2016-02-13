@@ -15,14 +15,23 @@ class SupportManager extends \lib\Manager {
 
 		if(empty($visibility)) 	$visibility = 1;
 		if(empty($public)) 		$public = 0;
+
+		$android_app_version_code = $support_comment->getAndroid_app_version_code();
+		$android_app_version_name = $support_comment->getAndroid_app_version_name();
+		$android_device_version_sdk = $support_comment->getAndroid_device_version_sdk();
 		
-		$req = $this->_db->prepare('INSERT INTO `support_comment`(id_device,is_dev_response,content,date_creation,visibility,public) VALUES (:id_device, :is_dev_response, :content, :date_creation, :visibility, :public)');
+		$req = $this->_db->prepare('INSERT INTO `support_comment`(id_device,is_dev_response,content,date_creation,visibility,public,android_app_version_code,android_app_version_name,android_device_version_sdk)'.
+			' VALUES (:id_device, :is_dev_response, :content, :date_creation, :visibility, :public, :android_app_version_code, :android_app_version_name, :android_device_version_sdk)');
+
 		$req->bindParam(':id_device',$id_device,\PDO::PARAM_STR);
 		$req->bindParam(':is_dev_response',$is_dev_response,\PDO::PARAM_INT);
 		$req->bindParam(':content',$content,\PDO::PARAM_STR);
 		$req->bindParam(':date_creation',$date_creation,\PDO::PARAM_STR);
 		$req->bindParam(':visibility',$visibility,\PDO::PARAM_INT);
 		$req->bindParam(':public',$public,\PDO::PARAM_INT);
+		$req->bindParam(':android_app_version_code',$android_app_version_code,\PDO::PARAM_STR);
+		$req->bindParam(':android_app_version_name',$android_app_version_name,\PDO::PARAM_STR);
+		$req->bindParam(':android_device_version_sdk',$android_device_version_sdk,\PDO::PARAM_STR);
 		$req->execute();
 		$req->closeCursor();
 	}

@@ -100,15 +100,38 @@ class SupportController extends \lib\Controller {
 			$is_dev_response = filter_var(HTTPRequest::postData('is_dev_response'), FILTER_VALIDATE_BOOLEAN) ? 1 : 0;
 		}
 
-		$supportManager = $this->getManagerof('Support');
+		$android_app_version_code = '';
+		if(HTTPRequest::postExist('android_app_version_code')) {
+			$android_app_version_code = HTTPRequest::postData('android_app_version_code');
+		} else {
+			$json['succeed'] = false;
+		}
+
+		$android_app_version_name = '';
+		if(HTTPRequest::postExist('android_app_version_name')) {
+			$android_app_version_name = HTTPRequest::postData('android_app_version_name');
+		} else {
+			$json['succeed'] = false;
+		}
+
+		$android_device_version_sdk = '';
+		if(HTTPRequest::postExist('android_device_version_sdk')) {
+			$android_device_version_sdk = HTTPRequest::postData('android_device_version_sdk');
+		} else {
+			$json['succeed'] = false;
+		}
 
 		$supportComment = new SupportComment(array(
 			'id'=> 0,
 			'id_device' => $id_device,
 			'is_dev_response' => intval($is_dev_response),
 			'content' => $content,
-			'date_creation' => date('Y-m-d H:i:s')
+			'date_creation' => date('Y-m-d H:i:s'),
+			'android_app_version_code' => $android_app_version_code,
+			'android_app_version_name' => $android_app_version_name,
+			'android_device_version_sdk' => $android_device_version_sdk
 			));
+		$supportManager = $this->getManagerof('Support');
 		$supportManager->add($supportComment);
 
 		$list_comment = $supportManager->getAllByIdDevice($id_device);

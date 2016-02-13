@@ -9,7 +9,10 @@ class SupportComment extends \lib\Entity {
 	$_content,
 	$_date_creation,
 	$_visibility,
-	$_public;
+	$_public,
+	$_android_app_version_code,
+	$_android_app_version_name,
+	$_android_device_version_sdk;
 
 
 	public function getId() {
@@ -32,6 +35,15 @@ class SupportComment extends \lib\Entity {
 	}
 	public function getPublic() {
 		return $this->_public;
+	}
+	public function getAndroid_app_version_code() {
+		return $this->_android_app_version_code;
+	}
+	public function getAndroid_app_version_name() {
+		return $this->_android_app_version_name;
+	}
+	public function getAndroid_device_version_sdk() {
+		return $this->_android_device_version_sdk;
 	}
 
 
@@ -63,6 +75,18 @@ class SupportComment extends \lib\Entity {
 		if(!empty($public))
 			$this->_public = $public;
 	}
+	public function setAndroid_app_version_code($android_app_version_code) {
+		if(!empty($android_app_version_code))
+			$this->_android_app_version_code = $android_app_version_code;
+	}
+	public function setAndroid_app_version_name($android_app_version_name) {
+		if(!empty($android_app_version_name))
+			$this->_android_app_version_name = $android_app_version_name;
+	}
+	public function setAndroid_device_version_sdk($android_device_version_sdk) {
+		if(!empty($android_device_version_sdk))
+			$this->_android_device_version_sdk = $android_device_version_sdk;
+	}
 
 
 	public function isValid() {
@@ -74,7 +98,7 @@ class SupportComment extends \lib\Entity {
 			$json['id_device'] = $this->getId_device();
 		}
 		if($this->getIs_dev_response()!=null) {
-			$json['is_dev_response'] = boolval($this->getIs_dev_response());
+			$json['is_dev_response'] = filter_var(HTTPRequest::postData($this->getIs_dev_response()), FILTER_VALIDATE_BOOLEAN));
 		}
 		if($this->getContent()!=null)
 			$json['content'] = $this->getContent();
@@ -84,6 +108,12 @@ class SupportComment extends \lib\Entity {
 			$json['visibility'] = $this->getVisibility();
 		if($this->getPublic()!=null)
 			$json['public'] = $this->getPublic();
+		if($this->getAndroid_app_version_code()!=null)
+			$json['android_app_version_code'] = $this->getAndroid_app_version_code();
+		if($this->getAndroid_app_version_name()!=null)
+			$json['android_app_version_name'] = $this->getAndroid_app_version_name();
+		if($this->getAndroid_device_version_sdk()!=null)
+			$json['android_device_version_sdk'] = $this->getAndroid_device_version_sdk();
 		return $json;
 	}
 }
