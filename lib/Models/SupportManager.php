@@ -6,34 +6,52 @@ class SupportManager extends \lib\Manager {
 	protected static $instance;
 
 	public function add(SupportComment $support_comment) {
-		$id_device = $support_comment->getId_device();
-		$is_dev_response = intval($support_comment->getIs_dev_response());
-		$content = $support_comment->getContent();
-		$date_creation = $support_comment->getDate_creation();
-		$visibility = intval($support_comment->getVisibility());
-		$public = intval($support_comment->getPublic());
 
-		if(empty($visibility)) 	$visibility = 1;
-		if(empty($public)) 		$public = 0;
+		$to_insert = [];
+		$to_insert['id_device'] = $support_comment->getId_device();
+		$to_insert['is_dev_response'] = intval($support_comment->getIs_dev_response());
+		$to_insert['content'] = $support_comment->getContent();
+		$to_insert['visibility'] = intval($support_comment->getVisibility());
+		$to_insert['public'] = intval($support_comment->getPublic());
 
-		$android_app_version_code = $support_comment->getAndroid_app_version_code();
-		$android_app_version_name = $support_comment->getAndroid_app_version_name();
-		$android_app_notification_id = $support_comment->getAndroid_app_notification_id();
-		$android_device_version_sdk = $support_comment->getAndroid_device_version_sdk();
+		$to_insert['android_app_version_code'] =  $support_comment->getAndroid_app_version_code();
+		$to_insert['android_app_version_name'] =  $support_comment->getAndroid_app_version_name();
+		$to_insert['android_app_notification_id'] =  $support_comment->getAndroid_app_notification_id();
+		$to_insert['android_device_version_sdk'] =  $support_comment->getAndroid_device_version_sdk();
+
+		$req_str = 'INSERT INTO (';
+		$numItems = count($to_insert);
+		$i = 0;
+		foreach ($to_insert as $key => $value) {
+			if(++$i === $numItems) {
+    			// last index
+				$req_str .= $key . ') VALUES (';
+			} else {
+				$req_str .= $key . ', ';
+			}
+		}
+		$i = 0;
+		foreach ($to_insert as $key => $value) {
+			if(++$i === $numItems) {
+    			// last index
+				$req_str .= ':' . $key . ')';
+			} else {
+				$req_str .= ':' . $key . ', ';
+			}
+		}
 		
-		$req = $this->_db->prepare('INSERT INTO `support_comment`(id_device,is_dev_response,content,date_creation,visibility,public,android_app_version_code,android_app_version_name,android_app_notification_id,android_device_version_sdk)'.
-			' VALUES (:id_device, :is_dev_response, :content, :date_creation, :visibility, :public, :android_app_version_code, :android_app_version_name, :android_app_notification_id, :android_device_version_sdk)');
+		$req = $this->_db->prepare($req_str);
 
-		$req->bindParam(':id_device',$id_device,\PDO::PARAM_STR);
-		$req->bindParam(':is_dev_response',$is_dev_response,\PDO::PARAM_INT);
-		$req->bindParam(':content',$content,\PDO::PARAM_STR);
-		$req->bindParam(':date_creation',$date_creation,\PDO::PARAM_STR);
-		$req->bindParam(':visibility',$visibility,\PDO::PARAM_INT);
-		$req->bindParam(':public',$public,\PDO::PARAM_INT);
-		$req->bindParam(':android_app_version_code',$android_app_version_code,\PDO::PARAM_STR);
-		$req->bindParam(':android_app_version_name',$android_app_version_name,\PDO::PARAM_STR);
-		$req->bindParam(':android_app_notification_id',$android_app_notification_id,\PDO::PARAM_STR);
-		$req->bindParam(':android_device_version_sdk',$android_device_version_sdk,\PDO::PARAM_STR);
+		$req->bindParam(':id_device',					$to_insert['id_device'],					\PDO::PARAM_STR);
+		$req->bindParam(':is_dev_response',				$to_insert['is_dev_response'],				\PDO::PARAM_INT);
+		$req->bindParam(':content',						$to_insert['content'],						\PDO::PARAM_STR);
+		$req->bindParam(':date_creation',				$to_insert['date_creation'],				\PDO::PARAM_STR);
+		$req->bindParam(':visibility',					$to_insert['visibility'],					\PDO::PARAM_INT);
+		$req->bindParam(':public',						$to_insert['public'],						\PDO::PARAM_INT);
+		$req->bindParam(':android_app_version_code',	$to_insert['android_app_version_code'],		\PDO::PARAM_STR);
+		$req->bindParam(':android_app_version_name',	$to_insert['android_app_version_name'],		\PDO::PARAM_STR);
+		$req->bindParam(':android_app_notification_id',	$to_insert['android_app_notification_id'],	\PDO::PARAM_STR);
+		$req->bindParam(':android_device_version_sdk',	$to_insert['android_device_version_sdk'],	\PDO::PARAM_STR);
 		$req->execute();
 		$req->closeCursor();
 	}
