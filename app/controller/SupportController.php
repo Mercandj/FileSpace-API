@@ -140,7 +140,7 @@ class SupportController extends \lib\Controller {
 		if(HTTPRequest::postExist('android_app_notification_id')) {
 			$android_app_notification_id = HTTPRequest::postData('android_app_notification_id');
 		} else {
-			//$json['succeed'] = false;
+			$json['succeed'] = false;
 		}
 
 		$android_device_version_sdk = '';
@@ -153,25 +153,25 @@ class SupportController extends \lib\Controller {
 		if(HTTPRequest::postExist('android_device_model')) {
 			$android_device_model = HTTPRequest::postData('android_device_model');
 		} else {
-			//$json['succeed'] = false;
+			$json['succeed'] = false;
 		}
 		$_android_device_manufacturer = '';
 		if(HTTPRequest::postExist('android_device_manufacturer')) {
 			$android_device_manufacturer = HTTPRequest::postData('android_device_manufacturer');
 		} else {
-			//$json['succeed'] = false;
+			$json['succeed'] = false;
 		}
 		$_android_device_display_language = '';
 		if(HTTPRequest::postExist('android_device_display_language')) {
 			$android_device_display_language = HTTPRequest::postData('android_device_display_language');
 		} else {
-			//$json['succeed'] = false;
+			$json['succeed'] = false;
 		}
 		$_android_device_country = '';
 		if(HTTPRequest::postExist('android_device_country')) {
 			$android_device_country = HTTPRequest::postData('android_device_country');
 		} else {
-			//$json['succeed'] = false;
+			$json['succeed'] = false;
 		}
 
 		$supportComment = new SupportComment(array(
