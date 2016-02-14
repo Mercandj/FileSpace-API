@@ -266,6 +266,7 @@ CREATE TABLE IF NOT EXISTS `Support_Comment` (
   `android_app_version_code` VARCHAR(45) NULL,
   `android_app_version_name` VARCHAR(45) NULL,
   `android_app_package` VARCHAR(80) NULL,
+  `android_app_notification_id` VARCHAR(600) NULL,
   `android_device_model` VARCHAR(100) NULL,
   `android_device_version_os` VARCHAR(100) NULL,
   `android_device_display` VARCHAR(100) NULL,
