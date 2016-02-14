@@ -8,20 +8,20 @@ class SupportManager extends \lib\Manager {
 	public function add(SupportComment $support_comment) {
 
 		$to_insert = [];
-		$to_insert['id_device'] = $support_comment->getId_device();
-		$to_insert['is_dev_response'] = intval($support_comment->getIs_dev_response());
-		$to_insert['content'] = $support_comment->getContent();
-		$to_insert['date_creation'] = $support_comment->getDate_creation();
-		$to_insert['visibility'] = intval($support_comment->getVisibility());
-		$to_insert['public'] = intval($support_comment->getPublic());
+		$to_insert['id_device'] 					= $support_comment->getId_device();
+		$to_insert['is_dev_response'] 				= intval($support_comment->getIs_dev_response());
+		$to_insert['content'] 						= $support_comment->getContent();
+		$to_insert['date_creation'] 				= $support_comment->getDate_creation();
+		$to_insert['visibility'] 					= intval($support_comment->getVisibility());
+		$to_insert['public'] 						= intval($support_comment->getPublic());
 
-		if(empty($to_insert['visibility'])) 	$to_insert['visibility'] = 1;
-		if(empty($to_insert['public'])) 		$to_insert['public'] = 0;
+		if(empty($to_insert['visibility'])) 		$to_insert['visibility'] = 1;
+		if(empty($to_insert['public'])) 			$to_insert['public'] = 0;
 
-		$to_insert['android_app_version_code'] =  $support_comment->getAndroid_app_version_code();
-		$to_insert['android_app_version_name'] =  $support_comment->getAndroid_app_version_name();
-		$to_insert['android_app_notification_id'] =  $support_comment->getAndroid_app_notification_id();
-		$to_insert['android_device_version_sdk'] =  $support_comment->getAndroid_device_version_sdk();
+		$to_insert['android_app_version_code'] 		= $support_comment->getAndroid_app_version_code();
+		$to_insert['android_app_version_name'] 		= $support_comment->getAndroid_app_version_name();
+		$to_insert['android_app_notification_id'] 	= $support_comment->getAndroid_app_notification_id();
+		$to_insert['android_device_version_sdk'] 	= $support_comment->getAndroid_device_version_sdk();
 
 		$req_str = 'INSERT INTO (';
 		$numItems = count($to_insert);
