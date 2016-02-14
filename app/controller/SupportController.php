@@ -140,7 +140,7 @@ class SupportController extends \lib\Controller {
 		if(HTTPRequest::postExist('android_app_notification_id')) {
 			$android_app_notification_id = HTTPRequest::postData('android_app_notification_id');
 		} else {
-			$json['succeed'] = false;
+			//$json['succeed'] = false;
 		}
 
 		$android_device_version_sdk = '';
