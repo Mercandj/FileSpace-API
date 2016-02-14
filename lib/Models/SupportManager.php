@@ -11,6 +11,7 @@ class SupportManager extends \lib\Manager {
 		$to_insert['id_device'] = $support_comment->getId_device();
 		$to_insert['is_dev_response'] = intval($support_comment->getIs_dev_response());
 		$to_insert['content'] = $support_comment->getContent();
+		$to_insert['$date_creation'] = $support_comment->getDate_creation();
 		$to_insert['visibility'] = intval($support_comment->getVisibility());
 		$to_insert['public'] = intval($support_comment->getPublic());
 
