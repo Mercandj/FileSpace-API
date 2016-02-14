@@ -6,7 +6,7 @@ class SupportManager extends \lib\Manager {
 	protected static $instance;
 
 	public function add(SupportComment $support_comment) {
-		
+
 		$to_insert['id_device'] 					= $support_comment->getId_device();
 		$to_insert['is_dev_response'] 				= intval($support_comment->getIs_dev_response());
 		$to_insert['content'] 						= $support_comment->getContent();
@@ -42,6 +42,9 @@ class SupportManager extends \lib\Manager {
 				$req_str .= ':' . $key . ', ';
 			}
 		}
+
+		echo 'toto:'.$numItems;
+		echo 'tata:'.$req_str;
 		
 		$req = $this->_db->prepare($req_str);
 
