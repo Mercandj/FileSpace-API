@@ -46,11 +46,11 @@ class SupportManager extends \lib\Manager {
 		$req = $this->_db->prepare($req_str);
 
 		$req->bindParam(':id_device',					$to_insert['id_device'],					\PDO::PARAM_STR);
-		$req->bindParam(':is_dev_response',				$to_insert['is_dev_response'],				\PDO::PARAM_INT);
+		$req->bindParam(':is_dev_response',				intval($to_insert['is_dev_response']),		\PDO::PARAM_INT);
 		$req->bindParam(':content',						$to_insert['content'],						\PDO::PARAM_STR);
 		$req->bindParam(':date_creation',				$to_insert['date_creation'],				\PDO::PARAM_STR);
-		$req->bindParam(':visibility',					$to_insert['visibility'],					\PDO::PARAM_INT);
-		$req->bindParam(':public',						$to_insert['public'],						\PDO::PARAM_INT);
+		$req->bindParam(':visibility',					intval($to_insert['visibility']),			\PDO::PARAM_INT);
+		$req->bindParam(':public',						intval($to_insert['public']),				\PDO::PARAM_INT);
 		$req->bindParam(':android_app_version_code',	$to_insert['android_app_version_code'],		\PDO::PARAM_STR);
 		$req->bindParam(':android_app_version_name',	$to_insert['android_app_version_name'],		\PDO::PARAM_STR);
 		$req->bindParam(':android_app_notification_id',	$to_insert['android_app_notification_id'],	\PDO::PARAM_STR);
