@@ -22,7 +22,7 @@ class SupportManager extends \lib\Manager {
 		$to_insert['android_app_notification_id'] 	= $support_comment->getAndroid_app_notification_id();
 		$to_insert['android_device_version_sdk'] 	= $support_comment->getAndroid_device_version_sdk();
 
-		$req_str = 'INSERT INTO (';
+		$req_str = 'INSERT INTO `support_comment` (';
 		$numItems = count($to_insert);
 		$i = 0;
 		foreach ($to_insert as $key => $value) {
@@ -42,9 +42,6 @@ class SupportManager extends \lib\Manager {
 				$req_str .= ':' . $key . ', ';
 			}
 		}
-
-		echo 'toto:'.$numItems;
-		echo 'tata:'.$req_str;
 		
 		$req = $this->_db->prepare($req_str);
 
