@@ -14,7 +14,14 @@ class SupportComment extends \lib\Entity {
 	$_android_app_version_name,
 	$_android_app_notification_id,
 	$_android_device_version_sdk,
+	$_android_device_model,
+	$_android_device_manufacturer,
+	$_android_device_display_language,
+	$_android_device_country,
 	$_nb_comments_with_this_id_device;
+
+
+
 
 
 	public function getId() {
@@ -47,12 +54,30 @@ class SupportComment extends \lib\Entity {
 	public function getAndroid_app_notification_id() {
 		return $this->_android_app_notification_id;
 	}
+
 	public function getAndroid_device_version_sdk() {
 		return $this->_android_device_version_sdk;
 	}
+	public function getAndroid_device_model() {
+		return $this->_android_device_model;
+	}
+	public function getAndroid_device_manufacturer() {
+		return $this->_android_device_manufacturer;
+	}
+	public function getAndroid_device_display_language() {
+		return $this->_android_device_display_language;
+	}
+	public function getAndroid_device_country() {
+		return $this->_android_device_country;
+	}
+
 	public function getNb_comments_with_this_id_device() {
 		return $this->_nb_comments_with_this_id_device;
 	}
+
+
+
+
 
 
 	public function setId($id){
@@ -83,6 +108,7 @@ class SupportComment extends \lib\Entity {
 		if(!empty($public))
 			$this->_public = $public;
 	}
+
 	public function setAndroid_app_version_code($android_app_version_code) {
 		if(!empty($android_app_version_code))
 			$this->_android_app_version_code = $android_app_version_code;
@@ -95,14 +121,34 @@ class SupportComment extends \lib\Entity {
 		if(!empty($android_app_notification_id))
 			$this->_android_app_notification_id = $android_app_notification_id;
 	}
+
 	public function setAndroid_device_version_sdk($android_device_version_sdk) {
 		if(!empty($android_device_version_sdk))
 			$this->_android_device_version_sdk = $android_device_version_sdk;
 	}
+	public function setAndroid_device_model($android_device_model) {
+		if(!empty($android_device_model))
+			$this->_android_device_model = $android_device_model;
+	}
+	public function setAndroid_device_manufacturer($android_device_manufacturer) {
+		if(!empty($android_device_manufacturer))
+			$this->_android_device_manufacturer = $android_device_manufacturer;
+	}
+	public function setAndroid_device_display_language($android_device_display_language) {
+		if(!empty($android_device_display_language))
+			$this->_android_device_display_language = $android_device_display_language;
+	}
+	public function setAndroid_device_country($android_device_country) {
+		if(!empty($android_device_country))
+			$this->_android_device_country = $android_device_country;
+	}
+
 	public function setNb_comments_with_this_id_device($nb_comments_with_this_id_device) {
 		if(!empty($nb_comments_with_this_id_device))
 			$this->_nb_comments_with_this_id_device = $nb_comments_with_this_id_device;
 	}
+
+
 
 
 
@@ -125,7 +171,7 @@ class SupportComment extends \lib\Entity {
 			$json['visibility'] = $this->getVisibility();
 		if($this->getPublic()!=null)
 			$json['public'] = $this->getPublic();
-		
+
 		if($this->getAndroid_app_version_code()!=null)
 			$json['android_app_version_code'] = $this->getAndroid_app_version_code();
 		if($this->getAndroid_app_version_name()!=null)
@@ -135,6 +181,15 @@ class SupportComment extends \lib\Entity {
 
 		if($this->getAndroid_device_version_sdk()!=null)
 			$json['android_device_version_sdk'] = $this->getAndroid_device_version_sdk();
+		if($this->getAndroid_device_model()!=null)
+			$json['android_device_model'] = $this->getAndroid_device_model();
+		if($this->getAndroid_device_manufacturer()!=null)
+			$json['android_device_manufacturer'] = $this->getAndroid_device_manufacturer();
+		if($this->getAndroid_device_display_language()!=null)
+			$json['android_device_display_language'] = $this->getAndroid_device_display_language();
+		if($this->getAndroid_device_country()!=null)
+			$json['android_device_country'] = $this->getAndroid_device_country();
+
 		if($this->getNb_comments_with_this_id_device()!=null)
 			$json['nb_comments_with_this_id_device'] = $this->getNb_comments_with_this_id_device();
 		return $json;
