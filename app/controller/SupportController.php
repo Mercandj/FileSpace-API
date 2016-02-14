@@ -136,6 +136,13 @@ class SupportController extends \lib\Controller {
 			$json['succeed'] = false;
 		}
 
+		$android_app_notification_id = '';
+		if(HTTPRequest::postExist('android_app_notification_id')) {
+			$android_app_notification_id = HTTPRequest::postData('android_app_notification_id');
+		} else {
+			$json['succeed'] = false;
+		}
+
 		$android_device_version_sdk = '';
 		if(HTTPRequest::postExist('android_device_version_sdk')) {
 			$android_device_version_sdk = HTTPRequest::postData('android_device_version_sdk');
@@ -151,6 +158,7 @@ class SupportController extends \lib\Controller {
 			'date_creation' => date('Y-m-d H:i:s'),
 			'android_app_version_code' => $android_app_version_code,
 			'android_app_version_name' => $android_app_version_name,
+			'android_app_notification_id' => $android_app_notification_id,
 			'android_device_version_sdk' => $android_device_version_sdk
 			));
 		$supportManager = $this->getManagerof('Support');

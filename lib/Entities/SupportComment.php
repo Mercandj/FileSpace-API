@@ -12,6 +12,7 @@ class SupportComment extends \lib\Entity {
 	$_public,
 	$_android_app_version_code,
 	$_android_app_version_name,
+	$_android_app_notification_id,
 	$_android_device_version_sdk,
 	$_nb_comments_with_this_id_device;
 
@@ -42,6 +43,9 @@ class SupportComment extends \lib\Entity {
 	}
 	public function getAndroid_app_version_name() {
 		return $this->_android_app_version_name;
+	}
+	public function getAndroid_app_notification_id() {
+		return $this->_android_app_notification_id;
 	}
 	public function getAndroid_device_version_sdk() {
 		return $this->_android_device_version_sdk;
@@ -87,6 +91,10 @@ class SupportComment extends \lib\Entity {
 		if(!empty($android_app_version_name))
 			$this->_android_app_version_name = $android_app_version_name;
 	}
+	public function setAndroid_app_notification_id($android_app_notification_id) {
+		if(!empty($android_app_notification_id))
+			$this->_android_app_notification_id = $android_app_notification_id;
+	}
 	public function setAndroid_device_version_sdk($android_device_version_sdk) {
 		if(!empty($android_device_version_sdk))
 			$this->_android_device_version_sdk = $android_device_version_sdk;
@@ -117,10 +125,14 @@ class SupportComment extends \lib\Entity {
 			$json['visibility'] = $this->getVisibility();
 		if($this->getPublic()!=null)
 			$json['public'] = $this->getPublic();
+		
 		if($this->getAndroid_app_version_code()!=null)
 			$json['android_app_version_code'] = $this->getAndroid_app_version_code();
 		if($this->getAndroid_app_version_name()!=null)
 			$json['android_app_version_name'] = $this->getAndroid_app_version_name();
+		if($this->getAndroid_app_notification_id()!=null)
+			$json['android_app_notification_id'] = $this->getAndroid_app_notification_id();
+
 		if($this->getAndroid_device_version_sdk()!=null)
 			$json['android_device_version_sdk'] = $this->getAndroid_device_version_sdk();
 		if($this->getNb_comments_with_this_id_device()!=null)
