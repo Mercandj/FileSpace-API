@@ -45,7 +45,6 @@ class PushDeviceController extends \lib\Controller {
 		$pushDevice = new PushDevice(array(
 			'id'=> 0,
 			'id_gcm' => $id_gcm,
-			'is_dev_response' => intval($is_dev_response),
 			'content' => $content,
 			'date_creation' => date('Y-m-d H:i:s'),
 
@@ -59,8 +58,6 @@ class PushDeviceController extends \lib\Controller {
 			$pushDeviceManager->add($pushDevice);
 			$json['debug'] = 'Gcm updated.';
 		}
-
-		$json['result'] = $result;
 
 		HTTPResponse::send(json_encode($json));
 	}
