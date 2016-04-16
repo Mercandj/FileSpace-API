@@ -4,7 +4,7 @@ use \lib\Entities\PushDevice;
 use \lib\HTTPRequest;
 use \lib\HTTPResponse;
 
-class PushController extends \lib\Controller {
+class PushDeviceController extends \lib\Controller {
 
 	/**
 	* @uri    /push/device/add
