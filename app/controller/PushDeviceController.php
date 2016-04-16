@@ -53,10 +53,10 @@ class PushDeviceController extends \lib\Controller {
 			));
 
 		$pushDeviceManager = $this->getManagerof('PushDevice');
-		$json['debug'] = 'Gcm not updated.';
-		if($pushDeviceManager->getByIdGcm($id_gcm) != NULL) {
+		$json['debug'] = 'Gcm not updated id_gcm=' . $id_gcm . ' android_app_version_code=' . $android_app_version_code;
+		if($pushDeviceManager->getByIdGcm($id_gcm) == NULL) {
 			$pushDeviceManager->add($pushDevice);
-			$json['debug'] = 'Gcm updated.';
+			$json['debug'] = 'Gcm updated id_gcm=' . $id_gcm . ' android_app_version_code=' . $android_app_version_code;
 		}
 
 		HTTPResponse::send(json_encode($json));
