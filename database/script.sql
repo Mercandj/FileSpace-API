@@ -283,6 +283,29 @@ ENGINE = MyISAM;
 SHOW WARNINGS;
 
 -- -----------------------------------------------------
+-- Table `Push_Device` (notification)
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `Push_Device` ;
+
+SHOW WARNINGS;
+CREATE TABLE IF NOT EXISTS `Push_User` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `id_gcm` VARCHAR(600) NULL,
+  `location` VARCHAR(500) NULL,
+  `visibility` TINYINT NOT NULL DEFAULT 1,
+  `public` TINYINT NOT NULL DEFAULT 0,
+  `date_creation` DATETIME NULL,
+  `date_update` DATETIME NULL,
+  `content` VARCHAR(999) NULL,
+  `description` VARCHAR(999) NULL,
+  `android_app_version_code` VARCHAR(45) NULL,
+  `android_app_version_name` VARCHAR(45) NULL,
+  PRIMARY KEY (`id`))
+ENGINE = MyISAM;
+
+SHOW WARNINGS;
+
+-- -----------------------------------------------------
 -- Table `Server_Daemon`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `Server_Daemon` ;
