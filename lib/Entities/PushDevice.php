@@ -8,8 +8,9 @@ class PushDevice extends \lib\Entity {
 	$_content,
 	$_date_creation,
 	$_visibility,
-	$_public;
-
+	$_public,
+	$_android_app_version_code,
+	$_android_app_version_name;
 
 
 	public function getId() {
@@ -36,7 +37,6 @@ class PushDevice extends \lib\Entity {
 	public function getAndroid_app_version_name() {
 		return $this->_android_app_version_name;
 	}
-
 
 
 	public function setId($id){
@@ -71,8 +71,6 @@ class PushDevice extends \lib\Entity {
 		if(!empty($android_app_version_name))
 			$this->_android_app_version_name = $android_app_version_name;
 	}
-
-
 
 
 	public function isValid() {
