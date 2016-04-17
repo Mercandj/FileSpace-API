@@ -13,41 +13,38 @@ class DeviceController extends \lib\Controller {
 	*/
 	public function addOrUpdate() {
 		$json['succeed'] = true;
-		
+
 		$operating_system = '';
-		if(HTTPRequest::postExist('operating_system')) {
-			$operating_system = HTTPRequest::postData('operating_system');
-		} else {
-			$json['succeed'] = false;
-		}
+		if(HTTPRequest::postExist('operating_system'))						$operating_system = HTTPRequest::postData('operating_system');
+		else 																$json['succeed'] = false;
 
 		$content = '';
-		if(HTTPRequest::postExist('content')) {
-			$content = HTTPRequest::postData('content');
-		} else {
-			$json['succeed'] = false;
-		}
+		if(HTTPRequest::postExist('content')) 								$content = HTTPRequest::postData('content');
+		else																$json['succeed'] = false;
 
 		$android_app_gcm_id = '';
-		if(HTTPRequest::postExist('android_app_gcm_id')) {
-			$android_app_gcm_id = HTTPRequest::postData('android_app_gcm_id');
-		} else {
-			$json['succeed'] = false;
-		}
+		if(HTTPRequest::postExist('android_app_gcm_id')) 					$android_app_gcm_id = HTTPRequest::postData('android_app_gcm_id');
+		else																$json['succeed'] = false;
 
 		$android_app_version_code = '';
-		if(HTTPRequest::postExist('android_app_version_code')) {
-			$android_app_version_code = HTTPRequest::postData('android_app_version_code');
-		} else {
-			$json['succeed'] = false;
-		}
+		if(HTTPRequest::postExist('android_app_version_code'))				$android_app_version_code = HTTPRequest::postData('android_app_version_code');
+		else																$json['succeed'] = false;
 
 		$android_app_version_name = '';
-		if(HTTPRequest::postExist('android_app_version_name')) {
-			$android_app_version_name = HTTPRequest::postData('android_app_version_name');
-		} else {
-			$json['succeed'] = false;
-		}
+		if(HTTPRequest::postExist('android_app_version_name'))				$android_app_version_name = HTTPRequest::postData('android_app_version_name');
+		else																$json['succeed'] = false;
+
+		$android_device_display_language = '';
+		if(HTTPRequest::postExist('android_device_display_language'))		$android_device_display_language = HTTPRequest::postData('android_device_display_language');
+		else																$json['succeed'] = false;
+
+		$android_device_country = '';
+		if(HTTPRequest::postExist('android_device_country'))				$android_device_country = HTTPRequest::postData('android_device_country');
+		else																$json['succeed'] = false;
+
+		$android_device_version_sdk = '';
+		if(HTTPRequest::postExist('android_device_version_sdk'))			$android_device_version_sdk = HTTPRequest::postData('android_device_version_sdk');
+		else																$json['succeed'] = false;
 
 		$device = new Device(array(
 			'id'=> 0,
@@ -57,14 +54,17 @@ class DeviceController extends \lib\Controller {
 			'operating_system' => $operating_system,
 			'android_app_gcm_id' => $android_app_gcm_id,
 			'android_app_version_code' => $android_app_version_code,
-			'android_app_version_name' => $android_app_version_name
+			'android_app_version_name' => $android_app_version_name,
+			'android_device_display_language' => $android_device_display_language,
+			'android_device_country' => $android_device_country,
+			'android_device_version_sdk' => $android_device_version_sdk
 			));
 
 		$deviceManager = $this->getManagerof('Device');
-		$json['debug'] = 'Gcm not updated android_app_gcm_id=' . $android_app_gcm_id . ' android_app_version_code=' . $android_app_version_code;
+		$json['debug'] = 'Gcm not updated.';
 		if($deviceManager->getByIdGcm($android_app_gcm_id) == NULL) {
 			$deviceManager->add($device);
-			$json['debug'] = 'Gcm updated id_gcm=' . $android_app_gcm_id . ' android_app_version_code=' . $android_app_version_code;
+			$json['debug'] = 'Gcm updated.';
 		}
 
 		HTTPResponse::send(json_encode($json));

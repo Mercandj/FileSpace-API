@@ -7,18 +7,21 @@ class DeviceManager extends \lib\Manager {
 
 	public function add(Device $device) {
 
-		$to_insert['content'] 							= $device->getContent();
-		$to_insert['date_creation'] 					= $device->getDate_creation();
-		$to_insert['visibility'] 						= intval($device->getVisibility());
-		$to_insert['public'] 							= intval($device->getPublic());
+		$to_insert['content'] 								= $device->getContent();
+		$to_insert['date_creation'] 						= $device->getDate_creation();
+		$to_insert['visibility'] 							= intval($device->getVisibility());
+		$to_insert['public'] 								= intval($device->getPublic());
 
-		if(empty($to_insert['visibility'])) 			$to_insert['visibility'] = 1;
-		if(empty($to_insert['public'])) 				$to_insert['public'] = 0;
+		if(empty($to_insert['visibility'])) 				$to_insert['visibility'] = 1;
+		if(empty($to_insert['public'])) 					$to_insert['public'] = 0;
 
-		$to_insert['operating_system'] 					= $device->getOperating_system();
-		$to_insert['android_app_gcm_id'] 				= $device->getAndroid_app_gcm_id();
-		$to_insert['android_app_version_code'] 			= $device->getAndroid_app_version_code();
-		$to_insert['android_app_version_name'] 			= $device->getAndroid_app_version_name();
+		$to_insert['operating_system'] 						= $device->getOperating_system();
+		$to_insert['android_app_gcm_id'] 					= $device->getAndroid_app_gcm_id();
+		$to_insert['android_app_version_code'] 				= $device->getAndroid_app_version_code();
+		$to_insert['android_app_version_name'] 				= $device->getAndroid_app_version_name();
+		$to_insert['android_device_display_language'] 		= $device->getAndroid_device_display_language();
+		$to_insert['android_device_country'] 				= $device->getAndroid_device_country();
+		$to_insert['android_device_version_sdk'] 			= $device->getAndroid_device_version_sdk();
 
 		$req_str = 'INSERT INTO `device` (';
 		$numItems = count($to_insert);
@@ -43,15 +46,18 @@ class DeviceManager extends \lib\Manager {
 		
 		$req = $this->_db->prepare($req_str);
 
-		$req->bindParam(':content',							$to_insert['content'],							\PDO::PARAM_STR);
-		$req->bindParam(':date_creation',					$to_insert['date_creation'],					\PDO::PARAM_STR);
-		$req->bindParam(':visibility',						$to_insert['visibility'],						\PDO::PARAM_INT);
-		$req->bindParam(':public',							$to_insert['public'],							\PDO::PARAM_INT);
+		$req->bindParam(':content',								$to_insert['content'],								\PDO::PARAM_STR);
+		$req->bindParam(':date_creation',						$to_insert['date_creation'],						\PDO::PARAM_STR);
+		$req->bindParam(':visibility',							$to_insert['visibility'],							\PDO::PARAM_INT);
+		$req->bindParam(':public',								$to_insert['public'],								\PDO::PARAM_INT);
 
-		$req->bindParam(':operating_system',				$to_insert['operating_system'],					\PDO::PARAM_STR);
-		$req->bindParam(':android_app_gcm_id',				$to_insert['android_app_gcm_id'],				\PDO::PARAM_STR);
-		$req->bindParam(':android_app_version_code',		$to_insert['android_app_version_code'],			\PDO::PARAM_STR);
-		$req->bindParam(':android_app_version_name',		$to_insert['android_app_version_name'],			\PDO::PARAM_STR);
+		$req->bindParam(':operating_system',					$to_insert['operating_system'],						\PDO::PARAM_STR);
+		$req->bindParam(':android_app_gcm_id',					$to_insert['android_app_gcm_id'],					\PDO::PARAM_STR);
+		$req->bindParam(':android_app_version_code',			$to_insert['android_app_version_code'],				\PDO::PARAM_STR);
+		$req->bindParam(':android_app_version_name',			$to_insert['android_app_version_name'],				\PDO::PARAM_STR);
+		$req->bindParam(':android_device_display_language',		$to_insert['android_device_display_language'],		\PDO::PARAM_STR);
+		$req->bindParam(':android_device_country',				$to_insert['android_device_country'],				\PDO::PARAM_STR);
+		$req->bindParam(':android_device_version_sdk',			$to_insert['android_device_version_sdk'],			\PDO::PARAM_STR);
 		$req->execute();
 		$req->closeCursor();
 	}

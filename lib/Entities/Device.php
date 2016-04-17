@@ -11,7 +11,10 @@ class Device extends \lib\Entity {
 	$_operating_system,
 	$_android_app_gcm_id,
 	$_android_app_version_code,
-	$_android_app_version_name;
+	$_android_app_version_name,
+	$_android_device_display_language,
+	$_android_device_country,
+	$_android_device_version_sdk;
 
 
 	public function getId() {
@@ -41,9 +44,18 @@ class Device extends \lib\Entity {
 	public function getAndroid_app_version_name() {
 		return $this->_android_app_version_name;
 	}
+	public function getAndroid_device_display_language() {
+		return $this->_android_device_display_language;
+	}
+	public function getAndroid_device_country() {
+		return $this->_android_device_country;
+	}
+	public function getAndroid_device_version_sdk() {
+		return $this->_android_device_version_sdk;
+	}
 
 
-	public function setId($id){
+	public function setId($id) {
 		if(!empty($id))
 			$this->_id = $id;
 	}
@@ -79,6 +91,18 @@ class Device extends \lib\Entity {
 		if(!empty($android_app_version_name))
 			$this->_android_app_version_name = $android_app_version_name;
 	}
+	public function setAndroid_device_display_language($android_device_display_language) {
+		if(!empty($android_device_display_language))
+			$this->_android_device_display_language = $android_device_display_language;
+	}
+	public function setAndroid_device_country($android_device_country) {
+		if(!empty($android_device_country))
+			$this->_android_device_country = $android_device_country;
+	}
+	public function setAndroid_device_version_sdk($android_device_version_sdk) {
+		if(!empty($android_device_version_sdk))
+			$this->_android_device_version_sdk = $android_device_version_sdk;
+	}
 
 
 	public function isValid() {
@@ -103,6 +127,12 @@ class Device extends \lib\Entity {
 			$json['android_app_version_code'] = $this->getAndroid_app_version_code();
 		if($this->getAndroid_app_version_name()!=null)
 			$json['android_app_version_name'] = $this->getAndroid_app_version_name();
+		if($this->getAndroid_device_display_language()!=null)
+			$json['android_device_display_language'] = $this->getAndroid_device_display_language();
+		if($this->getAndroid_device_country()!=null)
+			$json['android_device_country'] = $this->getAndroid_device_country();
+		if($this->getAndroid_device_version_sdk()!=null)
+			$json['android_device_version_sdk'] = $this->getAndroid_device_version_sdk();
 		return $json;
 	}
 }
