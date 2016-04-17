@@ -8,7 +8,7 @@ class Device extends \lib\Entity {
 	$_date_creation,
 	$_visibility,
 	$_public,
-	$_platform,
+	$_operating_system,
 	$_android_app_gcm_id,
 	$_android_app_version_code,
 	$_android_app_version_name;
@@ -29,8 +29,8 @@ class Device extends \lib\Entity {
 	public function getPublic() {
 		return $this->_public;
 	}
-	public function getPlatform() {
-		return $this->_platform;
+	public function getOperating_system() {
+		return $this->_operating_system;
 	}
 	public function getAndroid_app_gcm_id() {
 		return $this->_android_app_gcm_id;
@@ -63,9 +63,9 @@ class Device extends \lib\Entity {
 		if(!empty($public))
 			$this->_public = $public;
 	}
-	public function setPlatform($platform) {
-		if(!empty($platform))
-			$this->_platform = $platform;
+	public function setOperating_system($operating_system) {
+		if(!empty($operating_system))
+			$this->_operating_system = $operating_system;
 	}
 	public function setAndroid_app_gcm_id($android_app_gcm_id) {
 		if(!empty($android_app_gcm_id))
@@ -95,8 +95,8 @@ class Device extends \lib\Entity {
 		if($this->getPublic()!=null)
 			$json['public'] = $this->getPublic();
 
-		if($this->getPlatform()!=null)
-			$json['platform'] = $this->getPlatform();
+		if($this->getOperating_system()!=null)
+			$json['operating_system'] = $this->getOperating_system();
 		if($this->getAndroid_app_gcm_id()!=null)
 			$json['android_app_gcm_id'] = $this->getAndroid_app_gcm_id();
 		if($this->getAndroid_app_version_code()!=null)

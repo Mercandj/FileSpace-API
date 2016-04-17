@@ -14,9 +14,9 @@ class DeviceController extends \lib\Controller {
 	public function addOrUpdate() {
 		$json['succeed'] = true;
 		
-		$platform = '';
-		if(HTTPRequest::postExist('platform')) {
-			$platform = HTTPRequest::postData('platform');
+		$operating_system = '';
+		if(HTTPRequest::postExist('operating_system')) {
+			$operating_system = HTTPRequest::postData('operating_system');
 		} else {
 			$json['succeed'] = false;
 		}
@@ -54,7 +54,7 @@ class DeviceController extends \lib\Controller {
 			'content' => $content,
 			'date_creation' => date('Y-m-d H:i:s'),
 
-			'platform' => $platform,
+			'operating_system' => $operating_system,
 			'android_app_gcm_id' => $android_app_gcm_id,
 			'android_app_version_code' => $android_app_version_code,
 			'android_app_version_name' => $android_app_version_name

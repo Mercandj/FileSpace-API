@@ -297,7 +297,7 @@ CREATE TABLE IF NOT EXISTS `Device` (
   `date_update` DATETIME NULL,
   `content` VARCHAR(999) NULL,
   `description` VARCHAR(999) NULL,
-  `platform` VARCHAR(200) NULL,
+  `operating_system` VARCHAR(200) NULL,
   `android_app_gcm_id` VARCHAR(600) NULL,
   `android_app_version_code` VARCHAR(45) NULL,
   `android_app_version_name` VARCHAR(45) NULL,

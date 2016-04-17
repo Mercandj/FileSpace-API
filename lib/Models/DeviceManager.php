@@ -15,7 +15,7 @@ class DeviceManager extends \lib\Manager {
 		if(empty($to_insert['visibility'])) 			$to_insert['visibility'] = 1;
 		if(empty($to_insert['public'])) 				$to_insert['public'] = 0;
 
-		$to_insert['platform'] 							= $device->getPlatform();
+		$to_insert['operating_system'] 					= $device->getOperating_system();
 		$to_insert['android_app_gcm_id'] 				= $device->getAndroid_app_gcm_id();
 		$to_insert['android_app_version_code'] 			= $device->getAndroid_app_version_code();
 		$to_insert['android_app_version_name'] 			= $device->getAndroid_app_version_name();
@@ -48,7 +48,7 @@ class DeviceManager extends \lib\Manager {
 		$req->bindParam(':visibility',						$to_insert['visibility'],						\PDO::PARAM_INT);
 		$req->bindParam(':public',							$to_insert['public'],							\PDO::PARAM_INT);
 
-		$req->bindParam(':platform',						$to_insert['platform'],							\PDO::PARAM_STR);
+		$req->bindParam(':operating_system',				$to_insert['operating_system'],					\PDO::PARAM_STR);
 		$req->bindParam(':android_app_gcm_id',				$to_insert['android_app_gcm_id'],				\PDO::PARAM_STR);
 		$req->bindParam(':android_app_version_code',		$to_insert['android_app_version_code'],			\PDO::PARAM_STR);
 		$req->bindParam(':android_app_version_name',		$to_insert['android_app_version_name'],			\PDO::PARAM_STR);
