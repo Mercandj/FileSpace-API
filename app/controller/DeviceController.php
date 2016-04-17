@@ -61,10 +61,10 @@ class DeviceController extends \lib\Controller {
 			));
 
 		$deviceManager = $this->getManagerof('Device');
-		$json['debug'] = 'Gcm not updated id_gcm=' . $id_gcm . ' android_app_version_code=' . $android_app_version_code;
-		if($deviceManager->getByIdGcm($id_gcm) == NULL) {
+		$json['debug'] = 'Gcm not updated android_app_gcm_id=' . $android_app_gcm_id . ' android_app_version_code=' . $android_app_version_code;
+		if($deviceManager->getByIdGcm($android_app_gcm_id) == NULL) {
 			$deviceManager->add($device);
-			$json['debug'] = 'Gcm updated id_gcm=' . $id_gcm . ' android_app_version_code=' . $android_app_version_code;
+			$json['debug'] = 'Gcm updated id_gcm=' . $android_app_gcm_id . ' android_app_version_code=' . $android_app_version_code;
 		}
 
 		HTTPResponse::send(json_encode($json));
