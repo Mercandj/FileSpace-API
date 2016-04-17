@@ -27,7 +27,7 @@ class DeviceController extends \lib\Controller {
 		} else {
 			$json['succeed'] = false;
 		}
-		
+
 		$android_app_gcm_id = '';
 		if(HTTPRequest::postExist('android_app_gcm_id')) {
 			$android_app_gcm_id = HTTPRequest::postData('android_app_gcm_id');
@@ -49,7 +49,7 @@ class DeviceController extends \lib\Controller {
 			$json['succeed'] = false;
 		}
 
-		$Device = new Device(array(
+		$device = new Device(array(
 			'id'=> 0,
 			'content' => $content,
 			'date_creation' => date('Y-m-d H:i:s'),
