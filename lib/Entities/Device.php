@@ -1,23 +1,21 @@
 <?php
 namespace lib\Entities;
 
-class PushDevice extends \lib\Entity {
+class Device extends \lib\Entity {
 
 	protected $_id,
-	$_id_gcm,
 	$_content,
 	$_date_creation,
 	$_visibility,
 	$_public,
+	$_platform,
+	$_android_app_gcm_id,
 	$_android_app_version_code,
 	$_android_app_version_name;
 
 
 	public function getId() {
 		return $this->_id;
-	}
-	public function getId_gcm() {
-		return $this->_id_gcm;
 	}
 	public function getContent() {
 		return $this->_content;
@@ -31,6 +29,12 @@ class PushDevice extends \lib\Entity {
 	public function getPublic() {
 		return $this->_public;
 	}
+	public function getPlatform() {
+		return $this->_platform;
+	}
+	public function getAndroid_app_gcm_id() {
+		return $this->_android_app_gcm_id;
+	}
 	public function getAndroid_app_version_code() {
 		return $this->_android_app_version_code;
 	}
@@ -42,10 +46,6 @@ class PushDevice extends \lib\Entity {
 	public function setId($id){
 		if(!empty($id))
 			$this->_id = $id;
-	}
-	public function setId_gcm($id_gcm) {
-		if(!empty($id_gcm))
-			$this->_id_gcm = $id_gcm;
 	}
 	public function setContent($content) {
 		if(!empty($content))
@@ -63,6 +63,14 @@ class PushDevice extends \lib\Entity {
 		if(!empty($public))
 			$this->_public = $public;
 	}
+	public function setPlatform($platform) {
+		if(!empty($platform))
+			$this->_platform = $platform;
+	}
+	public function setAndroid_app_gcm_id($android_app_gcm_id) {
+		if(!empty($android_app_gcm_id))
+			$this->_android_app_gcm_id = $android_app_gcm_id;
+	}
 	public function setAndroid_app_version_code($android_app_version_code) {
 		if(!empty($android_app_version_code))
 			$this->_android_app_version_code = $android_app_version_code;
@@ -78,12 +86,6 @@ class PushDevice extends \lib\Entity {
 	}
 	public function toArray() {
 		$json['id'] = $this->getId();
-		if($this->getId_gcm()!=null) {
-			$json['id_gcm'] = $this->getId_gcm();
-		}
-		if($this->getIs_dev_response()!=null) {
-			$json['is_dev_response'] = filter_var($this->getIs_dev_response(), FILTER_VALIDATE_BOOLEAN);
-		}
 		if($this->getContent()!=null)
 			$json['content'] = $this->getContent();
 		if($this->getDate_creation()!=null)
@@ -93,6 +95,10 @@ class PushDevice extends \lib\Entity {
 		if($this->getPublic()!=null)
 			$json['public'] = $this->getPublic();
 
+		if($this->getPlatform()!=null)
+			$json['platform'] = $this->getPlatform();
+		if($this->getAndroid_app_gcm_id()!=null)
+			$json['android_app_gcm_id'] = $this->getAndroid_app_gcm_id();
 		if($this->getAndroid_app_version_code()!=null)
 			$json['android_app_version_code'] = $this->getAndroid_app_version_code();
 		if($this->getAndroid_app_version_name()!=null)

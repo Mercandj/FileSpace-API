@@ -1,25 +1,26 @@
 <?php
 namespace lib\Models;
-use \lib\Entities\PushDevice;
+use \lib\Entities\Device;
 
-class PushDeviceManager extends \lib\Manager {
+class DeviceManager extends \lib\Manager {
 	protected static $instance;
 
-	public function add(PushDevice $pushDevice) {
+	public function add(Device $device) {
 
-		$to_insert['id_gcm'] 							= $pushDevice->getId_gcm();
-		$to_insert['content'] 							= $pushDevice->getContent();
-		$to_insert['date_creation'] 					= $pushDevice->getDate_creation();
-		$to_insert['visibility'] 						= intval($pushDevice->getVisibility());
-		$to_insert['public'] 							= intval($pushDevice->getPublic());
+		$to_insert['content'] 							= $device->getContent();
+		$to_insert['date_creation'] 					= $device->getDate_creation();
+		$to_insert['visibility'] 						= intval($device->getVisibility());
+		$to_insert['public'] 							= intval($device->getPublic());
 
 		if(empty($to_insert['visibility'])) 			$to_insert['visibility'] = 1;
 		if(empty($to_insert['public'])) 				$to_insert['public'] = 0;
 
-		$to_insert['android_app_version_code'] 			= $pushDevice->getAndroid_app_version_code();
-		$to_insert['android_app_version_name'] 			= $pushDevice->getAndroid_app_version_name();
+		$to_insert['platform'] 							= $device->getPlatform();
+		$to_insert['android_app_gcm_id'] 				= $device->getAndroid_app_gcm_id();
+		$to_insert['android_app_version_code'] 			= $device->getAndroid_app_version_code();
+		$to_insert['android_app_version_name'] 			= $device->getAndroid_app_version_name();
 
-		$req_str = 'INSERT INTO `push_device` (';
+		$req_str = 'INSERT INTO `device` (';
 		$numItems = count($to_insert);
 		$i = 0;
 		foreach ($to_insert as $key => $value) {
@@ -42,12 +43,13 @@ class PushDeviceManager extends \lib\Manager {
 		
 		$req = $this->_db->prepare($req_str);
 
-		$req->bindParam(':id_gcm',							$to_insert['id_gcm'],							\PDO::PARAM_STR);
 		$req->bindParam(':content',							$to_insert['content'],							\PDO::PARAM_STR);
 		$req->bindParam(':date_creation',					$to_insert['date_creation'],					\PDO::PARAM_STR);
 		$req->bindParam(':visibility',						$to_insert['visibility'],						\PDO::PARAM_INT);
 		$req->bindParam(':public',							$to_insert['public'],							\PDO::PARAM_INT);
 
+		$req->bindParam(':platform',						$to_insert['platform'],							\PDO::PARAM_STR);
+		$req->bindParam(':android_app_gcm_id',				$to_insert['android_app_gcm_id'],				\PDO::PARAM_STR);
 		$req->bindParam(':android_app_version_code',		$to_insert['android_app_version_code'],			\PDO::PARAM_STR);
 		$req->bindParam(':android_app_version_name',		$to_insert['android_app_version_name'],			\PDO::PARAM_STR);
 		$req->execute();
@@ -55,7 +57,7 @@ class PushDeviceManager extends \lib\Manager {
 	}
 
 	public function getByIdGcm($id_gcm) {
-		$req = $this->_db->prepare('SELECT id,id_gcm,date_creation FROM push_device WHERE id_gcm = :id_gcm');
+		$req = $this->_db->prepare('SELECT id,android_app_gcm_id,date_creation FROM device WHERE id_gcm = :id_gcm');
     	$req->bindParam(':id_gcm', $id_gcm, \PDO::PARAM_STR);
     	$req->execute();
 

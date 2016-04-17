@@ -1,22 +1,22 @@
 <?php
 namespace app\controller;
-use \lib\Entities\PushDevice;
+use \lib\Entities\Device;
 use \lib\HTTPRequest;
 use \lib\HTTPResponse;
 
-class PushDeviceController extends \lib\Controller {
+class DeviceController extends \lib\Controller {
 
 	/**
-	* @uri    /push/device/add
+	* @uri    /device/add
 	* @method POST
 	* @return JSON with info about server Info
 	*/
 	public function addOrUpdate() {
 		$json['succeed'] = true;
 		
-		$id_gcm = '';
-		if(HTTPRequest::postExist('id_gcm')) {
-			$id_gcm = HTTPRequest::postData('id_gcm');
+		$platform = '';
+		if(HTTPRequest::postExist('platform')) {
+			$platform = HTTPRequest::postData('platform');
 		} else {
 			$json['succeed'] = false;
 		}
@@ -24,6 +24,13 @@ class PushDeviceController extends \lib\Controller {
 		$content = '';
 		if(HTTPRequest::postExist('content')) {
 			$content = HTTPRequest::postData('content');
+		} else {
+			$json['succeed'] = false;
+		}
+		
+		$android_app_gcm_id = '';
+		if(HTTPRequest::postExist('android_app_gcm_id')) {
+			$android_app_gcm_id = HTTPRequest::postData('android_app_gcm_id');
 		} else {
 			$json['succeed'] = false;
 		}
@@ -42,20 +49,21 @@ class PushDeviceController extends \lib\Controller {
 			$json['succeed'] = false;
 		}
 
-		$pushDevice = new PushDevice(array(
+		$Device = new Device(array(
 			'id'=> 0,
-			'id_gcm' => $id_gcm,
 			'content' => $content,
 			'date_creation' => date('Y-m-d H:i:s'),
 
+			'platform' => $platform,
+			'android_app_gcm_id' => $android_app_gcm_id,
 			'android_app_version_code' => $android_app_version_code,
 			'android_app_version_name' => $android_app_version_name
 			));
 
-		$pushDeviceManager = $this->getManagerof('PushDevice');
+		$deviceManager = $this->getManagerof('Device');
 		$json['debug'] = 'Gcm not updated id_gcm=' . $id_gcm . ' android_app_version_code=' . $android_app_version_code;
-		if($pushDeviceManager->getByIdGcm($id_gcm) == NULL) {
-			$pushDeviceManager->add($pushDevice);
+		if($deviceManager->getByIdGcm($id_gcm) == NULL) {
+			$deviceManager->add($device);
 			$json['debug'] = 'Gcm updated id_gcm=' . $id_gcm . ' android_app_version_code=' . $android_app_version_code;
 		}
 

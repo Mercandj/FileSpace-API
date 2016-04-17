@@ -283,14 +283,13 @@ ENGINE = MyISAM;
 SHOW WARNINGS;
 
 -- -----------------------------------------------------
--- Table `Push_Device` (notification)
+-- Table `Device` (notification)
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `Push_Device` ;
+DROP TABLE IF EXISTS `Device` ;
 
 SHOW WARNINGS;
-CREATE TABLE IF NOT EXISTS `Push_Device` (
+CREATE TABLE IF NOT EXISTS `Device` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `id_gcm` VARCHAR(600) NULL,
   `location` VARCHAR(500) NULL,
   `visibility` TINYINT NOT NULL DEFAULT 1,
   `public` TINYINT NOT NULL DEFAULT 0,
@@ -298,8 +297,21 @@ CREATE TABLE IF NOT EXISTS `Push_Device` (
   `date_update` DATETIME NULL,
   `content` VARCHAR(999) NULL,
   `description` VARCHAR(999) NULL,
+  `platform` VARCHAR(200) NULL,
+  `android_app_gcm_id` VARCHAR(600) NULL,
   `android_app_version_code` VARCHAR(45) NULL,
   `android_app_version_name` VARCHAR(45) NULL,
+  `android_app_package` VARCHAR(200) NULL,
+  `android_device_model` VARCHAR(100) NULL,
+  `android_device_manufacturer` VARCHAR(200) NULL,
+  `android_device_version_os` VARCHAR(100) NULL,
+  `android_device_display` VARCHAR(100) NULL,
+  `android_device_bootloader` VARCHAR(100) NULL,
+  `android_device_display_language` VARCHAR(100) NULL,
+  `android_device_country` VARCHAR(190) NULL,
+  `android_device_radio_version` VARCHAR(100) NULL,
+  `android_device_version_sdk` VARCHAR(60) NULL,
+  `android_device_version_incremental` VARCHAR(100) NULL,
   PRIMARY KEY (`id`))
 ENGINE = MyISAM;
 
