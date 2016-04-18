@@ -34,8 +34,8 @@ class DeviceController extends \lib\Controller {
 		if(HTTPRequest::postExist('android_app_version_name'))				$android_app_version_name = HTTPRequest::postData('android_app_version_name');
 		else																$json['succeed'] = false;
 
-		$android_device_display_language = '';
-		if(HTTPRequest::postExist('android_device_language'))				$android_device_display_language = HTTPRequest::postData('android_device_language');
+		$android_device_language = '';
+		if(HTTPRequest::postExist('android_device_language'))				$android_device_language = HTTPRequest::postData('android_device_language');
 		else																$json['succeed'] = false;
 
 		$android_device_display_language = '';
