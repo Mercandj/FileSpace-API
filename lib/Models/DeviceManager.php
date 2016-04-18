@@ -63,7 +63,7 @@ class DeviceManager extends \lib\Manager {
 		$req->bindParam(':android_device_display_language',		$to_insert['android_device_display_language'],		\PDO::PARAM_STR);
 		$req->bindParam(':android_device_country',				$to_insert['android_device_country'],				\PDO::PARAM_STR);
 		$req->bindParam(':android_device_version_sdk',			$to_insert['android_device_version_sdk'],			\PDO::PARAM_STR);
-		$req->bindParam(':android_device_version_year',			$to_insert['android_device_version_year'],			\PDO::PARAM_STR);
+		$req->bindParam(':android_device_year',					$to_insert['android_device_year'],					\PDO::PARAM_STR);
 		$req->execute();
 		$req->closeCursor();
 	}
