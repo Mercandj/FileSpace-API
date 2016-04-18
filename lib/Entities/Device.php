@@ -12,9 +12,11 @@ class Device extends \lib\Entity {
 	$_android_app_gcm_id,
 	$_android_app_version_code,
 	$_android_app_version_name,
+	$_android_device_language,
 	$_android_device_display_language,
 	$_android_device_country,
-	$_android_device_version_sdk;
+	$_android_device_version_sdk,
+	$_android_device_rooted;
 
 
 	public function getId() {
@@ -44,6 +46,9 @@ class Device extends \lib\Entity {
 	public function getAndroid_app_version_name() {
 		return $this->_android_app_version_name;
 	}
+	public function getAndroid_device_language() {
+		return $this->_android_device_language;
+	}
 	public function getAndroid_device_display_language() {
 		return $this->_android_device_display_language;
 	}
@@ -52,6 +57,9 @@ class Device extends \lib\Entity {
 	}
 	public function getAndroid_device_version_sdk() {
 		return $this->_android_device_version_sdk;
+	}
+	public function getAndroid_device_rooted() {
+		return $this->_android_device_rooted;
 	}
 
 
@@ -91,6 +99,10 @@ class Device extends \lib\Entity {
 		if(!empty($android_app_version_name))
 			$this->_android_app_version_name = $android_app_version_name;
 	}
+	public function setAndroid_device_language($android_device_language) {
+		if(!empty($android_device_language))
+			$this->_android_device_language = $android_device_language;
+	}
 	public function setAndroid_device_display_language($android_device_display_language) {
 		if(!empty($android_device_display_language))
 			$this->_android_device_display_language = $android_device_display_language;
@@ -102,6 +114,10 @@ class Device extends \lib\Entity {
 	public function setAndroid_device_version_sdk($android_device_version_sdk) {
 		if(!empty($android_device_version_sdk))
 			$this->_android_device_version_sdk = $android_device_version_sdk;
+	}
+	public function setAndroid_device_rooted($android_device_rooted) {
+		if(!empty($android_device_rooted))
+			$this->_android_device_rooted = $android_device_rooted;
 	}
 
 
@@ -127,12 +143,16 @@ class Device extends \lib\Entity {
 			$json['android_app_version_code'] = $this->getAndroid_app_version_code();
 		if($this->getAndroid_app_version_name()!=null)
 			$json['android_app_version_name'] = $this->getAndroid_app_version_name();
+		if($this->getAndroid_device_language()!=null)
+			$json['android_device_language'] = $this->getAndroid_device_language();
 		if($this->getAndroid_device_display_language()!=null)
 			$json['android_device_display_language'] = $this->getAndroid_device_display_language();
 		if($this->getAndroid_device_country()!=null)
 			$json['android_device_country'] = $this->getAndroid_device_country();
 		if($this->getAndroid_device_version_sdk()!=null)
 			$json['android_device_version_sdk'] = $this->getAndroid_device_version_sdk();
+		if($this->getAndroid_device_rooted()!=null)
+			$json['android_device_rooted'] = $this->getAndroid_device_rooted();
 		return $json;
 	}
 }
