@@ -25,7 +25,7 @@ class DeviceManager extends \lib\Manager {
 		$to_insert['android_device_display_language'] 		= $device->getAndroid_device_display_language();
 		$to_insert['android_device_country'] 				= $device->getAndroid_device_country();
 		$to_insert['android_device_version_sdk'] 			= $device->getAndroid_device_version_sdk();
-		$to_insert['android_device_version_year'] 			= $device->getAndroid_device_year();
+		$to_insert['android_device_year'] 					= $device->getAndroid_device_year();
 
 		$req_str = 'INSERT INTO `device` (';
 		$numItems = count($to_insert);
