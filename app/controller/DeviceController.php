@@ -34,6 +34,22 @@ class DeviceController extends \lib\Controller {
 		if(HTTPRequest::postExist('android_app_version_name'))				$android_app_version_name = HTTPRequest::postData('android_app_version_name');
 		else																$json['succeed'] = false;
 
+		$android_device_id = '';
+		if(HTTPRequest::postExist('android_device_id'))						$android_device_id = HTTPRequest::postData('android_device_id');
+		else																$json['succeed'] = false;
+
+		$android_device_model = '';
+		if(HTTPRequest::postExist('android_device_model'))					$android_device_model = HTTPRequest::postData('android_device_model');
+		else																$json['succeed'] = false;
+
+		$android_device_manufacturer = '';
+		if(HTTPRequest::postExist('android_device_manufacturer'))			$android_device_manufacturer = HTTPRequest::postData('android_device_manufacturer');
+		else																$json['succeed'] = false;
+
+		$android_device_version_sdk = '';
+		if(HTTPRequest::postExist('android_device_version_sdk'))			$android_device_version_sdk = HTTPRequest::postData('android_device_version_sdk');
+		else																$json['succeed'] = false;
+
 		$android_device_language = '';
 		if(HTTPRequest::postExist('android_device_language'))				$android_device_language = HTTPRequest::postData('android_device_language');
 		else																$json['succeed'] = false;
@@ -46,8 +62,8 @@ class DeviceController extends \lib\Controller {
 		if(HTTPRequest::postExist('android_device_country'))				$android_device_country = HTTPRequest::postData('android_device_country');
 		else																$json['succeed'] = false;
 
-		$android_device_version_sdk = '';
-		if(HTTPRequest::postExist('android_device_version_sdk'))			$android_device_version_sdk = HTTPRequest::postData('android_device_version_sdk');
+		$android_device_year = '';
+		if(HTTPRequest::postExist('android_device_year'))					$android_device_year = HTTPRequest::postData('android_device_year');
 		else																$json['succeed'] = false;
 
 		$android_device_rooted = '';

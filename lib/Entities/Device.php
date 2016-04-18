@@ -3,20 +3,26 @@ namespace lib\Entities;
 
 class Device extends \lib\Entity {
 
-	protected $_id,
-	$_content,
-	$_date_creation,
-	$_visibility,
-	$_public,
-	$_operating_system,
-	$_android_app_gcm_id,
-	$_android_app_version_code,
-	$_android_app_version_name,
-	$_android_device_language,
-	$_android_device_display_language,
-	$_android_device_country,
-	$_android_device_version_sdk,
-	$_android_device_rooted;
+	protected $_id;
+	protected $_content;
+	protected $_date_creation;
+	protected $_visibility;
+	protected $_public;
+
+	protected $_operating_system;
+	protected $_android_app_gcm_id;
+	protected $_android_app_version_code;
+	protected $_android_app_version_name;
+
+	protected $_android_device_id;
+	protected $_android_device_model;
+	protected $_android_device_manufacturer;
+	protected $_android_device_version_sdk;
+	protected $_android_device_language;
+	protected $_android_device_display_language;
+	protected $_android_device_country;
+	protected $_android_device_year;
+	protected $_android_device_rooted;
 
 
 	public function getId() {

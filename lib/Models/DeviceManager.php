@@ -16,9 +16,11 @@ class DeviceManager extends \lib\Manager {
 		if(empty($to_insert['public'])) 					$to_insert['public'] = 0;
 
 		$to_insert['operating_system'] 						= $device->getOperating_system();
+
 		$to_insert['android_app_gcm_id'] 					= $device->getAndroid_app_gcm_id();
 		$to_insert['android_app_version_code'] 				= $device->getAndroid_app_version_code();
 		$to_insert['android_app_version_name'] 				= $device->getAndroid_app_version_name();
+		
 		$to_insert['android_device_language'] 				= $device->getAndroid_device_language();
 		$to_insert['android_device_display_language'] 		= $device->getAndroid_device_display_language();
 		$to_insert['android_device_country'] 				= $device->getAndroid_device_country();
