@@ -62,6 +62,10 @@ class DeviceController extends \lib\Controller {
 		if(HTTPRequest::postExist('android_device_country'))				$android_device_country = HTTPRequest::postData('android_device_country');
 		else																$json['succeed'] = false;
 
+		$android_device_timezone = '';
+		if(HTTPRequest::postExist('android_device_timezone'))				$android_device_timezone = HTTPRequest::postData('android_device_timezone');
+		else																$json['succeed'] = false;
+
 		$android_device_year = '';
 		if(HTTPRequest::postExist('android_device_year'))					$android_device_year = HTTPRequest::postData('android_device_year');
 		else																$json['succeed'] = false;

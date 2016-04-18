@@ -274,6 +274,7 @@ CREATE TABLE IF NOT EXISTS `Support_Comment` (
   `android_device_bootloader` VARCHAR(100) NULL,
   `android_device_display_language` VARCHAR(100) NULL,
   `android_device_country` VARCHAR(190) NULL,
+  `android_device_timezone` VARCHAR(190) NULL,
   `android_device_radio_version` VARCHAR(100) NULL,
   `android_device_version_sdk` VARCHAR(60) NULL,
   `android_device_version_incremental` VARCHAR(100) NULL,

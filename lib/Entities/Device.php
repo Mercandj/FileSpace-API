@@ -21,6 +21,7 @@ class Device extends \lib\Entity {
 	protected $_android_device_language;
 	protected $_android_device_display_language;
 	protected $_android_device_country;
+	protected $_android_device_timezone;
 	protected $_android_device_year;
 	protected $_android_device_rooted;
 
