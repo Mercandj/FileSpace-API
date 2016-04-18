@@ -14,88 +14,45 @@ class DeviceController extends \lib\Controller {
 	public function addOrUpdate() {
 		$json['succeed'] = true;
 
-		$operating_system = '';
-		if(HTTPRequest::postExist('operating_system'))						$operating_system = HTTPRequest::postData('operating_system');
-		else 																$json['succeed'] = false;
-
-		$content = '';
-		if(HTTPRequest::postExist('content')) 								$content = HTTPRequest::postData('content');
-		else																$json['succeed'] = false;
-
-		$android_app_gcm_id = '';
-		if(HTTPRequest::postExist('android_app_gcm_id')) 					$android_app_gcm_id = HTTPRequest::postData('android_app_gcm_id');
-		else																$json['succeed'] = false;
-
-		$android_app_version_code = '';
-		if(HTTPRequest::postExist('android_app_version_code'))				$android_app_version_code = HTTPRequest::postData('android_app_version_code');
-		else																$json['succeed'] = false;
-
-		$android_app_version_name = '';
-		if(HTTPRequest::postExist('android_app_version_name'))				$android_app_version_name = HTTPRequest::postData('android_app_version_name');
-		else																$json['succeed'] = false;
-
-		$android_device_id = '';
-		if(HTTPRequest::postExist('android_device_id'))						$android_device_id = HTTPRequest::postData('android_device_id');
-		else																$json['succeed'] = false;
-
-		$android_device_model = '';
-		if(HTTPRequest::postExist('android_device_model'))					$android_device_model = HTTPRequest::postData('android_device_model');
-		else																$json['succeed'] = false;
-
-		$android_device_manufacturer = '';
-		if(HTTPRequest::postExist('android_device_manufacturer'))			$android_device_manufacturer = HTTPRequest::postData('android_device_manufacturer');
-		else																$json['succeed'] = false;
-
-		$android_device_version_sdk = '';
-		if(HTTPRequest::postExist('android_device_version_sdk'))			$android_device_version_sdk = HTTPRequest::postData('android_device_version_sdk');
-		else																$json['succeed'] = false;
-
-		$android_device_language = '';
-		if(HTTPRequest::postExist('android_device_language'))				$android_device_language = HTTPRequest::postData('android_device_language');
-		else																$json['succeed'] = false;
-
-		$android_device_display_language = '';
-		if(HTTPRequest::postExist('android_device_display_language'))		$android_device_display_language = HTTPRequest::postData('android_device_display_language');
-		else																$json['succeed'] = false;
-
-		$android_device_country = '';
-		if(HTTPRequest::postExist('android_device_country'))				$android_device_country = HTTPRequest::postData('android_device_country');
-		else																$json['succeed'] = false;
-
-		$android_device_timezone = '';
-		if(HTTPRequest::postExist('android_device_timezone'))				$android_device_timezone = HTTPRequest::postData('android_device_timezone');
-		else																$json['succeed'] = false;
-
-		$android_device_year = '';
-		if(HTTPRequest::postExist('android_device_year'))					$android_device_year = HTTPRequest::postData('android_device_year');
-		else																$json['succeed'] = false;
-
-		$android_device_rooted = '';
-		if(HTTPRequest::postExist('android_device_rooted'))					$android_device_rooted = HTTPRequest::postData('android_device_rooted');
-		else																$json['succeed'] = false;
-
-
-		$inputJSON = file_get_contents('php://input');
-		$input = json_decode( $inputJSON, TRUE );
-		$operating_system = $input['operating_system'];
-		$android_app_gcm_id = $input['android_app_gcm_id'];
-		$android_app_version_code = $input['android_app_version_code'];
-		$android_app_version_name = $input['android_app_version_name'];
+		$inputJSON 							= file_get_contents('php://input');
+		$input 								= json_decode( $inputJSON, TRUE );
+		$content 							= $input['content'];
+		$description 						= $input['description'];
+		$operating_system 					= $input['operating_system'];
+		$android_app_gcm_id 				= $input['android_app_gcm_id'];
+		$android_app_version_code 			= $input['android_app_version_code'];
+		$android_app_version_name 			= $input['android_app_version_name'];
+		$android_app_package 				= $input['android_app_package'];
+		$android_device_model 				= $input['android_device_model'];
+		$android_device_manufacturer 		= $input['android_device_manufacturer'];
+		$android_device_version_os 			= $input['android_device_version_os'];
+		$android_device_display 			= $input['android_device_display'];
+		$android_device_bootloader 			= $input['android_device_bootloader'];
+		$android_device_language 			= $input['android_device_language'];
+		$android_device_display_language	= $input['android_device_display_language'];
+		$android_device_country 			= $input['android_device_country'];
+		$android_device_timezone 			= $input['android_device_timezone'];
+		$android_device_radio_version 		= $input['android_device_radio_version'];
+		$android_device_version_sdk 		= $input['android_device_version_sdk'];
+		$android_device_version_incremental = $input['android_device_version_incremental'];
+		$android_device_year				= $input['android_device_year'];
+		$android_device_rooted 				= $input['android_device_rooted'];
 
 		$device = new Device(array(
 			'id'=> 0,
 			'content' => $content,
 			'date_creation' => date('Y-m-d H:i:s'),
 
-			'operating_system' => $operating_system,
-			'android_app_gcm_id' => $android_app_gcm_id,
-			'android_app_version_code' => $android_app_version_code,
-			'android_app_version_name' => $android_app_version_name,
-			'android_device_language' => $android_device_language,
-			'android_device_display_language' => $android_device_display_language,
-			'android_device_country' => $android_device_country,
-			'android_device_version_sdk' => $android_device_version_sdk,
-			'android_device_rooted' => $android_device_rooted
+			'operating_system' 					=> $operating_system,
+			'android_app_gcm_id' 				=> $android_app_gcm_id,
+			'android_app_version_code' 			=> $android_app_version_code,
+			'android_app_version_name' 			=> $android_app_version_name,
+			'android_device_language' 			=> $android_device_language,
+			'android_device_display_language' 	=> $android_device_display_language,
+			'android_device_country' 			=> $android_device_country,
+			'android_device_version_sdk' 		=> $android_device_version_sdk,
+			'android_device_year' 				=> $android_device_year,
+			'android_device_rooted' 			=> $android_device_rooted
 			));
 
 		$deviceManager = $this->getManagerof('Device');
