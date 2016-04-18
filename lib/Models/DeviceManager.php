@@ -25,7 +25,9 @@ class DeviceManager extends \lib\Manager {
 		$to_insert['android_device_display_language'] 		= $device->getAndroid_device_display_language();
 		$to_insert['android_device_country'] 				= $device->getAndroid_device_country();
 		$to_insert['android_device_version_sdk'] 			= $device->getAndroid_device_version_sdk();
+		$to_insert['android_device_timezone'] 				= $device->getAndroid_device_timezone();
 		$to_insert['android_device_year'] 					= $device->getAndroid_device_year();
+		$to_insert['android_device_rooted'] 				= $device->getAndroid_device_rooted();
 
 		$req_str = 'INSERT INTO `device` (';
 		$numItems = count($to_insert);
@@ -63,7 +65,9 @@ class DeviceManager extends \lib\Manager {
 		$req->bindParam(':android_device_display_language',		$to_insert['android_device_display_language'],		\PDO::PARAM_STR);
 		$req->bindParam(':android_device_country',				$to_insert['android_device_country'],				\PDO::PARAM_STR);
 		$req->bindParam(':android_device_version_sdk',			$to_insert['android_device_version_sdk'],			\PDO::PARAM_STR);
+		$req->bindParam(':android_device_timezone',				$to_insert['android_device_timezone'],				\PDO::PARAM_STR);
 		$req->bindParam(':android_device_year',					$to_insert['android_device_year'],					\PDO::PARAM_STR);
+		$req->bindParam(':android_device_rooted',				$to_insert['android_device_rooted'],				\PDO::PARAM_STR);
 		$req->execute();
 		$req->closeCursor();
 	}

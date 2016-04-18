@@ -51,6 +51,7 @@ class DeviceController extends \lib\Controller {
 			'android_device_display_language' 	=> $android_device_display_language,
 			'android_device_country' 			=> $android_device_country,
 			'android_device_version_sdk' 		=> $android_device_version_sdk,
+			'android_device_timezone'			=> $android_device_timezone,
 			'android_device_year' 				=> $android_device_year,
 			'android_device_rooted' 			=> $android_device_rooted
 			));

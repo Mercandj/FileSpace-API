@@ -44,6 +44,7 @@ class Device extends \lib\Entity {
 	public function getAndroid_device_language() 			{return $this->_android_device_language;}
 	public function getAndroid_device_display_language() 	{return $this->_android_device_display_language;}
 	public function getAndroid_device_country() 			{return $this->_android_device_country;}
+	public function getAndroid_device_timezone() 			{return $this->_android_device_timezone;}
 	public function getAndroid_device_year()		 		{return $this->_android_device_year;}
 	public function getAndroid_device_rooted() 				{return $this->_android_device_rooted;}
 
@@ -65,6 +66,7 @@ class Device extends \lib\Entity {
 	public function setAndroid_device_language($android_device_language) 				{if(!empty($android_device_language)) 			$this->_android_device_language 		= $android_device_language;}
 	public function setAndroid_device_display_language($android_device_display_language){if(!empty($android_device_display_language)) 	$this->_android_device_display_language = $android_device_display_language;}
 	public function setAndroid_device_country($android_device_country) 					{if(!empty($android_device_country))			$this->_android_device_country 			= $android_device_country;}
+	public function setAndroid_device_timezone($android_device_timezone) 				{if(!empty($android_device_timezone))			$this->_android_device_timezone			= $android_device_timezone;}
 	public function setAndroid_device_year($android_device_year) 						{if(!empty($android_device_year))				$this->_android_device_year 			= $android_device_year;}
 	public function setAndroid_device_rooted($android_device_rooted) 					{if(!empty($android_device_rooted))				$this->_android_device_rooted 			= $android_device_rooted;}
 
@@ -85,7 +87,8 @@ class Device extends \lib\Entity {
 		if($this->getAndroid_device_language()!=null)			$json['android_device_language'] 			= $this->getAndroid_device_language();
 		if($this->getAndroid_device_display_language()!=null)	$json['android_device_display_language'] 	= $this->getAndroid_device_display_language();
 		if($this->getAndroid_device_country()!=null)			$json['android_device_country'] 			= $this->getAndroid_device_country();
-		if($this->getAndroid_device_version_sdk()!=null)		$json['android_device_version_sdk'] 		= $this->getAndroid_device_version_sdk();		
+		if($this->getAndroid_device_version_sdk()!=null)		$json['android_device_version_sdk'] 		= $this->getAndroid_device_version_sdk();
+		if($this->getAndroid_device_timezone()!=null)			$json['android_device_timezone'] 			= $this->getAndroid_device_timezone();
 		if($this->getAndroid_device_year()!=null)				$json['android_device_year'] 				= $this->getAndroid_device_year();
 		if($this->getAndroid_device_rooted()!=null)				$json['android_device_rooted'] 				= $this->getAndroid_device_rooted();
 		return $json;
