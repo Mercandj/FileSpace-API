@@ -47,6 +47,7 @@ class DeviceController extends \lib\Controller {
 			'android_app_gcm_id' 				=> $android_app_gcm_id,
 			'android_app_version_code' 			=> $android_app_version_code,
 			'android_app_version_name' 			=> $android_app_version_name,
+			'android_device_model' 				=> $android_device_model,
 			'android_device_language' 			=> $android_device_language,
 			'android_device_display_language' 	=> $android_device_display_language,
 			'android_device_country' 			=> $android_device_country,

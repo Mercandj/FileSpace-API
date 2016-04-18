@@ -84,6 +84,7 @@ class Device extends \lib\Entity {
 		if($this->getAndroid_app_version_code()!=null)			$json['android_app_version_code'] 			= $this->getAndroid_app_version_code();
 		if($this->getAndroid_app_version_name()!=null)			$json['android_app_version_name'] 			= $this->getAndroid_app_version_name();
 		if($this->getAndroid_app_package()!=null)				$json['android_app_package'] 				= $this->getAndroid_app_package();
+		if($this->getAndroid_device_model()!=null)				$json['android_device_model'] 				= $this->getAndroid_device_model();
 		if($this->getAndroid_device_language()!=null)			$json['android_device_language'] 			= $this->getAndroid_device_language();
 		if($this->getAndroid_device_display_language()!=null)	$json['android_device_display_language'] 	= $this->getAndroid_device_display_language();
 		if($this->getAndroid_device_country()!=null)			$json['android_device_country'] 			= $this->getAndroid_device_country();
