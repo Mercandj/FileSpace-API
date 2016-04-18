@@ -74,6 +74,14 @@ class DeviceController extends \lib\Controller {
 		if(HTTPRequest::postExist('android_device_rooted'))					$android_device_rooted = HTTPRequest::postData('android_device_rooted');
 		else																$json['succeed'] = false;
 
+
+		$inputJSON = file_get_contents('php://input');
+		$input = json_decode( $inputJSON, TRUE );
+		$operating_system = $input['operating_system'];
+		$android_app_gcm_id = $input['android_app_gcm_id'];
+		$android_app_version_code = $input['android_app_version_code'];
+		$android_app_version_name = $input['android_app_version_name'];
+
 		$device = new Device(array(
 			'id'=> 0,
 			'content' => $content,
