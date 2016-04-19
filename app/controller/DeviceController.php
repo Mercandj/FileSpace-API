@@ -111,8 +111,8 @@ class DeviceController extends \lib\Controller {
 		//Google cloud messaging GCM-API url
 		$url = 'https://android.googleapis.com/gcm/send';
 		$fields = array(
-			'registration_ids' => $registatoin_ids,
-			'data' => $message,
+			'registration_ids' => $gcmId,
+			'data' => $pushMessage,
 		);
 		// Google Cloud Messaging GCM API Key
 		$headers = array(
@@ -132,14 +132,8 @@ class DeviceController extends \lib\Controller {
 			die('Curl failed: ' . curl_error($ch));
 		}
 		curl_close($ch);
-
-		if (isset($gcmId) && isset($pushMessage)) {   
-			$gcmRegIds = array($gcmRegID);
-			$message = array("m" => $pushMessage);
-			$pushStatus = sendPushNotificationToGCM($gcmRegIds, $message);
-		}  else {
-			$json['succeed'] = true;
-		}
+		
+		$json['succeed'] = true;
 
 		HTTPResponse::send(json_encode($json));
 	}
