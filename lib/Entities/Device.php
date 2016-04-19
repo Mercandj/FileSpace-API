@@ -6,6 +6,7 @@ class Device extends \lib\Entity {
 	protected $_id;
 	protected $_content;
 	protected $_date_creation;
+	protected $_date_update;
 	protected $_visibility;
 	protected $_public;
 
@@ -30,6 +31,7 @@ class Device extends \lib\Entity {
 	public function getId() 								{return $this->_id;}
 	public function getContent() 							{return $this->_content;}
 	public function getDate_creation() 						{return $this->_date_creation;}
+	public function getDate_update() 						{return $this->_date_update;}
 	public function getVisibility() 						{return $this->_visibility;}
 	public function getPublic() 							{return $this->_public;}
 	public function getOperating_system() 					{return $this->_operating_system;}
@@ -52,6 +54,7 @@ class Device extends \lib\Entity {
 	public function setId($id) 															{if(!empty($id))								$this->_id 								= $id;}
 	public function setContent($content) 												{if(!empty($content))							$this->_content 						= $content;}
 	public function setDate_creation($date) 											{if(!empty($date))								$this->_date_creation 					= $date;}
+	public function setDate_update($date) 												{if(!empty($date))								$this->_date_update 					= $date;}
 	public function setVisibility($visibility) 											{if(!empty($visibility))						$this->_visibility 						= $visibility;}
 	public function setPublic($public) 													{if(!empty($public))							$this->_public 							= $public;}
 	public function setOperating_system($operating_system) 								{if(!empty($operating_system))					$this->_operating_system 				= $operating_system;}
@@ -77,6 +80,7 @@ class Device extends \lib\Entity {
 		$json['id'] = $this->getId();
 		if($this->getContent()!=null) 							$json['content'] 							= $this->getContent();
 		if($this->getDate_creation()!=null) 					$json['date_creation'] 						= $this->getDate_creation();
+		if($this->getDate_update()!=null) 						$json['date_update'] 						= $this->getDate_update();
 		if($this->getVisibility()!=null)						$json['visibility'] 						= $this->getVisibility();
 		if($this->getPublic()!=null)							$json['public'] 							= $this->getPublic();
 		if($this->getOperating_system()!=null)					$json['operating_system'] 					= $this->getOperating_system();

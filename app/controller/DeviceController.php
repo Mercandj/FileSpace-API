@@ -38,31 +38,109 @@ class DeviceController extends \lib\Controller {
 		$android_device_year				= array_key_exists('android_device_year', $input) ?					$input['android_device_year'] : '';
 		$android_device_rooted 				= array_key_exists('android_device_rooted', $input) ? 				$input['android_device_rooted'] : '';
 
-		$device = new Device(array(
-			'id'=> 0,
-			'content' => $content,
-			'date_creation' => date('Y-m-d H:i:s'),
-
-			'operating_system' 					=> $operating_system,
-			'android_app_gcm_id' 				=> $android_app_gcm_id,
-			'android_app_version_code' 			=> $android_app_version_code,
-			'android_app_version_name' 			=> $android_app_version_name,
-			'android_app_package' 				=> $android_app_package,
-			'android_device_model' 				=> $android_device_model,
-			'android_device_language' 			=> $android_device_language,
-			'android_device_display_language' 	=> $android_device_display_language,
-			'android_device_country' 			=> $android_device_country,
-			'android_device_version_sdk' 		=> $android_device_version_sdk,
-			'android_device_timezone'			=> $android_device_timezone,
-			'android_device_year' 				=> $android_device_year,
-			'android_device_rooted' 			=> $android_device_rooted
-			));
+		$current_date = date('Y-m-d H:i:s');		
 
 		$deviceManager = $this->getManagerof('Device');
 		$json['debug'] = 'Gcm not updated.';
+		
 		if($deviceManager->getByIdGcm($android_app_gcm_id) == NULL) {
+
+			$device = new Device(array(
+				'id'				=> 0,
+				'content' 			=> $content,
+				'date_creation' 	=> $current_date,
+				'date_update' 		=> $current_date,
+
+				'operating_system' 					=> $operating_system,
+				'android_app_gcm_id' 				=> $android_app_gcm_id,
+				'android_app_version_code' 			=> $android_app_version_code,
+				'android_app_version_name' 			=> $android_app_version_name,
+				'android_app_package' 				=> $android_app_package,
+				'android_device_model' 				=> $android_device_model,
+				'android_device_language' 			=> $android_device_language,
+				'android_device_display_language' 	=> $android_device_display_language,
+				'android_device_country' 			=> $android_device_country,
+				'android_device_version_sdk' 		=> $android_device_version_sdk,
+				'android_device_timezone'			=> $android_device_timezone,
+				'android_device_year' 				=> $android_device_year,
+				'android_device_rooted' 			=> $android_device_rooted
+			));
+
 			$deviceManager->add($device);
+			$json['debug'] = 'Gcm created.';
+
+		} else {
+
+			$device = new Device(array(
+				'id'				=> 0,
+				'content' 			=> $content,
+				'date_update' 		=> $current_date,
+
+				'operating_system' 					=> $operating_system,
+				'android_app_gcm_id' 				=> $android_app_gcm_id,
+				'android_app_version_code' 			=> $android_app_version_code,
+				'android_app_version_name' 			=> $android_app_version_name,
+				'android_app_package' 				=> $android_app_package,
+				'android_device_model' 				=> $android_device_model,
+				'android_device_language' 			=> $android_device_language,
+				'android_device_display_language' 	=> $android_device_display_language,
+				'android_device_country' 			=> $android_device_country,
+				'android_device_version_sdk' 		=> $android_device_version_sdk,
+				'android_device_timezone'			=> $android_device_timezone,
+				'android_device_year' 				=> $android_device_year,
+				'android_device_rooted' 			=> $android_device_rooted
+			));
+
+			$deviceManager->update($device);
 			$json['debug'] = 'Gcm updated.';
+		}
+
+		HTTPResponse::send(json_encode($json));
+	}
+
+	public function sendPush() {
+		$json['succeed'] = true;
+
+		$inputJSON 		= file_get_contents('php://input');
+		$input 			= json_decode( $inputJSON, TRUE );
+		$gcmId 			= array_key_exists('gcmId', $input) ? 			$input['gcmId'] : '';
+		$googleApiKey	= array_key_exists('googleApiKey', $input) ? 	$input['googleApiKey'] : '';
+		$pushMessage	= array_key_exists('pushMessage', $input) ? 	$input['pushMessage'] : '';
+
+
+		//Google cloud messaging GCM-API url
+		$url = 'https://android.googleapis.com/gcm/send';
+		$fields = array(
+			'registration_ids' => $registatoin_ids,
+			'data' => $message,
+		);
+		// Google Cloud Messaging GCM API Key
+		$headers = array(
+			'Authorization: key=' . $googleApiKey,
+			'Content-Type: application/json'
+		);
+		$ch = curl_init();
+		curl_setopt($ch, CURLOPT_URL, $url);
+		curl_setopt($ch, CURLOPT_POST, true);
+		curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+		curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($fields));
+		$result = curl_exec($ch);      
+		if ($result === FALSE) {
+			die('Curl failed: ' . curl_error($ch));
+		}
+		curl_close($ch);
+			return $result;
+		}
+
+		if (isset($gcmId) && isset($pushMessage)) {   
+			$gcmRegIds = array($gcmRegID);
+			$message = array("m" => $pushMessage);
+			$pushStatus = sendPushNotificationToGCM($gcmRegIds, $message);
+		}  else {
+			$json['succeed'] = true;
 		}
 
 		HTTPResponse::send(json_encode($json));
