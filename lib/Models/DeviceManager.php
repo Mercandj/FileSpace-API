@@ -149,7 +149,7 @@ class DeviceManager extends \lib\Manager {
 
     	$donnee = $req->fetch(\PDO::FETCH_ASSOC);
     	$req->closeCursor();
-    	return ($donnee['id'] != NULL) ? (new PushDevice($donnee)) : NULL;
+    	return ($donnee['id'] != NULL) ? (new Device($donnee)) : NULL;
 	}
 
 }
