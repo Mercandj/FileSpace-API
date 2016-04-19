@@ -111,7 +111,9 @@ class DeviceController extends \lib\Controller {
 		$url = 'https://gcm-http.googleapis.com/gcm/send';
 		$fields = array(
 			'to' => $gcmId,
-			'data' => $pushMessage,
+			'data' => array(
+				'message' => $pushMessage	
+			)
 		);
 		// Google Cloud Messaging GCM API Key
 		$headers = array(
