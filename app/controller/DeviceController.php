@@ -107,7 +107,6 @@ class DeviceController extends \lib\Controller {
 		$googleApiKey	= array_key_exists('googleApiKey', $input) ? 	$input['googleApiKey'] : '';
 		$pushMessage	= array_key_exists('pushMessage', $input) ? 	$input['pushMessage'] : '';
 
-
 		//Google cloud messaging GCM-API url
 		$url = 'https://android.googleapis.com/gcm/send';
 		$fields = array(
@@ -132,8 +131,9 @@ class DeviceController extends \lib\Controller {
 			die('Curl failed: ' . curl_error($ch));
 		}
 		curl_close($ch);
-		
+
 		$json['succeed'] = true;
+		$json['debug'] = 'gcmId == ' . $gcmId . '  googleApiKey == ' . $googleApiKey . '  pushMessage == ' . $pushMessage;
 
 		HTTPResponse::send(json_encode($json));
 	}
