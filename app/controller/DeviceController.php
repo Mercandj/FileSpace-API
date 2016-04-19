@@ -132,8 +132,6 @@ class DeviceController extends \lib\Controller {
 			die('Curl failed: ' . curl_error($ch));
 		}
 		curl_close($ch);
-			return $result;
-		}
 
 		if (isset($gcmId) && isset($pushMessage)) {   
 			$gcmRegIds = array($gcmRegID);
