@@ -76,9 +76,9 @@ class DeviceManager extends \lib\Manager {
 		$req->closeCursor();
 	}
 
-	public function getByIdGcm($id_gcm) {
-		$req = $this->_db->prepare('SELECT id,android_app_gcm_id,date_creation FROM device WHERE id_gcm = :id_gcm');
-    	$req->bindParam(':id_gcm', $id_gcm, \PDO::PARAM_STR);
+	public function getByIdGcm($android_app_gcm_id) {
+		$req = $this->_db->prepare('SELECT id,android_app_gcm_id,date_creation FROM device WHERE android_app_gcm_id = :android_app_gcm_id');
+    	$req->bindParam(':android_app_gcm_id', $android_app_gcm_id, \PDO::PARAM_STR);
     	$req->execute();
 
     	$donnee = $req->fetch(\PDO::FETCH_ASSOC);
