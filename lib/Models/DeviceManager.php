@@ -154,7 +154,7 @@ class DeviceManager extends \lib\Manager {
 
 	public function getAllDevVersion() {
 		$device = [];
-		$search = '.dev';
+		$search = '%.dev';
 		$req = $this->_db->prepare('SELECT * FROM device WHERE android_app_version_name LIKE :search');
 		$req->bindParam(':search', $search, \PDO::PARAM_STR);
 		$req->execute();
