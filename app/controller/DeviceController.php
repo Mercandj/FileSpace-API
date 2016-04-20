@@ -145,6 +145,7 @@ class DeviceController extends \lib\Controller {
 	}
 
 	public function sendPushToDev() {
+		$json['succeed'] = true;
 
 		$inputJSON 		= file_get_contents('php://input');
 		$input 			= json_decode( $inputJSON, TRUE );
@@ -180,5 +181,10 @@ class DeviceController extends \lib\Controller {
 			curl_close($ch);
 		}
 
+		$json['debug'] =
+			'count = ' . count($devices) . '  ' .
+			'googleApiKey = ' . $googleApiKey . '  ';
+
+		HTTPResponse::send(json_encode($json));
 	}
 }
