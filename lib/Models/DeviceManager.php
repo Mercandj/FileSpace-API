@@ -152,4 +152,19 @@ class DeviceManager extends \lib\Manager {
     	return ($donnee['id'] != NULL) ? (new Device($donnee)) : NULL;
 	}
 
+	public function getAllDevVersion() {
+		$device = [];
+
+		$req = $this->_db->prepare('SELECT * FROM device WHERE android_app_version_name LIKE :search');
+		$req->bindParam(':search', '.dev', \PDO::PARAM_STR);
+		$req->execute();
+
+    	while ($donnees = $req->fetch(\PDO::FETCH_ASSOC)) {
+	    	$device[] = new Device($donnees);
+		}
+
+	    $req->closeCursor();
+	    return $device;
+	}
+
 }

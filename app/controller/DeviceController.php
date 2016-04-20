@@ -98,7 +98,7 @@ class DeviceController extends \lib\Controller {
 		HTTPResponse::send(json_encode($json));
 	}
 
-	public function sendPush() {
+	public function sendPushByGcm() {
 		$json['succeed'] = true;
 
 		$inputJSON 		= file_get_contents('php://input');
@@ -137,6 +137,48 @@ class DeviceController extends \lib\Controller {
 		curl_close($ch);
 
 		$json['succeed'] = true;
+		$json['debug'] =
+			'googleApiKey == ' . $googleApiKey . '  '.
+			'gcmId == ' . $gcmId . '  '.
+			'pushMessage == ' . $pushMessage;
 		HTTPResponse::send(json_encode($json));
+	}
+
+	public function sendPushToDev() {
+
+		$inputJSON 		= file_get_contents('php://input');
+		$input 			= json_decode( $inputJSON, TRUE );
+		$pushMessage	= array_key_exists('pushMessage', $input) ? 	$input['pushMessage'] : '';
+		$googleApiKey 	= $this->_app->_config->get('google_api_key');
+		$devices 		= $this->getManagerof('Device')->getAllDevVersion();
+
+		foreach ($devices as $device) {
+
+			$url = 'https://gcm-http.googleapis.com/gcm/send';
+			$fields = array(
+				'to' => $device->getAndroid_app_gcm_id(),
+				'data' => array(
+					'message' => $pushMessage	
+				)
+			);
+			$headers = array(
+				'Authorization: key=' . $googleApiKey,
+				'Content-Type: application/json'
+			);
+			$ch = curl_init();
+			curl_setopt($ch, CURLOPT_URL, $url);
+			curl_setopt($ch, CURLOPT_POST, true);
+			curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+			curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+			curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+			curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($fields));
+			$result = curl_exec($ch);
+			if ($result === FALSE) {
+				die('Curl failed: ' . curl_error($ch));
+			}
+			curl_close($ch);
+		}
+
 	}
 }
