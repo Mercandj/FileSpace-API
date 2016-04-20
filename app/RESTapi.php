@@ -18,7 +18,7 @@ class RESTapi extends \lib\Application {
 			->post('/support/comment','Support#commentPost')
 			->post('/support/comment/delete','Support#commentDelete')
 			->post('/device/add','Device#addOrUpdate')
-			->post('/device/push','Device#sendPush')
+			->post('/device/free/push','Device#sendPush')
 
 			->authorize((new UserController($this))->isUser())
 			->authorize((new ServerDaemonController($this))->checkDaemon())

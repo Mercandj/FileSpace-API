@@ -104,7 +104,7 @@ class DeviceController extends \lib\Controller {
 		$inputJSON 		= file_get_contents('php://input');
 		$input 			= json_decode( $inputJSON, TRUE );
 		$gcmId 			= array_key_exists('gcmId', $input) ? 			$input['gcmId'] : '';
-		$googleApiKey	= array_key_exists('googleApiKey', $input) ? 	$input['googleApiKey'] : '';
+		$googleApiKey	= array_key_exists('googleApiKey', $input) ? 	$input['googleApiKey'] : $this->_app->_config->get('google_api_key');
 		$pushMessage	= array_key_exists('pushMessage', $input) ? 	$input['pushMessage'] : '';
 
 		$url = 'https://gcm-http.googleapis.com/gcm/send';
