@@ -149,21 +149,26 @@ class DeviceController extends \lib\Controller {
 
 		$inputJSON 		= file_get_contents('php://input');
 		$input 			= json_decode( $inputJSON, TRUE );
-		$pushMessage	= array_key_exists('pushMessage', $input) ? 	$input['pushMessage'] : '';
-		$googleApiKey 	= $this->_app->_config->get('google_api_key');
+		$type			= array_key_exists('type', $input) ? 			$input['type'] : '';
+		$title			= array_key_exists('title', $input) ? 			$input['title'] : '';
+		$message		= array_key_exists('message', $input) ? 		$input['message'] : '';
+		$action_data	= array_key_exists('action_data', $input) ? 	$input['action_data'] : '';
 		$devices 		= $this->getManagerof('Device')->getAllDevVersion();
 
 		foreach ($devices as $device) {
 
 			$url = 'https://gcm-http.googleapis.com/gcm/send';
 			$fields = array(
-				'to' => $device->getAndroid_app_gcm_id(),
-				'data' => array(
-					'message' => $pushMessage	
+				'to' 	=> $device->getAndroid_app_gcm_id(),
+				'data' 	=> array(
+					'type' 			=> $type,
+					'title' 		=> $title,
+					'message' 		=> $message,
+					'action_data' 	=> $action_data
 				)
 			);
 			$headers = array(
-				'Authorization: key=' . $googleApiKey,
+				'Authorization: key=' . $this->_app->_config->get('google_api_key'),
 				'Content-Type: application/json'
 			);
 			$ch = curl_init();
@@ -181,9 +186,54 @@ class DeviceController extends \lib\Controller {
 			curl_close($ch);
 		}
 
-		$json['debug'] =
-			'count = ' . count($devices) . '  ' .
-			'googleApiKey = ' . $googleApiKey . '  ';
+		$json['debug'] = 'count = ' . count($devices);
+
+		HTTPResponse::send(json_encode($json));
+	}
+
+	public function sendPushToAll() {
+		$json['succeed'] = true;
+
+		$inputJSON 		= file_get_contents('php://input');
+		$input 			= json_decode( $inputJSON, TRUE );
+		$type			= array_key_exists('type', $input) ? 			$input['type'] : '';
+		$title			= array_key_exists('title', $input) ? 			$input['title'] : '';
+		$message		= array_key_exists('message', $input) ? 		$input['message'] : '';
+		$action_data	= array_key_exists('action_data', $input) ? 	$input['action_data'] : '';
+		$devices 		= $this->getManagerof('Device')->getAll();
+
+		foreach ($devices as $device) {
+
+			$url = 'https://gcm-http.googleapis.com/gcm/send';
+			$fields = array(
+				'to' 	=> $device->getAndroid_app_gcm_id(),
+				'data' 	=> array(
+					'type' 			=> $type,
+					'title' 		=> $title,
+					'message' 		=> $message,
+					'action_data' 	=> $action_data
+				)
+			);
+			$headers = array(
+				'Authorization: key=' . $this->_app->_config->get('google_api_key'),
+				'Content-Type: application/json'
+			);
+			$ch = curl_init();
+			curl_setopt($ch, CURLOPT_URL, $url);
+			curl_setopt($ch, CURLOPT_POST, true);
+			curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+			curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+			curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+			curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($fields));
+			$result = curl_exec($ch);
+			if ($result === FALSE) {
+				die('Curl failed: ' . curl_error($ch));
+			}
+			curl_close($ch);
+		}
+
+		$json['debug'] = 'count = ' . count($devices);
 
 		HTTPResponse::send(json_encode($json));
 	}

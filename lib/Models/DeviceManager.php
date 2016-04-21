@@ -155,8 +155,21 @@ class DeviceManager extends \lib\Manager {
 	public function getAllDevVersion() {
 		$device = [];
 		$search = '%.dev';
-		$req = $this->_db->prepare('SELECT * FROM device WHERE android_app_version_name LIKE :search');
+		$req = $this->_db->prepare('SELECT * FROM device WHERE android_app_version_name LIKE :search AND android_app_gcm_id IS NOT NULL');
 		$req->bindParam(':search', $search, \PDO::PARAM_STR);
+		$req->execute();
+
+    	while ($donnees = $req->fetch(\PDO::FETCH_ASSOC)) {
+	    	$device[] = new Device($donnees);
+		}
+
+	    $req->closeCursor();
+	    return $device;
+	}
+
+	public function getAll() {
+		$device = [];
+		$req = $this->_db->prepare('SELECT * FROM device WHERE android_app_gcm_id IS NOT NULL');
 		$req->execute();
 
     	while ($donnees = $req->fetch(\PDO::FETCH_ASSOC)) {

@@ -63,6 +63,7 @@ class RESTapi extends \lib\Application {
 
 			->authorize((new UserController($this))->isAdmin())
 
+			->post('/device/push/all','Device#sendPushToAll')
 			->get('/support/comment/device_id','Support#commentGetAllIdDevice')
 
 			->get('/user_connection','UserConnection#get')
