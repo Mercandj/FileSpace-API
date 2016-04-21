@@ -105,7 +105,7 @@ class DeviceController extends \lib\Controller {
 		$input 			= json_decode( $inputJSON, TRUE );
 		$gcmId 			= array_key_exists('gcmId', $input) ? 			$input['gcmId'] : '';
 		$googleApiKey	= array_key_exists('googleApiKey', $input) ? 	$input['googleApiKey'] : '';
-		$pushMessage	= array_key_exists('pushMessage', $input) ? 	$input['pushMessage'] : '';
+		$message	= array_key_exists('message', $input) ? 	$input['message'] : '';
 
 		if(empty($googleApiKey)) {
 			$googleApiKey = $this->_app->_config->get('google_api_key');
@@ -115,7 +115,7 @@ class DeviceController extends \lib\Controller {
 		$fields = array(
 			'to' => $gcmId,
 			'data' => array(
-				'message' => $pushMessage	
+				'message' => $message	
 			)
 		);
 		$headers = array(
@@ -140,7 +140,7 @@ class DeviceController extends \lib\Controller {
 		$json['debug'] =
 			'googleApiKey == ' . $googleApiKey . '  '.
 			'gcmId == ' . $gcmId . '  '.
-			'pushMessage == ' . $pushMessage;
+			'message == ' . $message;
 		HTTPResponse::send(json_encode($json));
 	}
 
