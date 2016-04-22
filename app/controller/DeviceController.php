@@ -146,7 +146,7 @@ class DeviceController extends \lib\Controller {
 
 	public function sendPushToDev() {
 		$json['succeed'] = true;
-		$json['debug'] = '';
+		$result = [];
 
 		$inputJSON 		= file_get_contents('php://input');
 		$input 			= json_decode( $inputJSON, TRUE );
@@ -180,22 +180,30 @@ class DeviceController extends \lib\Controller {
 			curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
 			curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 			curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($fields));
-			$result = curl_exec($ch);
+			$result = v($ch);
 			if ($result === FALSE) {
 				die('Curl failed: ' . curl_error($ch));
 			}
 			curl_close($ch);
-			$json['debug'] .= 'r=' . $result . ', ';
+
+			if(array_key_exists('results', $result)) {
+				$json['debug-array'] = 'true';
+			} else {
+				$json['debug-array'] = 'false';
+			}
+
+			$result[] = $result;
 		}
 
-		$json['debug'] .= 'count=' . count($devices);
+		$json['result'] = $result;
+		$json['debug'] = 'count=' . count($devices);
 
 		HTTPResponse::send(json_encode($json));
 	}
 
 	public function sendPushToAll() {
 		$json['succeed'] = true;
-		$json['debug'] = '';
+		$result = [];
 
 		$inputJSON 		= file_get_contents('php://input');
 		$input 			= json_decode( $inputJSON, TRUE );
@@ -234,10 +242,11 @@ class DeviceController extends \lib\Controller {
 				die('Curl failed: ' . curl_error($ch));
 			}
 			curl_close($ch);
-			$json['debug'] .= 'r=' . $result . ', ';
+			$result[] = $result;
 		}
 
-		$json['debug'] .= 'count = ' . count($devices);
+		$json['result'] = $result;
+		$json['debug'] = 'count = ' . count($devices);
 
 		HTTPResponse::send(json_encode($json));
 	}

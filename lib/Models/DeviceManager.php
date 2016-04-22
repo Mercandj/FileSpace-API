@@ -180,4 +180,11 @@ class DeviceManager extends \lib\Manager {
 	    return $device;
 	}
 
+	public function removeById($id) {
+		$req = $this->_db->prepare('DELETE FROM device WHERE id = :id');
+		$req->bindParam(':id', $id, \PDO::PARAM_INT);
+		$req->execute();
+		$req->closeCursor();
+	}
+
 }
