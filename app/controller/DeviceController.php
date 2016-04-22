@@ -185,10 +185,10 @@ class DeviceController extends \lib\Controller {
 				die('Curl failed: ' . curl_error($ch));
 			}
 			curl_close($ch);
-			$json['debug'] = $json['debug'] . 'r=' . $result . ', ';
+			$json['debug'] .= 'r=' . $result . ', ';
 		}
 
-		$json['debug'] = 'count=' . count($devices);
+		$json['debug'] .= 'count=' . count($devices);
 
 		HTTPResponse::send(json_encode($json));
 	}
@@ -234,10 +234,10 @@ class DeviceController extends \lib\Controller {
 				die('Curl failed: ' . curl_error($ch));
 			}
 			curl_close($ch);
-			$json['debug'] = $json['debug'] . 'r=' . $result . ', ';
+			$json['debug'] .= 'r=' . $result . ', ';
 		}
 
-		$json['debug'] = 'count = ' . count($devices);
+		$json['debug'] .= 'count = ' . count($devices);
 
 		HTTPResponse::send(json_encode($json));
 	}
