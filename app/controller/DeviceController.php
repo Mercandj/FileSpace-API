@@ -115,7 +115,7 @@ class DeviceController extends \lib\Controller {
 		$fields = array(
 			'to' => $gcmId,
 			'data' => array(
-				'message' => $message	
+				'n_m' => $message	
 			)
 		);
 		$headers = array(
@@ -161,10 +161,10 @@ class DeviceController extends \lib\Controller {
 			$fields = array(
 				'to' 	=> $device->getAndroid_app_gcm_id(),
 				'data' 	=> array(
-					'type' 			=> $type,
-					'title' 		=> $title,
-					'message' 		=> $message,
-					'action_data' 	=> $action_data
+					't' 			=> $type,
+					'n_t' 			=> $title,
+					'n_m' 			=> $message,
+					'd' 			=> $action_data
 				)
 			);
 			$headers = array(
@@ -208,10 +208,10 @@ class DeviceController extends \lib\Controller {
 			$fields = array(
 				'to' 	=> $device->getAndroid_app_gcm_id(),
 				'data' 	=> array(
-					'type' 			=> $type,
-					'title' 		=> $title,
-					'message' 		=> $message,
-					'action_data' 	=> $action_data
+					't' 			=> $type,
+					'n_t' 			=> $title,
+					'n_m' 			=> $message,
+					'd' 			=> $action_data
 				)
 			);
 			$headers = array(
