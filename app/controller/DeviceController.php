@@ -146,6 +146,7 @@ class DeviceController extends \lib\Controller {
 
 	public function sendPushToDev() {
 		$json['succeed'] = true;
+		$json['debug'] = '';
 
 		$inputJSON 		= file_get_contents('php://input');
 		$input 			= json_decode( $inputJSON, TRUE );
@@ -184,15 +185,17 @@ class DeviceController extends \lib\Controller {
 				die('Curl failed: ' . curl_error($ch));
 			}
 			curl_close($ch);
+			$json['debug'] = $json['debug'] . 'r=' . $result . ', ';
 		}
 
-		$json['debug'] = 'count = ' . count($devices);
+		$json['debug'] = 'count=' . count($devices);
 
 		HTTPResponse::send(json_encode($json));
 	}
 
 	public function sendPushToAll() {
 		$json['succeed'] = true;
+		$json['debug'] = '';
 
 		$inputJSON 		= file_get_contents('php://input');
 		$input 			= json_decode( $inputJSON, TRUE );
@@ -231,6 +234,7 @@ class DeviceController extends \lib\Controller {
 				die('Curl failed: ' . curl_error($ch));
 			}
 			curl_close($ch);
+			$json['debug'] = $json['debug'] . 'r=' . $result . ', ';
 		}
 
 		$json['debug'] = 'count = ' . count($devices);
