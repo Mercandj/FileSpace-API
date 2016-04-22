@@ -149,10 +149,10 @@ class DeviceController extends \lib\Controller {
 
 		$inputJSON 		= file_get_contents('php://input');
 		$input 			= json_decode( $inputJSON, TRUE );
-		$type			= array_key_exists('type', $input) ? 			$input['type'] : '';
-		$title			= array_key_exists('title', $input) ? 			$input['title'] : '';
-		$message		= array_key_exists('message', $input) ? 		$input['message'] : '';
-		$action_data	= array_key_exists('action_data', $input) ? 	$input['action_data'] : '';
+		$type			= array_key_exists('t', $input) ? 		$input['t'] : '';
+		$title			= array_key_exists('n_t', $input) ? 	$input['n_t'] : '';
+		$message		= array_key_exists('n_m', $input) ? 	$input['n_m'] : '';
+		$action_data	= array_key_exists('d', $input) ? 		$input['d'] : '';
 		$devices 		= $this->getManagerof('Device')->getAllDevVersion();
 
 		foreach ($devices as $device) {
@@ -196,10 +196,10 @@ class DeviceController extends \lib\Controller {
 
 		$inputJSON 		= file_get_contents('php://input');
 		$input 			= json_decode( $inputJSON, TRUE );
-		$type			= array_key_exists('type', $input) ? 			$input['type'] : '';
-		$title			= array_key_exists('title', $input) ? 			$input['title'] : '';
-		$message		= array_key_exists('message', $input) ? 		$input['message'] : '';
-		$action_data	= array_key_exists('action_data', $input) ? 	$input['action_data'] : '';
+		$type			= array_key_exists('t', $input) ? 		$input['t'] : '';
+		$title			= array_key_exists('n_t', $input) ? 	$input['n_t'] : '';
+		$message		= array_key_exists('n_m', $input) ? 	$input['n_m'] : '';
+		$action_data	= array_key_exists('d', $input) ? 		$input['d'] : '';
 		$devices 		= $this->getManagerof('Device')->getAll();
 
 		foreach ($devices as $device) {
