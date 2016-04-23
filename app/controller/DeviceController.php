@@ -39,9 +39,9 @@ class DeviceController extends \lib\Controller {
 		$android_device_version_sdk 		= array_key_exists('android_device_version_sdk', $input) ?			$input['android_device_version_sdk'] : '';
 		$android_device_version_incremental = array_key_exists('android_device_version_incremental', $input) ?	$input['android_device_version_incremental'] : '';
 		$android_device_year				= array_key_exists('android_device_year', $input) ?					$input['android_device_year'] : '';
-		$android_device_rooted 				= array_key_exists('android_device_rooted', $input) ? 				$input['android_device_rooted'] : '';
+		$android_device_rooted				= array_key_exists('android_device_rooted', $input) ?				$input['android_device_rooted'] : '';
 
-		$current_date = date('Y-m-d H:i:s');		
+		$current_date = date('Y-m-d H:i:s');
 
 		$deviceManager = $this->getManagerof('Device');
 		$json['debug'] = 'Gcm not updated.';
@@ -56,13 +56,13 @@ class DeviceController extends \lib\Controller {
 
 				'operating_system' 					=> $operating_system,
 				'android_app_gcm_id' 				=> $android_app_gcm_id,
-				'android_app_version_code' 			=> $android_app_version_code,
-				'android_app_version_name' 			=> $android_app_version_name,
-				'android_app_package' 				=> $android_app_package,
+				'android_app_version_code'			=> $android_app_version_code,
+				'android_app_version_name'			=> $android_app_version_name,
+				'android_app_package'				=> $android_app_package,
 
-				'android_device_id' 				=> $android_device_id,
-				'android_device_id_u1' 				=> $android_device_id_u1,
-				'android_device_model' 				=> $android_device_model,
+				'android_device_id'					=> $android_device_id,
+				'android_device_id_u1'				=> $android_device_id_u1,
+				'android_device_model'				=> $android_device_model,
 				'android_device_manufacturer'		=> $android_device_manufacturer,
 				'android_device_language' 			=> $android_device_language,
 				'android_device_display_language' 	=> $android_device_display_language,
@@ -83,23 +83,23 @@ class DeviceController extends \lib\Controller {
 				'content' 			=> $content,
 				'date_update' 		=> $current_date,
 
-				'operating_system' 					=> $operating_system,
-				'android_app_gcm_id' 				=> $android_app_gcm_id,
-				'android_app_version_code' 			=> $android_app_version_code,
-				'android_app_version_name' 			=> $android_app_version_name,
-				'android_app_package' 				=> $android_app_package,
+				'operating_system'					=> $operating_system,
+				'android_app_gcm_id'				=> $android_app_gcm_id,
+				'android_app_version_code'			=> $android_app_version_code,
+				'android_app_version_name'			=> $android_app_version_name,
+				'android_app_package'				=> $android_app_package,
 
-				'android_device_id' 				=> $android_device_id,
-				'android_device_id_u1' 				=> $android_device_id_u1,
-				'android_device_model' 				=> $android_device_model,
+				'android_device_id'					=> $android_device_id,
+				'android_device_id_u1'				=> $android_device_id_u1,
+				'android_device_model'				=> $android_device_model,
 				'android_device_manufacturer'		=> $android_device_manufacturer,
-				'android_device_language' 			=> $android_device_language,
-				'android_device_display_language' 	=> $android_device_display_language,
-				'android_device_country' 			=> $android_device_country,
-				'android_device_version_sdk' 		=> $android_device_version_sdk,
+				'android_device_language'			=> $android_device_language,
+				'android_device_display_language'	=> $android_device_display_language,
+				'android_device_country'			=> $android_device_country,
+				'android_device_version_sdk'		=> $android_device_version_sdk,
 				'android_device_timezone'			=> $android_device_timezone,
-				'android_device_year' 				=> $android_device_year,
-				'android_device_rooted' 			=> $android_device_rooted
+				'android_device_year'				=> $android_device_year,
+				'android_device_rooted'				=> $android_device_rooted
 			));
 
 			$deviceManager->update($device);
