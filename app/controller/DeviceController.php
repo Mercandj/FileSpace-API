@@ -191,23 +191,23 @@ class DeviceController extends \lib\Controller {
 			curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
 			curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 			curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($fields));
-			$result = curl_exec($ch);
-			if ($result === FALSE) {
+			$curl_result = curl_exec($ch);
+			if ($curl_result === FALSE) {
 				die('Curl failed: ' . curl_error($ch));
 			}
 			curl_close($ch);
 
-			if(is_array($result)) {
+			if(is_array($curl_result)) {
 				$json['debug-array'] = 'true';
-				$result[] = $result;
+				$result[] = $curl_result;
 
-				if(array_key_exists('results', $result)) {
+				if(array_key_exists('results', $curl_result)) {
 					// TODO Remove row if error.
 				}
 
 			} else {
 				$json['debug-array'] = 'false';
-				$result[] = array($result);
+				$result[] = array($curl_result);
 			}
 
 		}
@@ -254,16 +254,16 @@ class DeviceController extends \lib\Controller {
 			curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
 			curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 			curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($fields));
-			$result = curl_exec($ch);
-			if ($result === FALSE) {
+			$curl_result = curl_exec($ch);
+			if ($curl_result === FALSE) {
 				die('Curl failed: ' . curl_error($ch));
 			}
 			curl_close($ch);
 
-			if(is_array($result)) {
-				$result[] = $result;
+			if(is_array($curl_result)) {
+				$result[] = $curl_result;
 			} else {
-				$result[] = array($result);
+				$result[] = array($curl_result);
 			}
 		}
 
