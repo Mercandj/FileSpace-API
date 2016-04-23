@@ -303,6 +303,8 @@ CREATE TABLE IF NOT EXISTS `Device` (
   `android_app_version_code` VARCHAR(45) NULL,
   `android_app_version_name` VARCHAR(45) NULL,
   `android_app_package` VARCHAR(200) NULL,
+  `android_device_id` VARCHAR(900) NULL,
+  `android_device_id_u1` VARCHAR(900) NULL,
   `android_device_model` VARCHAR(100) NULL,
   `android_device_manufacturer` VARCHAR(200) NULL,
   `android_device_version_os` VARCHAR(100) NULL,
