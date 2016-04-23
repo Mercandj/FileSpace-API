@@ -191,7 +191,7 @@ class DeviceController extends \lib\Controller {
 			curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
 			curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 			curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($fields));
-			$result = v($ch);
+			$result = curl_exec($ch);
 			if ($result === FALSE) {
 				die('Curl failed: ' . curl_error($ch));
 			}
