@@ -22,7 +22,9 @@ class DeviceManager extends \lib\Manager {
 		$to_insert['android_app_version_code'] 				= $device->getAndroid_app_version_code();
 		$to_insert['android_app_version_name'] 				= $device->getAndroid_app_version_name();
 		$to_insert['android_app_package'] 					= $device->getAndroid_app_package();
-		
+
+		$to_insert['android_device_id'] 					= $device->getAndroid_device_id();
+		$to_insert['android_device_id_u1'] 					= $device->getAndroid_device_id_u1();
 		$to_insert['android_device_model'] 					= $device->getAndroid_device_model();
 		$to_insert['android_device_language'] 				= $device->getAndroid_device_language();
 		$to_insert['android_device_display_language'] 		= $device->getAndroid_device_display_language();
@@ -66,6 +68,9 @@ class DeviceManager extends \lib\Manager {
 		$req->bindParam(':android_app_version_code',			$to_insert['android_app_version_code'],				\PDO::PARAM_STR);
 		$req->bindParam(':android_app_version_name',			$to_insert['android_app_version_name'],				\PDO::PARAM_STR);
 		$req->bindParam(':android_app_package',					$to_insert['android_app_package'],					\PDO::PARAM_STR);
+
+		$req->bindParam(':android_device_id',					$to_insert['android_device_id'],					\PDO::PARAM_STR);
+		$req->bindParam(':android_device_id_u1',				$to_insert['android_device_id_u1'],					\PDO::PARAM_STR);
 		$req->bindParam(':android_device_model',				$to_insert['android_device_model'],					\PDO::PARAM_STR);
 		$req->bindParam(':android_device_language',				$to_insert['android_device_language'],				\PDO::PARAM_STR);
 		$req->bindParam(':android_device_display_language',		$to_insert['android_device_display_language'],		\PDO::PARAM_STR);
@@ -95,7 +100,9 @@ class DeviceManager extends \lib\Manager {
 		$to_insert['android_app_version_code'] 				= $device->getAndroid_app_version_code();
 		$to_insert['android_app_version_name'] 				= $device->getAndroid_app_version_name();
 		$to_insert['android_app_package'] 					= $device->getAndroid_app_package();
-		
+
+		$to_insert['android_device_id'] 					= $device->getAndroid_device_id();
+		$to_insert['android_device_id_u1'] 					= $device->getAndroid_device_id_u1();
 		$to_insert['android_device_model'] 					= $device->getAndroid_device_model();
 		$to_insert['android_device_language'] 				= $device->getAndroid_device_language();
 		$to_insert['android_device_display_language'] 		= $device->getAndroid_device_display_language();
@@ -130,6 +137,9 @@ class DeviceManager extends \lib\Manager {
 		$req->bindParam(':android_app_version_code',			$to_insert['android_app_version_code'],				\PDO::PARAM_STR);
 		$req->bindParam(':android_app_version_name',			$to_insert['android_app_version_name'],				\PDO::PARAM_STR);
 		$req->bindParam(':android_app_package',					$to_insert['android_app_package'],					\PDO::PARAM_STR);
+
+		$req->bindParam(':android_device_id',					$to_insert['android_device_id'],					\PDO::PARAM_STR);
+		$req->bindParam(':android_device_id_u1',				$to_insert['android_device_id_u1'],					\PDO::PARAM_STR);
 		$req->bindParam(':android_device_model',				$to_insert['android_device_model'],					\PDO::PARAM_STR);
 		$req->bindParam(':android_device_language',				$to_insert['android_device_language'],				\PDO::PARAM_STR);
 		$req->bindParam(':android_device_display_language',		$to_insert['android_device_display_language'],		\PDO::PARAM_STR);

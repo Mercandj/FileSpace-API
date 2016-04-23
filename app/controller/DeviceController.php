@@ -23,6 +23,9 @@ class DeviceController extends \lib\Controller {
 		$android_app_version_code 			= array_key_exists('android_app_version_code', $input) ?			$input['android_app_version_code'] : '';
 		$android_app_version_name 			= array_key_exists('android_app_version_name', $input) ?			$input['android_app_version_name'] : '';
 		$android_app_package 				= array_key_exists('android_app_package', $input) ?					$input['android_app_package'] : '';
+
+		$android_device_id 					= array_key_exists('android_device_id', $input) ?					$input['android_device_id'] : '';
+		$android_device_id_u1 				= array_key_exists('android_device_id_u1', $input) ?				$input['android_device_id_u1'] : '';
 		$android_device_model 				= array_key_exists('android_device_model', $input) ?				$input['android_device_model'] : '';
 		$android_device_manufacturer 		= array_key_exists('android_device_manufacturer', $input) ?			$input['android_device_manufacturer'] : '';
 		$android_device_version_os 			= array_key_exists('android_device_version_os', $input) ?			$input['android_device_version_os'] : '';
@@ -56,6 +59,9 @@ class DeviceController extends \lib\Controller {
 				'android_app_version_code' 			=> $android_app_version_code,
 				'android_app_version_name' 			=> $android_app_version_name,
 				'android_app_package' 				=> $android_app_package,
+
+				'android_device_id' 				=> $android_device_id,
+				'android_device_id_u1' 				=> $android_device_id_u1,
 				'android_device_model' 				=> $android_device_model,
 				'android_device_language' 			=> $android_device_language,
 				'android_device_display_language' 	=> $android_device_display_language,
@@ -81,6 +87,9 @@ class DeviceController extends \lib\Controller {
 				'android_app_version_code' 			=> $android_app_version_code,
 				'android_app_version_name' 			=> $android_app_version_name,
 				'android_app_package' 				=> $android_app_package,
+
+				'android_device_id' 				=> $android_device_id,
+				'android_device_id_u1' 				=> $android_device_id_u1,
 				'android_device_model' 				=> $android_device_model,
 				'android_device_language' 			=> $android_device_language,
 				'android_device_display_language' 	=> $android_device_display_language,
