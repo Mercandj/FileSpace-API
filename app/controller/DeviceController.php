@@ -197,13 +197,19 @@ class DeviceController extends \lib\Controller {
 			}
 			curl_close($ch);
 
-			if(is_array($result) && array_key_exists('results', $result)) {
+			if(is_array($result)) {
 				$json['debug-array'] = 'true';
+				$result[] = $result;
+
+				if(array_key_exists('results', $result)) {
+					// TODO Remove row if error.
+				}
+
 			} else {
 				$json['debug-array'] = 'false';
+				$result[] = array($result);
 			}
 
-			$result[] = $result;
 		}
 
 		$json['result'] = $result;
@@ -253,7 +259,12 @@ class DeviceController extends \lib\Controller {
 				die('Curl failed: ' . curl_error($ch));
 			}
 			curl_close($ch);
-			$result[] = $result;
+
+			if(is_array($result)) {
+				$result[] = $result;
+			} else {
+				$result[] = array($result);
+			}
 		}
 
 		$json['result'] = $result;
