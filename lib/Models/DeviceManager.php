@@ -26,7 +26,7 @@ class DeviceManager extends \lib\Manager {
 		$to_insert['android_device_id'] 					= $device->getAndroid_device_id();
 		$to_insert['android_device_id_u1'] 					= $device->getAndroid_device_id_u1();
 		$to_insert['android_device_model'] 					= $device->getAndroid_device_model();
-		$to_insert['android_device_manufacturer']			= $device->getAndroid_device_manufaturer();
+		$to_insert['android_device_manufacturer']			= $device->getAndroid_device_manufacturer();
 		$to_insert['android_device_language']				= $device->getAndroid_device_language();
 		$to_insert['android_device_display_language']		= $device->getAndroid_device_display_language();
 		$to_insert['android_device_country']				= $device->getAndroid_device_country();
@@ -106,7 +106,7 @@ class DeviceManager extends \lib\Manager {
 		$to_insert['android_device_id'] 					= $device->getAndroid_device_id();
 		$to_insert['android_device_id_u1'] 					= $device->getAndroid_device_id_u1();
 		$to_insert['android_device_model'] 					= $device->getAndroid_device_model();
-		$to_insert['android_device_manufacturer']			= $device->getAndroid_device_manufaturer();
+		$to_insert['android_device_manufacturer']			= $device->getAndroid_device_manufacturer();
 		$to_insert['android_device_language'] 				= $device->getAndroid_device_language();
 		$to_insert['android_device_display_language'] 		= $device->getAndroid_device_display_language();
 		$to_insert['android_device_country'] 				= $device->getAndroid_device_country();
