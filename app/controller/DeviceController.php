@@ -197,7 +197,7 @@ class DeviceController extends \lib\Controller {
 			}
 			curl_close($ch);
 
-			if(array_key_exists('results', $result)) {
+			if(is_array($result) && array_key_exists('results', $result)) {
 				$json['debug-array'] = 'true';
 			} else {
 				$json['debug-array'] = 'false';
