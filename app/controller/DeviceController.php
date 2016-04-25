@@ -272,4 +272,15 @@ class DeviceController extends \lib\Controller {
 
 		HTTPResponse::send(json_encode($json));
 	}
+
+	public function getAll() {
+		$json['succeed'] = true;
+		$result = [];
+		$devices = $this->getManagerof('Device')->getAll();
+		foreach ($devices as $device) {
+			$result[] = $device->toArray();
+		}
+		$json['result'] = $result;
+		HTTPResponse::send(json_encode($json));
+	}
 }
