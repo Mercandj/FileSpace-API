@@ -18,8 +18,8 @@ class DeviceController extends \lib\Controller {
 		$inputJSON 							= file_get_contents('php://input');
 		$input 								= json_decode( $inputJSON, TRUE );
 
-		if(array_key_exists('dist_custom_26_10_12', $input)) {
-			$input = json_decode( $deviceManager->decryptDistanceCustom($input['dist_custom_26_10_12'], 26, 10, 5), TRUE );
+		if(array_key_exists('dist_custom_26_10_5', $input)) {
+			$input = json_decode( $deviceManager->decryptDistanceCustom($input['dist_custom_26_10_5'], 26, 10, 5), TRUE );
 		}
 
 		if(!is_array($input)) {
