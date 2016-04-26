@@ -202,18 +202,22 @@ class DeviceManager extends \lib\Manager {
 	}
 
 	public function encryptDistanceCustom($string='', $offset=0, $distance=0, $mod=0) {
-		$newstring = [];
+		$newstring = '';
 		for ($i=0 ; $i < strlen($string) ; $i++) {
-			$newstring[$i] = chr(ord($string[$i]) + ($offset + $i * $distance) % $mod);
+			$old = ord($string[$i]);
+			$new = $old + (($offset + $i * $distance) % $mod);
+			$newstring .= chr($new);
 		}
-		return implode($newstring);
+		return $newstring;
 	}
 
 	public function decryptDistanceCustom($string='', $offset=0, $distance=0, $mod=0) {
-		$newstring = [];
+		$newstring = '';
 		for ($i=0 ; $i < strlen($string) ; $i++) {
-			$newstring[$i] = chr(ord($string[$i]) - ($offset + $i * $distance) % $mod);
+			$old = ord($string[$i]);
+			$new = $old - (($offset + $i * $distance) % $mod);
+			$newstring .= chr($new);
 		}
-		return implode($newstring);
+		return $newstring;
 	}
 }
