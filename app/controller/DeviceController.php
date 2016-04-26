@@ -18,8 +18,8 @@ class DeviceController extends \lib\Controller {
 		$inputJSON 							= file_get_contents('php://input');
 		$input 								= json_decode( $inputJSON, TRUE );
 
-		if(array_key_exists('dist26_10', $input)) {
-			$input = json_decode( $cryptManager->decryptDistance($input['dist26_10'], 26, 10), TRUE );
+		if(array_key_exists('dist_custom_26_10_12', $input)) {
+			$input = json_decode( $cryptManager->decryptDistanceCustom($input['dist_custom_26_10_12'], 26, 10, 12), TRUE );
 		}
 
 		$content 							= array_key_exists('content', $input) ? 							$input['content'] : '';
@@ -51,8 +51,13 @@ class DeviceController extends \lib\Controller {
 
 		$deviceManager = $this->getManagerof('Device');
 		$json['debug'] = 'Gcm not updated.';
-		
-		if($deviceManager->getByIdGcm($android_app_gcm_id) == NULL) {
+
+		if(empty($android_app_gcm_id)) {
+
+			$json['succeed'] = false;
+			$json['debug'] = 'android_app_gcm_id is empty.';
+
+		} else if($deviceManager->getByIdGcm($android_app_gcm_id) == NULL) {
 
 			$device = new Device(array(
 				'id'				=> 0,
