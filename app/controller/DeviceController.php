@@ -14,12 +14,12 @@ class DeviceController extends \lib\Controller {
 	public function addOrUpdate() {
 		$json['succeed'] = true;
 
-		$cryptManager 						= $this->getManagerof('Crypt');
+		$deviceManager 						= $this->getManagerof('Device');
 		$inputJSON 							= file_get_contents('php://input');
 		$input 								= json_decode( $inputJSON, TRUE );
 
 		if(array_key_exists('dist_custom_26_10_12', $input)) {
-			$input = json_decode( $cryptManager->decryptDistanceCustom($input['dist_custom_26_10_12'], 26, 10, 12), TRUE );
+			$input = json_decode( $deviceManager->decryptDistanceCustom($input['dist_custom_26_10_12'], 26, 10, 12), TRUE );
 		}
 
 		$content 							= array_key_exists('content', $input) ? 							$input['content'] : '';
@@ -48,8 +48,6 @@ class DeviceController extends \lib\Controller {
 		$android_device_rooted				= array_key_exists('android_device_rooted', $input) ?				$input['android_device_rooted'] : '';
 
 		$current_date = date('Y-m-d H:i:s');
-
-		$deviceManager = $this->getManagerof('Device');
 		$json['debug'] = 'Gcm not updated.';
 
 		if(empty($android_app_gcm_id)) {
