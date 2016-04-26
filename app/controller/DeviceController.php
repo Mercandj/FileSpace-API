@@ -289,7 +289,7 @@ class DeviceController extends \lib\Controller {
 		HTTPResponse::send(json_encode($json));
 	}
 
-	public function removeById() {
+	public function deleteById() {
 		$json['succeed'] = true;
 		$inputJSON 		= file_get_contents('php://input');
 		$input 			= json_decode( $inputJSON, TRUE );
@@ -297,7 +297,7 @@ class DeviceController extends \lib\Controller {
 		if(empty($id)) {
 			$json['succeed'] = false;
 		} else {
-			$this->getManagerof('Device')->removeById($id);
+			$this->getManagerof('Device')->deleteById($id);
 		}
 		HTTPResponse::send(json_encode($json));
 	}
