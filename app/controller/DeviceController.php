@@ -289,6 +289,19 @@ class DeviceController extends \lib\Controller {
 		HTTPResponse::send(json_encode($json));
 	}
 
+	public function removeById() {
+		$json['succeed'] = true;
+		$inputJSON 		= file_get_contents('php://input');
+		$input 			= json_decode( $inputJSON, TRUE );
+		$id				= array_key_exists('id', $input) ? 		$input['id'] : '';
+		if(empty($id)) {
+			$json['succeed'] = false;
+		} else {
+			$this->getManagerof('Device')->removeById($id);
+		}
+		HTTPResponse::send(json_encode($json));
+	}
+
 	public function getAll() {
 		$json['succeed'] = true;
 		$result = [];
