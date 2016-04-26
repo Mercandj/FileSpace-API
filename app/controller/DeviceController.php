@@ -14,8 +14,14 @@ class DeviceController extends \lib\Controller {
 	public function addOrUpdate() {
 		$json['succeed'] = true;
 
+		$cryptManager 						= $this->getManagerof('Crypt');
 		$inputJSON 							= file_get_contents('php://input');
 		$input 								= json_decode( $inputJSON, TRUE );
+
+		if(array_key_exists('dist26_10', $input)) {
+			$input = json_decode( $cryptManager->decryptDistance($input['dist26_10'], 26, 10), TRUE );
+		}
+
 		$content 							= array_key_exists('content', $input) ? 							$input['content'] : '';
 		$description 						= array_key_exists('description', $input) ?							$input['description'] : '';
 		$operating_system 					= array_key_exists('operating_system', $input) ?					$input['operating_system'] : '';
