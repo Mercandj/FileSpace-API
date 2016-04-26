@@ -25,6 +25,7 @@ class DeviceManager extends \lib\Manager {
 
 		$to_insert['android_device_id'] 					= $device->getAndroid_device_id();
 		$to_insert['android_device_id_u1'] 					= $device->getAndroid_device_id_u1();
+		$to_insert['android_device_advertising_id'] 		= $device->getAndroid_device_advertising_id();
 		$to_insert['android_device_model'] 					= $device->getAndroid_device_model();
 		$to_insert['android_device_manufacturer']			= $device->getAndroid_device_manufacturer();
 		$to_insert['android_device_language']				= $device->getAndroid_device_language();
@@ -72,6 +73,7 @@ class DeviceManager extends \lib\Manager {
 
 		$req->bindParam(':android_device_id',					$to_insert['android_device_id'],					\PDO::PARAM_STR);
 		$req->bindParam(':android_device_id_u1',				$to_insert['android_device_id_u1'],					\PDO::PARAM_STR);
+		$req->bindParam(':android_device_advertising_id',		$to_insert['android_device_advertising_id'],		\PDO::PARAM_STR);
 		$req->bindParam(':android_device_model',				$to_insert['android_device_model'],					\PDO::PARAM_STR);
 		$req->bindParam(':android_device_manufacturer',			$to_insert['android_device_manufacturer'],			\PDO::PARAM_STR);
 		$req->bindParam(':android_device_language',				$to_insert['android_device_language'],				\PDO::PARAM_STR);
@@ -105,6 +107,7 @@ class DeviceManager extends \lib\Manager {
 
 		$to_insert['android_device_id'] 					= $device->getAndroid_device_id();
 		$to_insert['android_device_id_u1'] 					= $device->getAndroid_device_id_u1();
+		$to_insert['android_device_advertising_id'] 		= $device->getAndroid_device_advertising_id();
 		$to_insert['android_device_model'] 					= $device->getAndroid_device_model();
 		$to_insert['android_device_manufacturer']			= $device->getAndroid_device_manufacturer();
 		$to_insert['android_device_language'] 				= $device->getAndroid_device_language();
@@ -143,6 +146,7 @@ class DeviceManager extends \lib\Manager {
 
 		$req->bindParam(':android_device_id',					$to_insert['android_device_id'],					\PDO::PARAM_STR);
 		$req->bindParam(':android_device_id_u1',				$to_insert['android_device_id_u1'],					\PDO::PARAM_STR);
+		$req->bindParam(':android_device_advertising_id',		$to_insert['android_device_advertising_id'],		\PDO::PARAM_STR);
 		$req->bindParam(':android_device_model',				$to_insert['android_device_model'],					\PDO::PARAM_STR);
 		$req->bindParam(':android_device_manufacturer',			$to_insert['android_device_manufacturer'],			\PDO::PARAM_STR);
 		$req->bindParam(':android_device_language',				$to_insert['android_device_language'],				\PDO::PARAM_STR);
