@@ -18,7 +18,7 @@ class FileController extends \lib\Controller {
 		'pdf', 'doc', 'docx', 'ppt', 'pptx', 'pptm', 'odp', 'xlsx', 'vcf', 'keystore', 'jks',
 		'3ds', 'max', 'obj', 'iso',
 		'c', 'cpp', 'cs', 'java', 'sql',
-		'n64', 'z64', // roms
+		'n64', 'z64', 'gba',  // roms
 		'jarvis', 'filespace' );
 
 	/**
