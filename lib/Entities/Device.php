@@ -18,6 +18,7 @@ class Device extends \lib\Entity {
 
 	protected $_android_device_id;
 	protected $_android_device_id_u1;
+	protected $_android_device_advertising_id;
 	protected $_android_device_model;
 	protected $_android_device_manufacturer;
 	protected $_android_device_version_sdk;
@@ -42,6 +43,7 @@ class Device extends \lib\Entity {
 	public function getAndroid_app_package() 				{return $this->_android_app_package;}
 	public function getAndroid_device_id() 					{return $this->_android_device_id;}
 	public function getAndroid_device_id_u1()				{return $this->_android_device_id_u1;}
+	public function getAndroid_device_advertising_id()		{return $this->_android_device_advertising_id;}
 	public function getAndroid_device_model() 				{return $this->_android_device_model;}
 	public function getAndroid_device_manufacturer()		{return $this->_android_device_manufacturer;}
 	public function getAndroid_device_version_sdk() 		{return $this->_android_device_version_sdk;}
@@ -66,6 +68,7 @@ class Device extends \lib\Entity {
 	public function setAndroid_app_package($android_app_package) 						{if(!empty($android_app_package)) 				$this->_android_app_package		 		= $android_app_package;}
 	public function setAndroid_device_id($android_device_id) 							{if(!empty($android_device_id))					$this->_android_device_id 				= $android_device_id;}
 	public function setAndroid_device_id_u1($android_device_id_u1) 						{if(!empty($android_device_id_u1))				$this->_android_device_id_u1			= $android_device_id_u1;}
+	public function setAndroid_device_advertising_id($android_device_advertising_id) 	{if(!empty($android_device_advertising_id))		$this->_android_device_advertising_id	= $android_device_advertising_id;}
 	public function setAndroid_device_model($android_device_model) 						{if(!empty($android_device_model))				$this->_android_device_model			= $android_device_model;}
 	public function setAndroid_device_manufacturer($android_device_manufacturer)		{if(!empty($android_device_manufacturer))		$this->_android_device_manufacturer		= $android_device_manufacturer;}
 	public function setAndroid_device_version_sdk($android_device_version_sdk) 			{if(!empty($android_device_version_sdk))		$this->_android_device_version_sdk 		= $android_device_version_sdk;}
@@ -93,7 +96,9 @@ class Device extends \lib\Entity {
 		if($this->getAndroid_app_package()!=null)				$json['android_app_package'] 				= $this->getAndroid_app_package();
 		if($this->getAndroid_device_id()!=null)					$json['android_device_id'] 					= $this->getAndroid_device_id();
 		if($this->getAndroid_device_id_u1()!=null)				$json['android_device_id_u1'] 				= $this->getAndroid_device_id_u1();
+		if($this->getAndroid_device_advertising_id()!=null)		$json['android_device_advertising_id'] 		= $this->getAndroid_device_advertising_id();
 		if($this->getAndroid_device_model()!=null)				$json['android_device_model'] 				= $this->getAndroid_device_model();
+		if($this->getAndroid_device_manufacturer()!=null)		$json['android_device_manufacturer'] 		= $this->getAndroid_device_manufacturer();
 		if($this->getAndroid_device_language()!=null)			$json['android_device_language'] 			= $this->getAndroid_device_language();
 		if($this->getAndroid_device_display_language()!=null)	$json['android_device_display_language'] 	= $this->getAndroid_device_display_language();
 		if($this->getAndroid_device_country()!=null)			$json['android_device_country'] 			= $this->getAndroid_device_country();

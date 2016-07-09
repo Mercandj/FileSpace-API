@@ -14,8 +14,21 @@ class DeviceController extends \lib\Controller {
 	public function addOrUpdate() {
 		$json['succeed'] = true;
 
+		$deviceManager 						= $this->getManagerof('Device');
 		$inputJSON 							= file_get_contents('php://input');
 		$input 								= json_decode( $inputJSON, TRUE );
+
+		if(array_key_exists('dist_custom_26_10_5', $input)) {
+			$input = json_decode( $deviceManager->decryptDistanceCustom($input['dist_custom_26_10_5'], 26, 10, 5), TRUE );
+		}
+
+		if(!is_array($input)) {
+			$json['succeed'] = false;
+			$json['debug'] = 'Not a json.';
+			HTTPResponse::send(json_encode($json));
+			return;
+		}
+
 		$content 							= array_key_exists('content', $input) ? 							$input['content'] : '';
 		$description 						= array_key_exists('description', $input) ?							$input['description'] : '';
 		$operating_system 					= array_key_exists('operating_system', $input) ?					$input['operating_system'] : '';
@@ -26,6 +39,7 @@ class DeviceController extends \lib\Controller {
 
 		$android_device_id 					= array_key_exists('android_device_id', $input) ?					$input['android_device_id'] : '';
 		$android_device_id_u1 				= array_key_exists('android_device_id_u1', $input) ?				$input['android_device_id_u1'] : '';
+		$android_device_advertising_id		= array_key_exists('android_device_advertising_id', $input) ?		$input['android_device_advertising_id'] : '';
 		$android_device_model 				= array_key_exists('android_device_model', $input) ?				$input['android_device_model'] : '';
 		$android_device_manufacturer 		= array_key_exists('android_device_manufacturer', $input) ?			$input['android_device_manufacturer'] : '';
 		$android_device_version_os 			= array_key_exists('android_device_version_os', $input) ?			$input['android_device_version_os'] : '';
@@ -42,11 +56,14 @@ class DeviceController extends \lib\Controller {
 		$android_device_rooted				= array_key_exists('android_device_rooted', $input) ?				$input['android_device_rooted'] : '';
 
 		$current_date = date('Y-m-d H:i:s');
-
-		$deviceManager = $this->getManagerof('Device');
 		$json['debug'] = 'Gcm not updated.';
-		
-		if($deviceManager->getByIdGcm($android_app_gcm_id) == NULL) {
+
+		if(empty($android_app_gcm_id)) {
+
+			$json['succeed'] = false;
+			$json['debug'] = 'android_app_gcm_id is empty.';
+
+		} else if($deviceManager->getByIdGcm($android_app_gcm_id) == NULL) {
 
 			$device = new Device(array(
 				'id'				=> 0,
@@ -62,6 +79,7 @@ class DeviceController extends \lib\Controller {
 
 				'android_device_id'					=> $android_device_id,
 				'android_device_id_u1'				=> $android_device_id_u1,
+				'android_device_advertising_id'		=> $android_device_advertising_id,
 				'android_device_model'				=> $android_device_model,
 				'android_device_manufacturer'		=> $android_device_manufacturer,
 				'android_device_language' 			=> $android_device_language,
@@ -91,6 +109,7 @@ class DeviceController extends \lib\Controller {
 
 				'android_device_id'					=> $android_device_id,
 				'android_device_id_u1'				=> $android_device_id_u1,
+				'android_device_advertising_id'		=> $android_device_advertising_id,
 				'android_device_model'				=> $android_device_model,
 				'android_device_manufacturer'		=> $android_device_manufacturer,
 				'android_device_language'			=> $android_device_language,
@@ -270,6 +289,30 @@ class DeviceController extends \lib\Controller {
 		$json['result'] = $result;
 		$json['debug'] = 'count = ' . count($devices);
 
+		HTTPResponse::send(json_encode($json));
+	}
+
+	public function deleteById() {
+		$json['succeed'] = true;
+		$inputJSON 		= file_get_contents('php://input');
+		$input 			= json_decode( $inputJSON, TRUE );
+		$id				= array_key_exists('id', $input) ? 		$input['id'] : '';
+		if(empty($id)) {
+			$json['succeed'] = false;
+		} else {
+			$this->getManagerof('Device')->deleteById($id);
+		}
+		HTTPResponse::send(json_encode($json));
+	}
+
+	public function getAll() {
+		$json['succeed'] = true;
+		$result = [];
+		$devices = $this->getManagerof('Device')->getAll();
+		foreach ($devices as $device) {
+			$result[] = $device->toArray();
+		}
+		$json['result'] = $result;
 		HTTPResponse::send(json_encode($json));
 	}
 }
