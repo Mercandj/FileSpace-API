@@ -21,12 +21,12 @@ class UserController extends \lib\Controller {
 		$userManager = $this->getManagerof('User');
 		$fileManager = $this->getManagerof('File');
 
-		if($this->isUser()) {
+		if ($this->isUser()) {
 			$list_user = $userManager->getAll();
 			foreach ($list_user as $user) {
 				$user_array = $user->toArray();
 				$id_file_profile_picture = $user->getId_file_profile_picture();
-				if(intval($id_file_profile_picture)!=-1 && $id_file_profile_picture!=null) {
+				if (intval($id_file_profile_picture) != -1 && $id_file_profile_picture != null && $fileManager->existById($id_file_profile_picture)) {
 					$file_profile_picture = $fileManager->getById($id_file_profile_picture);
 					$user_array["file_profile_picture_size"] = $file_profile_picture->getSize();
 				}
@@ -34,8 +34,7 @@ class UserController extends \lib\Controller {
 			}
 			$json['succeed'] = true;
 			$json['result'] = $result;
-		}
-		else {
+		} else {
 			$json['toast'] = 'Wrong User or Password.';
 		}
 
@@ -58,7 +57,7 @@ class UserController extends \lib\Controller {
 			$user = $userManager->getById($id);
 			$user_array = $user->toArray();
 			$id_file_profile_picture = $user->getId_file_profile_picture();
-			if(intval($id_file_profile_picture)!=-1 && $id_file_profile_picture!=null) {
+			if(intval($id_file_profile_picture)!=-1 && $id_file_profile_picture!=null && $fileManager->existById($id_file_profile_picture)) {
 				$file_profile_picture = $fileManager->getById($id_file_profile_picture);
 				$user_array["file_profile_picture_size"] = $file_profile_picture->getSize();
 			}
